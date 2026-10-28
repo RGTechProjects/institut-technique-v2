@@ -1330,16 +1330,18 @@ async function telechargerPdfHebdo(bouton){
   const zone = document.createElement('div');
   zone.className = 'rapport-pdf'; zone.innerHTML = rapportHebdo();
   document.body.appendChild(zone);
+  // la capture se décale si la page est défilée : on remonte le temps de la génération
+  const defil = window.scrollY; window.scrollTo(0,0);
   try{
     await Promise.all([...zone.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})));
     await html2pdf().set({
       margin:[10,10,12,10], filename:`Reunion_hebdo_${anReu}_S${String(semaine).padStart(2,'0')}.pdf`,
-      image:{type:'jpeg', quality:0.96}, html2canvas:{scale:2, backgroundColor:'#ffffff'},
+      image:{type:'jpeg', quality:0.96}, html2canvas:{scale:2, backgroundColor:'#ffffff', scrollX:0, scrollY:0},
       jsPDF:{unit:'mm', format:'a4', orientation:'portrait'},
       pagebreak:{mode:['css','legacy'], avoid:['tr','.r-courbe','h2','h3','.r-tete']}
     }).from(zone.firstElementChild).save();
   }catch(e){ console.error(e); toast('Échec du PDF — utilisez Imprimer › Enregistrer en PDF'); }
-  finally{ zone.remove(); bouton.disabled=false; bouton.textContent=lib; }
+  finally{ zone.remove(); window.scrollTo(0,defil); bouton.disabled=false; bouton.textContent=lib; }
 }
 
 (function brancherHebdo(){
