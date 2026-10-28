@@ -13,7 +13,7 @@
   --encre:#16211D; --encre-2:#20302A; --papier:#F6F4EE; --carte:#FFFFFF;
   --rouge:#C3122F; --serre:#1F6F52; --serre-fonce:#0E4F3A; --ambre:#DE9B1F;
   --trait:#D8DDD6; --ardoise:#68746D; --sable:#EDEAE1;
-  --r:3px;
+  --r:3px; --largeur:1440px;
   --ombre:0 1px 2px rgba(22,33,29,.06), 0 8px 24px -12px rgba(22,33,29,.18);
 }
 *{box-sizing:border-box}
@@ -76,7 +76,7 @@ a{color:var(--serre)}
   position:sticky; top:0; z-index:50; background:var(--encre); color:#fff;
   padding:env(safe-area-inset-top) 0 0;
 }
-.topbar-in{display:flex;align-items:center;gap:14px;padding:12px 18px;max-width:1180px;margin:0 auto}
+.topbar-in{display:flex;align-items:center;gap:14px;padding:12px 18px;max-width:var(--largeur);margin:0 auto}
 .logo{
   font-family:'Archivo';font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;
   display:flex;align-items:center;gap:9px;white-space:nowrap
@@ -96,7 +96,7 @@ a{color:var(--serre)}
 
 /* ---------- Navigation ---------- */
 nav.rail{background:var(--encre-2);border-top:1px solid rgba(255,255,255,.07)}
-.rail-in{display:flex;gap:2px;max-width:1180px;margin:0 auto;padding:0 10px;overflow-x:auto;scrollbar-width:none}
+.rail-in{display:flex;gap:2px;max-width:var(--largeur);margin:0 auto;padding:0 10px;overflow-x:auto;scrollbar-width:none}
 .rail-in::-webkit-scrollbar{display:none}
 .rail button{
   background:none;border:0;padding:11px 13px 10px;color:#93A49A;white-space:nowrap;
@@ -109,7 +109,7 @@ nav.rail{background:var(--encre-2);border-top:1px solid rgba(255,255,255,.07)}
 .rail button[aria-current="true"] .num{color:var(--rouge)}
 
 /* ---------- Structure ---------- */
-main{max-width:1180px;margin:0 auto;padding:22px 18px 90px}
+main{max-width:var(--largeur);margin:0 auto;padding:22px 28px 90px}
 @media (max-width: 768px) { main { padding: 16px 12px 80px; } .form-group input, .form-group select { font-size: 16px; } table { font-size: 12px; } .topbar-in { flex-wrap: wrap; } }
 .vue{display:none}
 .vue.on{display:block;animation:fade .25s ease}
@@ -118,7 +118,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 18px 90px}
 .entete{border-bottom:1px solid var(--trait);padding-bottom:16px;margin-bottom:20px}
 .eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ardoise)}
 .entete h2{font-size:clamp(22px,4vw,30px);font-weight:600;margin-top:5px}
-.entete p{margin:7px 0 0;color:var(--ardoise);font-size:13.5px;max-width:70ch}
+.entete p{margin:7px 0 0;color:var(--ardoise);font-size:13.5px}
 
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--trait);
   border:1px solid var(--trait);margin-bottom:22px}
@@ -145,7 +145,8 @@ table.grille tbody th button{background:none;border:0;padding:8px 0;font:inherit
 table.grille tbody th button:hover{color:var(--rouge)}
 .tuile{display:block;width:100%;height:30px;border:1px solid var(--carte);color:#fff;
   font-family:'IBM Plex Mono';font-size:11.5px;font-weight:500;display:grid;place-items:center}
-.n0{background:var(--rouge)} .n1{background:var(--ambre);color:#3C2A05} .n2{background:var(--serre)} .n3{background:var(--serre-fonce)}
+.n0{background:var(--rouge)} .n1{background:#EC8A1C;color:#2B1A02} .n2{background:var(--serre)} .n3{background:var(--serre-fonce)}
+.neutre,.tuile.neutre,.score.neutre{background:var(--sable);color:var(--encre)}
 .bande{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ardoise);
   background:var(--sable);padding:6px 16px;text-align:left!important}
 .legende{display:flex;flex-wrap:wrap;gap:14px;padding:12px 16px;border-top:1px solid var(--trait);font-size:11.5px;color:var(--ardoise)}
@@ -170,7 +171,7 @@ table.grille tbody th button:hover{color:var(--rouge)}
 .enjeu-tete .barre{width:4px;align-self:stretch;flex:none;background:var(--serre)}
 .enjeu.renfort .enjeu-tete .barre{background:var(--ambre)}
 .enjeu-tete h3{font-size:15.5px;font-weight:600;letter-spacing:.01em}
-.enjeu-tete p{margin:4px 0 0;font-size:12.5px;color:var(--ardoise);max-width:62ch}
+.enjeu-tete p{margin:4px 0 0;font-size:12.5px;color:var(--ardoise)}
 .tag{font-family:'IBM Plex Mono';font-size:9px;letter-spacing:.1em;text-transform:uppercase;
   padding:3px 7px;border:1px solid currentColor;white-space:nowrap}
 .tag.strat{color:var(--serre)} .tag.renf{color:#A9760A}
@@ -297,7 +298,7 @@ table.data input:focus{outline:0;border-color:var(--serre);background:#fff}
 /* ---------- v3 · Institut (schéma) ---------- */
 body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .titre-section{font-size:19px;font-weight:600;margin:30px 0 6px;scroll-margin-top:110px}
-.intro{font-size:13.5px;color:var(--ardoise);max-width:82ch;margin:0 0 14px}
+.intro{font-size:13.5px;color:var(--ardoise);margin:0 0 14px}
 .institut{background:var(--carte);border:1px solid var(--trait);padding:22px 16px 18px;margin-bottom:10px}
 .inst-tete{background:var(--serre);color:#fff;max-width:440px;margin:0 auto;text-align:center;padding:14px;border-radius:10px}
 .inst-tete b{display:block;font-family:'Archivo';font-size:18px}
@@ -318,12 +319,29 @@ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .bande-enjeux{display:grid;grid-template-columns:34px 1fr;background:var(--carte);border:1px solid var(--trait);margin-bottom:10px}
 .bande-lib{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Archivo';font-weight:700;font-size:11.5px;text-align:center;
   background:var(--sable);padding:8px 0;letter-spacing:.08em;text-transform:uppercase}
-.cartes-enjeux{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;padding:12px}
-.carte-enjeu{background:#fff;border:2px solid #7A1F2B;border-radius:4px;padding:10px;text-align:center;cursor:pointer}
-.carte-enjeu:hover{box-shadow:var(--ombre)}
+.cartes-enjeux{display:grid;grid-template-columns:repeat(var(--cols,4),1fr);gap:10px;padding:12px}
+@media(max-width:1100px){.cartes-enjeux{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.cartes-enjeux{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cartes-enjeux{grid-template-columns:1fr}}
+.carte-enjeu{background:#fff;border:2px solid #7A1F2B;border-radius:8px;padding:12px 12px 0;text-align:center;cursor:pointer;
+  display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s,background .12s;overflow:hidden}
+.carte-enjeu:hover{box-shadow:var(--ombre);transform:translateY(-2px)}
+.carte-enjeu:focus-visible{outline:3px solid var(--serre);outline-offset:2px}
 .carte-enjeu .t{display:flex;gap:8px;align-items:center;justify-content:center;font-family:'Archivo';font-weight:700;font-size:13.5px}
 .carte-enjeu .ico{font-size:22px}
-.carte-enjeu p{margin:6px 0 0;font-size:12px;color:var(--rouge);font-weight:600;line-height:1.35}
+.carte-enjeu p{margin:6px 0 10px;font-size:12px;color:var(--rouge);font-weight:600;line-height:1.35;flex:1}
+.carte-enjeu .pied{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:0 -12px;padding:7px 12px;
+  background:#F6EDEE;border-top:1px solid #E7CDD1;font-size:11px;color:var(--ardoise);text-align:left}
+.carte-enjeu .pied b{color:#7A1F2B;font-size:12px;white-space:nowrap}
+.carte-enjeu:hover .pied,.carte-enjeu.active .pied{background:#7A1F2B;color:#fff}
+.carte-enjeu:hover .pied b,.carte-enjeu.active .pied b{color:#fff}
+.carte-enjeu.active{box-shadow:0 0 0 3px rgba(122,31,43,.25)}
+#zoneEnjeu{scroll-margin-top:125px}
+.invite-enjeu{text-align:center;color:var(--ardoise);font-size:13.5px;border-style:dashed}
+.nav-enjeu{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.struct.sans-eval{grid-template-columns:110px 1fr}
+.lien-enjeu{background:none;border:0;padding:0;font:inherit;text-align:left;cursor:pointer}
+.lien-enjeu:hover{color:var(--rouge);text-decoration:underline}
 
 /* ---------- v3 · Barre année ---------- */
 .barre-annee{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;background:var(--carte);border:1px solid var(--trait);padding:12px 14px;margin-bottom:16px}
@@ -384,9 +402,46 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .print-only{display:none}
 
 #v-cartographie .entete p,#v-cartographie .intro,#v-cartographie .note,#v-cartographie .enjeu-tete p{text-align:justify;hyphens:auto}
-#v-cartographie .entete p{max-width:none}
 .courbes{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
 .courbe{border:1px solid var(--trait);padding:10px 12px;background:#FCFBF8;font-size:12.5px;break-inside:avoid}
+
+/* ---------- v3 · Assistant ---------- */
+.assistant-btn{position:fixed;right:18px;bottom:18px;z-index:80;background:var(--serre);color:#fff;border:0;border-radius:99px;
+  padding:11px 18px;font-family:'Archivo';font-weight:600;font-size:13.5px;box-shadow:var(--ombre)}
+.assistant-btn:hover{background:var(--serre-fonce)}
+.assistant-panneau{position:fixed;right:18px;bottom:18px;z-index:90;width:400px;max-width:calc(100vw - 32px);height:min(640px,calc(100vh - 110px));
+  background:var(--carte);border:1px solid var(--trait);box-shadow:0 12px 40px -8px rgba(22,33,29,.35);display:flex;flex-direction:column}
+.assistant-panneau[hidden]{display:none}
+.assistant-tete{display:flex;align-items:center;gap:6px;padding:11px 12px;background:var(--encre);color:#fff}
+.assistant-tete > div{flex:1}
+.assistant-tete b{font-family:'Archivo';font-size:14px;display:block}
+.assistant-tete small{font-size:11px;color:#8FA096}
+.assistant-tete button{background:none;border:0;color:#C9D3CD;font-size:19px;padding:0 6px;line-height:1}
+.assistant-tete button:hover{color:#fff}
+.assistant-fil{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;background:var(--papier)}
+.bulle{max-width:88%;padding:8px 11px;font-size:13px;line-height:1.45;border-radius:10px}
+.bulle p{margin:0 0 5px} .bulle p:last-child{margin:0}
+.bulle ul{margin:3px 0 5px;padding-left:18px} .bulle li{margin:2px 0}
+.bulle.moi{align-self:flex-end;background:var(--encre);color:#fff;border-bottom-right-radius:3px;white-space:pre-wrap}
+.bulle.ia{align-self:flex-start;background:var(--carte);border:1px solid var(--trait);border-bottom-left-radius:3px}
+.bulle.erreur{align-self:flex-start;background:#FDF3F5;border:1px solid #F1C4CC;color:var(--rouge)}
+.bulle.attente{color:var(--ardoise);font-style:italic}
+.assistant-suggestions{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.assistant-suggestions p{margin:0 0 2px;font-size:12.5px;color:var(--ardoise)}
+.assistant-suggestions button{text-align:left;background:var(--carte);border:1px solid var(--trait);border-radius:8px;padding:7px 10px;font-size:12.5px}
+.assistant-suggestions button:hover{border-color:var(--serre);color:var(--serre)}
+.assistant-saisie{display:flex;gap:6px;padding:9px;border-top:1px solid var(--trait)}
+.assistant-saisie textarea{flex:1;resize:none;border:1px solid var(--trait);padding:7px 9px;font-size:13px;border-radius:6px}
+.assistant-saisie textarea:focus{outline:none;border-color:var(--serre)}
+.assistant-note{margin:0;padding:0 10px 8px;font-size:10.5px;color:var(--ardoise)}
+@media(max-width:600px){.assistant-panneau{right:8px;left:8px;bottom:8px;width:auto;max-width:none;height:calc(100vh - 90px)}}
+
+/* ---------- v3 · Aperçu technicien (admins) ---------- */
+.bandeau-apercu{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;background:#EC8A1C;color:#2B1A02;
+  padding:7px 16px;font-size:13px}
+.bandeau-apercu[hidden]{display:none}
+.bandeau-apercu button{background:#2B1A02;color:#fff;border:0;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600}
+#btnApercu[hidden]{display:none}
 
 /* ---------- v3 · Contacts externes ---------- */
 .expert .ligne{font-size:12px;margin-top:3px}
@@ -463,9 +518,13 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 <header class="topbar">
   <div class="topbar-in">
     <div class="logo"><span class="pastille"></span><span>Institut Technique<small>Rougeline · Projet 25-30</small></span></div>
-    <div class="user"><span id="modeStockage"></span><button class="btn-logout" onclick="exporterExcel()" title="Télécharger toutes les données en .xlsx">⬇ Excel</button><span id="userNom">Équipe technique</span><span class="avatar">IT</span><button class="btn-logout" onclick="handleLogout()">Déconnexion</button></div>
+    <div class="user"><span id="modeStockage"></span><button class="btn-logout" id="btnApercu" onclick="basculerApercu()" hidden title="Voir l'application telle qu'un technicien la voit">👁 Voir comme technicien</button><button class="btn-logout" onclick="exporterExcel()" title="Télécharger toutes les données en .xlsx">⬇ Excel</button><span id="userNom">Équipe technique</span><span class="avatar">IT</span><button class="btn-logout" onclick="handleLogout()">Déconnexion</button></div>
   </div>
   <nav class="rail"><div class="rail-in" id="railNav"></div></nav>
+  <div class="bandeau-apercu" id="bandeauApercu" hidden>
+    <span>👁 Vous voyez l'application <b>comme un technicien</b> : sans l'évaluation ni l'onglet Admin.</span>
+    <button onclick="basculerApercu()">Revenir à la vue admin</button>
+  </div>
 </header>
 
 <main>
@@ -481,6 +540,21 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 </main>
 
 <div class="enregistre" id="toast">Enregistré</div>
+
+<button id="btnAssistant" class="assistant-btn no-print" aria-expanded="false" aria-controls="panneauAssistant">💬 Assistant</button>
+<aside id="panneauAssistant" class="assistant-panneau no-print" hidden aria-label="Assistant de l'Institut">
+  <div class="assistant-tete">
+    <div><b>Assistant de l'Institut</b><small>Répond à partir des données de l'app</small></div>
+    <button data-vider title="Nouvelle conversation">↺</button>
+    <button data-fermer aria-label="Fermer">×</button>
+  </div>
+  <div class="assistant-fil" id="filAssistant" aria-live="polite"></div>
+  <form class="assistant-saisie" id="formAssistant">
+    <textarea id="questionAssistant" rows="2" placeholder="Posez votre question… (Entrée pour envoyer)"></textarea>
+    <button class="btn" type="submit">Envoyer</button>
+  </form>
+  <p class="assistant-note">Ne lit pas encore le contenu des documents SharePoint et des rapports Power BI, seulement leurs titres.</p>
+</aside>
 </div><!-- FIN appPage -->
 
 <script id="donnees" type="application/json">{"enjeux": [{"nom": "ECONOMIQUE", "type": "Stratégique", "objectif": "Analyser les Performances des Exploitations et Conseiller les Stratégies de Production Rentables", "animations": "GT ASP RENTABILITE\nClub de Progrés VA", "structures": [{"s": "UDC", "e": ["Aicha Id M Hamed", "Florentin Boiziot"]}, {"s": "VALPRIM", "e": ["Hugues François", "Marie Barrabe Manceau", "Charlotte Naulleau"]}, {"s": "CADRALBRET", "e": ["Kim Conesa", "Sylvie Ferion"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": ["Félicia Fruhling"]}, {"s": "PARDI", "e": ["Frédéric Arnaud", "Emma Pouget", "Sylvain Guichard"]}, {"s": "CRAU", "e": ["Marie Helene Simon"]}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Mise à jour des Références de Rendements Rougeline", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Mise à jour des données de Charges Agronomiques", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Formalisation des ITK cibles Fraises / Tomates / Concombres", "p": "Florentin Boiziot / Audrey Tinarelli", "r": "Partiel"}, {"a": "Création D’une Base référentielle Prix Payé Producteurs", "p": "Aicha Id M Hamed", "r": "Non Effectué"}, {"a": "Diffuser et faire vivre  l’Appli ASP Rentabilité auprès des Techniciens", "p": "Aicha Id M Hamed", "r": "Partiel"}, {"a": "Etude Economique positionnement du Concombre dans les creux de production", "p": "Félicia Fruhling / Florentin Boiziot", "r": "Effectué"}], "a26": [{"a": "Déployer un Porcessus Processus Diagnostic d’exploitations", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Définir et déployer les Indicateurs de Rentabilité groupe RG", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Construire une base de donnée Référence de conditionnement", "p": "Aicha Id M Hamed / Remy Moreau", "r": "À lancer"}, {"a": "Intégrer les Prix de référence dans l'Application ASP Rentabilité", "p": "Aicha Id M Hamed / Antoine Caruana", "r": "À lancer"}, {"a": "Déployer l'Appli ASP auprès des Ops", "p": "Hugues François / Kim Conesa / Emma Pouget", "r": "À lancer"}, {"a": "Mettre à jour des Références de Rendements Rougeline", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Mettre à jour des données de Charges Agronomiques", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Améliorer l'ergononmie de l'application ASP suite aux demandes des membres du GT", "p": "Aicha Id M Hamed", "r": "À lancer"}], "i25": ["Nombre de diagnostics d'exploitation annuels par Ops : /", "Nombre de statégies avec une fiche Macro Rendement : 105", "Nombre de statégies avec une fiche Macro Prix : /", "Nombre de statégies avec une fiche Macro Conditionnement : /", "Nombre de statégies avec une fiche Macro Energie : /", "Nombre de statégies avec une fiche Macro Charge agro : /", "Proportion d'Ops utilisants l'Appli ASP Rentabilité (Objectif 100%) : 0"], "i26": ["Nombre de diagnostics d'exploitation annuels par Ops :", "Nombre de statégies avec une fiche Macro Rendement :", "Nombre de statégies avec une fiche Macro Prix :", "Nombre de statégies avec une fiche Macro Conditionnement :", "Nombre de statégies avec une fiche Macro Energie / Charge agro :", "Nombre de statégies avec une fiche Macro Charge agro :", "Proportion d'Ops utilisants l'Appli ASP Rentabilité (Objectif 100%)"]}, {"nom": "VARIETAL TOMATE", "type": "Stratégique", "objectif": "Devenir leader du Développement des Innovations « Amont » de nos Filières Stratégiques", "animations": "COMMISSION VARIETALE TOMATES", "structures": [{"s": "UDC", "e": ["Florentin Boiziot"]}, {"s": "VALPRIM", "e": ["Charlotte Naulleau", "André Jezequel"]}, {"s": "CADRALBRET", "e": ["Kim Conesa", "Jonas Hollaar"]}, {"s": "PERRINOTS", "e": ["Kevin Amblard", "Rui de Vilas Boas"]}, {"s": "AGRISUD", "e": ["Valy Goy", "Toby Wright", "Félicia Fruhling"]}, {"s": "PARDI", "e": ["Henri Jourdain", "Vincent Clément", "Emma Pouget"]}, {"s": "CRAU", "e": ["Sebastien Manelli", "Serge Arravechia", "Margaux Poloni"]}, {"s": "EXTERNE", "e": ["Semenciers"]}], "a25": [{"a": "Synthèse Mensuelle des données essais Tomates via Power BI", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Synthèse des questionnaires Optimisation des Variétés DV3 Tomates", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Grille des Prix/Dispo Semenciers graines des Variétés Résistantes Tobrfv", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Catalogue Variétal Tomates", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Affectation de Lots de graines spécifiques aux Producteurs RG", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Synthèse de Résultats Essais Variétaux Grappes « Productives »", "p": "Charlotte Naulleau", "r": "Effectué"}, {"a": "Lancer le dossier Kumato « Label Rouge »", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Etudier la Faisabilité Mesures non destructive des Qualités des Tomates en Production", "p": "Florentin Boiziot", "r": "Partiel"}, {"a": "Etude Comparative BRIX / ACIDE Allongées Cœurs Tomates", "p": "Charlotte Naulleau / Florentin Boiziot", "r": "Effectué"}, {"a": "Etude Intégration Temptation Dégrappée Mélanges Tomates", "p": "Emma Pouget", "r": "Partiel"}], "a26": [{"a": "Renforcer les relations entre notre Union de coopératives et les Semenciers et Producteurs de Plants", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Harmoniser les notions de germinations / levées / Plants utiles", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Formalisation des exigences autour des plants uniquement sur la notion d’homogénéité et de quantité.", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Etudier la faisabilité d’une maintenance de variétés populations/ lignées sauvages sur Rougeline", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "1 synthèse mensuelle simplifié des résultats d’essais des sites d’expé de Invenio et de Camargue.", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Mélanges Tomates Cerises (point de récolte des cerises ivoires et noires, mélange rondes oranges)", "p": "Emma Pouget", "r": "À lancer"}, {"a": "Synthèse Gain de calibre en cerise allongée", "p": "Vincent Clément / Florentin Boiziot", "r": "À lancer"}, {"a": "Automatisation des mesures de plantes Via Cameras IUNU", "p": "Camargue Innovation", "r": "À lancer"}, {"a": "Catalogue Variétal Tomates", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Grille des Prix/Dispo Semenciers graines des Variétés Résistantes Tobrfv", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Synthèse des questionnaires Optimisation des Variétés DV3 Tomates", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Catalogue Variétal Tomates", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Evaluation Renforcée Essais Variétaux Nouveautés Grappes", "p": "Charlotte Naulleau", "r": "À lancer"}], "i25": ["Nombre d'Essais Variétaux Financés : 66", "Nombre de visites Internes de nos outils de développement : 6", "Nombre de visites externes de nos outils de développement : 47 visites Semenciers / 0 visites Clients", "Nombre d'exclusivités négociées : 0", "Nombre de variétés intégrant la liste positive : 10", "Proportion de Surfaces Résist-Tobrfv : 42 %", "Proportion de Segments avec plus de 3 variétés en Liste Positive : 35%", "Nombre d'essais privées (screening semences) sur les exploitations de l'UDC Rougeline : /"], "i26": ["Nombre d'Essais Variétaux Financés :", "Nombre de visites Internes de nos outils de développement :", "Nombre de visites externes de nos outils de développement :  visites Semenciers /  visites Clients", "Nombre d'exclusivités négociées :", "Nombre de variétés intégrant la liste positive :", "Proportion de Surfaces Résist-Tobrfv :", "Proportion de Segments avec plus de 3 variétés en Liste Positive :", "Nombre d'essais privées (screening semences) sur les exploitations de l'UDC Rougeline :"]}, {"nom": "VARIETAL FRAISE", "type": "Stratégique", "objectif": "Devenir leader du Développement des Innovations « Amont » de nos Filières Stratégiques", "animations": "COMMISSION VARTIETALE FRAISES", "structures": [{"s": "UDC", "e": ["Florentin Boiziot"]}, {"s": "VALPRIM", "e": ["Camille Membré", "Evanie Palu", "Stéphanie Girou"]}, {"s": "CADRALBRET", "e": ["Denis Carlesso", "Léa Berrini"]}, {"s": "PERRINOTS", "e": ["Thierry Cambe"]}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": []}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": ["Justine Garnodier – CTIFL", "Myriam Carmentrans – Chambre 47"]}], "a25": [{"a": "Présentations variétales lors des rallyes qui vont être engagés par Cadralbret et Valprim", "p": "Léa Berrini / Camille Membré", "r": "Effectué"}, {"a": "Etude économique, potentiel valorisation des Nouveautés Fraise", "p": "Florentin Boiziot", "r": "Partiel"}, {"a": "Plan de Développement 22L01 et 22L04", "p": "Florentin Boiziot", "r": "Partiel"}, {"a": "Formalisation d’une fiche variétale Favori et de 2 synthèses d’essais variétaux au format 2024", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Etude Perspectives Hybridation Fraisiers", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Valider les Partenariats avec de nouveaux Obtenteurs : De Ruiter, BerryWord…", "p": "Florentin Boiziot", "r": "Partiel"}, {"a": "Elaboration d’un Plan de Financement Expé Variétal Fraise (NECTAR)", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Grille des Prix/Dispo des variétés Fraises chez les Pépiniéristes", "p": "Florentin Boiziot", "r": "Non Effectué"}], "a26": [{"a": "Formalisation de 2 synthèses d’essais variétaux", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Fiches Variétales 22L01 et 22L04", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Ouvrir la Commission à de nouveaux participants", "p": "Camille Membré / Léa Berrini", "r": "À lancer"}, {"a": "Demander un positionnment des conseils d'administration vers une professionnalisation des essais variétaux fraises", "p": "Camille Membré / Léa Berrini", "r": "À lancer"}, {"a": "Former un groupe projet Hybridation Fraise", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Construire un Cahier des charges Plants de fraisier", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Etablir les potentiels Variétaux de l'UDC Rougeline", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Renforcer les relations entre notre Union de coopératives et les Producteurs de Plants", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Formaliser une Etude Tarifs Plants de Fraisier", "p": "Florentin Boiziot", "r": "À lancer"}], "i25": ["Nombre d'Essais Variétaux Financés : 1", "Nombre de visites Internes des essais variétaux : 2", "Nombre de visites externes ds essais :  0 visites Semenciers / 0 visites Clients", "Nombre d'exclusivités négociées : 0", "Nombre de variétés intégrant la liste positive : 0", "Proportion de Profils Produits avec plus de 3 variétés en Liste Positive : 33%"], "i26": ["Nombre d'Essais Variétaux Financés :", "Nombre de visites Internes des essais variétaux :", "Nombre de visites externes ds essais :  visites Semenciers /  visites Clients", "Nombre d'exclusivités négociées :", "Nombre de variétés intégrant la liste positive :", "Proportion de Profils Produits avec plus de 3 variétés en Liste Positive :"]}, {"nom": "GOÛT", "type": "À renforcer", "objectif": "Caractériser et comprendre les mécanismes qui font le goût des espèces", "animations": "GT LABEL ROUGE TOMATES\nEQUIPE TECHNIQUE GOÛT", "structures": [{"s": "UDC", "e": ["Florentin Boiziot", "Benoit Beaussac"]}, {"s": "VALPRIM", "e": ["Charlotte Naulleau"]}, {"s": "CADRALBRET", "e": ["Kim Conesa"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": ["Félicia Fruhling"]}, {"s": "PARDI", "e": ["Emma Pouget", "Jean Philippe Briand"]}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": ["Mickael Lebechec – CNRS", "Valentine Cottet - CTIFL"]}], "a25": [], "a26": [{"a": "Organiser un GT Avril / mai pour une validation  des exigences agronomqiues et Organoleptique du segment Ronde Noire Kumato LR", "p": "Florentin Boiziot / Benoit Beaussac", "r": "À lancer"}, {"a": "Suivre et comparer les segments Rondes Rouge et Ronde noire pour intégration de la variété Olmeca", "p": "Charlotte Naulleau", "r": "À lancer"}, {"a": "Fiche Variétale Olmeca", "p": "Florentin Boiziot / Charlotte Naulleau", "r": "À lancer"}, {"a": "Evaluer et comparer Diamandia Vs Cœur Bretonne Vs Cœur Espagnole", "p": "Charlotte Naulleau", "r": "À lancer"}, {"a": "Evaluer E365 (Ronde Noire) via processus DV3", "p": "Emma Pouget", "r": "À lancer"}, {"a": "Formaliser un dossier d'intégration Label Rouge pour la variété 22L01", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Formaliser un dossier d'intégration Label Rouge pour la variété 22L04", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Formaliser une Etude Technique des Brix", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Etudier la faisabilité d'une cerise Ronde Rouge sans Pédoncule  variété Xanudu Xr", "p": "Emma Pouget", "r": "À lancer"}, {"a": "Construire un Projet de caractérisation des Composés Organiques Volatils des Tomates avec le CNRS", "p": "Charlotte Naulleau / Kim Conesa / Florentin Boiziot", "r": "À lancer"}], "i25": [], "i26": ["Volumes Réalisés Label Rouge par Segments :", "Nombre (proportion) de variétés gustatives intégrants les listes Positives :", "Nombre d'intégrations Variétales au Label Rouge"]}, {"nom": "SANITAIRE", "type": "Stratégique", "objectif": "Valider les stratégies sanitaires innovantes ET défendre les solutions existantes", "animations": "COMMISSIONS SANITAIRES", "structures": [{"s": "UDC", "e": ["Audrey Tinarelli"]}, {"s": "VALPRIM", "e": ["Charlotte Naulleau", "Hugues François", "Camille Membre"]}, {"s": "CADRALBRET", "e": ["Kim Conesa", "Léa Berrini", "Rémi Pipino"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": ["Lucile Comes", "Marie Lise Sery", "Aurélie Cabrol"]}, {"s": "PARDI", "e": ["Emma Pouget", "Fabrice Wegner", "Florian Martin"]}, {"s": "CRAU", "e": ["Margaux Poloni", "Marie Claire Meiffre"]}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Formation Qualité de Pulvérisation et Conditions d'applications par Familles de Produits", "p": "Charlotte Naulleau / Audrey Tinarelli", "r": "Effectué"}, {"a": "Catalogues Essais Sanitaires UDC & Instituts 2025", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Guide de désinfection et Catalogue Produit", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Construction AAP PRAAM", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Fiche Technique Nourrissage Macrolophus", "p": "Lucile Comes / Audrey Tinarelli", "r": "Effectué"}, {"a": "Fiche Technique Mûrisseurs - Anticipation Retrait PRM 12", "p": "Léa Berrini / Audrey Tinarelli", "r": "Effectué"}, {"a": "Evaluation Qualité Macrolophus", "p": "Audrey Tinarelli", "r": "Non Effectué"}, {"a": "Défense et Argumentaire des solutions d'intérêt", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Fiche Technique Pestalo : Connaissances & Leviers de gestion", "p": "Kim Conesa / Audrey Tinarelli", "r": "Effectué"}, {"a": "Positionnement Produits Oidium selon modes d'actions", "p": "Audrey Tinarelli", "r": "Effectué"}], "a26": [{"a": "Réaliser une Mercuriale Produits de Protection des cultures 2026 en consolidant les données Fournisseurs OPs et Producteurs Tellussia​", "p": "Audrey Tinarelli / Kim Conesa / Emma Pouget / Félicia Fruhling", "r": "À lancer"}, {"a": "Diffusion des essais UDC & Instituts Technique 2026 via les Catalogues Essais Sanitaires Rougeline​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Assurer l’instruction et le déploiement du projet Coop Protect – AAP PRAAM​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Actualiser l’évaluation Risque Retrait Produits Phytosanitaires à 5 ans​", "p": "Kim Conesa / Audrey Tinarelli", "r": "À lancer"}, {"a": "Réaliser une étude technico économique des biostimulants et biosolutions d'intérêts pour planification des essais sur 2027​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Eprouver et Renouveler les Négociation tarifiaire Phéromone Cyrto​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Défense et Argumentaire des solutions d'intérêts auprès de toutes les instances (AOPn, CTIFL, DGAL, Légumes de France)​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Actualiser ou Formaliser avec l’appui des experts 4 Fiches Stratégies pour ... Gestion de l'agrobacterium,", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "… Gestion Pucerons sans Movento", "p": "Kim Conesa / Audrey Tinarelli", "r": "À lancer"}, {"a": "… Botrytis sans Signum", "p": "Emma Pouget / Audrey Tinarelli", "r": "À lancer"}, {"a": "… Cladosporiose", "p": "Charlotte Naulleau / Audrey Tinarelli", "r": "À lancer"}, {"a": "… Pestalotiopsis", "p": "Camille Membré / Audrey Tinarelli", "r": "À lancer"}], "i25": ["Nombres de personnes formés : 22  sur sites Camargue et X Secteur Sud Ouest", "Nombres Essais Sanitaires UDC : 11 Tomate, 6 Fraise, Autres\nNombres Essais Sanitaires Instituts :  6 Tomate, 6 Fraise, Autres", "Nombres de produits évalués : 13", "Nombre de partenaires engagés hors UDC : 7 dont 4 OPs", "Nombre de Fiches Stratégies : 2", "Nombre d'AMM 120 jours / reconnaissance muteulles obtenues"], "i26": ["Nombres de produits concernés", "Nombres Essais Sanitaires Tomate UDC : X Tomate, X Fraise, X Autres\nNombres Essais Sanitaires Tomate Instituts :  X Tomate, X Fraise, X Autres", "Nombre de sites engagés par filères", "Produits en danger par filières :", "Nombres de solutions retenues pour essais", "Gain économique annuel", "Nombre d'AMM 120 jours / reconnaissance muteulles obtenues", "Nombre de Fiches Stratégies"]}, {"nom": "EAU ET CLIMAT", "type": "À renforcer", "objectif": "Assurer notre robustesse face aux changements climatiques", "animations": "", "structures": [{"s": "UDC", "e": ["Audrey Tinarelli"]}, {"s": "VALPRIM", "e": ["Marie Barrabe"]}, {"s": "CADRALBRET", "e": ["Léa Berrini", "Nv Recrutement"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": []}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": ["ACMG"]}], "a25": [{"a": "Evaluation du niveaux de risques des exploitations Rougeline", "p": "Audrey Tinarelli", "r": "Partiel"}, {"a": "4 Etudes de cas Technique - Economique - Réglementaire : Retenues Colinéaires, REUT, Bassins récupération Eau de pluie, Recyclage", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Recensement des consommations en eau", "p": "Audrey Tinarelli", "r": "Partiel"}, {"a": "Evaluer l'impact des canicules sur climat de la serre et production", "p": "Audrey Tinarelli", "r": "Partiel"}], "a26": [{"a": "Réaliser un recensement exhaustif du groupe pour les cultures de Tomates & Fraises par les diagnostics Ecoserre​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Initier les projections climatiques via 2 scénarios optimiste et pessismiste sur 5 secteurs de production​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Par des corrélations entre le climat externe et des outils de production actuel, estimer les conditions climatiques de production à moyen terme et l’incidence sur nos conditions de production (créneaux, production, sanitaire)​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Réaliser une Fiche Robustesse 1 sur la construction de bassin tampon pour pallier aux sécheresses​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Réaliser une Fiche Efficience 1 sur l’économie en eau et en engrais par le recyclage en fraises​", "p": "Audrey Tinarelli", "r": "À lancer"}], "i25": ["Nombres d’Exploitation avec consommation en eau partagée à l’UDC", "Nombre d’étude de cas Technico-Economique et Réglementaire : 4", "Nombres de Rallyes sur le thème du Climat : 1"], "i26": ["% études de corrélation réalisées (14 au total)"]}, {"nom": "DECARBONATION", "type": "À renforcer", "objectif": "Accompagner les Producteurs sur les Solutions Energétiques Alternatives et Définir la Serre Efficiente de Demain", "animations": "", "structures": [{"s": "UDC", "e": ["Audrey Tinarelli", "Florent Blanc"]}, {"s": "VALPRIM", "e": ["Marie Barrabé ?"]}, {"s": "CADRALBRET", "e": ["Kim Conesa", "Léa Berrini", "Sylvie Férion"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": []}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Diagnotics Ecoserre Tomate", "p": "Audrey Tinarelli", "r": "Partiel"}, {"a": "Actualisation Grille Ecoserre", "p": "Audrey Tinarelli", "r": "Effectué"}], "a26": [{"a": "Analyser et Diffuser aux OPs et Producteurs impliqués les diagnostics Ecoserre Tomate HS ​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Construire la base des indicateurs pour l'Ecoserre Fraise​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Recenser, Analyser et Diffuser aux OPs et Producteurs impliqués les diagnostics Ecoserre Fraise​", "p": "Audrey Tinarelli", "r": "À lancer"}], "i25": ["% des surfaces avec un diagnostic Ecoserre Tomates : 50 %", "% des surfaces avec un diagnostic Ecoserre Fraises : 0%", "% des surfaces avec un diagnostic Ecoserre Concombre : 0%"], "i26": ["% des surfaces avec un diagnostic Ecoserre", "% des surfaces avec un diagnostic Ecoserre"]}, {"nom": "MAIN D'ŒUVRE", "type": "À renforcer", "objectif": "Cartographier les pratiques des Producteurs et déterminer les facteurs d'influence de gestion de main d'œuvre", "animations": "", "structures": [{"s": "UDC", "e": []}, {"s": "VALPRIM", "e": ["Hugues François"]}, {"s": "CADRALBRET", "e": ["Kim Conesa"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": ["Nadia Galabert"]}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": ["Eric Van der Horst"]}], "a25": [{"a": "Présentation et orientation vers des outils de Gestion de main D’œuvre", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Veiller sur les nouvelles innovations en automatisation de la main-d'œuvre.", "p": "Aicha ID M Hamed", "r": "Effectué"}], "a26": [{"a": "Sourcer et faire venir des experts en formation de main d’œuvre (cadralbret, Valprim et Tom d'Aqui)", "p": "Kim Conesa / Charlotte Naulleau", "r": "À lancer"}, {"a": "Veiller sur les nouvelles innovations en automatisation de la main-d'œuvre.", "p": "Aicha Id M Hamed", "r": "À lancer"}], "i25": [], "i26": []}, {"nom": "INTRANTS / DECHETS", "type": "À renforcer", "objectif": "Cartographier les pratiques des Producteurs et  évaluer économiquement les différents circuits de valorisation", "animations": "", "structures": [{"s": "UDC", "e": ["Audrey Tinarelli"]}, {"s": "VALPRIM", "e": ["Charlotte Naulleau ?"]}, {"s": "CADRALBRET", "e": ["Léa Berrini", "Nv recrutement"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": []}, {"s": "CRAU", "e": ["Marie-Hélène", "Margaux POLONI"]}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Cartographie des circuits de valorisation des déchets", "p": "Audrey Tinarelli", "r": "Partiel"}, {"a": "Livret de gestion et valorisation des déchets de production (déchets verts, substrats, paillage)", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Evaluation Pouvoirs méthanogènes des déchets de production (Déchets vert et substrats)", "p": "Audrey Tinarelli", "r": "Effectué"}, {"a": "Etude économique des différents circuits de valorisation (Déchets verts et substrats)", "p": "Audrey Tinarelli", "r": "Effectué"}], "a26": [{"a": "Accompagner les producteurs vers une utilisation des équipements de cultures BIO par un travail du prix via les appels d’offre et une identification des solutions pour la gestion de leurs déchets. ​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Construction d’un partenariat avec ETS Capy pour le recyclage des substrats du secteur sud ouest ​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Evaluation du pouvoir méthanogène des déchets de production (déchets verts et substrats)​", "p": "Audrey Tinarelli", "r": "À lancer"}, {"a": "Accompagnement des producteurs aux différentes voies de valorisation de leurs déchets par secteurs avec la société GreenR​", "p": "Audrey Tinarelli", "r": "À lancer"}], "i25": ["Nombres de contacts Prestataires d’intérêts sur le secteur Sud diffusés : 16", "Nombre de déchets avec une étude technico-économique des voies de valorisation : 4", "Nombres de déchets avec une caractérisation de leurs pouvoirs méthanogène : 3"], "i26": ["Surfaces engagés dans l'appel d'offre\nGain économique annuel / ha", "Nombre de sites engagés", "Nombres de sites de production avec recyclage des déchets verts par épandage, unité de compostage et/ou méthanisation"]}, {"nom": "FERTILISATION", "type": "À renforcer", "objectif": "Cartographier les pratiques des Producteurs et déterminer les leviers d'amélioration et les conditions d'utilisation des ressources alternatives", "animations": "", "structures": [{"s": "UDC", "e": []}, {"s": "VALPRIM", "e": ["Hugues François"]}, {"s": "CADRALBRET", "e": ["Nv Recrutement ?"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": []}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Synthèse des consommation en fonction du rendement par segment", "p": "Audrey Tinarelli", "r": "Non Effectué"}, {"a": "Recensement des intrants biosourcés d'intérêts", "p": "Audrey Tinarelli", "r": "Partiel"}], "a26": [{"a": "Synthèse des consommations en fonction du rendement par segment via l’outil Tellussia", "p": "Audrey Tinarelli", "r": "À lancer"}], "i25": [], "i26": []}, {"nom": "DEVELOPPEMENT", "type": "À renforcer", "objectif": "Assurer la veille du développement des nouvelles filières émergentes", "animations": "Groupes Projets (Poivron / Salade…)", "structures": [{"s": "UDC", "e": ["Florentin Boiziot"]}, {"s": "VALPRIM", "e": ["Hugues François", "Camille Membré"]}, {"s": "CADRALBRET", "e": ["Kim Conesa", "Léa Berrini"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": []}, {"s": "PARDI", "e": ["Fabrice Wegner"]}, {"s": "CRAU", "e": []}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Formaliser les Itinéraires Technique Poivron", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Formaliser Itinéraire Technique Salade Vivante", "p": "Florentin Boiziot", "r": "Partiel"}, {"a": "Etudier la Rentabilité de la filière Poivron", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Fiche technique simple filières émergentes (agrumes, fruits tropicaux)", "p": "Florentin Boiziot", "r": "Non Effectué"}, {"a": "Organiser des Voyages d’Etude Poivron (Orléans, Provence, Espagne, Pays Bas…)", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Formaliser Résultat Essais Poivrons Cornes Jardins de Camargue", "p": "Florentin Boiziot", "r": "Effectué"}, {"a": "Finalisation Dossier IGP Tomate - Evaluation INAO", "p": "Audrey Tinarelli", "r": "Effectué"}], "a26": [{"a": "Formaliser Bilan Technique Poivron Cornes", "p": "Florentin Boiziot / Hugues François", "r": "À lancer"}, {"a": "Formaliser Bilan Technique Salade Hydroponique", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Formaliser Itinéraire Technique Agrumes", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Organiser des Voyages d’Etude Nouvelles Cultures", "p": "Florentin Boiziot", "r": "À lancer"}, {"a": "Newsletter Anuelle Nouvelles cultures", "p": "Florentin Boiziot", "r": "À lancer"}], "i25": ["Newsletter annuelle “Veille cultures innovantes” : 0", "Nombre d'études de faisabilité cultures Innovantes : 2"], "i26": ["Newsletter annuelle “Veille cultures innovantes” :", "Nombre d'études de faisabilité cultures Innovantes :"]}, {"nom": "IA ET SERRE DU FUTUR", "type": "Stratégique", "objectif": "Développer une agriculture de précision qui combine efficience en production et adaptation au changement climatique", "animations": "Commission Agro-Tech Innovation", "structures": [{"s": "UDC", "e": ["Aicha Id m Hamed"]}, {"s": "VALPRIM", "e": ["Charlotte Naulleau", "Pierre Réau"]}, {"s": "CADRALBRET", "e": ["Kastien Ruffoni", "Léa Berrini"]}, {"s": "PERRINOTS", "e": ["Bruno Toppan"]}, {"s": "AGRISUD", "e": ["Lucile Comes", "Nicolas Bertrand"]}, {"s": "PARDI", "e": ["Elie Faraut", "Davy Clément", "Emma Pouget"]}, {"s": "CRAU", "e": ["Jean François Saffin", "Margaux Poloni"]}, {"s": "EXTERNE", "e": []}], "a25": [{"a": "Mise en place d’un Bi Météo, permettant suivi des données historiques et Prévisionnelles de nos Bassins en temps réel", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Recensement des nouvelles technologies chez les Producteurs, et veille auprès des fournisseurs / Start Ups pour démonstration et mise en Place d’essais.", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Lancer la Commission Serre Du Futur", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Rédiger les protocoles et processus d’évaluation des essais Innovants du Groupe.", "p": "Aicha Id M Hamed", "r": "Effectué"}, {"a": "Rapports et retours d’expérience de 3 innovations : IUNU / BLUE RADIX / AISPRID", "p": "Aicha Id M Hamed", "r": "Effectué"}], "a26": [{"a": "Mise en place d’un BI Météo, permettant suivi des données historiques et Prévisionnelles de nos Bassins en temps réel (Ajout du point Bessières)", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Recenser nouvelles technologies chez les Producteurs, et veille auprès des fournisseurs / StartUps pour démonstration et mise en Place d’essais.", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Diffuser la veille technologique auprès des producteurs via 2 webinaires", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Rapports Mensualisé et retour d’expérience de 3 innovations : IUNU / BLUE RADIX / FravEYE", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Prise de contact et organisation de rendez-vous avec les fournisseurs Ridder, Hoogendoorn et Priva afin d'évaluer les possibilités techniques et les coûts de récupération des données via API", "p": "Aicha Id M Hamed", "r": "À lancer"}, {"a": "Créer un Suivi dynamique des Rendements Producteurs", "p": "Aicha Id M Hamed / Kim Conesa", "r": "À lancer"}, {"a": "Créer un Suivi dynamique des Mesures Agro Producteurs", "p": "Aicha Id M Hamed / Charlotte Naulleau", "r": "À lancer"}], "i25": ["Nombre de StarUps / Nouvelles Technologies de Serres Rescencées : 23", "Nombre de démonstrations nouveaux Outils Capteurs effectués : 1", "Nombre d'essai nouvelles technologies chez les Producteurs : /", "Nombres de Retours d'Expériences formalisés : 3"], "i26": []}, {"nom": "BIODIVERSITE", "type": "À renforcer", "objectif": "Cartographier les pratiques des Producteurs et  évaluer économiquement les différents circuits de valorisation", "animations": "", "structures": [{"s": "UDC", "e": ["Audrey Tinarelli"]}, {"s": "VALPRIM", "e": ["Evan Castelain"]}, {"s": "CADRALBRET", "e": ["Késia Doumerc"]}, {"s": "PERRINOTS", "e": []}, {"s": "AGRISUD", "e": ["Emilie Carniel", "Lucile Comes"]}, {"s": "PARDI", "e": ["fabrice wegner"]}, {"s": "CRAU", "e": ["Marie-Hélène", "Margaux POLONI"]}, {"s": "EXTERNE", "e": ["Johanna Villenave -Chasset", "Noé Biodiversité", "Julie Sabourin - Collectif Nouveaux champs"]}], "a25": [{"a": "Construction Label Biodiversité Fraise sous Abris", "p": "Julie Sabourin / Audrey Tinarelli", "r": "Non Effectué"}], "a26": [{"a": "Construction ou Adaptation du Cahier des Charges Label Biodiversité pour les cultures sous abris", "p": "Julie Sabourin / Audrey Tinarelli", "r": "À lancer"}], "i25": [], "i26": []}], "indicateurs": [{"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de diagnostics d'exploitation annuels par Ops", "obj": "1 / exploitation / an", "v2025": "/"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de stratégies avec une fiche Macro Rendement", "obj": "Toutes stratégies", "v2025": "105"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de stratégies avec une fiche Macro Prix", "obj": "Toutes stratégies", "v2025": "/"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de stratégies avec une fiche Macro Conditionnement", "obj": "Toutes stratégies", "v2025": "/"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de stratégies avec une fiche Macro Energie", "obj": "Toutes stratégies", "v2025": "/"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Nombre de stratégies avec une fiche Macro Charge agro", "obj": "Toutes stratégies", "v2025": "/"}, {"type": "Stratégique", "enjeu": "ECONOMIQUE", "lib": "Proportion d'Ops utilisants l'Appli ASP Rentabilité (Objectif 100%)", "obj": "100 %", "v2025": "0 %"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre d'Essais Variétaux Financés", "obj": "À définir", "v2025": "66"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre de visites Internes de nos outils de développement", "obj": "À définir", "v2025": "6"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre de visites externes de nos outils de développement (Semenciers / Clients)", "obj": "À définir", "v2025": "47 Sem. / 0 Clients"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre d'exclusivités négociées", "obj": "À définir", "v2025": "0"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre de variétés intégrant la liste positive", "obj": "À définir", "v2025": "10"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Proportion de Surfaces Résist-Tobrfv", "obj": "100 %", "v2025": "42 %"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Proportion de Segments avec plus de 3 variétés en Liste Positive", "obj": "À définir", "v2025": "35 %"}, {"type": "Stratégique", "enjeu": "VARIETAL TOMATE", "lib": "Nombre d'essais privées (screening semences) sur les exploitations de l'UDC Rougeline", "obj": "À définir", "v2025": "/"}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Nombre d'Essais Variétaux Financés", "obj": "À définir", "v2025": "1"}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Nombre de visites Internes des essais variétaux", "obj": "À définir", "v2025": "2"}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Nombre de visites externes ds essais (Semenciers / Clients)", "obj": "À définir", "v2025": "0 Sem. / 0 Cli."}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Nombre d'exclusivités négociées", "obj": "À définir", "v2025": "0"}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Nombre de variétés intégrant la liste positive", "obj": "À définir", "v2025": "0"}, {"type": "Stratégique", "enjeu": "VARIETAL FRAISE", "lib": "Proportion de Profils Produits avec plus de 3 variétés en Liste Positive", "obj": "À définir", "v2025": "33 %"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombres de personnes formés", "obj": "À définir", "v2025": "22 (Camargue + SO)"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombres Essais Sanitaires UDC (Tomate / Fraise / Autres)", "obj": "À définir", "v2025": "11 T / 6 F / autres"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombres Essais Sanitaires Instituts (Tomate / Fraise / Autres)", "obj": "À définir", "v2025": "6 T / 6 F / autres"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombres de produits évalués", "obj": "À définir", "v2025": "13"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombre de partenaires engagés hors UDC", "obj": "À définir", "v2025": "7 (dont 4 OPs)"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombre de Fiches Stratégies", "obj": "À définir", "v2025": "2"}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombre d'AMM 120 jours / reconnaissance mutuelles obtenues", "obj": "À définir", "v2025": "n.r."}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Gain économique annuel", "obj": "À définir", "v2025": ""}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombres de solutions retenues pour essais", "obj": "À définir", "v2025": ""}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Nombre de sites engagés par filières", "obj": "À définir", "v2025": ""}, {"type": "Stratégique", "enjeu": "SANITAIRE", "lib": "Produits en danger par filières", "obj": "À définir", "v2025": ""}, {"type": "Stratégique", "enjeu": "IA ET SERRE DU FUTUR", "lib": "Nombre de StarUps / Nouvelles Technologies de Serres Recensées", "obj": "À définir", "v2025": "23"}, {"type": "Stratégique", "enjeu": "IA ET SERRE DU FUTUR", "lib": "Nombre de démonstrations nouveaux Outils Capteurs effectués", "obj": "À définir", "v2025": "1"}, {"type": "Stratégique", "enjeu": "IA ET SERRE DU FUTUR", "lib": "Nombre d'essai nouvelles technologies chez les Producteurs", "obj": "À définir", "v2025": "/"}, {"type": "Stratégique", "enjeu": "IA ET SERRE DU FUTUR", "lib": "Nombres de Retours d'Expériences formalisés", "obj": "À définir", "v2025": "3"}, {"type": "À renforcer", "enjeu": "GOÛT", "lib": "Volumes Réalisés Label Rouge par Segments", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "GOÛT", "lib": "Nombre (proportion) de variétés gustatives intégrants les listes Positives", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "GOÛT", "lib": "Nombre d'intégrations Variétales au Label Rouge", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "EAU ET CLIMAT", "lib": "Nombres d'Exploitation avec consommation en eau partagée à l'UDC", "obj": "100 %", "v2025": ""}, {"type": "À renforcer", "enjeu": "EAU ET CLIMAT", "lib": "Nombre d'étude de cas Technico-Economique et Réglementaire", "obj": "À définir", "v2025": "4"}, {"type": "À renforcer", "enjeu": "EAU ET CLIMAT", "lib": "Nombres de Rallyes sur le thème du Climat", "obj": "À définir", "v2025": "1"}, {"type": "À renforcer", "enjeu": "EAU ET CLIMAT", "lib": "% études de corrélation réalisées (14 au total)", "obj": "100 %", "v2025": "0 %"}, {"type": "À renforcer", "enjeu": "DECARBONATION", "lib": "% des surfaces avec un diagnostic Ecoserre Tomates", "obj": "80 % (2026)", "v2025": "50 %"}, {"type": "À renforcer", "enjeu": "DECARBONATION", "lib": "% des surfaces avec un diagnostic Ecoserre Fraises", "obj": "80 % (2027)", "v2025": "0 %"}, {"type": "À renforcer", "enjeu": "DECARBONATION", "lib": "% des surfaces avec un diagnostic Ecoserre Concombre", "obj": "80 % (2028)", "v2025": "0 %"}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Nombres de contacts Prestataires d'intérêts sur le secteur Sud diffusés", "obj": "À définir", "v2025": "16"}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Nombre de déchets avec une étude technico-économique des voies de valorisation", "obj": "À définir", "v2025": "4"}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Nombres de déchets avec une caractérisation de leurs pouvoirs méthanogène", "obj": "À définir", "v2025": "3"}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Surfaces engagés dans l'appel d'offre", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Gain économique annuel / ha", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "INTRANTS / DECHETS", "lib": "Nombres de sites de production avec recyclage des déchets verts par épandage, unité de compostage et/ou méthanisation", "obj": "À définir", "v2025": ""}, {"type": "À renforcer", "enjeu": "DEVELOPPEMENT", "lib": "Newsletter annuelle « Veille cultures innovantes »", "obj": "1/an", "v2025": "0"}, {"type": "À renforcer", "enjeu": "DEVELOPPEMENT", "lib": "Nombre d'études de faisabilité cultures Innovantes", "obj": "4 cumulées", "v2025": "2"}], "experts": [{"nom": "Audrey Tinarelli", "struct": "UDC", "nb": 5, "strat": 1, "renf": 4, "enjeux": "SANITAIRE, EAU ET CLIMAT, DECARBONATION, INTRANTS / DECHETS, BIODIVERSITE"}, {"nom": "Florentin Boiziot", "struct": "UDC", "nb": 5, "strat": 3, "renf": 2, "enjeux": "ECONOMIQUE, VARIETAL TOMATE, VARIETAL FRAISE, GOÛT, DEVELOPPEMENT"}, {"nom": "Aicha Id M Hamed", "struct": "UDC", "nb": 2, "strat": 2, "renf": 0, "enjeux": "ECONOMIQUE, IA ET SERRE DU FUTUR"}, {"nom": "Benoit Beaussac", "struct": "UDC", "nb": 1, "strat": 0, "renf": 1, "enjeux": "GOÛT"}, {"nom": "Florent Blanc", "struct": "UDC", "nb": 1, "strat": 0, "renf": 1, "enjeux": "DECARBONATION"}, {"nom": "Charlotte Naulleau", "struct": "VALPRIM", "nb": 6, "strat": 4, "renf": 2, "enjeux": "ECONOMIQUE, VARIETAL TOMATE, SANITAIRE, IA ET SERRE DU FUTUR, GOÛT, INTRANTS / DECHETS"}, {"nom": "Hugues François", "struct": "VALPRIM", "nb": 5, "strat": 2, "renf": 3, "enjeux": "ECONOMIQUE, SANITAIRE, MAIN D'ŒUVRE, FERTILISATION, DEVELOPPEMENT"}, {"nom": "Camille Membré", "struct": "VALPRIM", "nb": 3, "strat": 2, "renf": 1, "enjeux": "VARIETAL FRAISE, SANITAIRE, DEVELOPPEMENT"}, {"nom": "Marie Barrabe", "struct": "VALPRIM", "nb": 2, "strat": 0, "renf": 2, "enjeux": "EAU ET CLIMAT, DECARBONATION"}, {"nom": "André Jezequel", "struct": "VALPRIM", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Evan Castelain", "struct": "VALPRIM", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Evanie Palu", "struct": "VALPRIM", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Marie Barrabe Manceau", "struct": "VALPRIM", "nb": 1, "strat": 1, "renf": 0, "enjeux": "ECONOMIQUE"}, {"nom": "Pierre Réau", "struct": "VALPRIM", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Stéphanie Girou", "struct": "VALPRIM", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Kim Conesa", "struct": "CADRALBRET", "nb": 7, "strat": 3, "renf": 4, "enjeux": "ECONOMIQUE, VARIETAL TOMATE, SANITAIRE, GOÛT, DECARBONATION, MAIN D'ŒUVRE, DEVELOPPEMENT"}, {"nom": "Léa Berrini", "struct": "CADRALBRET", "nb": 7, "strat": 3, "renf": 4, "enjeux": "VARIETAL FRAISE, SANITAIRE, IA ET SERRE DU FUTUR, EAU ET CLIMAT, DECARBONATION, INTRANTS / DECHETS, DEVELOPPEMENT"}, {"nom": "Nv recrutement", "struct": "CADRALBRET", "nb": 3, "strat": 0, "renf": 3, "enjeux": "EAU ET CLIMAT, INTRANTS / DECHETS, FERTILISATION"}, {"nom": "Sylvie Ferion", "struct": "CADRALBRET", "nb": 2, "strat": 1, "renf": 1, "enjeux": "ECONOMIQUE, DECARBONATION"}, {"nom": "Denis Carlesso", "struct": "CADRALBRET", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Jonas Hollaar", "struct": "CADRALBRET", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Kastien Ruffoni", "struct": "CADRALBRET", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Késia Doumerc", "struct": "CADRALBRET", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Rémi Pipino", "struct": "CADRALBRET", "nb": 1, "strat": 1, "renf": 0, "enjeux": "SANITAIRE"}, {"nom": "Bruno Toppan", "struct": "PERRINOTS", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Kevin Amblard", "struct": "PERRINOTS", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Rui de Vilas Boas", "struct": "PERRINOTS", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Thierry Cambe", "struct": "PERRINOTS", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Félicia Fruhling", "struct": "AGRISUD", "nb": 3, "strat": 2, "renf": 1, "enjeux": "ECONOMIQUE, VARIETAL TOMATE, GOÛT"}, {"nom": "Lucile Comes", "struct": "AGRISUD", "nb": 3, "strat": 2, "renf": 1, "enjeux": "SANITAIRE, IA ET SERRE DU FUTUR, BIODIVERSITE"}, {"nom": "Aurélie Cabrol", "struct": "AGRISUD", "nb": 1, "strat": 1, "renf": 0, "enjeux": "SANITAIRE"}, {"nom": "Emilie Carniel", "struct": "AGRISUD", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Marie-Lise Sery", "struct": "AGRISUD", "nb": 1, "strat": 1, "renf": 0, "enjeux": "SANITAIRE"}, {"nom": "Nicolas Bertrand", "struct": "AGRISUD", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Toby Wright", "struct": "AGRISUD", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Valy Goy", "struct": "AGRISUD", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Emma Pouget", "struct": "PARDI", "nb": 5, "strat": 4, "renf": 1, "enjeux": "ECONOMIQUE, VARIETAL TOMATE, SANITAIRE, IA ET SERRE DU FUTUR, GOÛT"}, {"nom": "Fabrice Wegner", "struct": "PARDI", "nb": 3, "strat": 1, "renf": 2, "enjeux": "SANITAIRE, DEVELOPPEMENT, BIODIVERSITE"}, {"nom": "Davy Clément", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Elie Faraut", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Florian Martin", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "SANITAIRE"}, {"nom": "Frédéric Arnaud", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "ECONOMIQUE"}, {"nom": "Henri Jourdain", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Jean-Philippe Briand", "struct": "PARDI", "nb": 1, "strat": 0, "renf": 1, "enjeux": "GOÛT"}, {"nom": "Nadia Galabert", "struct": "PARDI", "nb": 1, "strat": 0, "renf": 1, "enjeux": "MAIN D'ŒUVRE"}, {"nom": "Sylvain Guichard", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "ECONOMIQUE"}, {"nom": "Vincent Clément", "struct": "PARDI", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Margaux Poloni", "struct": "CRAU", "nb": 5, "strat": 3, "renf": 2, "enjeux": "VARIETAL TOMATE, SANITAIRE, IA ET SERRE DU FUTUR, INTRANTS / DECHETS, BIODIVERSITE"}, {"nom": "Marie Helene Simon", "struct": "CRAU", "nb": 3, "strat": 1, "renf": 2, "enjeux": "ECONOMIQUE, INTRANTS / DECHETS, BIODIVERSITE"}, {"nom": "Jean-François Saffin", "struct": "CRAU", "nb": 1, "strat": 1, "renf": 0, "enjeux": "IA ET SERRE DU FUTUR"}, {"nom": "Marie-Claire Meiffre", "struct": "CRAU", "nb": 1, "strat": 1, "renf": 0, "enjeux": "SANITAIRE"}, {"nom": "Sebastien Manelli", "struct": "CRAU", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Serge Arravechia", "struct": "CRAU", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "ACMG", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "EAU ET CLIMAT"}, {"nom": "Eric Van der Horst", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "MAIN D'ŒUVRE"}, {"nom": "Johanna Villenave-Chasset", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Julie Sabourin (Collectif Nvx Champs)", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Justine Garnodier (CTIFL)", "struct": "EXTERNE", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Mickael Lebechec (CNRS)", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "GOÛT"}, {"nom": "Myriam Carmentrans (Chambre 47)", "struct": "EXTERNE", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL FRAISE"}, {"nom": "Noé Biodiversité", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "BIODIVERSITE"}, {"nom": "Semenciers (partenaires privés)", "struct": "EXTERNE", "nb": 1, "strat": 1, "renf": 0, "enjeux": "VARIETAL TOMATE"}, {"nom": "Valentine Cottet (CTIFL)", "struct": "EXTERNE", "nb": 1, "strat": 0, "renf": 1, "enjeux": "GOÛT"}], "matrice": [{"enjeu": "ECONOMIQUE", "VALPRIM": 3, "CADRALBRET": 2, "PERRINOTS": 0, "AGRISUD": 1, "PARDI": 3, "CRAU": 1, "UDC": 2, "total": 10}, {"enjeu": "VARIETAL TOMATE", "VALPRIM": 2, "CADRALBRET": 2, "PERRINOTS": 2, "AGRISUD": 3, "PARDI": 3, "CRAU": 3, "UDC": 1, "total": 15}, {"enjeu": "VARIETAL FRAISE", "VALPRIM": 3, "CADRALBRET": 2, "PERRINOTS": 1, "AGRISUD": 0, "PARDI": 0, "CRAU": 0, "UDC": 1, "total": 6}, {"enjeu": "SANITAIRE", "VALPRIM": 3, "CADRALBRET": 3, "PERRINOTS": 0, "AGRISUD": 3, "PARDI": 3, "CRAU": 2, "UDC": 1, "total": 14}, {"enjeu": "IA ET SERRE DU FUTUR", "VALPRIM": 2, "CADRALBRET": 2, "PERRINOTS": 1, "AGRISUD": 2, "PARDI": 3, "CRAU": 2, "UDC": 1, "total": 12}, {"enjeu": "GOÛT", "VALPRIM": 1, "CADRALBRET": 1, "PERRINOTS": 0, "AGRISUD": 1, "PARDI": 2, "CRAU": 0, "UDC": 2, "total": 5}, {"enjeu": "EAU ET CLIMAT", "VALPRIM": 1, "CADRALBRET": 2, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 0, "CRAU": 0, "UDC": 1, "total": 3}, {"enjeu": "DECARBONATION", "VALPRIM": 1, "CADRALBRET": 3, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 0, "CRAU": 0, "UDC": 2, "total": 4}, {"enjeu": "MAIN D'ŒUVRE", "VALPRIM": 1, "CADRALBRET": 1, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 1, "CRAU": 0, "UDC": 0, "total": 3}, {"enjeu": "INTRANTS / DECHETS", "VALPRIM": 1, "CADRALBRET": 2, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 0, "CRAU": 2, "UDC": 1, "total": 5}, {"enjeu": "FERTILISATION", "VALPRIM": 1, "CADRALBRET": 1, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 0, "CRAU": 0, "UDC": 0, "total": 2}, {"enjeu": "DEVELOPPEMENT", "VALPRIM": 2, "CADRALBRET": 2, "PERRINOTS": 0, "AGRISUD": 0, "PARDI": 1, "CRAU": 0, "UDC": 1, "total": 5}, {"enjeu": "BIODIVERSITE", "VALPRIM": 1, "CADRALBRET": 1, "PERRINOTS": 0, "AGRISUD": 2, "PARDI": 1, "CRAU": 2, "UDC": 1, "total": 7}], "disruptifs": [{"t": "Éclairage photosynthétique (LED, HPS, hybride)", "p": "Aicha Id M Hamed + Florent Blanc"}, {"t": "NGT — Nouvelles techniques génomiques", "p": "Florentin Boiziot"}, {"t": "IA & robotique agricole", "p": "Aicha Id M Hamed"}, {"t": "Collecte & utilisation de la data producteurs", "p": "Aicha Id M Hamed + DSI UDC"}]}</script>
@@ -544,6 +618,10 @@ async function handleLogout() {
   await sbClient.auth.signOut();
   currentUser = null;
   currentUserRole = null;
+  roleReel = null; apercuTechnicien = false; document.getElementById('bandeauApercu').hidden = true;
+  conversation = []; try{ sessionStorage.removeItem('it_assistant'); }catch(_){}
+  document.getElementById('panneauAssistant').hidden = true;
+  const btnA = document.getElementById('btnAssistant'); if(btnA) btnA.hidden = false;
   document.getElementById('loginPage').style.display = 'flex';
   document.getElementById('appPage').style.display = 'none';
   // Vider les champs
@@ -557,11 +635,27 @@ async function showApp() {
   document.getElementById('userNom').textContent = currentUser?.email || 'Équipe technique';
   await charger();
   document.getElementById('modeStockage').textContent = modeLocal ? 'Stockage local (table Supabase absente)' : '';
+  roleReel = currentUserRole; apercuTechnicien = false;
+  document.getElementById('btnApercu').hidden = roleReel !== 'ADMIN';
+  document.getElementById('bandeauApercu').hidden = true;
   renderAll();
   bâtirNav();
   vueProfil();
   if(currentUserRole === 'ADMIN') vueAdmin();
   aller('cartographie'); // Toujours commencer par le premier onglet
+}
+
+/* Aperçu « technicien » pour les admins : même app, avec le rôle EDITOR, sans se déconnecter */
+let roleReel = null, apercuTechnicien = false;
+function basculerApercu(){
+  if(roleReel !== 'ADMIN') return;
+  apercuTechnicien = !apercuTechnicien;
+  currentUserRole = apercuTechnicien ? 'EDITOR' : roleReel;
+  document.getElementById('bandeauApercu').hidden = !apercuTechnicien;
+  document.getElementById('btnApercu').textContent = apercuTechnicien ? '👁 Vue admin' : '👁 Voir comme technicien';
+  const vue = document.querySelector('.vue.on')?.id.slice(2) || 'cartographie';
+  renderAll(); bâtirNav(); vueProfil();
+  aller(vue==='admin' && apercuTechnicien ? 'cartographie' : vue);
 }
 
 // ========== INIT ==========
@@ -580,6 +674,8 @@ async function initAuth() {
 initAuth();
 
 const D = JSON.parse(document.getElementById('donnees').textContent);
+// L'Excel classe certains enjeux « À renforcer » : l'app les présente comme « Transversal ».
+[...D.enjeux, ...D.indicateurs].forEach(x=>{ if(x.type==='À renforcer') x.type='Transversal'; });
 const OPS = ['UDC','VALPRIM','CADRALBRET','PERRINOTS','AGRISUD','PARDI','CRAU'];
 const STRUCTS = [...OPS,'EXTERNE'];
 const ANNEES = [2025,2026,2027,2028,2029,2030];
@@ -727,10 +823,11 @@ document.addEventListener('input', e=>{
 });
 
 /* ============ Règles de couverture ============ */
-function niveauUDC(n){ return n===0?0 : n<=2?1 : n<=4?2 : 3; }
-function niveauOP(n){ return n===0?0 : n===1?2 : 3; }
-const LIB = ['Rupture','Insuffisant','Convenable','Sécurisé'];
-function niveau(struct,n){ return struct==='UDC' ? niveauUDC(n) : niveauOP(n); }
+// Seules les OP sont évaluées ; l'UDC et les totaux n'ont pas de niveau.
+function niveauOP(n){ return n===0?0 : n===1?1 : 2; }   // rouge · orange · vert
+const LIB = ['Rupture','Convenable','Sécurisé'];
+const OPS_EVALUEES = OPS.filter(o=>o!=='UDC');
+function niveau(struct,n){ return struct==='UDC' ? null : niveauOP(n); }
 function nbExperts(nom,st){ return ((enjeuD(nom).structures.find(x=>x.s===st))||{e:[]}).e.length; }
 function totalInterne(nom){ return OPS.reduce((a,o)=>a+nbExperts(nom,o),0); }
 
@@ -759,7 +856,7 @@ function renderAll(){
 /* ============ 01 · Cartographie (lecture seule, données Excel) ============ */
 /* Années présentes dans l'Excel : colonnes « Actions / Livrables 2025 » et « 2026 » */
 const ANNEES_EXCEL = {2025:'a25', 2026:'a26'};
-let anCarto = 2026, filtreType='Tous', filtreTexte='', enjeuActif=null;
+let anCarto = 2026, enjeuActif = null;
 const PILIERS = [
   ['Expérimentation','Essais variétés, itinéraires, protection biologique'],
   ['Veille','Ravageurs, normes phyto & environnement, alertes'],
@@ -784,7 +881,7 @@ function barreAnneeCarto(){
 }
 
 function vueCartographie(){
-  const el = document.getElementById('v-cartographie');
+  const el = document.getElementById('v-cartographie'), adm = estAdmin();
   el.innerHTML = `
   <div class="entete">
     <div class="eyebrow">01 — Cartographie</div>
@@ -800,83 +897,89 @@ function vueCartographie(){
     <div class="inst-retour">⤴ Retours terrain : besoins et résultats des producteurs remontent vers l'Institut</div>
   </div>
 
-  <h3 class="titre-section">Les enjeux de l'Institut</h3>
-  <p class="intro">Chaque enjeu est un objectif technique partagé par toutes les OP, avec des experts positionnés, des actions
+  <h3 class="titre-section" id="ancreEnjeux">Les enjeux de l'Institut</h3>
+  <p class="intro">Chaque enjeu est un objectif technique partagé par toutes les OP, avec des référents positionnés, des actions
   annuelles et des indicateurs. Les <b>enjeux stratégiques</b> sont portés par une commission (variétale, sanitaire, agro-tech)
-  et mobilisent toutes les OP. Les <b>enjeux à renforcer</b> suivent la règle d'équité : chaque OP y positionne des experts
-  au prorata de sa production. Touchez un enjeu pour ouvrir sa fiche.</p>
-  ${['Stratégique','À renforcer'].map(t=>`<div class="bande-enjeux">
-    <div class="bande-lib">${t==='Stratégique'?'Enjeux stratégiques':'Enjeux à renforcer'}</div>
-    <div class="cartes-enjeux">${D.enjeux.filter(e=>e.type===t).map(e=>`
-      <button class="carte-enjeu" data-enjeu="${h(e.nom)}"><span class="t"><span class="ico">${icoEnjeu(e.nom)}</span>${libEnjeu(e.nom)}</span>
-      <p>${h(e.objectif)}</p></button>`).join('')}</div></div>`).join('')}
+  et mobilisent toutes les OP. Les <b>enjeux transversaux</b> concernent toutes les filières et suivent la règle d'équité : chaque OP y positionne des référents
+  au prorata de sa production. Cliquez sur un enjeu pour voir ses référents et ses actions.</p>
+  ${['Stratégique','Transversal'].map(t=>{ const l=D.enjeux.filter(e=>e.type===t);
+    // une ligne jusqu'à 5 enjeux, sinon deux lignes égales (8 → 4 + 4)
+    return `<div class="bande-enjeux">
+    <div class="bande-lib">${t==='Stratégique'?'Enjeux stratégiques':'Enjeux transversaux'}</div>
+    <div class="cartes-enjeux" style="--cols:${l.length<=5?l.length:Math.ceil(l.length/2)}">${l.map(boutonEnjeu).join('')}</div></div>`; }).join('')}
 
-  <h3 class="titre-section" id="ancreSuivi">Suivi annuel : experts, actions, couverture</h3>
-  <p class="intro">Affichage des données du fichier Excel « Cartographie Institut Technique 25-30 », en lecture seule.
+  <h3 class="titre-section" id="ancreSuivi">Suivi annuel</h3>
+  <p class="intro">Données du fichier Excel « Cartographie Institut Technique 25-30 », en lecture seule.
   Faites glisser le curseur pour passer d'une année à l'autre et comparer.</p>
   ${barreAnneeCarto()}
-  ${ANNEES_EXCEL[anCarto] ? contenuAnnee() : `<div class="carte"><h3>${anCarto} n'est pas encore dans l'Excel</h3>
+  ${ANNEES_EXCEL[anCarto] ? contenuAnnee(adm) : `<div class="carte"><h3>${anCarto} n'est pas encore dans l'Excel</h3>
     <p class="aide" style="margin:0">Les actions de ${anCarto} apparaîtront ici quand le fichier Excel aura sa colonne ${anCarto}.</p></div>`}`;
-  if(ANNEES_EXCEL[anCarto] && !enjeuActif) listerEnjeux();
 }
 
-function contenuAnnee(){
+/* Bouton d'enjeu : ouvre la fiche de l'enjeu plus bas dans la page */
+function boutonEnjeu(e){
+  const l = actionsDe(e, anCarto), nRef = e.structures.filter(s=>s.s!=='EXTERNE').reduce((a,s)=>a+s.e.length,0);
+  return `<button class="carte-enjeu ${enjeuActif===e.nom?'active':''}" data-enjeu="${h(e.nom)}" aria-pressed="${enjeuActif===e.nom}">
+    <span class="t"><span class="ico">${icoEnjeu(e.nom)}</span>${libEnjeu(e.nom)}</span>
+    <p>${h(e.objectif)}</p>
+    <span class="pied"><span>${nRef} référent${nRef>1?'s':''}${l?` · ${l.length} action${l.length>1?'s':''} ${anCarto}`:''}</span><b>Voir →</b></span>
+  </button>`;
+}
+
+function contenuAnnee(adm){
   const actions = D.enjeux.flatMap(e=>actionsDe(e,anCarto));
   const prec = ANNEES_EXCEL[anCarto-1] ? D.enjeux.flatMap(e=>actionsDe(e,anCarto-1)).length : null;
   const positions = D.enjeux.reduce((s,e)=>s+totalInterne(e.nom),0);
   const noms = new Set(D.enjeux.flatMap(e=>e.structures.filter(s=>s.s!=='EXTERNE').flatMap(s=>s.e)));
-  const ruptures = D.enjeux.filter(e=>OPS.some(o=>nbExperts(e.nom,o)===0)).length;
+  const ruptures = D.enjeux.filter(e=>OPS_EVALUEES.some(o=>nbExperts(e.nom,o)===0)).length;
   const ecart = prec===null ? '' : ` <small style="font-size:12px;color:var(--ardoise)">${actions.length-prec>=0?'+':''}${actions.length-prec} vs ${anCarto-1}</small>`;
   return `
   <div class="stats">
     <div class="stat"><b>${D.enjeux.length}</b><span>Enjeux</span></div>
-    <div class="stat"><b>${noms.size}</b><span>Experts internes</span></div>
+    <div class="stat"><b>${noms.size}</b><span>Référents internes</span></div>
     <div class="stat"><b>${positions}</b><span>Positionnements</span></div>
     <div class="stat"><b>${actions.length}${ecart}</b><span>Actions ${anCarto}</span></div>
     <div class="stat"><b>${actions.filter(x=>x.r==='Effectué').length}</b><span>Effectuées</span></div>
-    <div class="stat"><b>${ruptures}</b><span>Enjeux avec rupture</span></div>
+    ${adm?`<div class="stat"><b>${ruptures}</b><span>Enjeux avec rupture</span></div>`:''}
   </div>
 
-  <div class="grille-wrap">
-    <div class="grille-tete"><h3>Grille de couverture</h3>
-      <span class="aide">Nombre d'experts positionnés (liste unique dans l'Excel) · touchez un enjeu pour l'ouvrir</span></div>
+  ${adm ? `<div class="grille-wrap">
+    <div class="grille-tete"><h3>Grille de couverture</h3><span class="tag strat">Visible par les administrateurs</span>
+      <span class="aide">Nombre de référents positionnés (liste unique dans l'Excel) · cliquez sur un enjeu pour l'ouvrir</span></div>
     <div class="grille-scroll"><table class="grille">
       <thead><tr><th>Enjeu</th>${OPS.map(o=>`<th>${o}</th>`).join('')}<th>Total</th></tr></thead>
       <tbody>
         <tr><td class="bande" colspan="${OPS.length+2}">Enjeux collectifs stratégiques — commissions</td></tr>
         ${ligneMatrice('Stratégique')}
-        <tr><td class="bande" colspan="${OPS.length+2}">Enjeux à renforcer — règle d'équité applicable</td></tr>
-        ${ligneMatrice('À renforcer')}
+        <tr><td class="bande" colspan="${OPS.length+2}">Enjeux transversaux — règle d'équité applicable</td></tr>
+        ${ligneMatrice('Transversal')}
       </tbody></table></div>
     <div class="legende">
-      <span><i class="puce n0"></i>Rupture — 0</span><span><i class="puce n1"></i>Insuffisant — 1-2 (UDC)</span>
-      <span><i class="puce n2"></i>Convenable — 3-4 UDC / 1 OP</span><span><i class="puce n3"></i>Sécurisé — &gt;4 UDC / ≥2 OP</span>
+      <span><i class="puce n0"></i>Rupture — 0 référent</span><span><i class="puce n1"></i>Convenable — 1</span>
+      <span><i class="puce n2"></i>Sécurisé — 2 ou plus</span><span><i class="puce neutre"></i>UDC et total : nombre de référents, sans évaluation</span>
     </div>
   </div>
+  <div class="note"><b>Règle d'équité (enjeux transversaux) :</b> 1 positionnement par 6 000 T de production de l'OP —
+  minimum 1 / maximum 2 enjeux par technicien. Cible UDC : 20 positionnements pour 8 enjeux transversaux.</div>` : ''}
 
   ${blocEvolution()}
 
-  <div class="onglets-com onglets-enjeux no-print">
-    <button class="chip" data-ouvre="" aria-pressed="${!enjeuActif}">Vue d'ensemble</button>
-    ${D.enjeux.map(e=>`<button class="chip" data-ouvre="${h(e.nom)}" aria-pressed="${enjeuActif===e.nom}">${icoEnjeu(e.nom)} ${libEnjeu(e.nom)}</button>`).join('')}
-  </div>
-  <div id="zoneEnjeu">${enjeuActif ? pageEnjeu(enjeuActif) : vueEnsemble()}</div>
-
-  <div class="note"><b>Règle d'équité (enjeux à renforcer) :</b> 1 positionnement par 6 000 T de production de l'OP —
-  minimum 1 / maximum 2 enjeux par technicien. Cible UDC : 20 positionnements pour 8 enjeux à renforcer.</div>`;
+  <div id="zoneEnjeu">${enjeuActif ? pageEnjeu(enjeuActif, adm)
+    : `<div class="carte invite-enjeu">👆 Cliquez sur un enjeu plus haut pour afficher ici ses référents, ses actions ${anCarto} et ses indicateurs.</div>`}</div>`;
 }
 
-/* Évolution des actions d'une année à l'autre (toutes les années de l'Excel) */
+/* Récapitulatif : actions par enjeu et par année (toutes les années de l'Excel) */
 function blocEvolution(){
   const ans = Object.keys(ANNEES_EXCEL).map(Number);
   const cellule = (e,an) => { const l=actionsDe(e,an);
     const f=l.filter(a=>a.r==='Effectué').length, p=l.filter(a=>a.r==='Partiel').length, n=l.filter(a=>a.r==='Non Effectué').length;
     return `<b>${l.length}</b>${f+p+n?` <span class="cible">· ${f} effectuée${f>1?'s':''} · ${p} partielle${p>1?'s':''} · ${n} non effectuée${n>1?'s':''}</span>`:''}`; };
-  return `<div class="carte"><h3>Évolution des actions par année</h3>
-    <p class="aide">Nombre d'actions inscrites par enjeu et, quand l'Excel le renseigne, leur réalisation.</p>
+  return `<div class="carte"><h3>Récapitulatif des actions par année</h3>
+    <p class="aide">Nombre d'actions inscrites par enjeu et, quand l'Excel le renseigne, leur réalisation. Cliquez sur un enjeu pour l'ouvrir.</p>
     <div class="tableau" style="border:0"><table class="data" style="min-width:620px">
-      <thead><tr><th>Enjeu</th>${ans.map(a=>`<th class="${a===anCarto?'':''}">${a}</th>`).join('')}</tr></thead>
-      <tbody>${D.enjeux.map(e=>`<tr><td>${icoEnjeu(e.nom)} ${e.nom}</td>${ans.map(a=>`<td ${a===anCarto?'style="background:#FCFBF8"':''}>${cellule(e,a)}</td>`).join('')}</tr>`).join('')}</tbody>
+      <thead><tr><th>Enjeu</th>${ans.map(a=>`<th>${a}</th>`).join('')}</tr></thead>
+      <tbody>${D.enjeux.map(e=>`<tr><td><button class="lien-enjeu" data-ouvre="${h(e.nom)}">${icoEnjeu(e.nom)} ${e.nom}</button></td>
+        ${ans.map(a=>`<td ${a===anCarto?'style="background:#FCFBF8"':''}>${cellule(e,a)}</td>`).join('')}</tr>`).join('')}</tbody>
     </table></div></div>`;
 }
 
@@ -885,88 +988,61 @@ function ligneMatrice(type){
     const tot = totalInterne(e.nom);
     return `<tr><th><button data-ouvre="${h(e.nom)}">${icoEnjeu(e.nom)} ${e.nom}</button></th>
       ${OPS.map(o=>{ const n=nbExperts(e.nom,o), niv=niveau(o,n);
-        return `<td><span class="tuile n${niv}" title="${o} · ${LIB[niv]}">${n}</span></td>`;}).join('')}
-      <td><span class="tuile n${niveauUDC(tot)}">${tot}</span></td></tr>`;
+        return `<td>${niv===null ? `<span class="tuile neutre" title="${o}">${n}</span>`
+          : `<span class="tuile n${niv}" title="${o} · ${LIB[niv]}">${n}</span>`}</td>`;}).join('')}
+      <td><span class="tuile neutre">${tot}</span></td></tr>`;
   }).join('');
 }
 
-function vueEnsemble(){
-  return `<div class="filtres">
-    ${['Tous','Stratégique','À renforcer'].map(t=>`<button class="chip" data-type="${t}" aria-pressed="${t===filtreType}">${t}</button>`).join('')}
-    <div class="recherche"><input type="search" id="rechEnjeu" placeholder="Chercher un enjeu, un expert, une action…" value="${h(filtreTexte)}"></div>
-  </div><div id="listeEnjeux"></div>`;
-}
-function listerEnjeux(){
-  const zone = document.getElementById('listeEnjeux'); if(!zone) return;
-  const q = filtreTexte.toLowerCase();
-  const liste = D.enjeux.filter(e=>{
-    if(filtreType!=='Tous' && e.type!==filtreType) return false;
-    if(!q) return true;
-    return (e.nom+' '+libEnjeu(e.nom)+' '+e.objectif+' '+e.animations+' '+e.structures.map(s=>s.e.join(' ')).join(' ')+' '+
-      actionsDe(e,anCarto).map(a=>a.a+' '+a.p).join(' ')).toLowerCase().includes(q);
-  });
-  zone.innerHTML = liste.length ? liste.map(e=>{
-    const l=actionsDe(e,anCarto), tot=totalInterne(e.nom), niv=niveauUDC(tot);
-    return `<article class="enjeu ${e.type==='À renforcer'?'renfort':''}">
-      <button class="enjeu-tete" data-ouvre="${h(e.nom)}"><span class="barre"></span>
-        <span style="flex:1"><span style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
-          <h3>${icoEnjeu(e.nom)} ${e.nom}</h3><span class="tag ${e.type==='Stratégique'?'strat':'renf'}">${e.type}</span></span>
-          <p>${h(e.objectif)}</p></span>
-        <span class="enjeu-meta"><span class="cible">${l.length} actions ${anCarto}</span>
-          <span class="score n${niv}">${tot} exp. · ${LIB[niv]}</span><span class="chevron">▶</span></span>
-      </button></article>`;
-  }).join('') : `<div class="carte"><p class="aide" style="margin:0">Aucun enjeu ne correspond à « ${h(filtreTexte)} ».</p></div>`;
-}
-
-function pageEnjeu(nom){
-  const e = enjeuD(nom), tot = totalInterne(nom), niv = niveauUDC(tot), l = actionsDe(e,anCarto);
+/* Fiche d'un enjeu. L'évaluation (niveaux, score) n'apparaît que pour les administrateurs. */
+function pageEnjeu(nom, adm){
+  const e = enjeuD(nom), tot = totalInterne(nom), l = actionsDe(e,anCarto);
+  const i = D.enjeux.indexOf(e), prec = D.enjeux[(i-1+D.enjeux.length)%D.enjeux.length], suiv = D.enjeux[(i+1)%D.enjeux.length];
   const ext = e.structures.find(s=>s.s==='EXTERNE');
-  return `<article class="enjeu ouvert ${e.type==='À renforcer'?'renfort':''}">
+  return `<div class="nav-enjeu no-print">
+      <button class="btn sec" data-retour-enjeux>↑ Tous les enjeux</button>
+      <span style="flex:1"></span>
+      <button class="btn sec" data-enjeu="${h(prec.nom)}">← ${libEnjeu(prec.nom)}</button>
+      <button class="btn sec" data-enjeu="${h(suiv.nom)}">${libEnjeu(suiv.nom)} →</button>
+    </div>
+    <article class="enjeu ouvert ${e.type==='Transversal'?'renfort':''}">
     <div class="enjeu-tete" style="cursor:default"><span class="barre"></span>
       <span style="flex:1"><span style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
         <h3>${icoEnjeu(nom)} ${nom}</h3><span class="tag ${e.type==='Stratégique'?'strat':'renf'}">${e.type}</span></span>
         <p>${h(e.objectif)}</p></span>
-      <span class="enjeu-meta"><span class="score n${niv}">${tot} exp. · ${LIB[niv]}</span></span>
+      <span class="enjeu-meta"><span class="score neutre">${tot} référent${tot>1?'s':''}</span></span>
     </div>
     <div class="enjeu-corps">
       ${e.animations?`<div class="sous">Animation</div><p style="margin:0;font-size:13.5px">${h(e.animations).replace(/\n/g,' · ')}</p>`:''}
-      <div class="sous">Experts positionnés &amp; couverture</div>
+      <div class="sous">Référents par OP</div>
       ${OPS.map(s=>{ const p=(e.structures.find(x=>x.s===s)||{e:[]}).e, n=p.length, nv=niveau(s,n);
-        return `<div class="struct"><span class="nom">${s}</span>
-          <span class="${n?'liste':'vide'}">${n?p.map(h).join(' · '):'Aucun expert positionné'}</span>
-          <span class="badge n${nv}">${LIB[nv]}</span></div>`; }).join('')}
+        const evalue = adm && s!=='UDC';   // pas de niveau pour les référents UDC
+        return `<div class="struct ${evalue?'':'sans-eval'}"><span class="nom">${s}</span>
+          <span class="${n?'liste':'vide'}">${n?p.map(h).join(' · '):'Aucun référent positionné'}</span>
+          ${evalue?`<span class="badge n${nv}">${LIB[nv]}</span>`:''}</div>`; }).join('')}
       <div class="sous">Expertise externe mobilisable</div>
       <p style="margin:0;font-size:13.5px">${ext && ext.e.length ? ext.e.map(h).join(' · ') :
-        '<span style="color:var(--ardoise)">À identifier — priorité si l\'enjeu est en rupture ou insuffisant.</span>'}</p>
+        '<span style="color:var(--ardoise)">Non renseignée.</span>'}</p>
       <div class="sous">Actions &amp; livrables ${anCarto} — ${l.length}</div>
       ${l.length ? l.map(a=>`<div class="action"><span class="txt">${h(a.a)}<span class="pilote">Pilote : ${h(a.p)||'—'}</span></span>
         <span class="etat ${CL_STATUT[statutLib(a.r)]||''}">${h(statutLib(a.r))}</span></div>`).join('')
         : '<p style="margin:0;color:var(--ardoise);font-size:13px">Aucune action inscrite.</p>'}
-      ${e.i25.length?`<div class="sous">Indicateurs suivis</div><ul class="ind-liste">${e.i25.map(i=>`<li>${h(i)}</li>`).join('')}</ul>`:''}
+      ${e.i25.length?`<div class="sous">Indicateurs suivis</div><ul class="ind-liste">${e.i25.map(x=>`<li>${h(x)}</li>`).join('')}</ul>`:''}
     </div></article>`;
 }
 
 (function brancherCartographie(){
   const el = document.getElementById('v-cartographie');
+  const ouvrir = nom => { enjeuActif = nom; vueCartographie();
+    document.getElementById('zoneEnjeu')?.scrollIntoView({behavior:'smooth', block:'start'}); };
   el.addEventListener('click', e=>{
-    const t = e.target.closest('[data-enjeu],[data-ouvre],[data-type],[data-an-c]');
+    const t = e.target.closest('[data-enjeu],[data-ouvre],[data-an-c],[data-retour-enjeux]');
     if(!t) return;
-    if(t.dataset.anC){ anCarto=+t.dataset.anC; vueCartographie(); document.getElementById('ancreSuivi').scrollIntoView(); return; }
-    if(t.dataset.enjeu!==undefined){
-      enjeuActif = t.dataset.enjeu; vueCartographie();
-      document.getElementById('zoneEnjeu')?.scrollIntoView({behavior:'smooth'}); return;
-    }
-    if(t.dataset.ouvre!==undefined){
-      const depuisListe = !!t.closest('#listeEnjeux, table.grille');
-      enjeuActif = t.dataset.ouvre || null; vueCartographie();
-      if(depuisListe && enjeuActif) document.getElementById('zoneEnjeu').scrollIntoView({behavior:'smooth'});
-      return;
-    }
-    if(t.dataset.type){ filtreType=t.dataset.type;
-      el.querySelectorAll('[data-type]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.type===filtreType)); listerEnjeux(); }
+    if(t.dataset.anC){ anCarto=+t.dataset.anC; vueCartographie(); document.getElementById('ancreSuivi').scrollIntoView(); }
+    else if(t.dataset.retourEnjeux!==undefined){ document.getElementById('ancreEnjeux').scrollIntoView({behavior:'smooth'}); }
+    else ouvrir(t.dataset.enjeu ?? t.dataset.ouvre);
   });
   el.addEventListener('input', e=>{
-    if(e.target.id==='rechEnjeu'){ filtreTexte=e.target.value; listerEnjeux(); }
     if(e.target.matches('[data-an-carto]')) el.querySelector('.an-courant').textContent = e.target.value;
   });
   el.addEventListener('change', e=>{
@@ -1730,7 +1806,7 @@ function vueAnnuaire(){
   <div class="experts">${liste.map(e=>`
     <div class="expert ${e.enj.length>=5?'alerte':''}"><h4>${h(e.nom)}</h4><div class="st">${e.struct}</div>
       <div class="enj">${e.enj.join(', ')||'<span style="color:var(--ardoise)">Aucun positionnement</span>'}</div>
-      <div class="compte"><span>${e.enj.length} positionnements</span><span>${e.renf} à renforcer</span></div>
+      <div class="compte"><span>${e.enj.length} positionnements</span><span>${e.renf} transversa${e.renf>1?"ux":"l"}</span></div>
       ${e.enj.length>=5?'<div style="font-size:11px;color:var(--rouge);margin-top:6px">Sur-positionnement — risque de dilution</div>':''}
     </div>`).join('')}</div>`;
   el.querySelectorAll('[data-str]').forEach(b=>b.onclick=()=>{ filtreStruct=b.dataset.str; vueAnnuaire(); });
@@ -1750,6 +1826,72 @@ function vueAnnuaire(){
     contactEdite=null; sauver('contacts'); vueAnnuaire();
   };
 }
+
+/* ============ Assistant (fonction Supabase « assistant ») ============ */
+// Désactivé : l'assistant passera par l'environnement Microsoft (Copilot). Mettre true pour le réactiver
+// (il faut alors le secret ANTHROPIC_API_KEY dans Supabase).
+const ASSISTANT_ACTIF = false;
+if(!ASSISTANT_ACTIF) document.getElementById('btnAssistant').remove();
+const SUGGESTIONS = [
+  'Qui est expert en sanitaire chez VALPRIM ?',
+  'Qu\'est-ce qui a été détecté sur le site de Nérac depuis septembre ?',
+  'Quels producteurs ZRP sont en risque de sortie ?',
+  'Où en sont les actions 2025 de l\'enjeu Eau et Climat ?'
+];
+let conversation = [], enAttente = false;
+try{ conversation = JSON.parse(sessionStorage.getItem('it_assistant')||'[]'); }catch(_){ conversation = []; }
+
+/* Mise en forme légère des réponses : paragraphes, listes « - », **gras**, liens */
+function mdLeger(texte){
+  const fmt = s => s.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')
+    .replace(/(https?:\/\/[^\s<)]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+  let html='', liste=false;
+  h(texte).split('\n').forEach(l=>{
+    const m = l.match(/^\s*[-•*]\s+(.*)/);
+    if(m){ if(!liste){ html+='<ul>'; liste=true; } html+=`<li>${fmt(m[1])}</li>`; }
+    else { if(liste){ html+='</ul>'; liste=false; } if(l.trim()) html+=`<p>${fmt(l)}</p>`; }
+  });
+  return html + (liste?'</ul>':'');
+}
+function afficherConversation(erreur){
+  const fil = document.getElementById('filAssistant');
+  fil.innerHTML = (conversation.length ? '' : `<div class="bulle ia"><p>Bonjour ! Je réponds à partir des données de l'Institut :
+      enjeux, experts, actions, indicateurs, réunions hebdo, ZRP, commissions et annuaire.</p></div>
+      <div class="assistant-suggestions"><p>Par exemple :</p>${SUGGESTIONS.map(s=>`<button data-suggestion="${h(s)}">${h(s)}</button>`).join('')}</div>`)
+    + conversation.map(m=>`<div class="bulle ${m.role==='user'?'moi':'ia'}">${m.role==='user'?h(m.content):mdLeger(m.content)}</div>`).join('')
+    + (enAttente ? '<div class="bulle ia attente">Je cherche dans les données…</div>' : '')
+    + (erreur ? `<div class="bulle erreur">${h(erreur)}</div>` : '');
+  fil.scrollTop = fil.scrollHeight;
+  try{ sessionStorage.setItem('it_assistant', JSON.stringify(conversation)); }catch(_){}
+}
+async function demanderAssistant(question){
+  question = question.trim(); if(!question || enAttente) return;
+  conversation.push({role:'user', content:question}); enAttente = true; afficherConversation();
+  let erreur = null;
+  try{
+    const { data, error } = await sbClient.functions.invoke('assistant', { body:{ messages:conversation } });
+    if(error){
+      erreur = 'L\'assistant ne répond pas pour le moment.';
+      try{ const j = await error.context.json(); if(j.erreur) erreur = j.erreur; }catch(_){}
+    } else conversation.push({role:'assistant', content:data.reponse});
+  }catch(e){ console.error(e); erreur = 'Connexion impossible avec l\'assistant.'; }
+  if(erreur){ // on retire la question pour pouvoir la renvoyer telle quelle
+    conversation.pop(); document.getElementById('questionAssistant').value = question; }
+  enAttente = false; afficherConversation(erreur);
+}
+(function brancherAssistant(){
+  if(!ASSISTANT_ACTIF) return;
+  const btn = document.getElementById('btnAssistant'), panneau = document.getElementById('panneauAssistant');
+  const champ = document.getElementById('questionAssistant');
+  const basculer = ouvrir => { panneau.hidden = !ouvrir; btn.hidden = ouvrir; btn.setAttribute('aria-expanded', ouvrir);
+    if(ouvrir){ afficherConversation(); champ.focus(); } };
+  btn.onclick = () => basculer(true);
+  panneau.querySelector('[data-fermer]').onclick = () => basculer(false);
+  panneau.querySelector('[data-vider]').onclick = () => { if(enAttente) return; conversation = []; afficherConversation(); champ.focus(); };
+  document.getElementById('filAssistant').onclick = e => { const s = e.target.closest('[data-suggestion]'); if(s) demanderAssistant(s.dataset.suggestion); };
+  document.getElementById('formAssistant').onsubmit = e => { e.preventDefault(); const q = champ.value; champ.value = ''; demanderAssistant(q); };
+  champ.onkeydown = e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); document.getElementById('formAssistant').requestSubmit(); } };
+})();
 
 /* ============ Export Excel ============ */
 function exporterExcel(){
