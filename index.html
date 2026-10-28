@@ -1124,6 +1124,8 @@ function vueHebdo(){
     <button class="chip" data-hsem="0">Semaine en cours</button>
     <span style="flex:1"></span>
     <button class="btn sec" data-retour-reu>← Réunions</button>
+    ${adm && (dets.some(d=>d.demo) || S.zrp.some(p=>p.demo) || (S.hebdo.volumesDemo||[]).length)
+      ? '<button class="btn sec" data-rm-demo title="Efface les données d\'exemple (détections, volumes, ZRP)">Supprimer les exemples</button>' : ''}
     <button class="btn sec" onclick="window.print()">🖨 Imprimer</button>
     <button class="btn" onclick="telechargerPdfHebdo(this)">⬇ Télécharger en PDF</button>
   </div>
@@ -1263,6 +1265,13 @@ async function telechargerPdfHebdo(bouton){
     if(ds.hsem!==undefined){ const v=+ds.hsem; if(v<0) semainePrec(); else if(v>0) semaineSuiv();
       else { semaine=numSemaine(new Date()); anReu=new Date().getFullYear(); } vueHebdo(); vueReunions(); return; }
     if(ds.retourReu!==undefined){ aller('reunions'); return; }
+    if(ds.rmDemo!==undefined && estAdmin()){
+      if(!confirm('Supprimer toutes les données d\'exemple de la réunion hebdo ? Les vraies saisies sont conservées.')) return;
+      S.hebdo.detections = S.hebdo.detections.filter(d=>!d.demo);
+      (S.hebdo.volumesDemo||[]).forEach(k=>delete S.hebdo.volumes[k]); S.hebdo.volumesDemo = [];
+      S.zrp = S.zrp.filter(p=>!p.demo);
+      sauver('hebdo'); sauver('zrp'); vueHebdo(); return;
+    }
     if(ds.addEsp!==undefined && estAdmin()){ const v=el.querySelector('#nvEspece').value.trim();
       if(v && !S.hebdo.especes.includes(v)){ S.hebdo.especes.push(v); maj('hebdo'); } return; }
     if(ds.rmEsp && estAdmin()){ if(confirm(`Retirer « ${ds.rmEsp} » de la liste ? Les volumes déjà saisis restent dans l'historique.`)){
