@@ -392,14 +392,30 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .expert .ligne{font-size:12px;margin-top:3px}
 .expert .actions-c{display:flex;gap:4px;margin-top:8px}
 
-/* ---------- v3 · Export PDF (même rendu que l'impression) ---------- */
-.export-pdf #v-hebdo{background:#fff;padding:4px}
-.export-pdf #v-hebdo .no-print{display:none!important}
-.export-pdf #v-hebdo .print-only{display:block}
-.export-pdf #v-hebdo select,.export-pdf #v-hebdo input,.export-pdf #v-hebdo textarea{border:0!important;-webkit-appearance:none;appearance:none;resize:none}
-.export-pdf #v-hebdo .tableau{overflow:visible}
-.export-pdf #v-hebdo ::placeholder{color:transparent}
-.export-pdf #v-hebdo table.data{min-width:0}
+/* ---------- v3 · Rapport réunion hebdo (impression + PDF, largeur A4) ---------- */
+.rapport-hebdo{display:none}
+.rapport-pdf{position:absolute;left:-10000px;top:0;width:718px}
+.rapport{background:#fff;color:#16211D;font-family:'Public Sans',system-ui,sans-serif;font-size:10.5px;line-height:1.4;width:100%;padding-right:2px}
+.rapport .r-tete{border-bottom:2px solid #16211D;padding-bottom:8px;margin-bottom:6px}
+.rapport h1{font-family:'Archivo',sans-serif;font-size:22px;margin:3px 0 1px}
+.rapport .r-tete p{margin:0;color:#68746D;font-family:'IBM Plex Mono',monospace;font-size:10px}
+.rapport h2{font-family:'Archivo',sans-serif;font-size:13.5px;margin:16px 0 6px;padding-top:4px}
+.rapport h2 span{color:#C3122F;font-family:'IBM Plex Mono',monospace;margin-right:7px}
+.rapport h3{font-size:11.5px;margin:12px 0 5px;color:#20302A}
+.rapport table{width:100%;border-collapse:collapse;table-layout:fixed}
+.rapport th{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:#68746D;
+  text-align:left;padding:5px 6px;border-bottom:1px solid #D8DDD6;background:#F6F4EE}
+.rapport td{padding:5px 6px;border-bottom:1px solid #ECEAE3;vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere}
+.rapport tr{page-break-inside:avoid;break-inside:avoid}
+.rapport tr.r-groupe td{background:#EDEAE1;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 6px}
+.rapport .tend,.rapport .risque{font-size:9px;padding:2px 6px}
+.rapport .r-gris{color:#68746D}
+.rapport .r-vide{color:#68746D;margin:0;font-style:italic}
+.rapport table.r-courbes{margin-top:6px}
+.rapport table.r-courbes td{border:0;padding:4px 4px 4px 0;width:50%}
+.rapport .r-courbe{border:1px solid #D8DDD6;padding:6px 8px;page-break-inside:avoid;break-inside:avoid}
+.rapport .r-courbe img{display:block;width:100%;height:auto;margin-top:4px}
+.rapport .r-pied{margin-top:16px;color:#68746D;font-size:9px;border-top:1px solid #D8DDD6;padding-top:5px}
 
 /* ---------- v3 · Impression ---------- */
 @media print{
@@ -413,6 +429,9 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
   ::placeholder{color:transparent}
   .tableau{overflow:visible} table.data{min-width:0}
   details.histo:not([open]) ul{display:block}
+  @page{size:A4;margin:10mm}
+  #v-hebdo .hebdo-ecran{display:none!important}
+  #v-hebdo .rapport-hebdo{display:block!important}
 }
 </style>
 </head>
@@ -1079,10 +1098,10 @@ function graphDynamique(d, Wmax){
   let chemin=''; pts.forEach((q,i)=>{ const X=x(seqSem(q.w)).toFixed(1), Y=y(q.n).toFixed(1);
     chemin += i ? `H${X}V${Y}` : `M${X},${Y}`; });
   const pas = Math.max(1, Math.ceil((s1-s0)/6)), ticks=[]; for(let s=s0; s<=s1; s+=pas) ticks.push(s);
-  return `<svg viewBox="0 0 ${larg} ${haut}" role="img" aria-label="Niveau de risque semaine par semaine : ${h(d.defaut)}" style="width:100%;height:auto;display:block">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${larg} ${haut}" width="${larg}" height="${haut}" font-family="IBM Plex Mono, Consolas, monospace" role="img" aria-label="Niveau de risque semaine par semaine : ${h(d.defaut)}" style="width:100%;height:auto;display:block">
     ${NIVEAUX.map((l,n)=>`<line x1="${L}" x2="${larg-R}" y1="${y(n)}" y2="${y(n)}" stroke="#ECEAE3" stroke-width="1"/>
-      <text x="${L-6}" y="${y(n)+3}" text-anchor="end" font-size="9" font-family="IBM Plex Mono" fill="#68746D">${l}</text>`).join('')}
-    ${ticks.map(s=>`<text x="${x(s)}" y="${haut-6}" text-anchor="middle" font-size="9" font-family="IBM Plex Mono" fill="#68746D">${libSeq(s)}</text>`).join('')}
+      <text x="${L-6}" y="${y(n)+3}" text-anchor="end" font-size="9" fill="#68746D">${l}</text>`).join('')}
+    ${ticks.map(s=>`<text x="${x(s)}" y="${haut-6}" text-anchor="middle" font-size="9" fill="#68746D">${libSeq(s)}</text>`).join('')}
     <path d="${chemin}" fill="none" stroke="#16211D" stroke-width="2" stroke-linejoin="round"/>
     ${pts.map(q=>{ const X=x(seqSem(q.w)), Y=y(q.n), lib=`${libSeq(seqSem(q.w))} · ${NIVEAUX[q.n]}`;
       return `<g><circle cx="${X}" cy="${Y}" r="11" fill="transparent"><title>${lib}</title></circle>
@@ -1111,7 +1130,7 @@ function vueHebdo(){
   const optRisques = sel => RISQUES.map(r=>`<option ${r===sel?'selected':''}>${r}</option>`).join('');
   const zrp = S.zrp.filter(p=>voirArchivesZrp || !p.archive);
 
-  el.innerHTML = `
+  el.innerHTML = `<div class="hebdo-ecran">
   <div class="entete">
     <div class="eyebrow">04 — Réunion hebdo</div>
     <h2>Réunion hebdo technique — Semaine ${semaine}</h2>
@@ -1231,23 +1250,100 @@ function vueHebdo(){
       <input data-k="dateRentree" type="date" title="Date potentielle de rentrée">
       <button class="btn" data-add-zrp>Ajouter le producteur</button></div>`:''}
   </div>
-  <p class="print-only" style="font-size:10px;color:#666">Imprimé le ${new Date().toLocaleDateString('fr-FR')} — Institut Technique Rougeline</p>`;
+  </div><div class="rapport-hebdo">${rapportHebdo()}</div>`;
 }
 
-/* PDF de la réunion hebdo, généré dans le navigateur (mêmes règles que l'impression) */
+/* Version « rapport » de la réunion hebdo : sans champs ni boutons, à la largeur A4.
+   Sert à l'impression et au PDF. */
+function rapportHebdo(){
+  const W = idxSem(anReu,semaine), k = cleSem(anReu,semaine);
+  const kPrev = semaine>1 ? cleSem(anReu,semaine-1) : cleSem(anReu-1,52);
+  const vol = S.hebdo.volumes[k]||{}, volPrev = S.hebdo.volumes[kPrev]||{};
+  const dets = S.hebdo.detections;
+  const nouveaux = dets.filter(d=>d.w===W);
+  const suivis = dets.filter(d=>d.w<W && (!d.cloture || d.cloture>=W));
+  const histo = dets.filter(d=>d.cloture && d.cloture<W).sort((a,b)=>b.cloture-a.cloture);
+  const actifs = [...nouveaux, ...suivis.filter(d=>d.cloture!==W)];
+  const risqueDe = d => { const p=pointsDynamique(d,W).filter(x=>x.n>0).pop(); return p ? RISQUES[p.n-1] : d.risque; };
+  const vide = t => `<p class="r-vide">${t}</p>`;
+  const img = svg => `<img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}" alt="">`;
+  const zrp = S.zrp.filter(p=>!p.archive);
+  let famille = '';
+  const especes = [...S.hebdo.especes].sort((a,b)=>{ const fa=a.split(' ')[0], fb=b.split(' ')[0];
+    return S.hebdo.especes.findIndex(x=>x.split(' ')[0]===fa) - S.hebdo.especes.findIndex(x=>x.split(' ')[0]===fb); });
+  return `<div class="rapport">
+    <div class="r-tete"><div class="eyebrow">Institut Technique Rougeline — Réunion hebdo</div>
+      <h1>Semaine ${semaine} · ${anReu}</h1><p>${datesSemaine(semaine,anReu)} · ${anReu}</p></div>
+
+    <h2><span>1</span>Volumes prévisionnels par espèce</h2>
+    <table><colgroup><col style="width:30%"><col style="width:17%"><col style="width:14%"><col style="width:22%"><col style="width:17%"></colgroup>
+      <thead><tr><th>Espèce</th><th>Tendance</th><th>Volume</th><th>Commentaire</th><th>S-1</th></tr></thead>
+      <tbody>${especes.map(sp=>{ const v=vol[sp]||{}, f=sp.split(' ')[0];
+        const tete = f!==famille ? `<tr class="r-groupe"><td colspan="5">${h(f)}</td></tr>` : ''; famille=f;
+        return `${tete}<tr><td>${h(sp)}</td><td>${badgeTend(v.tendance)}</td><td>${h(v.volume||'—')}</td><td>${h(v.commentaire||'')}</td>
+          <td>${badgeTend((volPrev[sp]||{}).tendance)}</td></tr>`; }).join('')}</tbody></table>
+
+    <h2><span>2</span>Premières détections de la semaine</h2>
+    ${nouveaux.length ? `<table><colgroup><col style="width:24%"><col style="width:20%"><col style="width:24%"><col style="width:12%"><col style="width:20%"></colgroup>
+      <thead><tr><th>Défaut / bioagresseur</th><th>Segment</th><th>Site de production</th><th>Risque</th><th>Commentaire</th></tr></thead>
+      <tbody>${nouveaux.map(d=>`<tr><td><b>${h(d.defaut)}</b></td><td>${h(d.segment)}</td><td>${h(d.site)}</td><td>${badgeRisque(d.risque)}</td><td>${h(d.commentaire)}</td></tr>`).join('')}</tbody></table>`
+      : vide('Aucune nouvelle détection cette semaine.')}
+
+    <h2><span>3</span>Suivi de dynamique</h2>
+    ${suivis.length ? `<table><colgroup><col style="width:22%"><col style="width:30%"><col style="width:12%"><col style="width:36%"></colgroup>
+      <thead><tr><th>Défaut</th><th>Segment · site</th><th>Depuis</th><th>Semaine ${semaine}</th></tr></thead>
+      <tbody>${suivis.map(d=>{ const s=d.suivi[k];
+        const etat = d.cloture===W ? 'Disparu — clôturé' : s ? `Toujours présent ${badgeRisque(s.risque)}` : 'À vérifier';
+        return `<tr><td><b>${h(d.defaut)}</b></td><td>${h(d.segment)}<br><span class="r-gris">${h(d.site)}</span></td><td>${libIdx(d.w)}</td><td>${etat}</td></tr>`; }).join('')}</tbody></table>
+      <table class="r-courbes">${suivis.reduce((lignes,d,i)=>{ if(i%2===0) lignes.push([]); lignes[lignes.length-1].push(d); return lignes; },[])
+        .map(paire=>`<tr>${[0,1].map(j=>{ const d=paire[j];
+          return `<td>${d?`<div class="r-courbe"><b>${h(d.defaut)}</b> <span class="r-gris">· ${h(d.site)}</span>${img(graphDynamique(d,W))}</div>`:''}</td>`; }).join('')}</tr>`).join('')}</table>`
+      : vide('Aucune détection ouverte venant des semaines précédentes.')}
+    ${histo.length ? `<h3>Détections clôturées</h3>
+      <table><colgroup><col style="width:24%"><col style="width:22%"><col style="width:24%"><col style="width:10%"><col style="width:10%"><col style="width:10%"></colgroup>
+      <thead><tr><th>Défaut</th><th>Segment</th><th>Site</th><th>Détecté</th><th>Clôturé</th><th>Semaines</th></tr></thead>
+      <tbody>${histo.map(d=>`<tr><td>${h(d.defaut)}</td><td>${h(d.segment)}</td><td>${h(d.site)}</td><td>${libIdx(d.w)}</td><td>${libIdx(d.cloture)}</td>
+        <td>${1+Object.values(d.suivi).filter(v=>v.present).length}</td></tr>`).join('')}</tbody></table>` : ''}
+
+    <h2><span>4</span>Synthèse des pathogènes par site de production</h2>
+    ${actifs.length ? `<table><colgroup><col style="width:22%"><col style="width:24%"><col style="width:32%"><col style="width:10%"><col style="width:12%"></colgroup>
+      <thead><tr><th>Site</th><th>Segments</th><th>Pathogènes présents</th><th>Nouveaux</th><th>Risque max</th></tr></thead>
+      <tbody>${[...new Set(actifs.map(d=>d.site))].sort((a,b)=>a.localeCompare(b,'fr')).map(site=>{ const l=actifs.filter(d=>d.site===site);
+        const rmax = Math.max(...l.map(d=>RISQUES.indexOf(risqueDe(d))));
+        return `<tr><td><b>${h(site)}</b></td><td>${[...new Set(l.map(d=>d.segment).filter(Boolean))].map(h).join(', ')||'—'}</td>
+          <td>${l.map(d=>`${h(d.defaut)} ${badgeRisque(risqueDe(d))}`).join('<br>')}</td><td>${l.filter(d=>d.w===W).length}</td><td>${badgeRisque(RISQUES[rmax])}</td></tr>`; }).join('')}</tbody></table>`
+      : vide('Aucune détection active cette semaine.')}
+
+    <h2><span>5</span>Producteurs dans la démarche ZRP</h2>
+    ${zrp.length ? `<table><colgroup><col style="width:19%"><col style="width:14%"><col style="width:16%"><col style="width:24%"><col style="width:27%"></colgroup>
+      <thead><tr><th>Producteur</th><th>OP</th><th>Statut</th><th>Commentaire · rentrée</th><th>Derniers changements</th></tr></thead>
+      <tbody>${zrp.map(p=>`<tr><td><b>${h(p.nom)}</b></td><td>${h(p.op)}</td>
+        <td><span class="pastille-zrp ${p.statut}"></span>${(ZRP_STATUTS.find(z=>z[0]===p.statut)||[,''])[1]}</td>
+        <td>${h(p.commentaire)}${p.dateRentree?`<br><span class="r-gris">Rentrée possible : ${h(new Date(p.dateRentree).toLocaleDateString('fr-FR'))}</span>`:''}</td>
+        <td class="r-gris">${p.historique.slice(-3).reverse().map(x=>`<span class="pastille-zrp ${x.statut}"></span>S${x.sem} · ${h(x.commentaire||'')}`).join('<br>')}</td></tr>`).join('')}</tbody></table>`
+      : vide('Aucun producteur saisi.')}
+    <p class="r-pied">Édité le ${new Date().toLocaleDateString('fr-FR')} — Institut Technique Rougeline</p>
+  </div>`;
+}
+
+/* PDF de la réunion hebdo : on met en page la version « rapport » sur A4 */
 async function telechargerPdfHebdo(bouton){
   if(!window.html2pdf){ toast('Module PDF non chargé — utilisez Imprimer › Enregistrer en PDF'); return; }
-  const el = document.getElementById('v-hebdo'), lib = bouton.textContent;
+  const lib = bouton.textContent;
   bouton.disabled = true; bouton.textContent = 'Génération…';
-  document.body.classList.add('export-pdf');
+  const zone = document.createElement('div');
+  zone.className = 'rapport-pdf'; zone.innerHTML = rapportHebdo();
+  document.body.appendChild(zone);
   try{
+    await Promise.all([...zone.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})));
     await html2pdf().set({
-      margin:[8,8,10,8], filename:`Reunion_hebdo_${anReu}_S${String(semaine).padStart(2,'0')}.pdf`,
-      image:{type:'jpeg', quality:0.95}, html2canvas:{scale:2, windowWidth:1100, backgroundColor:'#ffffff'},
-      jsPDF:{unit:'mm', format:'a4', orientation:'portrait'}, pagebreak:{mode:['css','legacy'], avoid:['tr','.courbe','h3']}
-    }).from(el).save();
+      margin:[10,10,12,10], filename:`Reunion_hebdo_${anReu}_S${String(semaine).padStart(2,'0')}.pdf`,
+      image:{type:'jpeg', quality:0.96}, html2canvas:{scale:2, backgroundColor:'#ffffff'},
+      jsPDF:{unit:'mm', format:'a4', orientation:'portrait'},
+      pagebreak:{mode:['css','legacy'], avoid:['tr','.r-courbe','h2','h3','.r-tete']}
+    }).from(zone.firstElementChild).save();
   }catch(e){ console.error(e); toast('Échec du PDF — utilisez Imprimer › Enregistrer en PDF'); }
-  finally{ document.body.classList.remove('export-pdf'); bouton.disabled=false; bouton.textContent=lib; }
+  finally{ zone.remove(); bouton.disabled=false; bouton.textContent=lib; }
 }
 
 (function brancherHebdo(){
