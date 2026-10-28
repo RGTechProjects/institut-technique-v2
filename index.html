@@ -1124,8 +1124,6 @@ function vueHebdo(){
   const dets = S.hebdo.detections;
   const nouveaux = dets.filter(d=>d.w===W);
   const suivis = dets.filter(d=>d.w<W && (!d.cloture || d.cloture>=W));
-  const histo = dets.filter(d=>d.cloture && d.cloture<W).sort((a,b)=>b.cloture-a.cloture);
-  const actifs = [...nouveaux, ...suivis.filter(d=>d.cloture!==W)];
   let famille='';
   const optRisques = sel => RISQUES.map(r=>`<option ${r===sel?'selected':''}>${r}</option>`).join('');
   const zrp = S.zrp.filter(p=>voirArchivesZrp || !p.archive);
@@ -1206,25 +1204,12 @@ function vueHebdo(){
       <div class="courbes">${suivis.map(d=>`<div class="courbe"><b>${h(d.defaut)}</b> <span class="cible">· ${h(d.site)}${d.segment?' · '+h(d.segment):''}</span>
         ${graphDynamique(d, W)}</div>`).join('')}</div>`
       : '<p class="aide" style="margin:0">Aucune détection ouverte venant des semaines précédentes.</p>'}
-    ${histo.length?`<details class="histo" style="margin-top:12px"><summary>Historique des détections clôturées (${histo.length})</summary>
-      <div class="tableau" style="border:0;margin-top:6px"><table class="data">
-      <thead><tr><th>Défaut</th><th>Segment</th><th>Site</th><th>Détecté</th><th>Clôturé</th><th>Semaines de présence</th></tr></thead>
-      <tbody>${histo.map(d=>`<tr><td>${h(d.defaut)}</td><td>${h(d.segment)}</td><td>${h(d.site)}</td>
-        <td>${libIdx(d.w)}</td><td>${libIdx(d.cloture)}</td><td>${1+Object.values(d.suivi).filter(v=>v.present).length}</td></tr>`).join('')}</tbody></table></div></details>`:''}
   </div>
 
   <div class="carte">
-    <h3><span class="bloc-num">4</span>Synthèse des pathogènes par site de production — semaine ${semaine}</h3>
-    <p class="aide">Ce qui est présent cette semaine sur chaque site (nouvelles détections et détections encore ouvertes), avec le niveau de risque du dernier relevé.</p>
-    ${actifs.length ? `<div class="tableau" style="border:0"><table class="data" style="min-width:560px">
-      <thead><tr><th>Site de production</th><th>Segments</th><th>Pathogènes présents</th><th>Nouveaux</th><th>Risque max</th></tr></thead>
-      <tbody>${[...new Set(actifs.map(d=>d.site))].sort((a,b)=>a.localeCompare(b,'fr')).map(site=>{ const l=actifs.filter(d=>d.site===site);
-        const risqueDe = d => { const p=pointsDynamique(d,W).filter(x=>x.n>0).pop(); return p ? RISQUES[p.n-1] : d.risque; };
-        const rmax = Math.max(...l.map(d=>RISQUES.indexOf(risqueDe(d))));
-        return `<tr><td><b>${h(site)}</b></td><td>${[...new Set(l.map(d=>d.segment).filter(Boolean))].map(h).join(', ')||'—'}</td>
-          <td>${l.map(d=>`${h(d.defaut)} ${badgeRisque(risqueDe(d))}`).join('<br>')}</td>
-          <td>${l.filter(d=>d.w===W).length}</td><td>${badgeRisque(RISQUES[rmax])}</td></tr>`;}).join('')}</tbody></table></div>`
-      : '<p class="aide" style="margin:0">Aucune détection active cette semaine.</p>'}
+    <h3><span class="bloc-num">4</span>Historique par site de production</h3>
+    <p class="aide">Tout ce qui a été détecté sur chaque site depuis le début de l'année, y compris ce qui a disparu : rien n'est effacé quand on clôture.</p>
+    ${tableHistoriqueSites(W, false)}
   </div>
 
   <div class="carte">
@@ -1253,6 +1238,32 @@ function vueHebdo(){
   </div><div class="rapport-hebdo">${rapportHebdo()}</div>`;
 }
 
+/* Historique par site : tout ce qui a été détecté jusqu'à la semaine W (en cours et clôturé).
+   On garde l'année de W, plus ce qui est encore ouvert d'une année précédente. */
+function tableHistoriqueSites(W, rapport){
+  const anW = Math.floor(W/100);
+  const l = S.hebdo.detections.filter(d=>d.w<=W && (Math.floor(d.w/100)===anW || !d.cloture || d.cloture>W));
+  if(!l.length) return rapport ? '<p class="r-vide">Aucune détection enregistrée.</p>' : '<p class="aide" style="margin:0">Aucune détection enregistrée.</p>';
+  const sites = [...new Set(l.map(d=>d.site))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const lignes = sites.map(site=>{
+    const ds = l.filter(d=>d.site===site).map(d=>{
+      const pts = pointsDynamique(d,W), clos = !!d.cloture && d.cloture<=W, der = pts.filter(p=>p.n>0).pop();
+      return {d, clos, max:RISQUES[Math.max(...pts.map(p=>p.n))-1], actuel: der ? RISQUES[der.n-1] : d.risque};
+    }).sort((a,b)=>(a.clos-b.clos) || (b.d.w-a.d.w));
+    const enCours = ds.filter(x=>!x.clos).length;
+    const tete = `<tr class="${rapport?'r-groupe':'groupe'}"><td colspan="5">${h(site)} — ${enCours} en cours · ${ds.length-enCours} disparu${ds.length-enCours>1?'s':''}</td></tr>`;
+    return tete + ds.map(({d,clos,max,actuel})=>`<tr ${clos&&!rapport?'style="color:var(--ardoise)"':''}>
+      <td><b>${h(d.defaut)}</b></td><td>${h(d.segment)}</td>
+      <td class="court">${libIdx(d.w)} → ${clos?libIdx(d.cloture):'en cours'}</td>
+      <td>${badgeRisque(max)}</td>
+      <td>${clos ? `Disparu en ${libIdx(d.cloture)}` : `Présent ${badgeRisque(actuel)}`}</td></tr>`).join('');
+  }).join('');
+  const entete = '<thead><tr><th>Défaut</th><th>Segment</th><th>Période</th><th>Risque max atteint</th><th>Situation</th></tr></thead>';
+  return rapport
+    ? `<table><colgroup><col style="width:24%"><col style="width:22%"><col style="width:20%"><col style="width:14%"><col style="width:20%"></colgroup>${entete}<tbody>${lignes}</tbody></table>`
+    : `<div class="tableau" style="border:0"><table class="data" style="min-width:560px">${entete}<tbody>${lignes}</tbody></table></div>`;
+}
+
 /* Version « rapport » de la réunion hebdo : sans champs ni boutons, à la largeur A4.
    Sert à l'impression et au PDF. */
 function rapportHebdo(){
@@ -1262,9 +1273,6 @@ function rapportHebdo(){
   const dets = S.hebdo.detections;
   const nouveaux = dets.filter(d=>d.w===W);
   const suivis = dets.filter(d=>d.w<W && (!d.cloture || d.cloture>=W));
-  const histo = dets.filter(d=>d.cloture && d.cloture<W).sort((a,b)=>b.cloture-a.cloture);
-  const actifs = [...nouveaux, ...suivis.filter(d=>d.cloture!==W)];
-  const risqueDe = d => { const p=pointsDynamique(d,W).filter(x=>x.n>0).pop(); return p ? RISQUES[p.n-1] : d.risque; };
   const vide = t => `<p class="r-vide">${t}</p>`;
   const img = svg => `<img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}" alt="">`;
   const zrp = S.zrp.filter(p=>!p.archive);
@@ -1299,20 +1307,8 @@ function rapportHebdo(){
         .map(paire=>`<tr>${[0,1].map(j=>{ const d=paire[j];
           return `<td>${d?`<div class="r-courbe"><b>${h(d.defaut)}</b> <span class="r-gris">· ${h(d.site)}</span>${img(graphDynamique(d,W))}</div>`:''}</td>`; }).join('')}</tr>`).join('')}</table>`
       : vide('Aucune détection ouverte venant des semaines précédentes.')}
-    ${histo.length ? `<h3>Détections clôturées</h3>
-      <table><colgroup><col style="width:24%"><col style="width:22%"><col style="width:24%"><col style="width:10%"><col style="width:10%"><col style="width:10%"></colgroup>
-      <thead><tr><th>Défaut</th><th>Segment</th><th>Site</th><th>Détecté</th><th>Clôturé</th><th>Semaines</th></tr></thead>
-      <tbody>${histo.map(d=>`<tr><td>${h(d.defaut)}</td><td>${h(d.segment)}</td><td>${h(d.site)}</td><td>${libIdx(d.w)}</td><td>${libIdx(d.cloture)}</td>
-        <td>${1+Object.values(d.suivi).filter(v=>v.present).length}</td></tr>`).join('')}</tbody></table>` : ''}
-
-    <h2><span>4</span>Synthèse des pathogènes par site de production</h2>
-    ${actifs.length ? `<table><colgroup><col style="width:22%"><col style="width:24%"><col style="width:32%"><col style="width:10%"><col style="width:12%"></colgroup>
-      <thead><tr><th>Site</th><th>Segments</th><th>Pathogènes présents</th><th>Nouveaux</th><th>Risque max</th></tr></thead>
-      <tbody>${[...new Set(actifs.map(d=>d.site))].sort((a,b)=>a.localeCompare(b,'fr')).map(site=>{ const l=actifs.filter(d=>d.site===site);
-        const rmax = Math.max(...l.map(d=>RISQUES.indexOf(risqueDe(d))));
-        return `<tr><td><b>${h(site)}</b></td><td>${[...new Set(l.map(d=>d.segment).filter(Boolean))].map(h).join(', ')||'—'}</td>
-          <td>${l.map(d=>`${h(d.defaut)} ${badgeRisque(risqueDe(d))}`).join('<br>')}</td><td>${l.filter(d=>d.w===W).length}</td><td>${badgeRisque(RISQUES[rmax])}</td></tr>`; }).join('')}</tbody></table>`
-      : vide('Aucune détection active cette semaine.')}
+    <h2><span>4</span>Historique par site de production</h2>
+    ${tableHistoriqueSites(W, true)}
 
     <h2><span>5</span>Producteurs dans la démarche ZRP</h2>
     ${zrp.length ? `<table><colgroup><col style="width:19%"><col style="width:14%"><col style="width:16%"><col style="width:24%"><col style="width:27%"></colgroup>
