@@ -506,6 +506,14 @@ table.grille td.bande,table.data tr.groupe td{background:var(--titre);color:#fff
   font-size:11.5px;letter-spacing:.08em;padding:7px 16px}
 table.grille tbody th{font-weight:600}
 .stat span{color:var(--encre-2);font-weight:600}
+
+/* ---------- Indicateurs : année choisie et import ---------- */
+table.data td.col-an{background:#FBF4F5;font-weight:600}
+table.data th.col-an{background:var(--titre);color:#fff}
+label.btn{display:inline-block;cursor:pointer}
+.apercu-import{margin-top:12px;padding:12px 14px;border:1px dashed var(--titre);background:var(--titre-fond);font-size:13px}
+.apercu-import p{margin:0 0 8px}
+.erreur-import{color:var(--rouge);font-weight:600}
 </style>
 </head>
 <body>
@@ -762,7 +770,7 @@ function seedAnnee(src, fige){
 }
 function initialiserDonnees(){
   if(!S.cartographie) S.cartographie = {'2025':seedAnnee('a25',true), '2026':seedAnnee('a26',false)};
-  if(!S.indicateurs) S.indicateurs = {};
+  if(!S.indicateurs || S.indicateurs.version!==2) S.indicateurs = {version:2, annees:{}};
   if(!S.hebdo) S.hebdo = {especes:[...ESPECES_DEF], volumes:{}, detections:[]};
   if(S.hebdo.version !== VERSION_ESPECES){ S.hebdo.especes = [...ESPECES_DEF]; S.hebdo.version = VERSION_ESPECES; }
   if(!Array.isArray(S.zrp)) S.zrp = [];
@@ -855,7 +863,8 @@ const VUES = [
   ['commissions','Commissions'], ['liens','Visites, voyages & BI'], ['annuaire','Annuaire']
 ];
 function bâtirNav(){
-  const vuesNav = [...VUES, ['profil','Profil']];
+  // Indicateurs et Admin : réservés aux administrateurs
+  const vuesNav = [...VUES.filter(([id])=>id!=='indicateurs' || currentUserRole==='ADMIN'), ['profil','Profil']];
   if(currentUserRole === 'ADMIN') vuesNav.push(['admin','Admin']);
   const nav = document.getElementById('railNav');
   nav.innerHTML = vuesNav.map(([id,lib],i)=>
@@ -863,6 +872,7 @@ function bâtirNav(){
   nav.onclick = e=>{ const b=e.target.closest('button[data-vue]'); if(b) aller(b.dataset.vue); };
 }
 function aller(id){
+  if((id==='indicateurs' || id==='admin') && currentUserRole!=='ADMIN') id = 'cartographie';
   document.querySelectorAll('.vue').forEach(v=>v.classList.toggle('on', v.id==='v-'+id));
   document.querySelectorAll('#railNav button').forEach(b=>b.setAttribute('aria-current', b.dataset.vue===id));
   window.scrollTo({top:0,behavior:'smooth'});
@@ -1068,33 +1078,135 @@ function pageEnjeu(nom, adm){
   });
 })();
 
-/* ============ 02 · Indicateurs (copie de l'onglet « Indicateurs IT » de l'Excel) ============ */
-let filtreInd='Tous';
+/* ============ 02 · Indicateurs (administrateurs) — un fichier Excel par année ============ */
+/* S.indicateurs = { version:2, annees:{ "2026": { fichier, feuille, importe, par, colonnes:[2025,...], lignes:[{type,enjeu,lib,obj,valeurs:{2025:"..."}}] } } }
+   2025 vient du fichier « Cartographie 25-30 » embarqué ; les autres années sont importées par les admins. */
+let anInd = new Date().getFullYear(), filtreInd = 'Tous', importInd = null;
+const valIndic = v => { const s = String(v ?? '').trim(); return s === '/' ? '' : s; };
+
+function indicateursInitiaux(){
+  return { fichier:'Projet 25 30 - Cartographie Institut Technique.xlsx', feuille:'Indicateurs IT', importe:null, par:null,
+    colonnes:[2025], lignes:D.indicateurs.map(i=>({type:i.type, enjeu:i.enjeu, lib:i.lib, obj:i.obj||'', valeurs:{2025:valIndic(i.v2025)}})) };
+}
+const indicAnnee = an => S.indicateurs.annees[an] || (an===2025 ? indicateursInitiaux() : null);
+
+/* Lit l'onglet indicateurs d'un classeur : repère la ligne d'en-tête (Indicateur, Objectif, années),
+   ignore les lignes de groupe « ▸ ENJEU » et les lignes vides. */
+function lireIndicateursExcel(wb){
+  const essais = [...wb.SheetNames].sort((a,b)=>(/indicateur/i.test(b)) - (/indicateur/i.test(a)));
+  for(const nom of essais){
+    const lignes = XLSX.utils.sheet_to_json(wb.Sheets[nom], {header:1, blankrows:false, defval:'', raw:false});
+    const iTete = lignes.findIndex(l=>l.some(c=>/^\s*indicateurs?\s*$/i.test(c)));
+    if(iTete<0) continue;
+    const tete = lignes[iTete].map(c=>String(c).trim());
+    const col = re => tete.findIndex(c=>re.test(c));
+    const cLib = col(/^indicateurs?$/i), cEnjeu = col(/^enjeux?$/i), cType = col(/^type$/i), cObj = col(/^objectif/i);
+    const cAnnees = tete.map((c,i)=>/^20\d\d$/.test(c) ? [Number(c), i] : null).filter(Boolean);
+    let enjeuCourant = '';
+    const res = [];
+    lignes.slice(iTete+1).forEach(l=>{
+      const groupe = String(l[0]||'').match(/▸\s*(.+?)\s*\(/);   // ligne « ▸ ECONOMIQUE (Stratégique) »
+      if(groupe){ enjeuCourant = groupe[1].trim(); return; }
+      const lib = String(l[cLib]||'').trim(); if(!lib) return;
+      const type = cType>=0 ? String(l[cType]||'').trim() : '';
+      res.push({ type: type==='À renforcer' ? 'Transversal' : type,
+        enjeu: (cEnjeu>=0 && String(l[cEnjeu]).trim()) || enjeuCourant, lib,
+        obj: cObj>=0 ? String(l[cObj]||'').trim() : '',
+        valeurs: Object.fromEntries(cAnnees.map(([an,i])=>[an, valIndic(l[i])])) });
+    });
+    if(res.length) return { feuille:nom, colonnes:cAnnees.map(([an])=>an), lignes:res };
+  }
+  throw new Error('Aucun tableau d\'indicateurs trouvé : il faut une ligne d\'en-tête avec une colonne « Indicateur ».');
+}
+
+function barreAnneeInd(){
+  return `<div class="barre-annee no-print">
+    <div><div class="eyebrow">Année</div><div class="an-courant">${anInd}</div></div>
+    <div class="curseur-an">
+      <input type="range" min="${ANNEES[0]}" max="${ANNEES[ANNEES.length-1]}" step="1" value="${anInd}" data-an-ind-range aria-label="Choisir l'année">
+      <div class="annees">${ANNEES.map(y=>`<button class="${y===anInd?'on':''} ${indicAnnee(y)?'':'vide'}" data-an-ind="${y}">${y}</button>`).join('')}</div>
+    </div>
+    <span class="etat ${indicAnnee(anInd)?'ok':''}">${indicAnnee(anInd)?'Fichier disponible':'Pas encore de fichier'}</span>
+  </div>`;
+}
+
 function vueIndicateurs(){
-  const enjeux=[...new Set(D.indicateurs.map(i=>i.enjeu))];
-  const val = v => (v && v.trim() !== '/') ? h(v) : '';
-  let groupe='';
-  const lignes = D.indicateurs.filter(i=>filtreInd==='Tous'||i.enjeu===filtreInd).map(i=>{
-    let tete='';
-    if(i.enjeu!==groupe){ groupe=i.enjeu; tete=`<tr class="groupe"><td colspan="${2+ANNEES.length}">${icoEnjeu(i.enjeu)} ${i.enjeu} — ${i.type}</td></tr>`; }
-    return tete+`<tr><td>${h(i.lib)}</td><td class="cible">${h(i.obj)}</td>
-      ${ANNEES.map(a=>`<td class="mono">${a===2025?val(i.v2025):''}</td>`).join('')}</tr>`;
-  }).join('');
-  const el=document.getElementById('v-indicateurs');
-  el.innerHTML=`
-  <div class="entete"><div class="eyebrow">02 — Indicateurs</div>
-    <h2>Indicateurs de suivi 2025 → 2030</h2>
-    <p>Reprise de l'onglet « Indicateurs IT » du fichier Excel, consolidé pour l'union. Seule l'année 2025 est renseignée
-    dans l'Excel pour l'instant ; les autres colonnes se rempliront avec le fichier.</p></div>
-  <div class="filtres">
+  const el = document.getElementById('v-indicateurs');
+  if(!estAdmin()){ el.innerHTML = ''; return; }
+  const doc = indicAnnee(anInd);
+  const enjeux = doc ? [...new Set(doc.lignes.map(i=>i.enjeu))] : [];
+  if(filtreInd!=='Tous' && !enjeux.includes(filtreInd)) filtreInd = 'Tous';
+  // colonnes d'années affichées : celles du fichier qui ont au moins une valeur, plus l'année choisie
+  const cols = doc ? doc.colonnes.filter(a=>a===anInd || doc.lignes.some(l=>l.valeurs[a])) : [];
+  let groupe = '';
+  const lignes = doc ? doc.lignes.filter(i=>filtreInd==='Tous'||i.enjeu===filtreInd).map(i=>{
+    let tete = '';
+    if(i.enjeu!==groupe){ groupe=i.enjeu; tete=`<tr class="groupe"><td colspan="${2+cols.length}">${icoEnjeu(i.enjeu)} ${h(i.enjeu)}${i.type?' — '+h(i.type):''}</td></tr>`; }
+    return tete+`<tr><td>${h(i.lib)}</td><td class="cible">${h(i.obj)||'—'}</td>
+      ${cols.map(a=>`<td class="mono ${a===anInd?'col-an':''}">${h(i.valeurs[a]||'')}</td>`).join('')}</tr>`;
+  }).join('') : '';
+  const quand = d => new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'});
+
+  el.innerHTML = `
+  <div class="entete"><div class="eyebrow">02 — Indicateurs · administrateurs</div>
+    <h2>Indicateurs de suivi de l'Institut</h2>
+    <p>Un fichier Excel par année. Faites glisser le curseur pour revoir une année passée ; pour l'année en cours, importez le fichier Excel,
+    puis réimportez-le à chaque mise à jour. Les versions précédentes sont conservées dans l'historique.</p></div>
+  ${barreAnneeInd()}
+
+  <div class="carte import-indic">
+    <h3>Fichier ${anInd}</h3>
+    ${doc ? `<p class="aide" style="margin:0 0 10px">📄 <b>${h(doc.fichier)}</b> · onglet « ${h(doc.feuille)} » · ${doc.lignes.length} indicateurs
+      ${doc.importe ? ` · importé le ${quand(doc.importe)}${doc.par?' par '+h(doc.par):''}` : ' · fichier d\'origine de l\'app'}</p>`
+      : `<p class="aide" style="margin:0 0 10px">Aucun fichier pour ${anInd}. Importez le fichier Excel des indicateurs de l'année.</p>`}
+    <label class="btn">⬆ ${doc?'Mettre à jour avec un nouveau fichier':'Importer le fichier Excel'} ${anInd}
+      <input type="file" accept=".xlsx,.xlsm,.xls" data-fichier-ind hidden></label>
+    ${importInd ? `<div class="apercu-import">
+      ${importInd.erreur ? `<p class="erreur-import">⚠ ${h(importInd.erreur)}</p>
+        <button class="btn sec" data-annule-import>Fermer</button>`
+      : `<p><b>${h(importInd.fichier)}</b> — onglet « ${h(importInd.feuille)} » : <b>${importInd.lignes.length} indicateurs</b>,
+          ${new Set(importInd.lignes.map(l=>l.enjeu)).size} enjeux, colonnes ${importInd.colonnes.join(', ')||'—'} ;
+          ${importInd.lignes.filter(l=>Object.values(l.valeurs).some(Boolean)).length} indicateurs ont au moins une valeur.</p>
+        ${doc ? `<p class="aide">Les indicateurs ${anInd} actuels seront remplacés ; l'ancienne version reste dans l'historique de la base.</p>` : ''}
+        <button class="btn" data-valide-import>Enregistrer pour ${anInd}</button> <button class="btn sec" data-annule-import>Annuler</button>`}
+    </div>` : ''}
+  </div>
+
+  ${doc ? `<div class="filtres">
     <button class="chip" data-ind-f="Tous" aria-pressed="${filtreInd==='Tous'}">Tous les enjeux</button>
     ${enjeux.map(e=>`<button class="chip" data-ind-f="${h(e)}" aria-pressed="${filtreInd===e}">${libEnjeu(e)}</button>`).join('')}
   </div>
   <div class="tableau"><table class="data">
-    <thead><tr><th style="min-width:280px">Indicateur</th><th>Objectif</th>${ANNEES.map(a=>`<th>${a}</th>`).join('')}</tr></thead>
-    <tbody>${lignes}</tbody></table></div>`;
-  el.querySelectorAll('[data-ind-f]').forEach(b=>b.onclick=()=>{ filtreInd=b.dataset.indF; vueIndicateurs(); });
+    <thead><tr><th style="min-width:300px">Indicateur</th><th>Objectif</th>${cols.map(a=>`<th class="${a===anInd?'col-an':''}">${a}</th>`).join('')}</tr></thead>
+    <tbody>${lignes}</tbody></table></div>` : ''}`;
 }
+
+(function brancherIndicateurs(){
+  const el = document.getElementById('v-indicateurs');
+  const changerAn = an => { anInd = an; importInd = null; vueIndicateurs(); };
+  el.addEventListener('click', e=>{
+    const t = e.target.closest('[data-an-ind],[data-ind-f],[data-valide-import],[data-annule-import]'); if(!t || !estAdmin()) return;
+    if(t.dataset.anInd) changerAn(+t.dataset.anInd);
+    else if(t.dataset.indF) { filtreInd = t.dataset.indF; vueIndicateurs(); }
+    else if(t.dataset.valideImport!==undefined && importInd && !importInd.erreur){
+      const { fichier, feuille, colonnes, lignes } = importInd;
+      S.indicateurs.annees[anInd] = { fichier, feuille, colonnes, lignes, importe:new Date().toISOString(), par:currentUser?.email||'' };
+      importInd = null; sauver('indicateurs'); vueIndicateurs();
+    }
+    else if(t.dataset.annuleImport!==undefined){ importInd = null; vueIndicateurs(); }
+  });
+  el.addEventListener('input', e=>{ if(e.target.matches('[data-an-ind-range]')) el.querySelector('.an-courant').textContent = e.target.value; });
+  el.addEventListener('change', async e=>{
+    if(e.target.matches('[data-an-ind-range]')) return changerAn(+e.target.value);
+    if(!e.target.matches('[data-fichier-ind]') || !estAdmin()) return;
+    const f = e.target.files[0]; if(!f) return;
+    try{
+      if(!window.XLSX) throw new Error('Module Excel non chargé, rechargez la page.');
+      importInd = { fichier:f.name, ...lireIndicateursExcel(XLSX.read(await f.arrayBuffer(), {type:'array'})) };
+    }catch(err){ importInd = { fichier:f.name, erreur:err.message }; }
+    vueIndicateurs();
+  });
+})();
 
 /* ============ 03 · Réunions ============ */
 let semaine = numSemaine(new Date()), anReu = new Date().getFullYear();
@@ -1916,6 +2028,9 @@ function exporterExcel(){
   if(!window.XLSX){ toast('Module Excel non chargé'); return; }
   const wb = XLSX.utils.book_new();
   const feuille = (nom, lignes) => XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(lignes.length?lignes:[{'(vide)':''}]), nom);
+  if(estAdmin()) feuille('Indicateurs', ANNEES.filter(indicAnnee).flatMap(an=>{ const doc=indicAnnee(an);
+    return doc.lignes.map(l=>({'Fichier de':an, Type:l.type, Enjeu:l.enjeu, Indicateur:l.lib, Objectif:l.obj,
+      ...Object.fromEntries(doc.colonnes.map(a=>[String(a), l.valeurs[a]||'']))})); }));
   feuille('Volumes hebdo', Object.entries(S.hebdo.volumes).flatMap(([k,v])=>Object.entries(v).map(([sp,x])=>
     ({Semaine:k, Espèce:sp, Tendance:x.tendance||'', Volume:x.volume||'', Commentaire:x.commentaire||''}))));
   feuille('Détections', S.hebdo.detections.map(d=>({'Détectée':cleSem(Math.floor(d.w/100),d.w%100), Défaut:d.defaut, Segment:d.segment, Site:d.site,
