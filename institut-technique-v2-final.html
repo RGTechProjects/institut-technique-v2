@@ -514,6 +514,78 @@ label.btn{display:inline-block;cursor:pointer}
 .apercu-import{margin-top:12px;padding:12px 14px;border:1px dashed var(--titre);background:var(--titre-fond);font-size:13px}
 .apercu-import p{margin:0 0 8px}
 .erreur-import{color:var(--rouge);font-weight:600}
+
+/* ---------- Visites, voyages & réunions : documents par année ---------- */
+/* une couleur d'accent par partie, titres toujours bordeaux */
+.rub-docs{--acc:#7A1F2B;--acc-fond:#F6EDEE;background:var(--carte);border:1px solid var(--trait);border-top:4px solid var(--acc);
+  border-radius:6px;margin:0 0 22px;box-shadow:0 1px 2px rgba(22,33,29,.05)}
+.rub-visites{--acc:#1F6F52;--acc-fond:#EAF3EE}
+.rub-bi{--acc:#24506E;--acc-fond:#E9F0F5}
+.rub-tete{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 22px 12px}
+.rub-titre{font-family:'Archivo';font-size:19px;font-weight:700;color:var(--titre);margin:0}
+.rub-an{font-weight:500;color:var(--ardoise);margin-left:4px}
+.rub-tete p{margin:4px 0 0;font-size:13px;color:var(--ardoise)}
+.rub-compte{flex:none;font-size:12px;font-weight:600;color:var(--acc);background:var(--acc-fond);padding:5px 12px;border-radius:99px;white-space:nowrap}
+.rub-outils{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 22px;background:#FAF9F6;
+  border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.rub-recherche{flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--trait);border-radius:5px;background:#fff;font-size:13.5px}
+.rub-recherche:focus{outline:2px solid var(--acc);outline-offset:0;border-color:var(--acc)}
+.rub-option{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--encre-2);cursor:pointer;white-space:nowrap}
+.rub-option input{accent-color:var(--acc);width:15px;height:15px;margin:0}
+.segment{display:inline-flex;border:1px solid var(--trait);border-radius:5px;overflow:hidden;background:#fff}
+.segment button{border:0;background:none;padding:7px 13px;font-size:12.5px;color:var(--encre-2)}
+.segment button + button{border-left:1px solid var(--trait)}
+.segment button[aria-pressed="true"]{background:var(--acc);color:#fff;font-weight:600}
+.btn-sp{border:1px solid var(--acc);color:var(--acc);background:#fff;border-radius:5px;padding:7px 12px;font-size:12.5px;font-weight:600}
+.btn-sp:hover{background:var(--acc-fond)}
+.liste-docs{padding:0 22px}
+.doc-ligne{display:grid;grid-template-columns:28px minmax(0,1fr) 210px auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EFEDE6}
+.doc-ligne:last-child{border-bottom:0}
+.doc-ligne[hidden]{display:none}
+.fmt{width:28px;height:18px;display:grid;place-items:center;border-radius:3px;color:#fff;font-size:8.5px;font-weight:700;letter-spacing:.04em;background:#68746D}
+.fmt-pdf{background:#B42318} .fmt-doc{background:#2B579A} .fmt-xls{background:#217346} .fmt-ppt{background:#C43E1C}
+.fmt-pbi{background:#F2C811;color:#3A2F00} .fmt-sp{background:#036C70} .fmt-app{background:#5B4A8B}
+.logo-fmt{width:26px;height:21px;display:block}
+.doc-titre{font-size:14.5px;font-weight:600;color:var(--encre)}
+.doc-titre a{color:inherit;text-decoration:none}
+.doc-titre a:hover{color:var(--acc);text-decoration:underline}
+.typ{font-size:10.5px;font-weight:600;color:var(--acc);background:var(--acc-fond);padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:2px}
+.typ.voyage{color:#7A4E0B;background:#FBF0DC}
+.doc-desc{font-size:13px;color:var(--encre-2);margin-top:3px}
+.doc-contenu{font-size:12.5px;color:var(--ardoise);margin-top:4px}
+.doc-contenu span{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-right:4px}
+.doc-meta{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--ardoise)}
+.doc-date{color:var(--encre-2);font-weight:600}
+.doc-par b{font-weight:600;color:var(--encre-2)}
+.doc-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.btn-ouvrir{background:var(--acc);color:#fff;border-radius:5px;padding:7px 16px;font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap}
+.btn-ouvrir:hover{filter:brightness(1.12)}
+.btn-suppr{border:1px solid var(--trait);background:#fff;color:var(--ardoise);border-radius:5px;padding:6px 10px;font-size:12px}
+.btn-suppr:hover{border-color:var(--rouge);color:var(--rouge)}
+.sans-lien{font-size:12px;color:var(--ardoise);font-style:italic;white-space:nowrap}
+.rub-docs .aucun{margin:0;padding:18px 22px;font-size:13px;color:var(--ardoise)}
+.rub-pied{padding:0 22px 16px}
+.ajout-doc{border-top:1px solid var(--trait)}
+.ajout-doc summary{cursor:pointer;padding:13px 22px;font-size:13.5px;font-weight:600;color:var(--acc);list-style:none}
+.ajout-doc summary::-webkit-details-marker{display:none}
+.ajout-doc summary::before{content:'+';display:inline-block;width:18px;font-weight:700}
+.ajout-doc[open] summary::before{content:'−'}
+.form-doc{padding:4px 22px 18px}
+.form-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:dense;gap:12px}
+.form-grille label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;color:var(--encre-2)}
+.form-grille label.large{grid-column:span 2}
+.form-grille input,.form-grille select{padding:8px 10px;border:1px solid var(--trait);border-radius:5px;font-size:13.5px;font-weight:400;background:#fff}
+.form-grille input:focus,.form-grille select:focus{outline:2px solid var(--acc);outline-offset:0}
+.form-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;font-size:12px;color:var(--ardoise)}
+@media(max-width:760px){
+  .rub-tete,.rub-outils,.liste-docs,.form-doc,.ajout-doc summary,.rub-docs .aucun{padding-left:14px;padding-right:14px}
+  .doc-ligne{grid-template-columns:28px minmax(0,1fr);gap:8px 10px}
+  .doc-meta,.doc-actions{grid-column:2}
+  .doc-actions{justify-content:flex-start}
+  .form-grille{grid-template-columns:1fr}
+  .form-grille label.large{grid-column:auto}
+  .form-actions{flex-direction:column;align-items:stretch}
+}
 </style>
 </head>
 <body>
@@ -559,7 +631,6 @@ label.btn{display:inline-block;cursor:pointer}
   <section class="vue" id="v-reunions"></section>
   <section class="vue" id="v-hebdo"></section>
   <section class="vue" id="v-commissions"></section>
-  <section class="vue" id="v-liens"></section>
   <section class="vue" id="v-annuaire"></section>
   <section class="vue" id="v-admin"></section>
   <section class="vue" id="v-profil"></section>
@@ -776,6 +847,8 @@ function initialiserDonnees(){
   if(!Array.isArray(S.zrp)) S.zrp = [];
   if(!S.commissions) S.commissions = {'2026':seedCommissions()};
   if(!Array.isArray(S.documents)) S.documents = seedDocuments();
+  // les liens d'avant le classement par année sont rangés dans l'année de leur date, sinon en 2026
+  S.documents.forEach(d=>{ if(!d.an && d.cat!=='sharepoint') d.an = d.date ? +d.date.slice(0,4) : 2026; });
   if(!Array.isArray(S.contacts)) S.contacts = seedContacts();
 }
 function initialiserAnnee(an){
@@ -859,8 +932,8 @@ function totalInterne(nom){ return OPS.reduce((a,o)=>a+nbExperts(nom,o),0); }
 
 /* ============ Navigation ============ */
 const VUES = [
-  ['cartographie','Cartographie'], ['indicateurs','Indicateurs'], ['reunions','Réunions'], ['hebdo','Réunion hebdo'],
-  ['commissions','Commissions'], ['liens','Visites, voyages & BI'], ['annuaire','Annuaire']
+  ['cartographie','Cartographie'], ['indicateurs','Indicateurs'], ['reunions','Visites, voyages & réunions'], ['hebdo','Réunion hebdo'],
+  ['commissions','Commissions'], ['annuaire','Annuaire']
 ];
 function bâtirNav(){
   // Indicateurs et Admin : réservés aux administrateurs
@@ -878,7 +951,7 @@ function aller(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function renderAll(){
-  vueCartographie(); vueIndicateurs(); vueReunions(); vueHebdo(); vueCommissions(); vueLiens(); vueAnnuaire();
+  vueCartographie(); vueIndicateurs(); vueReunions(); vueHebdo(); vueCommissions(); vueAnnuaire();
 }
 
 /* ============ 01 · Cartographie (lecture seule, données Excel) ============ */
@@ -1208,7 +1281,7 @@ function vueIndicateurs(){
   });
 })();
 
-/* ============ 03 · Réunions ============ */
+/* ============ Semaines (réunion hebdo) ============ */
 let semaine = numSemaine(new Date()), anReu = new Date().getFullYear();
 function numSemaine(d){ const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
   const j=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-j);
@@ -1219,61 +1292,199 @@ function datesSemaine(n,an){ const s=new Date(an,0,1+(n-1)*7);
 function semainePrec(){ if(semaine>1) semaine--; else { semaine=52; anReu--; } }
 function semaineSuiv(){ if(semaine<52) semaine++; else { semaine=1; anReu++; } }
 
-function rdvSemaine(n){
-  const out=[];
-  out.push({q:'Lundi · 09h00', t:'Réunion hebdo technique', d:'Volumes prévisionnels, premières détections, suivi de dynamique, producteurs ZRP.', c:'', lien:'Ouvrir la réunion hebdo', hebdo:true});
-  const e = D.enjeux[(n-1)%D.enjeux.length];
-  out.push({q:'Mardi · 14h00', t:'Revue d\'enjeu — '+e.nom, d:'Rotation sur les 13 enjeux : avancement des actions, indicateurs, besoins d\'expertise.', c:'', lien:'Ouvrir l\'enjeu', vue:e.nom});
-  if(n%4===3) out.push({q:'Jeudi · 09h30', t:'Commission Variétale Tomates', d:'Résultats d\'essais du mois, liste positive, points semenciers.', c:'commission', lien:'Espace commission', com:'cvto'});
-  if(n%4===1) out.push({q:'Jeudi · 09h30', t:'Commission Variétale Fraises', d:'Essais variétaux, plans de développement 22L01 / 22L04.', c:'commission', lien:'Espace commission', com:'cvfr'});
-  if(n%6===2) out.push({q:'Mardi · 09h00', t:'Commission Sanitaire', d:'Essais, retraits de produits, fiches stratégies.', c:'commission', lien:'Espace commission', com:'csan'});
-  if(n%6===5) out.push({q:'Vendredi · 10h00', t:'Commission Agro-Tech Innovation', d:'Veille start-ups, retours d\'expérience outils (IUNU, Blue Radix, FravEYE).', c:'commission', lien:'Espace commission', com:'cagt'});
-  if(n===12||n===38) out.push({q:'Semaine', t:'Séminaire technique', d:'Deux jours, toutes les équipes techniques OPs + UDC.', c:'temps-fort'});
-  if(n===18||n===24) out.push({q:'Semaine', t:'Rallye technique', d:'Visites d\'exploitations, diffusion des fiches bonnes pratiques.', c:'temps-fort'});
-  if(n%13===0) out.push({q:'Vendredi · 14h00', t:'Comité de pilotage Institut Technique', d:'Revue trimestrielle : couverture des enjeux, indicateurs, plan de formation.', c:'temps-fort'});
-  return out;
+/* ============ 03 · Visites, voyages & réunions : documents par année ============ */
+/* On garde des liens (SharePoint, Power BI), pas les fichiers : la recherche porte sur le nom,
+   et en « recherche approfondie » sur la description, le résumé du contenu et le nom du fichier dans le lien. */
+const RUBRIQUES_DOCS = {
+  reunions:{cats:['reunion'], titre:'Réunions', date:true, sp:true,
+    aide:'Comptes-rendus, supports et ordres du jour des réunions techniques.'},
+  visites:{cats:['visite','voyage'], titre:'Visites et voyages', date:true, sp:true,
+    aide:'Visites d\'exploitations, d\'essais et de salons, voyages d\'étude en France et à l\'étranger.'},
+  bi:{cats:['bi'], titre:'Rapports BI et applications', date:false, sp:false,
+    aide:'Toujours un lien : le rapport s\'ouvre dans Power BI, à jour, avec les droits de la personne connectée.'}
+};
+const CATS_ONGLET = ['reunion','visite','voyage','bi'];
+const rechDocs = {reunions:'', visites:'', bi:''}, approfDocs = {reunions:false, visites:false, bi:false};
+let filtreVisites = 'tous', anDocs = Math.min(Math.max(new Date().getFullYear(),2025),2030);
+const normTexte = s => String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function nomFichierUrl(u){
+  try{ const p = new URL(u).pathname.split('/').filter(Boolean).pop()||''; return decodeURIComponent(p); }catch(_){ return ''; }
+}
+/* Adresse de recherche SharePoint (plein texte, droits de la personne), déduite des liens déjà saisis */
+function adresseRechercheSP(q){
+  const m = S.documents.map(d=>/^https:\/\/([a-z0-9-]+)\.sharepoint\.com/i.exec(d.url||'')).find(Boolean);
+  return m ? `https://${m[1]}.sharepoint.com/_layouts/15/search.aspx?q=${encodeURIComponent(q)}` : '';
+}
+function typeLien(u){ u=String(u||'').toLowerCase();
+  return u.includes('powerbi')?'PBI':/\.xlsx?\b|excel/.test(u)?'XLS':/\.pdf\b/.test(u)?'PDF':/\.pptx?\b|powerpoint/.test(u)?'PPT':/\.docx?\b|word/.test(u)?'DOC':u.includes('sharepoint')?'SP':'LIEN'; }
+const formatDoc = d => ({'Power BI':'PBI','Application':'APP','SharePoint':'SP'}[d.f]||d.f||'LIEN').slice(0,4);
+/* Logos des outils (style Office : page + pastille de couleur avec la lettre) ; APP et LIEN restent en texte */
+const LOGOS_OFFICE = {XLS:['#107C41','X','Excel'], DOC:['#185ABD','W','Word'], PPT:['#C43E1C','P','PowerPoint'], SP:['#03787C','S','SharePoint']};
+function iconeFormat(fmt){
+  const o = LOGOS_OFFICE[fmt];
+  if(o) return `<svg class="logo-fmt" viewBox="0 0 40 32" role="img" aria-label="${o[2]}"><title>${o[2]}</title>
+    <rect x="13" y="2" width="25" height="28" rx="2.5" fill="#fff" stroke="${o[0]}" stroke-width="1.5"/>
+    <path d="M24 9h10M24 14h10M24 19h10M24 24h10" stroke="${o[0]}" stroke-width="1.6" opacity=".45"/>
+    <rect x="2" y="6" width="20" height="20" rx="3" fill="${o[0]}"/>
+    <text x="12" y="21.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#fff">${o[1]}</text></svg>`;
+  if(fmt==='PDF') return `<svg class="logo-fmt" viewBox="0 0 40 32" role="img" aria-label="PDF"><title>PDF</title>
+    <path d="M9 2h16l7 7v21H9z" fill="#fff" stroke="#D92D20" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M25 2v7h7" fill="#FDE4E2" stroke="#D92D20" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="4" y="14" width="25" height="11" rx="2" fill="#D92D20"/>
+    <text x="16.5" y="22.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="8.5" font-weight="700" fill="#fff">PDF</text></svg>`;
+  if(fmt==='PBI') return `<svg class="logo-fmt" viewBox="0 0 40 32" role="img" aria-label="Power BI"><title>Power BI</title>
+    <rect x="23" y="3" width="8" height="26" rx="2" fill="#E8B10A"/><rect x="16" y="10" width="8" height="19" rx="2" fill="#F2C811"/>
+    <rect x="9" y="17" width="8" height="12" rx="2" fill="#F8DE6B"/></svg>`;
+  return `<span class="fmt fmt-${h(fmt.toLowerCase())}">${h(fmt)}</span>`;
+}
+const dateLongue = x => new Date(x).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+const nbDocsAn = an => S.documents.filter(d=>d.an===an && CATS_ONGLET.includes(d.cat)).length;
+
+function barreAnneeDocs(){
+  const n = nbDocsAn(anDocs);
+  return `<div class="barre-annee no-print">
+    <div><div class="eyebrow">Année</div><div class="an-courant">${anDocs}</div></div>
+    <div class="curseur-an">
+      <input type="range" min="${ANNEES[0]}" max="${ANNEES[ANNEES.length-1]}" step="1" value="${anDocs}" data-an-docs-range aria-label="Choisir l'année">
+      <div class="annees">${ANNEES.map(y=>`<button class="${y===anDocs?'on':''} ${nbDocsAn(y)?'':'vide'}" data-an-docs="${y}">${y}</button>`).join('')}</div>
+    </div>
+    <span class="etat ${n?'ok':''}">${n} document${n>1?'s':''}</span>
+  </div>`;
 }
 
 function vueReunions(){
-  const el=document.getElementById('v-reunions');
-  el.innerHTML=`
-  <div class="entete"><div class="eyebrow">03 — Réunions</div>
-    <h2>Cadre de réunion technique</h2>
-    <p>Un point hebdomadaire, une revue d'enjeu tournante, les commissions à leur fréquence propre, et les temps forts de l'année.</p></div>
-  <div class="semainier">
-    <button class="fleche" data-sem="-1" aria-label="Semaine précédente">‹</button>
-    <div><div class="sem">Semaine ${semaine}</div><div class="dates">${datesSemaine(semaine,anReu)} · ${anReu}</div></div>
-    <button class="fleche" data-sem="1" aria-label="Semaine suivante">›</button>
-    <input type="range" min="1" max="52" value="${semaine}" id="curseurSem" style="flex:1;min-width:130px;accent-color:var(--rouge)">
-    <button class="chip" data-sem="0">Semaine en cours</button>
-  </div>
-  <div id="listeRdv">${rdvSemaine(semaine).map(r=>`
-    <div class="rdv ${r.c}"><div class="quand mono">${r.q}</div>
-      <div><h4>${r.t}</h4><p>${r.d}</p>
-      ${r.lien?`<a class="lien" href="#" ${r.vue?`data-va="${h(r.vue)}"`:''} ${r.hebdo?'data-hebdo':''} ${r.com?`data-va-com="${r.com}"`:''}>${r.lien} →</a>`:''}</div></div>`).join('')}</div>
-  <div class="carte"><h3>Rythme de référence</h3>
-    <p class="aide">Ce qui structure l'année technique.</p>
-    <div class="membre"><span>Réunion hebdo technique</span><span class="st">Hebdomadaire · lundi</span></div>
-    <div class="membre"><span>Revue d'enjeu (rotation sur 13)</span><span class="st">Hebdomadaire · mardi</span></div>
-    <div class="membre"><span>Commissions variétales Tomates / Fraises</span><span class="st">Mensuel · alterné</span></div>
-    <div class="membre"><span>Commission Sanitaire</span><span class="st">Toutes les 6 semaines</span></div>
-    <div class="membre"><span>Commission Agro-Tech Innovation</span><span class="st">Toutes les 6 semaines</span></div>
-    <div class="membre"><span>Comité de pilotage Institut Technique</span><span class="st">Trimestriel</span></div>
-    <div class="membre"><span>Séminaires techniques</span><span class="st">S12 et S38</span></div>
-    <div class="membre"><span>Rallyes</span><span class="st">S18 et S24</span></div>
-  </div>`;
-  el.querySelectorAll('[data-sem]').forEach(b=>b.onclick=()=>{
-    const v=+b.dataset.sem; if(v<0) semainePrec(); else if(v>0) semaineSuiv();
-    else { semaine=numSemaine(new Date()); anReu=new Date().getFullYear(); }
-    vueReunions(); vueHebdo(); });
-  el.querySelector('#curseurSem').onchange=e=>{ semaine=+e.target.value; vueReunions(); vueHebdo(); };
-  el.querySelectorAll('[data-hebdo]').forEach(a=>a.onclick=e=>{ e.preventDefault(); vueHebdo(); aller('hebdo'); });
-  el.querySelectorAll('[data-va-com]').forEach(a=>a.onclick=e=>{ e.preventDefault(); comActive=a.dataset.vaCom; vueCommissions(); aller('commissions'); });
-  el.querySelectorAll('[data-va]').forEach(a=>a.onclick=e=>{ e.preventDefault();
-    enjeuActif=a.dataset.va; vueCartographie(); aller('cartographie');
-    setTimeout(()=>document.getElementById('zoneEnjeu')?.scrollIntoView({behavior:'smooth'}),150);
-  });
+  const el = document.getElementById('v-reunions');
+  el.innerHTML = `
+  <div class="entete"><div class="eyebrow">03 — Visites, voyages &amp; réunions</div>
+    <h2>Documents de l'Institut</h2>
+    <p>Les documents restent sur SharePoint ou Power BI ; l'app conserve leur nom, leur lien, l'année et la personne qui les a ajoutés.
+    Chacun peut ajouter un document ; la suppression est réservée aux administrateurs.</p></div>
+  ${barreAnneeDocs()}
+  ${['reunions','visites','bi'].map(carteDocs).join('')}`;
+  ['reunions','visites','bi'].forEach(appliquerRecherche);
 }
+
+function ligneDocAn(d){
+  const u = urlSure(d.url), fichier = nomFichierUrl(d.url), fmt = formatDoc(d);
+  const nom = normTexte(d.t+' '+fichier), texte = normTexte([d.t, fichier, d.d, d.mots].join(' '));
+  const auteur = d.par ? d.par.split('@')[0] : '';
+  return `<div class="doc-ligne" data-cat="${h(d.cat)}" data-nom="${h(nom)}" data-texte="${h(texte)}">
+    ${iconeFormat(fmt)}
+    <div class="doc-corps">
+      <div class="doc-titre">${u?`<a href="${h(u)}" target="_blank" rel="noopener">${h(d.t)}</a>`:h(d.t)}${
+        d.cat==='visite'?'<span class="typ">Visite</span>':d.cat==='voyage'?'<span class="typ voyage">Voyage</span>':''}</div>
+      ${d.d?`<div class="doc-desc">${h(d.d)}</div>`:''}
+      ${d.mots?`<div class="doc-contenu"><span>Contenu</span> ${h(d.mots)}</div>`:''}
+    </div>
+    <div class="doc-meta">
+      ${d.date?`<span class="doc-date">${h(dateLongue(d.date))}</span>`:''}
+      <span class="doc-par">${auteur?`Ajouté par <b title="${h(d.par)}">${h(auteur)}</b>${d.ajoute?', le '+new Date(d.ajoute).toLocaleDateString('fr-FR'):''}`:'Lien d\'origine'}</span>
+    </div>
+    <div class="doc-actions">
+      ${u?`<a class="btn-ouvrir" href="${h(u)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}
+      ${estAdmin()?`<button class="btn-suppr no-print" data-rm-dt="${d.id}">Supprimer</button>`:''}
+    </div></div>`;
+}
+
+function carteDocs(r){
+  const R = RUBRIQUES_DOCS[r];
+  const l = S.documents.filter(d=>R.cats.includes(d.cat) && d.an===anDocs)
+    .sort((a,b)=>String(b.date||b.ajoute||'').localeCompare(String(a.date||a.ajoute||'')));
+  const avant = r==='bi' && !l.length ? S.documents.filter(d=>d.cat==='bi' && d.an===anDocs-1) : [];
+  return `<section class="rub-docs rub-${r}" data-rub="${r}">
+    <header class="rub-tete">
+      <div><h3 class="rub-titre">${R.titre} <span class="rub-an">${anDocs}</span></h3><p>${R.aide}</p></div>
+      <span class="rub-compte">${l.length} document${l.length>1?'s':''}</span>
+    </header>
+    <div class="rub-outils no-print">
+      <input type="search" class="rub-recherche" data-rech="${r}" value="${h(rechDocs[r])}"
+        placeholder="${approfDocs[r]?'Rechercher dans le nom, la description ou le contenu':'Rechercher par nom de fichier'}" aria-label="Rechercher">
+      <label class="rub-option"><input type="checkbox" data-approf="${r}" ${approfDocs[r]?'checked':''}> Recherche approfondie</label>
+      ${r==='visites'?`<div class="segment">${[['tous','Tout'],['visite','Visites'],['voyage','Voyages']].map(([k,lib])=>
+        `<button data-filtre-vis="${k}" aria-pressed="${filtreVisites===k}">${lib}</button>`).join('')}</div>`:''}
+      ${R.sp && adresseRechercheSP('x') ? `<button class="btn-sp" data-sp="${r}" title="Recherche dans le texte des fichiers, sur SharePoint">Rechercher dans SharePoint</button>`:''}
+    </div>
+    <div class="liste-docs">${l.map(ligneDocAn).join('')}</div>
+    <p class="aucun" ${l.length?'hidden':''}>${l.length?'Aucun document ne correspond à la recherche.':`Aucun document pour ${anDocs}.`}</p>
+    ${avant.length && peutEditer() ? `<div class="rub-pied"><button class="btn sec" data-reprendre-bi>Reprendre les ${avant.length} liens BI de ${anDocs-1}</button></div>`:''}
+    ${peutEditer() ? `<details class="ajout-doc no-print"${ouvertsDocs.has(r)?' open':''} data-ajout="${r}"><summary>Ajouter un document</summary>
+      <div class="form-doc" data-form-dt="${r}">
+        <div class="form-grille">
+          ${r==='visites'?'<label>Type<select data-k="cat"><option value="visite">Visite</option><option value="voyage">Voyage</option></select></label>':''}
+          <label class="large">Nom du document *<input data-k="t"></label>
+          <label class="large">Lien ${r==='bi'?'Power BI ou SharePoint':'SharePoint'} *<input data-k="url" placeholder="https://…"></label>
+          ${R.date?'<label>Date<input data-k="date" type="date"></label>':''}
+          <label class="large">Description<input data-k="d" placeholder="Lieu, participants, objet…"></label>
+          <label class="large">Résumé du contenu / mots-clés<input data-k="mots" placeholder="Utilisé par la recherche approfondie"></label>
+        </div>
+        <div class="form-actions"><span>Dans SharePoint : « Copier le lien » sur le fichier, puis coller ici.</span>
+          <button class="btn" data-add-dt="${r}">Ajouter</button></div>
+      </div></details>` : ''}
+  </section>`;
+}
+const ouvertsDocs = new Set();
+
+/* Filtre sans redessiner : le champ de recherche garde le curseur */
+function appliquerRecherche(r){
+  const c = document.querySelector(`#v-reunions [data-rub="${r}"]`); if(!c) return;
+  const mots = normTexte(rechDocs[r]).split(/\s+/).filter(Boolean), champ = approfDocs[r] ? 'texte' : 'nom';
+  const lignes = [...c.querySelectorAll('.doc-ligne')]; let vus = 0;
+  lignes.forEach(x=>{
+    const ok = mots.every(m=>x.dataset[champ].includes(m)) && (r!=='visites' || filtreVisites==='tous' || x.dataset.cat===filtreVisites);
+    x.hidden = !ok; if(ok) vus++;
+  });
+  const aucun = c.querySelector('.aucun');
+  aucun.hidden = vus>0;
+  aucun.textContent = lignes.length ? 'Aucun document ne correspond à la recherche.' : `Aucun document pour ${anDocs}.`;
+}
+
+(function brancherDocsAnnee(){
+  const el = document.getElementById('v-reunions');
+  const changerAn = an => { anDocs = an; vueReunions(); };
+  el.addEventListener('input', e=>{
+    const t = e.target;
+    if(t.matches('[data-rech]')){ rechDocs[t.dataset.rech] = t.value; appliquerRecherche(t.dataset.rech); }
+    else if(t.matches('[data-an-docs-range]')) el.querySelector('.an-courant').textContent = t.value;
+  });
+  el.addEventListener('change', e=>{
+    const t = e.target;
+    if(t.matches('[data-approf]')){ approfDocs[t.dataset.approf] = t.checked;
+      el.querySelector(`[data-rech="${t.dataset.approf}"]`).placeholder = t.checked ? 'Rechercher dans le nom, la description ou le contenu' : 'Rechercher par nom de fichier';
+      appliquerRecherche(t.dataset.approf); }
+    else if(t.matches('[data-an-docs-range]')) changerAn(+t.value);
+  });
+  // garder le formulaire ouvert après un ajout
+  el.addEventListener('toggle', e=>{ const d=e.target; if(d.dataset?.ajout) d.open ? ouvertsDocs.add(d.dataset.ajout) : ouvertsDocs.delete(d.dataset.ajout); }, true);
+  el.addEventListener('click', e=>{
+    const t = e.target.closest('button'); if(!t) return;
+    const ds = t.dataset;
+    if(ds.anDocs){ changerAn(+ds.anDocs); return; }
+    if(ds.filtreVis){ filtreVisites = ds.filtreVis;
+      el.querySelectorAll('[data-filtre-vis]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.filtreVis===filtreVisites));
+      appliquerRecherche('visites'); return; }
+    if(ds.sp){ const q = rechDocs[ds.sp].trim(); if(!q){ toast('Tapez d\'abord un mot à chercher'); return; }
+      const u = adresseRechercheSP(q); if(u) window.open(u, '_blank', 'noopener'); return; }
+    if(ds.addDt && peutEditer()){
+      const f = Object.fromEntries([...t.closest('[data-form-dt]').querySelectorAll('[data-k]')].map(i=>[i.dataset.k, i.value.trim()]));
+      if(!f.t){ toast('Nom du document obligatoire'); return; }
+      if(!/^https?:\/\//i.test(f.url)){ toast('Lien obligatoire (https://…)'); return; }
+      const cat = ds.addDt==='visites' ? f.cat : RUBRIQUES_DOCS[ds.addDt].cats[0];
+      S.documents.push({id:uid(), cat, an:anDocs, f:typeLien(f.url), t:f.t, d:f.d||'', mots:f.mots||'', url:f.url, date:f.date||'',
+        par:currentUser?.email||'', ajoute:new Date().toISOString()});
+    }
+    else if(ds.rmDt && estAdmin()){
+      const d = S.documents.find(x=>x.id===ds.rmDt);
+      if(!d || !confirm(`Supprimer « ${d.t} » ?\n(L'ancienne version reste dans l'historique de la base.)`)) return;
+      S.documents = S.documents.filter(x=>x.id!==ds.rmDt);
+    }
+    else if(ds.reprendreBi!==undefined && peutEditer()){
+      S.documents.filter(d=>d.cat==='bi' && d.an===anDocs-1).forEach(d=>
+        S.documents.push({...copie(d), id:uid(), an:anDocs, par:currentUser?.email||'', ajoute:new Date().toISOString()}));
+    }
+    else return;
+    sauver('documents'); vueReunions();
+  });
+})();
 
 /* ============ 04 · Réunion hebdo ============ */
 /* Espèces et segments suivis (le 1er mot sert à regrouper ; l'admin peut en ajouter) */
@@ -1346,8 +1557,7 @@ function vueHebdo(){
     <button class="fleche" data-hsem="1" aria-label="Semaine suivante">›</button>
     <button class="chip" data-hsem="0">Semaine en cours</button>
     <span style="flex:1"></span>
-    <button class="btn sec" data-retour-reu>← Réunions</button>
-    ${adm && (dets.some(d=>d.demo) || S.zrp.some(p=>p.demo) || (S.hebdo.volumesDemo||[]).length)
+        ${adm && (dets.some(d=>d.demo) || S.zrp.some(p=>p.demo) || (S.hebdo.volumesDemo||[]).length)
       ? '<button class="btn sec" data-rm-demo title="Efface les données d\'exemple (détections, volumes, ZRP)">Supprimer les exemples</button>' : ''}
     <button class="btn sec" onclick="window.print()">🖨 Imprimer</button>
     <button class="btn" onclick="telechargerPdfHebdo(this)">⬇ Télécharger en PDF</button>
@@ -1564,7 +1774,6 @@ async function telechargerPdfHebdo(bouton){
     const ds = t.dataset;
     if(ds.hsem!==undefined){ const v=+ds.hsem; if(v<0) semainePrec(); else if(v>0) semaineSuiv();
       else { semaine=numSemaine(new Date()); anReu=new Date().getFullYear(); } vueHebdo(); vueReunions(); return; }
-    if(ds.retourReu!==undefined){ aller('reunions'); return; }
     if(ds.rmDemo!==undefined && estAdmin()){
       if(!confirm('Supprimer toutes les données d\'exemple de la réunion hebdo ? Les vraies saisies sont conservées.')) return;
       S.hebdo.detections = S.hebdo.detections.filter(d=>!d.demo);
@@ -1666,7 +1875,7 @@ function seedDocuments(){
   return [...bi.map(([f,t,d])=>({id:uid(), cat:'bi', f, t, d, url:'', date:''})),
           ...sp.map(([t,d])=>({id:uid(), cat:'sharepoint', f:'SharePoint', t, d, url:'', date:''}))];
 }
-const CAT_DOCS = {visite:'Visites terrain', voyage:'Voyages d\'étude', bi:'Rapports BI & applications', sharepoint:'Ressources communes SharePoint'};
+const CAT_DOCS = {reunion:'Réunions', visite:'Visites terrain', voyage:'Voyages d\'étude', bi:'Rapports BI & applications', sharepoint:'Ressources communes SharePoint'};
 
 /* Liste de documents réutilisable : scope = 'com' (commission en cours) ou une catégorie de S.documents */
 function docsDe(scope){ return scope==='com' ? (S.commissions[annee]?.[comActive]?.docs||[]) : S.documents.filter(d=>d.cat===scope); }
@@ -1698,7 +1907,7 @@ document.addEventListener('click', e=>{
     if(scope==='com'){ const c=S.commissions[annee][comActive]; c.docs=c.docs.filter(d=>d.id!==rm.dataset.id); }
     else S.documents = S.documents.filter(d=>d.id!==rm.dataset.id);
   }
-  sauver(cle); vueCommissions(); vueLiens();
+  sauver(cle); vueCommissions();
 });
 
 function vueCommissions(){
@@ -1869,18 +2078,6 @@ function montrerBassin(){
   });
 })();
 
-/* ============ 06 · Visites, voyages & BI ============ */
-function vueLiens(){
-  const ro = !peutEditer();
-  document.getElementById('v-liens').innerHTML=`
-  <div class="entete"><div class="eyebrow">06 — Visites, voyages &amp; BI</div>
-    <h2>Visites, voyages d'étude et rapports</h2>
-    <p>Les comptes-rendus de visites et de voyages, et les rapports Power BI. Les autres documents sont rangés dans chaque commission.</p></div>
-  <div class="carte"><h3>${CAT_DOCS.visite}</h3><p class="aide">Visites d'exploitations, d'essais, de salons : date, compte-rendu, lien.</p>${blocDocs('visite', ro, true)}</div>
-  <div class="carte"><h3>${CAT_DOCS.voyage}</h3><p class="aide">Voyages techniques en France et à l'étranger.</p>${blocDocs('voyage', ro, true)}</div>
-  <div class="carte"><h3>${CAT_DOCS.bi}</h3><p class="aide">Un clic ouvre le rapport dans Power BI, avec les droits de la personne.</p>${blocDocs('bi', ro)}</div>`;
-}
-
 /* ============ 07 · Annuaire ============ */
 const CAT_EXT = ['Semenciers','Nouvelles technologies','Sanitaire','Instituts & recherche','Fournisseurs','Autres'];
 function seedContacts(){
@@ -1905,7 +2102,7 @@ function vueAnnuaire(){
   const ed=peutEditer(), ce=contactEdite?S.contacts.find(c=>c.id===contactEdite):{};
   const el=document.getElementById('v-annuaire');
   el.innerHTML=`
-  <div class="entete"><div class="eyebrow">07 — Annuaire</div>
+  <div class="entete"><div class="eyebrow">06 — Annuaire</div>
     <h2>Qui sait quoi</h2>
     <p>${experts.length} experts internes (fichier Excel) et ${S.contacts.length} contacts externes. Cherchez un nom, un organisme ou un sujet.</p></div>
   <div class="filtres"><div class="recherche"><input type="search" id="rechExp" placeholder="Nom, organisme, enjeu…" value="${h(rechExpert)}"></div></div>
@@ -2047,7 +2244,8 @@ function exporterExcel(){
     ({Année:+an, Commission:nomCom(id), Bassin:s.bassin, Site:s.nom, Essai:s.essai, OP:s.op, Latitude:s.lat, Longitude:s.lon})))));
   feuille('Planning commissions', coms.flatMap(an=>Object.entries(S.commissions[an]).flatMap(([id,c])=>c.planning.map(p=>({Année:+an, Commission:nomCom(id), Échéance:p.t, Quand:p.q})))));
   feuille('Documents', [...coms.flatMap(an=>Object.entries(S.commissions[an]).flatMap(([id,c])=>c.docs.map(d=>({Rubrique:'Commission '+nomCom(id)+' '+an, Titre:d.t, Description:d.d, Lien:d.url, Date:d.date||''})))),
-    ...S.documents.map(d=>({Rubrique:CAT_DOCS[d.cat], Titre:d.t, Description:d.d, Lien:d.url, Date:d.date||''}))]);
+    ...S.documents.map(d=>({Rubrique:CAT_DOCS[d.cat]+(d.an?' '+d.an:''), Titre:d.t, Description:d.d, Lien:d.url, Date:d.date||'',
+      Contenu:d.mots||'', 'Ajouté par':d.par||'', 'Ajouté le':d.ajoute?d.ajoute.slice(0,10):''}))]);
   feuille('Contacts externes', S.contacts.map(c=>({Nom:c.nom, Organisme:c.org, Catégorie:c.cat, Fonction:c.fonction, Email:c.email, Téléphone:c.tel, Notes:c.notes})));
   XLSX.writeFile(wb, `Institut_Technique_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
