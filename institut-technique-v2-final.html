@@ -1294,7 +1294,7 @@ function semaineSuiv(){ if(semaine<52) semaine++; else { semaine=1; anReu++; } }
 
 /* ============ 03 · Visites, voyages & réunions : documents par année ============ */
 /* On garde des liens (SharePoint, Power BI), pas les fichiers : la recherche porte sur le nom,
-   et en « recherche approfondie » sur la description, le résumé du contenu et le nom du fichier dans le lien. */
+   le nom du fichier dans le lien, la description et le résumé du contenu, en une seule recherche. */
 const RUBRIQUES_DOCS = {
   reunions:{cats:['reunion'], titre:'Réunions', date:true, sp:true,
     aide:'Comptes-rendus, supports et ordres du jour des réunions techniques.'},
@@ -1304,7 +1304,7 @@ const RUBRIQUES_DOCS = {
     aide:'Toujours un lien : le rapport s\'ouvre dans Power BI, à jour, avec les droits de la personne connectée.'}
 };
 const CATS_ONGLET = ['reunion','visite','voyage','bi'];
-const rechDocs = {reunions:'', visites:'', bi:''}, approfDocs = {reunions:false, visites:false, bi:false};
+const rechDocs = {reunions:'', visites:'', bi:''};
 let filtreVisites = 'tous', anDocs = Math.min(Math.max(new Date().getFullYear(),2025),2030);
 const normTexte = s => String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 function nomFichierUrl(u){
@@ -1366,9 +1366,9 @@ function vueReunions(){
 
 function ligneDocAn(d){
   const u = urlSure(d.url), fichier = nomFichierUrl(d.url), fmt = formatDoc(d);
-  const nom = normTexte(d.t+' '+fichier), texte = normTexte([d.t, fichier, d.d, d.mots].join(' '));
+  const texte = normTexte([d.t, fichier, d.d, d.mots].join(' '));
   const auteur = d.par ? d.par.split('@')[0] : '';
-  return `<div class="doc-ligne" data-cat="${h(d.cat)}" data-nom="${h(nom)}" data-texte="${h(texte)}">
+  return `<div class="doc-ligne" data-cat="${h(d.cat)}" data-texte="${h(texte)}">
     ${iconeFormat(fmt)}
     <div class="doc-corps">
       <div class="doc-titre">${u?`<a href="${h(u)}" target="_blank" rel="noopener">${h(d.t)}</a>`:h(d.t)}${
@@ -1398,8 +1398,7 @@ function carteDocs(r){
     </header>
     <div class="rub-outils no-print">
       <input type="search" class="rub-recherche" data-rech="${r}" value="${h(rechDocs[r])}"
-        placeholder="${approfDocs[r]?'Rechercher dans le nom, la description ou le contenu':'Rechercher par nom de fichier'}" aria-label="Rechercher">
-      <label class="rub-option"><input type="checkbox" data-approf="${r}" ${approfDocs[r]?'checked':''}> Recherche approfondie</label>
+        placeholder="Rechercher par nom, description ou contenu" aria-label="Rechercher">
       ${r==='visites'?`<div class="segment">${[['tous','Tout'],['visite','Visites'],['voyage','Voyages']].map(([k,lib])=>
         `<button data-filtre-vis="${k}" aria-pressed="${filtreVisites===k}">${lib}</button>`).join('')}</div>`:''}
       ${R.sp && adresseRechercheSP('x') ? `<button class="btn-sp" data-sp="${r}" title="Recherche dans le texte des fichiers, sur SharePoint">Rechercher dans SharePoint</button>`:''}
@@ -1415,7 +1414,7 @@ function carteDocs(r){
           <label class="large">Lien ${r==='bi'?'Power BI ou SharePoint':'SharePoint'} *<input data-k="url" placeholder="https://…"></label>
           ${R.date?'<label>Date<input data-k="date" type="date"></label>':''}
           <label class="large">Description<input data-k="d" placeholder="Lieu, participants, objet…"></label>
-          <label class="large">Résumé du contenu / mots-clés<input data-k="mots" placeholder="Utilisé par la recherche approfondie"></label>
+          <label class="large">Résumé du contenu / mots-clés<input data-k="mots" placeholder="Mots utilisés par la recherche"></label>
         </div>
         <div class="form-actions"><span>Dans SharePoint : « Copier le lien » sur le fichier, puis coller ici.</span>
           <button class="btn" data-add-dt="${r}">Ajouter</button></div>
@@ -1427,10 +1426,10 @@ const ouvertsDocs = new Set();
 /* Filtre sans redessiner : le champ de recherche garde le curseur */
 function appliquerRecherche(r){
   const c = document.querySelector(`#v-reunions [data-rub="${r}"]`); if(!c) return;
-  const mots = normTexte(rechDocs[r]).split(/\s+/).filter(Boolean), champ = approfDocs[r] ? 'texte' : 'nom';
+  const mots = normTexte(rechDocs[r]).split(/\s+/).filter(Boolean);
   const lignes = [...c.querySelectorAll('.doc-ligne')]; let vus = 0;
   lignes.forEach(x=>{
-    const ok = mots.every(m=>x.dataset[champ].includes(m)) && (r!=='visites' || filtreVisites==='tous' || x.dataset.cat===filtreVisites);
+    const ok = mots.every(m=>x.dataset.texte.includes(m)) && (r!=='visites' || filtreVisites==='tous' || x.dataset.cat===filtreVisites);
     x.hidden = !ok; if(ok) vus++;
   });
   const aucun = c.querySelector('.aucun');
@@ -1448,10 +1447,7 @@ function appliquerRecherche(r){
   });
   el.addEventListener('change', e=>{
     const t = e.target;
-    if(t.matches('[data-approf]')){ approfDocs[t.dataset.approf] = t.checked;
-      el.querySelector(`[data-rech="${t.dataset.approf}"]`).placeholder = t.checked ? 'Rechercher dans le nom, la description ou le contenu' : 'Rechercher par nom de fichier';
-      appliquerRecherche(t.dataset.approf); }
-    else if(t.matches('[data-an-docs-range]')) changerAn(+t.value);
+    if(t.matches('[data-an-docs-range]')) changerAn(+t.value);
   });
   // garder le formulaire ouvert après un ajout
   el.addEventListener('toggle', e=>{ const d=e.target; if(d.dataset?.ajout) d.open ? ouvertsDocs.add(d.dataset.ajout) : ouvertsDocs.delete(d.dataset.ajout); }, true);
