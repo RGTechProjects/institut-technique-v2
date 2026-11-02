@@ -536,8 +536,13 @@ label.btn{display:inline-block;cursor:pointer}
 .segment button{border:0;background:none;padding:7px 13px;font-size:12.5px;color:var(--encre-2)}
 .segment button + button{border-left:1px solid var(--trait)}
 .segment button[aria-pressed="true"]{background:var(--acc);color:#fff;font-weight:600}
-.btn-sp{border:1px solid var(--acc);color:var(--acc);background:#fff;border-radius:5px;padding:7px 12px;font-size:12.5px;font-weight:600}
-.btn-sp:hover{background:var(--acc-fond)}
+.recherche-docs{display:flex;gap:10px;margin:0 0 10px}
+.recherche-docs .rub-recherche{padding:11px 14px;font-size:14.5px;border-color:#CFCBC0}
+.recherche-docs .rub-recherche:focus{outline:2px solid var(--titre);border-color:var(--titre)}
+.recherche-docs .btn{flex:none;padding:0 22px}
+.rech-bilan{font-size:13px;color:var(--encre-2);margin:0 0 18px}
+.rech-bilan b{color:var(--titre)}
+.rech-bilan a{color:var(--titre);font-weight:600;margin-left:2px}
 .liste-docs{padding:0 22px}
 .doc-ligne{display:grid;grid-template-columns:28px minmax(0,1fr) 210px auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EFEDE6}
 .doc-ligne:last-child{border-bottom:0}
@@ -1296,15 +1301,15 @@ function semaineSuiv(){ if(semaine<52) semaine++; else { semaine=1; anReu++; } }
 /* On garde des liens (SharePoint, Power BI), pas les fichiers : la recherche porte sur le nom,
    le nom du fichier dans le lien, la description et le résumé du contenu, en une seule recherche. */
 const RUBRIQUES_DOCS = {
-  reunions:{cats:['reunion'], titre:'Réunions', date:true, sp:true,
+  reunions:{cats:['reunion'], titre:'Réunions', date:true,
     aide:'Comptes-rendus, supports et ordres du jour des réunions techniques.'},
-  visites:{cats:['visite','voyage'], titre:'Visites et voyages', date:true, sp:true,
+  visites:{cats:['visite','voyage'], titre:'Visites et voyages', date:true,
     aide:'Visites d\'exploitations, d\'essais et de salons, voyages d\'étude en France et à l\'étranger.'},
-  bi:{cats:['bi'], titre:'Rapports BI et applications', date:false, sp:false,
+  bi:{cats:['bi'], titre:'Rapports BI et applications', date:false,
     aide:'Toujours un lien : le rapport s\'ouvre dans Power BI, à jour, avec les droits de la personne connectée.'}
 };
 const CATS_ONGLET = ['reunion','visite','voyage','bi'];
-const rechDocs = {reunions:'', visites:'', bi:''};
+let rechDocs = '';   // une seule recherche pour les trois parties
 let filtreVisites = 'tous', anDocs = Math.min(Math.max(new Date().getFullYear(),2025),2030);
 const normTexte = s => String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 function nomFichierUrl(u){
@@ -1316,7 +1321,7 @@ function adresseRechercheSP(q){
   return m ? `https://${m[1]}.sharepoint.com/_layouts/15/search.aspx?q=${encodeURIComponent(q)}` : '';
 }
 function typeLien(u){ u=String(u||'').toLowerCase();
-  return u.includes('powerbi')?'PBI':/\.xlsx?\b|excel/.test(u)?'XLS':/\.pdf\b/.test(u)?'PDF':/\.pptx?\b|powerpoint/.test(u)?'PPT':/\.docx?\b|word/.test(u)?'DOC':u.includes('sharepoint')?'SP':'LIEN'; }
+  return u.includes('powerapps')?'APP':u.includes('powerbi')?'PBI':/\.xlsx?\b|excel/.test(u)?'XLS':/\.pdf\b/.test(u)?'PDF':/\.pptx?\b|powerpoint/.test(u)?'PPT':/\.docx?\b|word/.test(u)?'DOC':u.includes('sharepoint')?'SP':'LIEN'; }
 const formatDoc = d => ({'Power BI':'PBI','Application':'APP','SharePoint':'SP'}[d.f]||d.f||'LIEN').slice(0,4);
 /* Logos des outils (style Office : page + pastille de couleur avec la lettre) ; APP et LIEN restent en texte */
 const LOGOS_OFFICE = {XLS:['#107C41','X','Excel'], DOC:['#185ABD','W','Word'], PPT:['#C43E1C','P','PowerPoint'], SP:['#03787C','S','SharePoint']};
@@ -1360,8 +1365,14 @@ function vueReunions(){
     <p>Les documents restent sur SharePoint ou Power BI ; l'app conserve leur nom, leur lien, l'année et la personne qui les a ajoutés.
     Chacun peut ajouter un document ; la suppression est réservée aux administrateurs.</p></div>
   ${barreAnneeDocs()}
+  <form class="recherche-docs no-print" data-form-rech role="search">
+    <input type="search" class="rub-recherche" data-rech value="${h(rechDocs)}"
+      placeholder="Rechercher dans les réunions, visites, voyages et rapports BI" aria-label="Rechercher un document">
+    <button class="btn" type="submit">Rechercher</button>
+  </form>
+  <div class="rech-bilan no-print" hidden></div>
   ${['reunions','visites','bi'].map(carteDocs).join('')}`;
-  ['reunions','visites','bi'].forEach(appliquerRecherche);
+  appliquerRecherche();
 }
 
 function ligneDocAn(d){
@@ -1396,13 +1407,8 @@ function carteDocs(r){
       <div><h3 class="rub-titre">${R.titre} <span class="rub-an">${anDocs}</span></h3><p>${R.aide}</p></div>
       <span class="rub-compte">${l.length} document${l.length>1?'s':''}</span>
     </header>
-    <div class="rub-outils no-print">
-      <input type="search" class="rub-recherche" data-rech="${r}" value="${h(rechDocs[r])}"
-        placeholder="Rechercher par nom, description ou contenu" aria-label="Rechercher">
-      ${r==='visites'?`<div class="segment">${[['tous','Tout'],['visite','Visites'],['voyage','Voyages']].map(([k,lib])=>
-        `<button data-filtre-vis="${k}" aria-pressed="${filtreVisites===k}">${lib}</button>`).join('')}</div>`:''}
-      ${R.sp && adresseRechercheSP('x') ? `<button class="btn-sp" data-sp="${r}" title="Recherche dans le texte des fichiers, sur SharePoint">Rechercher dans SharePoint</button>`:''}
-    </div>
+    ${r==='visites'?`<div class="rub-outils no-print"><div class="segment">${[['tous','Tout'],['visite','Visites'],['voyage','Voyages']].map(([k,lib])=>
+        `<button data-filtre-vis="${k}" aria-pressed="${filtreVisites===k}">${lib}</button>`).join('')}</div></div>`:''}
     <div class="liste-docs">${l.map(ligneDocAn).join('')}</div>
     <p class="aucun" ${l.length?'hidden':''}>${l.length?'Aucun document ne correspond à la recherche.':`Aucun document pour ${anDocs}.`}</p>
     ${avant.length && peutEditer() ? `<div class="rub-pied"><button class="btn sec" data-reprendre-bi>Reprendre les ${avant.length} liens BI de ${anDocs-1}</button></div>`:''}
@@ -1423,18 +1429,30 @@ function carteDocs(r){
 }
 const ouvertsDocs = new Set();
 
-/* Filtre sans redessiner : le champ de recherche garde le curseur */
-function appliquerRecherche(r){
-  const c = document.querySelector(`#v-reunions [data-rub="${r}"]`); if(!c) return;
-  const mots = normTexte(rechDocs[r]).split(/\s+/).filter(Boolean);
-  const lignes = [...c.querySelectorAll('.doc-ligne')]; let vus = 0;
-  lignes.forEach(x=>{
-    const ok = mots.every(m=>x.dataset.texte.includes(m)) && (r!=='visites' || filtreVisites==='tous' || x.dataset.cat===filtreVisites);
-    x.hidden = !ok; if(ok) vus++;
+/* Filtre sans redessiner, sur les trois parties à la fois : le champ de recherche garde le curseur */
+function appliquerRecherche(){
+  const el = document.getElementById('v-reunions');
+  const mots = normTexte(rechDocs).split(/\s+/).filter(Boolean);
+  let total = 0;
+  el.querySelectorAll('[data-rub]').forEach(c=>{
+    const r = c.dataset.rub, lignes = [...c.querySelectorAll('.doc-ligne')]; let vus = 0;
+    lignes.forEach(x=>{
+      const ok = mots.every(m=>x.dataset.texte.includes(m)) && (r!=='visites' || filtreVisites==='tous' || x.dataset.cat===filtreVisites);
+      x.hidden = !ok; if(ok) vus++;
+    });
+    total += vus;
+    const aucun = c.querySelector('.aucun'), compte = c.querySelector('.rub-compte');
+    aucun.hidden = vus>0;
+    aucun.textContent = lignes.length ? 'Aucun document ne correspond à la recherche.' : `Aucun document pour ${anDocs}.`;
+    compte.textContent = mots.length ? `${vus} sur ${lignes.length}` : `${lignes.length} document${lignes.length>1?'s':''}`;
   });
-  const aucun = c.querySelector('.aucun');
-  aucun.hidden = vus>0;
-  aucun.textContent = lignes.length ? 'Aucun document ne correspond à la recherche.' : `Aucun document pour ${anDocs}.`;
+  const bilan = el.querySelector('.rech-bilan');
+  bilan.hidden = !mots.length;
+  if(mots.length){
+    const sp = adresseRechercheSP(rechDocs.trim());
+    bilan.innerHTML = `<b>${total} document${total>1?'s':''} trouvé${total>1?'s':''}</b> pour « ${h(rechDocs.trim())} » en ${anDocs}`
+      + (sp ? ` · <a href="${h(sp)}" target="_blank" rel="noopener">Chercher aussi dans le contenu des fichiers</a>` : '');
+  }
 }
 
 (function brancherDocsAnnee(){
@@ -1442,12 +1460,18 @@ function appliquerRecherche(r){
   const changerAn = an => { anDocs = an; vueReunions(); };
   el.addEventListener('input', e=>{
     const t = e.target;
-    if(t.matches('[data-rech]')){ rechDocs[t.dataset.rech] = t.value; appliquerRecherche(t.dataset.rech); }
+    if(t.matches('[data-rech]')){ rechDocs = t.value; appliquerRecherche(); }
     else if(t.matches('[data-an-docs-range]')) el.querySelector('.an-courant').textContent = t.value;
   });
   el.addEventListener('change', e=>{
     const t = e.target;
     if(t.matches('[data-an-docs-range]')) changerAn(+t.value);
+  });
+  // bouton « Rechercher » (ou Entrée) : on filtre et on amène au premier résultat
+  el.addEventListener('submit', e=>{
+    if(!e.target.matches('[data-form-rech]')) return;
+    e.preventDefault(); rechDocs = e.target.querySelector('[data-rech]').value; appliquerRecherche();
+    if(rechDocs.trim()) el.querySelector('.doc-ligne:not([hidden])')?.scrollIntoView({behavior:'smooth', block:'center'});
   });
   // garder le formulaire ouvert après un ajout
   el.addEventListener('toggle', e=>{ const d=e.target; if(d.dataset?.ajout) d.open ? ouvertsDocs.add(d.dataset.ajout) : ouvertsDocs.delete(d.dataset.ajout); }, true);
@@ -1457,9 +1481,7 @@ function appliquerRecherche(r){
     if(ds.anDocs){ changerAn(+ds.anDocs); return; }
     if(ds.filtreVis){ filtreVisites = ds.filtreVis;
       el.querySelectorAll('[data-filtre-vis]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.filtreVis===filtreVisites));
-      appliquerRecherche('visites'); return; }
-    if(ds.sp){ const q = rechDocs[ds.sp].trim(); if(!q){ toast('Tapez d\'abord un mot à chercher'); return; }
-      const u = adresseRechercheSP(q); if(u) window.open(u, '_blank', 'noopener'); return; }
+      appliquerRecherche(); return; }
     if(ds.addDt && peutEditer()){
       const f = Object.fromEntries([...t.closest('[data-form-dt]').querySelectorAll('[data-k]')].map(i=>[i.dataset.k, i.value.trim()]));
       if(!f.t){ toast('Nom du document obligatoire'); return; }
