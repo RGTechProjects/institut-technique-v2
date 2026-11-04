@@ -2944,7 +2944,8 @@ function vueHebdo(){
   const W = idxSem(anReu,semaine), k = cleSem(anReu,semaine);
   const kPrev = semaine>1 ? cleSem(anReu,semaine-1) : cleSem(anReu-1,52);
   const vol = S.hebdo.volumes[k]||{}, volPrev = S.hebdo.volumes[kPrev]||{};
-  const ed = peutEditer(), adm = estAdmin();
+  // la saisie de la réunion hebdo est réservée aux administrateurs ; techniciens et lecteurs consultent
+  const adm = estAdmin(), ed = adm;
   const dets = S.hebdo.detections;
   const nouveaux = dets.filter(d=>d.w===W);
   const suivis = dets.filter(d=>d.w<W && (!d.cloture || d.cloture>=W));
@@ -2958,6 +2959,7 @@ function vueHebdo(){
     <h2>Réunion hebdo technique — Semaine ${semaine}</h2>
     <p>${datesSemaine(semaine,anReu)} · ${anReu}. Tendances prévision vs réalisé, pression sanitaire, impact qualité produit et démarche ZRP.</p>
   </div>
+  ${adm ? '' : '<p class="lecture-seule no-print">Consultation : la saisie de la réunion hebdo est réservée aux administrateurs.</p>'}
   <div class="semainier no-print">
     <button class="fleche" data-hsem="-1" aria-label="Semaine précédente">‹</button>
     <div><div class="sem">Semaine ${semaine}</div><div class="dates">${datesSemaine(semaine,anReu)} · ${anReu}</div></div>
@@ -3095,7 +3097,7 @@ async function telechargerPdfHebdo(bouton){
     if(ds.zop!==undefined){ zrpFiltre.op=ds.zop; zrpFiltre.prod=''; vueHebdo(); return; }
     if(ds.zstatut!==undefined){ zrpFiltre.statut = zrpFiltre.statut===ds.zstatut ? null : ds.zstatut; vueHebdo(); return; }
     if(ds.zreset!==undefined){ zrpFiltre={op:'', espece:'', type:'', statut:null, prod:''}; vueHebdo(); return; }
-    if(!peutEditer()) return;
+    if(!estAdmin()) return;
     const imp = id => (S.hebdo.impacts||[]).find(i=>i.id===id);
     if(ds.addPres!==undefined){
       // un ou plusieurs bioagresseurs cochés (et/ou saisis, séparés par des virgules), tous au même niveau
@@ -3178,7 +3180,7 @@ async function telechargerPdfHebdo(bouton){
       sp[t.dataset.f]=t.value; if(t.dataset.f==='tendance') t.className=(TENDANCES.find(z=>z[0]===t.value)||[])[2]||'';
       sauver('hebdo'); return;
     }
-    if(!peutEditer()) return;
+    if(!estAdmin()) return;
     if(t.dataset.det){ const d=det(t.dataset.det); d[t.dataset.f]=t.value; t.className='r'+RISQUES.indexOf(t.value); sauver('hebdo'); vueHebdo(); }
     else if(t.dataset.suivi){ det(t.dataset.suivi).suivi[K()].risque=t.value; sauver('hebdo'); vueHebdo(); }
     else if(t.dataset.imp){ const i=(S.hebdo.impacts||[]).find(x=>x.id===t.dataset.imp); i[t.dataset.f]=t.value.trim(); sauver('hebdo'); if(t.type==='number') vueHebdo(); }
