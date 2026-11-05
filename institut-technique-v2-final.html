@@ -1220,6 +1220,26 @@ details.multi > summary.choisis{color:var(--marque); font-weight:700; background
 .sx-dev-v b{font-size:13px} .sx-dev-v span{font-size:11px; color:var(--ardoise)} .sx-dev-v em{flex-basis:100%; font-style:normal; display:flex; flex-wrap:wrap; gap:4px}
 .sx-dev-v em i{font-style:normal; font-size:10.5px; background:#F3F0E9; padding:1px 7px; border-radius:99px; color:var(--encre-2)}
 @media(max-width:1000px){ .sx-graphes{grid-template-columns:1fr} .sx-sp{margin-left:0} }
+.sx-barre{border-radius:10px; margin:0 0 12px}
+.sx-blocf{margin:0 0 12px; border:1px solid var(--ligne); border-radius:10px; padding:8px 12px; background:#FCFBF8}
+.sx-blocf > summary{cursor:pointer; font-family:'Archivo'; font-weight:700; font-size:13px; color:var(--marque)} .sx-blocf > summary small{font-family:'Public Sans'; font-weight:500; color:var(--ardoise); margin-left:8px}
+.sx-blocf[open] > summary{margin-bottom:8px}
+.sx-fichiers{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:8px}
+.sx-fichier{display:grid; grid-template-columns:auto 1fr auto; gap:6px 10px; align-items:center; padding:8px 10px; border:1px solid #E7E1D6; border-radius:9px; background:#fff}
+.sx-f-nom{display:flex; flex-direction:column; min-width:0} .sx-f-nom b{font-size:13px; color:var(--encre)} .sx-f-nom span{font-size:11px; color:var(--ardoise); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sx-f-act{display:flex; gap:5px; align-items:center}
+.sx-f-lien{grid-column:1/-1; width:100%; border:1px dashed #D9CFC0; border-radius:6px; padding:4px 8px; font-size:11.5px; background:#FCFBF8}
+.sx-graphe-large{margin-top:12px}
+.sx-graphe .aide{font-size:12px} .sx-graphe h6{margin:6px 0 2px; font-size:12px; color:var(--encre-2)}
+.sx-classement{display:flex; flex-direction:column; gap:4px}
+.sx-cl{display:grid; grid-template-columns:24px minmax(150px,1.1fr) 3fr 90px; gap:8px; align-items:center; font-size:12.5px}
+.sx-cl-rang{font-weight:700; color:var(--ardoise); text-align:right} .sx-cl-nom i{font-style:normal; font-size:10px; font-weight:700; background:#68746D; color:#fff; padding:1px 6px; border-radius:99px; margin-left:4px}
+.sx-cl-barre{height:12px; background:#F1ECE3; border-radius:99px; overflow:hidden} .sx-cl-barre b{display:block; height:100%; background:var(--c); border-radius:99px}
+.sx-cl.t .sx-cl-barre b{background:repeating-linear-gradient(90deg,#8C918D 0 6px,#B4B8B5 6px 10px)} .sx-cl-val{font-weight:700; text-align:right}
+.sx-voir{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px}
+.sx-voir button{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ligne); background:#fff; border-radius:99px; padding:4px 10px; font-size:11.5px; cursor:pointer; color:var(--ardoise)}
+.sx-voir button i{width:14px; height:3px; background:var(--c); border-radius:2px; opacity:.35} .sx-voir button i.t{background:repeating-linear-gradient(90deg,var(--c) 0 4px,transparent 4px 7px)}
+.sx-voir button[aria-pressed="true"]{border-color:var(--c); color:var(--encre); font-weight:600; background:#fff} .sx-voir button[aria-pressed="true"] i{opacity:1}
 </style>
 </head>
 <body>
@@ -3818,14 +3838,13 @@ function blocEssais(dc){
   return `<div class="carte bloc-essais">
     <h3>Essais variétaux DV3 chez les producteurs — campagne ${h(e.campagne||'')}</h3>
     <div class="zrp-import no-print">${imp}${adm && e.importe ? `<span class="zrp-dernier">Dernier import : ${h(e.importe)}${e.par?' · '+h(e.par.split('@')[0]):''}</span>` : ''}</div>
+    <details class="sx-blocf" open><summary>Fichiers de la campagne ${h(e.campagne||'')}</summary>${blocFichiers(['pos','agro','orga'].map(k=>e.fichiers[k]).filter(Boolean), e.liens, 'dv3')}${liens}</details>
     <div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
     <div class="es-barre-outils">
       <div class="segment">${vues.map(([k,l])=>`<button data-ev="${k}" aria-pressed="${k===essaiVue}">${l}</button>`).join('')}</div>
       ${essaiVue!=='synth' ? `<select data-eseg aria-label="Segment"><option value="">Tous les segments</option>${segs.map(s=>`<option ${s===essaiSeg?'selected':''}>${h(s)}</option>`).join('')}</select>` : ''}
     </div>
     ${corps}
-    <details class="san-plus"><summary>Fichiers sources et dossiers SharePoint</summary>
-      <p class="aide">Importés : ${['pos','agro','orga'].map(k=>e.fichiers[k]?`<b>${h(e.fichiers[k])}</b>`:'').filter(Boolean).join(' · ')||'—'}</p>${liens}</details>
   </div>`;
 }
 
@@ -4149,31 +4168,75 @@ function carteVariete(r, ref, avant, coul){
 }
 
 /* Vue d'une campagne d'un site */
+/* Fichiers d'une campagne : une carte par fichier, avec Ouvrir / Télécharger / Dossier quand le lien SharePoint est connu.
+   cible = « site|année » pour une campagne de site, « dv3 » pour les essais producteurs ; liens = {nom de fichier: url} */
+const TYPE_FICHIER = n => /hebdo/i.test(n) ? 'Mesures hebdo' : /agro/i.test(n) ? 'Mesures agronomiques' : /organo/i.test(n) ? 'Mesures organoleptiques'
+  : /rendement|rdt/i.test(n) ? 'Rendement et poids moyen' : /d[ée]gust/i.test(n) ? 'Dégustation' : /position/i.test(n) ? 'Positionnement des essais' : 'Fichier';
+function blocFichiers(noms, liens, cible){
+  const adm = estAdmin();
+  return `<div class="sx-fichiers">${noms.map(n=>{ const L = liensDoc((liens||{})[n]);
+    return `<div class="sx-fichier">
+      ${iconeFormat('XLS')}
+      <div class="sx-f-nom"><b>${h(TYPE_FICHIER(n))}</b><span title="${h(n)}">${h(n)}</span></div>
+      <div class="sx-f-act">
+        ${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger" aria-label="Télécharger">${ICO_TELECHARGER}</a>`:''}
+        ${L.dossier?`<a class="btn-icone" href="${h(L.dossier)}" target="_blank" rel="noopener" title="Dossier SharePoint" aria-label="Dossier SharePoint">${ICO_DOSSIER}</a>`:''}
+        ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}
+      </div>
+      ${adm?`<input class="sx-f-lien no-print" data-sx-lien="${h(cible)}" data-sx-fichier="${h(n)}" value="${h((liens||{})[n]||'')}" placeholder="Coller le lien SharePoint du fichier">`:''}
+    </div>`; }).join('')}</div>`;
+}
+
+/* Variétés affichées sur les courbes d'un segment : par défaut les témoins et les deux meilleurs rendements */
+let sxVoir = {};
+const choixCourbes = (cle, l) => sxVoir[cle] ||= [...l.filter(r=>r.temoin).map(r=>r.k), ...l.filter(r=>!r.temoin && r.rdt!==null).sort((a,b)=>b.rdt-a.rdt).slice(0,2).map(r=>r.k)];
+/* Classement des rendements cumulés en fin de campagne */
+function barresRendement(l, coul){
+  const v = l.filter(r=>r.rdt!==null).sort((a,b)=>b.rdt-a.rdt); if(!v.length) return '';
+  const max = v[0].rdt;
+  return `<div class="sx-classement">${v.map((r,i)=>`<div class="sx-cl${r.temoin?' t':''}">
+    <span class="sx-cl-rang">${i+1}</span><span class="sx-cl-nom">${h(r.nom)}${r.temoin?' <i>témoin</i>':''}</span>
+    <span class="sx-cl-barre"><b style="width:${Math.round(100*r.rdt/max)}%; --c:${coul[r.k]}"></b></span><span class="sx-cl-val">${fmt1(r.rdt)} kg/m²</span></div>`).join('')}</div>`;
+}
+
 function vueCampagneSite(site){
-  const S_ = S.essais[site], camps = Object.keys(S_.campagnes).sort().reverse();
-  const adm = estAdmin(), an = campEssai[site] && S_.campagnes[campEssai[site]] ? campEssai[site] : camps[0];
-  const imp = adm ? `<details class="sx-import no-print"${camps.length?'':' open'}><summary>Importer une campagne ${h(SITES_EXPE[site].nom)}</summary>
+  const S_ = S.essais[site], camps = Object.keys(S_.campagnes).sort();
+  const adm = estAdmin(), anAuj = new Date().getFullYear();
+  const an = campEssai[site] || camps[camps.length-1] || String(anAuj);
+  // curseur des campagnes : de la plus ancienne importée (ou N-2) jusqu'à l'année en cours
+  const debut = Math.min(...camps.map(Number), anAuj-2), annees = Array.from({length:anAuj-debut+1}, (_,i)=>String(debut+i));
+  const c = S_.campagnes[an], cAv = S_.campagnes[String(+an-1)];
+  const rs = c ? Object.keys(c.vars).map(k=>resumeVar(c,k)) : [], rsAv = cAv ? Object.keys(cAv.vars).map(k=>resumeVar(cAv,k)) : null;
+  const curseur = `<div class="barre-annee sx-barre no-print">
+    <div><div class="eyebrow">Campagne ${h(SITES_EXPE[site].nom)}</div><div class="an-courant">${an}</div></div>
+    <div class="curseur-an">
+      <input type="range" min="${annees[0]}" max="${annees[annees.length-1]}" step="1" value="${an}" data-sx-range="${site}" aria-label="Choisir la campagne">
+      <div class="annees">${annees.map(y=>`<button class="${y===an?'on':''} ${S_.campagnes[y]?'':'vide'}" data-sx-camp="${site}|${y}">${y}</button>`).join('')}</div>
+    </div>
+    <span class="etat ${c?'ok':''}">${c ? rs.length+' variétés' : 'pas de données'}</span>
+  </div>`;
+  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>${c?'Remplacer':'Importer'} la campagne ${an} ${h(SITES_EXPE[site].nom)}</summary>
       <p class="aide">Choisissez les 5 fichiers de la campagne (mesures hebdo, agro périodiques, organo périodiques, rendement, dégustation).
         Les fichiers restent sur SharePoint : l'app ne garde que les résultats par variété.</p>
       <div class="form-grille">
-        <label>Campagne (année) <input type="number" min="2015" max="2040" data-sx-an placeholder="ex. 2026"></label>
-        <label class="large">Lien du dossier SharePoint de la campagne <input data-sx-dossier placeholder="https://grouperougeline.sharepoint.com/…"></label>
+        <label>Campagne (année) <input type="number" min="2015" max="2040" data-sx-an value="${an}"></label>
+        <label class="large">Lien du dossier SharePoint de la campagne <input data-sx-dossier value="${h(c?.dossier||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label>
       </div>
       <label class="btn">Choisir les fichiers et importer<input type="file" accept=".xlsx,.xls" multiple data-sx-import="${site}" hidden></label></details>` : '';
-  if(!camps.length) return `<div class="sx-vide"><p>Aucune campagne importée pour ${h(SITES_EXPE[site].nom)}.</p>
+  if(!c) return `${curseur}<div class="sx-vide"><p>Pas encore de résultats pour la campagne ${an} à ${h(SITES_EXPE[site].nom)}.</p>
     <a class="btn-ouvrir" href="${h(SITES_EXPE[site].lien)}" target="_blank" rel="noopener">Ouvrir le SharePoint ${h(SITES_EXPE[site].nom)}</a></div>${imp}`;
-  const c = S_.campagnes[an], cAv = S_.campagnes[String(+an-1)];
-  const rs = Object.keys(c.vars).map(k=>resumeVar(c,k)), rsAv = cAv ? Object.keys(cAv.vars).map(k=>resumeVar(cAv,k)) : null;
   const segs = [...new Set(rs.map(r=>r.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
   if(segEssai!=='*' && !segs.includes(segEssai)) segEssai = segs[0]||'';
   const segsVus = segEssai==='*' ? segs : [segEssai];
   const L = liensDoc(c.dossier || SITES_EXPE[site].lien);
   const nbDv = l => rs.filter(r=>new RegExp(l,'i').test(r.dv) && !r.temoin).length;
-  return `<div class="sx-tete">
-      <div class="segment">${camps.map(y=>`<button data-sx-camp="${site}|${y}" aria-pressed="${y===an}">Campagne ${y}</button>`).join('')}</div>
-      <span class="sx-resume">${rs.length} variétés · ${nbDv('dv\\s*1')} en DV1 · ${nbDv('dv\\s*2')} en DV2 · ${rs.filter(r=>r.temoin).length} témoins${cAv?` · comparaison avec ${+an-1}`:''}</span>
+  return `${curseur}
+    <div class="sx-tete">
+      <span class="sx-resume">${rs.length} variétés · ${nbDv('dv\\s*1')} en DV1 · ${nbDv('dv\\s*2')} en DV2 · ${rs.filter(r=>r.temoin).length} témoins${cAv?` · comparées à ${+an-1}`:''}</span>
       <span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Dossier SharePoint ${an}</a>`:''}</span>
     </div>
+    <details class="sx-blocf" open><summary>Fichiers de la campagne ${an}${adm && c.importe?` <small>importés le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}</small>`:''}</summary>
+      ${blocFichiers(c.fichiers||[], c.liens, site+'|'+an)}</details>
     ${imp}
     <div class="sx-segs"><button class="chip" data-sx-seg="*" aria-pressed="${segEssai==='*'}">Tous les segments</button>${segs.map(s=>`<button class="chip" data-sx-seg="${h(s)}" aria-pressed="${s===segEssai}">${h(s)}</button>`).join('')}</div>
     ${segsVus.map(seg=>{
@@ -4181,18 +4244,25 @@ function vueCampagneSite(site){
       const ref = l.filter(r=>r.temoin).sort((a,b)=>(b.rdt||0)-(a.rdt||0))[0];
       const coul = Object.fromEntries(l.map((r,i)=>[r.k, COUL_VAR[i%COUL_VAR.length]]));
       const concl = conclusions(l, rsAv && rsAv.filter(r=>r.seg===seg));
-      const sRdt = l.filter(r=>c.rdt[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:cumul(c.rdt[r.k])}));
-      const sFlo = l.filter(r=>c.flo[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:Object.entries(c.flo[r.k]).map(([w,v])=>[+w,v]).sort((a,b)=>a[0]-b[0])}));
+      const cle = `${site}|${an}|${seg}`, voir = choixCourbes(cle, l);
+      const vus = l.filter(r=>voir.includes(r.k));
+      const sRdt = vus.filter(r=>c.rdt[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:cumul(c.rdt[r.k])}));
+      const sFlo = vus.filter(r=>c.flo[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:Object.entries(c.flo[r.k]).map(([w,v])=>[+w,v]).sort((a,b)=>a[0]-b[0])}));
+      const avecCourbes = l.some(r=>c.rdt[r.k] || c.flo[r.k]);
       return `<section class="sx-seg">
         <h4>${h(seg)} <span>${l.length} variétés</span></h4>
         ${concl.length ? `<div class="sx-concl"><b class="sx-concl-titre">Ce qu'il faut retenir</b><ul>${concl.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : ''}
         <div class="sx-cartes">${l.map(r=>carteVariete(r, ref, rsAv && rsAv.find(x=>x.k===r.k), coul[r.k])).join('')}</div>
-        ${sRdt.length || sFlo.length ? `<div class="sx-graphes">
-          ${sRdt.length ? `<div class="sx-graphe"><h5>Rendement cumulé (kg/m²) semaine par semaine</h5>${courbesSem(sRdt,'Rendement cumulé')}</div>` : ''}
-          ${sFlo.length ? `<div class="sx-graphe"><h5>Vitesse de floraison (stade moyen) par semaine</h5>${courbesSem(sFlo,'Stade de floraison')}</div>` : ''}
-        </div>` : ''}
-      </section>`; }).join('')}
-    <details class="san-plus"><summary>Fichiers de la campagne ${an}</summary><p class="aide">${(c.fichiers||[]).map(f=>`<b>${h(f)}</b>`).join(' · ')||'—'}${c.importe?` — importés le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}`:''}</p></details>`;
+        ${l.some(r=>r.rdt!==null) ? `<div class="sx-graphe sx-graphe-large"><h5>Classement du rendement cumulé sur la campagne</h5>${barresRendement(l, coul)}</div>` : ''}
+        ${avecCourbes ? `<div class="sx-graphe sx-graphe-large">
+          <h5>Évolution semaine par semaine — variétés comparées</h5>
+          <p class="aide" style="margin:0 0 6px">Cliquez sur les variétés pour les ajouter ou les retirer des courbes (témoins en pointillés).</p>
+          <div class="sx-voir">${l.map(r=>`<button data-sx-voir-cle="${h(cle)}" data-sx-voir-var="${h(r.k)}" aria-pressed="${voir.includes(r.k)}" style="--c:${coul[r.k]}"><i class="${r.temoin?'t':''}"></i>${h(r.nom)}</button>`).join('')}</div>
+          <div class="sx-graphes">
+            <div><h6>Rendement cumulé (kg/m²)</h6>${sRdt.length ? courbesSem(sRdt,'Rendement cumulé') : '<p class="aide">Choisissez au moins une variété.</p>'}</div>
+            <div><h6>Vitesse de floraison (stade moyen)</h6>${sFlo.length ? courbesSem(sFlo,'Stade de floraison') : '<p class="aide">Pas de mesure pour ces variétés.</p>'}</div>
+          </div></div>` : ''}
+      </section>`; }).join('')}`;
 }
 
 /* Liste des variétés en développement : dernière campagne de chaque site + essais producteurs (DV3) */
@@ -4245,9 +4315,16 @@ function vueDocsCadres(dc, c){
     else if(ds.sxSource){ sourceEssai = ds.sxSource; segEssai = ''; vueCommissions(); }
     else if(ds.sxCamp){ const [s,y] = ds.sxCamp.split('|'); campEssai[s] = y; vueCommissions(); }
     else if(ds.sxSeg!==undefined){ segEssai = ds.sxSeg; vueCommissions(); }
+    else if(ds.sxVoirVar){ const l = sxVoir[ds.sxVoirCle] ||= []; const i = l.indexOf(ds.sxVoirVar); i<0 ? l.push(ds.sxVoirVar) : l.splice(i,1); vueCommissions(); }
   });
   el.addEventListener('change', async e=>{
-    const t = e.target; if(!t.matches('[data-sx-import]') || !estAdmin() || !t.files.length) return;
+    const t = e.target;
+    if(t.matches('[data-sx-range]')){ campEssai[t.dataset.sxRange] = String(t.value); vueCommissions(); return; }
+    if(t.matches('[data-sx-lien]') && estAdmin()){ const [site, an] = t.dataset.sxLien.split('|');
+      const o = site==='dv3' ? S.commissions[annee][comActive].essais : S.essais[site].campagnes[an];
+      (o.liens ||= {})[t.dataset.sxFichier] = t.value.trim(); if(!o.liens[t.dataset.sxFichier]) delete o.liens[t.dataset.sxFichier];
+      sauver(site==='dv3' ? 'commissions' : 'essais'); vueCommissions(); return; }
+    if(!t.matches('[data-sx-import]') || !estAdmin() || !t.files.length) return;
     if(!window.XLSX){ toast('Module Excel non chargé'); return; }
     const site = t.dataset.sxImport, zone = t.closest('.sx-import');
     try{
