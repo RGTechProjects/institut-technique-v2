@@ -3767,7 +3767,7 @@ const CODES_DV3 = {
   pivot:['','Adapté','Trop important']
 };
 const STADES_DV3 = ['Février','Mars','Avril','Mai','Juin'];
-let essaiVue = 'synth', essaiSeg = '', essaiVar = '';
+let essaiVue = 'synth', essaiSeg = '', essaiVar = '', essaiSegChoisi = false;
 
 /* --- lecture des fichiers --- */
 const normEnt = s => String(s).replace(/[\r\n]+/g,' ').replace(/\s+/g,' ').trim().toUpperCase();
@@ -4388,9 +4388,9 @@ function partieEssais(an){
     return `<button class="es-src${s===sourceEssai?' on':''}${d?'':' vide'}" data-es-src="${s}">
       <b>${h(I.nom)}</b><span>${h(I.lieu || I.desc)}</span>
       <em>${d ? h(resumeSource(s, d)) : `pas de données en ${an}${autres.length ? ' · voir '+autres.join(', ') : ''}`}</em></button>`; }).join('');
-  return `<div class="es-srcs">${cartes}</div>
+  return `<div class="carte es-accueil"><h3>Carte des essais ${an} — choisissez un site ou une source</h3>
+    <div class="es-accueil-grille"><div class="es-carte-fr">${carteEssais(an)}</div><div class="es-srcs">${cartes}</div></div></div>
   <div class="carte es-panneau">${panneauSource(sourceEssai, an)}</div>
-  <div class="carte es-accueil"><h3>Où sont les essais ${an}</h3><div class="es-carte-fr">${carteEssais(an)}</div></div>
   ${estAdmin() ? importEssais(an) : ''}`;
 }
 
@@ -4532,7 +4532,7 @@ function barresDegu(l){
 
 /* Rapports (synthèses, comptes rendus de visite) du segment pour l'année */
 function rapportsSegment(an, src, seg){
-  const l = (S.essais?.docs?.[an]||[]).filter(d=>['rapport','visite','degu'].includes(d.cat) && (!d.source || d.source===src || !SITES_EXPE[src]) && procheSeg(d.t, seg)>=0.5);
+  const l = (S.essais?.docs?.[an]||[]).filter(d=>['rapport','visite','degu'].includes(d.cat) && (!d.source || d.source===src || !SITES_EXPE[src]) && procheSeg(d.t, seg)>0.6 && motsSeg(seg).every(w=>motsSeg(d.t).includes(w)));
   if(!l.length) return '';
   return `<div class="sx-rapports"><h5>Rapports et comptes rendus du segment — ${an}</h5><div class="es-docs-l">${l.map(ligneDoc).join('')}</div></div>`;
 }
@@ -4615,6 +4615,7 @@ function blocDV3(e, src, an){
   const idx = indexVarietes(e), toutes = Object.values(idx);
   const segs = [...new Set(toutes.map(f=>f.seg))].sort((a,b)=>a==='Non positionnée'?1:b==='Non positionnée'?-1:a.localeCompare(b,'fr'));
   if(essaiSeg && !segs.includes(essaiSeg)) essaiSeg = '';
+  if(!essaiSeg && !essaiSegChoisi){ const n = s_ => toutes.filter(f=>f.seg===s_).length; essaiSeg = segs.filter(s_=>!/non positionn|^autres$/i.test(s_)).sort((a,b)=>n(b)-n(a))[0] || ''; }
   const vis = toutes.filter(f=>!essaiSeg || f.seg===essaiSeg).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
   const nb = (l, k) => new Set(l.map(r=>String(r[k]).trim()).filter(Boolean)).size;
   const kpis = [[e.pos.length,'essais positionnés'],[nb(e.pos,'v'),'variétés en essai'],[nb(e.pos,'soc'),'sites producteurs'],[e.obs.length,'observations agronomiques'],
@@ -4626,8 +4627,8 @@ function blocDV3(e, src, an){
   return `<div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
     <div class="es-barre-outils">
       <div class="segment">${vues.map(([k,l])=>`<button data-ev="${k}" aria-pressed="${k===essaiVue}">${l}</button>`).join('')}</div>
-      <select data-eseg aria-label="Segment"><option value="">Tous les segments</option>${segs.map(s=>`<option ${s===essaiSeg?'selected':''}>${h(s)}</option>`).join('')}</select>
     </div>
+    <div class="sx-segs"><button class="chip" data-dv3-seg="" aria-pressed="${!essaiSeg}">Tous les segments</button>${segs.map(s_=>`<button class="chip" data-dv3-seg="${h(s_)}" aria-pressed="${s_===essaiSeg}">${h(s_)}</button>`).join('')}</div>
     ${opFiltre && essaiVue==='pos' ? `<p class="es-filtre">Essais du bassin <b>${h(opFiltre)}</b> <button class="chip" data-op-effacer>Voir tous les bassins ✕</button></p>` : ''}
     ${corps}
     ${essaiSeg ? `${rapportsSegment(an, src, essaiSeg)}${listeSegment(essaiSeg, an)}${prixSegment(essaiSeg, an, vis.map(f=>cleSx(f.nom)))}`
@@ -4698,15 +4699,16 @@ function prixVariete(an, k){
   for(const s of (S.essais?.prix?.[an]?.segments||[])){ const v = s.varietes.find(x=>cleSx(x.nom)===k); if(v) return {...v, segment:s.nom, an}; }
   return null;
 }
-function partiePrix(an){
+function partiePrix(anSel){
+  const an = S.essais?.prix?.[anSel] ? +anSel : (+anCatalogue(anSel) || +anSel);
   const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an], av = S.essais?.prix?.[String(an-1)];
-  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>${c?'Remplacer':'Importer'} le catalogue ${an}</summary>
+  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>Importer ou remplacer un catalogue de prix</summary>
       <p class="aide">Le catalogue s'importe à partir du modèle Excel (une ligne par variété : segment, variété, niveau, semencier, prix, résistance ToBRFV, commentaires ;
         un onglet « Segments » pour les potentiels et prix moyens). Téléchargez le modèle pré-rempli avec le dernier catalogue, mettez-le à jour, puis importez-le.
         Les catalogues des années précédentes restent consultables.</p>
-      <div class="form-grille"><label class="large">Lien du catalogue sur SharePoint (PDF) <input data-prix-lien-nv value="${h(c?.lien||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label></div>
+      <div class="form-grille"><label>Année du catalogue <input type="number" min="2015" max="2040" data-prix-an-imp value="${anSel}"></label><label class="large">Lien du catalogue sur SharePoint (PDF) <input data-prix-lien-nv value="${h(c?.lien||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label></div>
       <button class="btn sec" data-prix-modele>Télécharger le modèle Excel</button>
-      <label class="btn">Importer le catalogue ${an}<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
+      <label class="btn">Importer le catalogue<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
   if(!c) return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
     <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
   const L = liensDoc(c.lien);
@@ -4718,6 +4720,7 @@ function partiePrix(an){
       <div class="sx-pv-com">${h(v.commentaire||'')}</div></div>`; };
   return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
     <div class="sx-confid">Document confidentiel — ne pas diffuser sans autorisation. Prix des graines uniquement, hors marge du pépiniériste.</div>
+    ${+an!==+anSel ? `<p class="es-astuce">Pas de catalogue daté ${anSel} : voici le catalogue <b>${an}</b>, le plus proche (préparé en ${an-1} pour la campagne ${an-1}-${an}).</p>` : ''}
     <div class="sx-tete"><span class="sx-resume">${h(c.titre||'')}</span><span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue ${an}</a>`:''}</span></div>
     ${imp}
     <div class="sx-recherche no-print"><input type="search" data-prix-rech placeholder="Chercher une variété : son prix s'affiche…" aria-label="Chercher le prix d'une variété"></div>
@@ -4978,10 +4981,11 @@ function rappelCalendrier(com, an){
     const ds = t.dataset;
     if(ds.com){ comActive = ds.com; ficheVar = ''; rendre(); return; }
     if(ds.ficheFermer!==undefined){ ficheVar = ''; rendre(); return; }
-    if(ds.anCom){ anCom = +ds.anCom; if(ds.esSrc){ comPartie = 'essais'; sourceEssai = ds.esSrc; segEssai = ds.sxSeg || ''; essaiSeg = ''; ficheVar = ''; } rendre(); return; }
+    if(ds.anCom){ anCom = +ds.anCom; essaiSeg = ''; essaiSegChoisi = false; if(ds.esSrc){ comPartie = 'essais'; sourceEssai = ds.esSrc; segEssai = ds.sxSeg || ''; essaiSeg = ''; essaiSegChoisi = false; ficheVar = ''; } rendre(); return; }
     if(ds.comPartie){ comPartie = ds.comPartie; rendre(); return; }
-    if(ds.esSrc){ sourceEssai = ds.esSrc; segEssai = ''; essaiSeg = ''; opFiltre = ''; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if(ds.esSrc){ sourceEssai = ds.esSrc; segEssai = ''; essaiSeg = ''; essaiSegChoisi = false; opFiltre = ''; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if(ds.esOp){ sourceEssai = donneesEssai('dv3', anCom) ? 'dv3' : sourceEssai; essaiVue = 'pos'; opFiltre = ds.esOp; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if(ds.dv3Seg!==undefined){ essaiSeg = ds.dv3Seg; essaiSegChoisi = true; rendre(); return; }
     if(ds.opEffacer!==undefined){ opFiltre = ''; rendre(); return; }
     if(ds.sxSeg!==undefined){ segEssai = ds.sxSeg; rendre(); return; }
     if(ds.sxVoirVar){ const l = sxVoir[ds.sxVoirCle] ||= []; const i = l.indexOf(ds.sxVoirVar); i<0 ? l.push(ds.sxVoirVar) : l.splice(i,1); rendre(); return; }
@@ -5031,8 +5035,8 @@ function rappelCalendrier(com, an){
   });
   el.addEventListener('change', async e=>{
     const t = e.target;
-    if(t.matches('[data-an-range]')){ anCom = +t.value; rendre(); return; }
-    if(t.matches('[data-eseg]')){ essaiSeg = t.value; rendre(); return; }
+    if(t.matches('[data-an-range]')){ anCom = +t.value; essaiSeg = ''; essaiSegChoisi = false; rendre(); return; }
+    if(t.matches('[data-eseg]')){ essaiSeg = t.value; essaiSegChoisi = true; rendre(); return; }
     if(t.matches('[data-sx-seg-choix]')){ segEssai = t.value; rendre(); return; }
     if(t.matches('[data-evar]')){ essaiVar = t.value; rendre(); return; }
     if(!estAdmin()) return;
@@ -5065,7 +5069,7 @@ function rappelCalendrier(com, an){
       return; }
     if(t.matches('[data-prix-import]') && t.files[0]){
       if(!window.XLSX){ toast('Module Excel non chargé'); return; }
-      const z = t.closest('.sx-import'), an = String(anCom);
+      const z = t.closest('.sx-import'), an = z.querySelector('[data-prix-an-imp]').value.trim(); if(!/^20\d\d$/.test(an)){ toast('Indiquez l\'année du catalogue'); return; }
       try{ const c = lireCatalogue(XLSX.read(await t.files[0].arrayBuffer(), {type:'array'}));
         if(!c.segments.length){ toast('Aucune variété trouvée dans le fichier'); return; }
         Object.assign(c, {lien:z.querySelector('[data-prix-lien-nv]').value.trim() || S.essais.prix?.[an]?.lien || '', fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''});
