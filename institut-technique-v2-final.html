@@ -1419,6 +1419,44 @@ body.fiche-ouverte{overflow:hidden}
 @media(max-width:640px){ .sx-segs{display:none} .sx-segs-choix{display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:700; color:var(--marque); margin:6px 0} .sx-segs-choix select{padding:9px 10px; font-size:14px; border:1.5px solid var(--marque); border-radius:8px; background:#fff}
   .ps-v{grid-template-columns:1fr auto} .ps-barre{display:none} .cal-ev{grid-template-columns:52px 1fr} .es-doc{grid-template-columns:auto 1fr} .es-doc-act{grid-column:1/-1; justify-content:flex-end}
   .fv-panneau{padding:0 12px 24px} .sx-cl{grid-template-columns:20px 1fr 70px} .sx-cl .sx-cl-barre{display:none} }
+/* ===== Commissions v9 : liste positive, recherche en haut, rappel du calendrier ===== */
+#v-commissions > .es-rech{margin:0 0 12px}
+.es-srcs{flex-direction:row; flex-wrap:wrap; margin-bottom:12px}
+.es-srcs .es-src{flex:1 1 150px; padding:7px 10px} .es-srcs .es-src b{font-size:13.5px} .es-srcs .es-src em{font-size:11.5px}
+.es-accueil .es-carte-fr{max-width:980px; margin:0 auto}
+.cal-rappel{display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; background:#FBF7EF; border:1px solid #EADFC6; border-left:5px solid #C9A04A; border-radius:10px; padding:9px 14px; margin:0 0 14px; font-size:13px}
+.cal-rappel-t{font-family:'Archivo'; font-weight:700; color:var(--marque)} .cal-rappel .chip{margin-left:auto}
+.avis{font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:99px; white-space:nowrap}
+.avis.arret{background:#FBE3E1; color:#9B2C22} .avis.maintien{background:#E3F1E8; color:#2E7D4F}
+.li-outils{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:6px 0 8px}
+.li-outils input{flex:1 1 320px; padding:10px 14px; border:1.5px solid var(--marque); border-radius:99px; font-size:14px; background:#fff}
+.li-groupe{margin-top:12px; border:1px solid var(--ligne); border-radius:12px; background:#fff; overflow:hidden}
+.li-groupe > h4{margin:0; padding:9px 14px; font-family:'Archivo'; font-size:15px; color:var(--marque); background:var(--titre-fond,#F6EDEE)}
+.li-groupe > h4 span{font-family:'Public Sans'; font-size:12px; font-weight:500; color:var(--ardoise)}
+.li-typo-t{padding:6px 14px 2px; font-size:11.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--ardoise); border-top:1px solid #F1ECE3}
+.li-v{display:grid; grid-template-columns:minmax(170px,1.1fr) minmax(200px,1.4fr) auto; gap:4px 14px; align-items:center; padding:7px 14px; border-top:1px solid #F7F3EC}
+.li-v.nouv{background:#EEF8F1} .li-v.hors{opacity:.65}
+.li-v[hidden], .li-groupe[hidden]{display:none!important}
+.li-nom{display:flex; flex-direction:column} .li-nom span{font-size:11.5px; color:var(--ardoise)}
+.li-tags{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
+.li-typo{font-size:11.5px; color:var(--encre-2)} .li-essais{font-size:10.5px; font-weight:700; color:#3B5BA9; background:#E6ECF8; padding:1px 7px; border-radius:99px}
+.li-nouv{font-size:10.5px; font-weight:700; color:#fff; background:#2E7D4F; padding:2px 8px; border-radius:99px}
+.li-hors{font-size:10.5px; color:#3B5BA9; background:#E6ECF8; padding:2px 8px; border-radius:99px}
+.gout{font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:99px; background:#EEE9DF; color:var(--encre-2)}
+.gout.g1{background:#F6E7C8; color:#7A5A12} .gout.g2{background:#F3D9DD; color:#7A1F2B} .gout.g3{background:var(--marque); color:#fff}
+.tols{display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end}
+.tol{font-size:10.5px; font-weight:600; padding:2px 6px; border-radius:5px; white-space:nowrap}
+.tol.hr{background:#E3F1E8; color:#22663F} .tol.ir{background:#FBF0D9; color:#8A6A12} .tol.non{background:#F4F2EE; color:#A39E93}
+.li-com{grid-column:1/-1; margin:0; font-size:12px; color:var(--encre-2); font-style:italic}
+.li-pdfs{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px}
+.li-pdfs div{display:flex; flex-direction:column; gap:3px; border:1px solid var(--ligne); border-radius:10px; padding:8px 12px; background:#fff; font-size:12.5px}
+.li-pdfs b{font-family:'Archivo'; color:var(--marque)} .li-pdfs a{color:var(--encre)}
+.li-seg{margin-top:14px; border:1px solid #E5DCC8; border-left:5px solid var(--marque); border-radius:12px; background:#FDFBF7; padding:10px 14px}
+.li-seg h5{margin:0 0 8px; font-family:'Archivo'; font-size:14px; color:var(--marque)}
+.li-seg-l{display:flex; flex-wrap:wrap; gap:6px}
+.li-puce{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ligne); border-radius:99px; padding:3px 10px; background:#fff; font-size:12.5px}
+.li-puce small{font-size:10.5px; color:var(--ardoise)} .li-puce.lp{border-color:#9CC9AD; background:#EEF8F1}
+@media(max-width:700px){ .li-v{grid-template-columns:1fr} .tols{justify-content:flex-start} .cal-rappel .chip{margin-left:0} }
 </style>
 </head>
 <body>
@@ -3729,7 +3767,7 @@ const CODES_DV3 = {
   pivot:['','Adapté','Trop important']
 };
 const STADES_DV3 = ['Février','Mars','Avril','Mai','Juin'];
-let essaiVue = 'pos', essaiSeg = '', essaiVar = '';
+let essaiVue = 'synth', essaiSeg = '', essaiVar = '';
 
 /* --- lecture des fichiers --- */
 const normEnt = s => String(s).replace(/[\r\n]+/g,' ').replace(/\s+/g,' ').trim().toUpperCase();
@@ -4209,7 +4247,7 @@ function barresRendement(l, coul){
    Données : S.essais = résultats d'essais par source et par année, rapports (docs), catalogues de prix ;
              S.espaces = {coms:{<commission>:{calendrier:[], cadres:{<année>:[]}}}, fiches:{<clé variété>:{nom, docs[], coms[]}}} */
 let anCom = new Date().getFullYear(), comPartie = 'essais', opFiltre = '', varTous = false, IDX = {};
-const PARTIES_CVTO = [['essais','Essais & résultats'],['varietes','Variétés'],['prix','Prix des graines'],['commission','La commission']];
+const PARTIES_CVTO = [['essais','Résultats des essais'],['lp','Liste positive'],['prix','Prix des graines'],['commission','Calendrier & documents']];
 const SOURCES_ESSAIS = {
   invenio:{nom:'Invenio', court:'Invenio', lieu:'Sainte-Livrade-sur-Lot (47)', desc:'Site d\'expérimentation · DV1 et DV2', lon:0.59, lat:44.40},
   camargue:{nom:'Camargue Innovation', court:'Camargue', lieu:'Saint-Laurent-d\'Aigouze (30)', desc:'Site d\'expérimentation · DV1 et DV2', lon:4.20, lat:43.63},
@@ -4275,11 +4313,13 @@ function indexGlobal(){
   Object.entries(S.essais?.hiver||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, src:'hiver', an:+an})));
   Object.entries(S.essais?.rallyes||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, dv:v.statut, src:'rallyes', an:+an})));
   Object.entries(S.essais?.prix||{}).forEach(([an,c])=>(c.segments||[]).forEach(s=>s.varietes.forEach(v=>add(v.nom, {seg:s.nom, sem:v.semencier, dv:v.niveau==='LP'?'Liste positive':v.niveau, src:'prix', an:+an}))));
+  Object.entries(S.essais?.listes||{}).forEach(([an,L])=>{ (L.lp?.lignes||[]).forEach(x=>add(x.nom, {seg:x.typo, sem:x.sem, dv:'Liste positive', src:'lp', an:+an}));
+    (L.dev?.lignes||[]).forEach(x=>add(x.nom, {seg:x.typo, sem:x.sem, dv:x.dv, src:'dev', an:+an})); });
   Object.entries(S.espaces?.fiches||{}).forEach(([k,f])=>{ if(!idx[k] && f.nom) idx[k] = {k, nom:f.nom, seg:'', sem:'', dv:{}, ou:[]}; });
   return idx;
 }
 const dvDe = (v, an) => { const ans = Object.keys(v.dv).map(Number).sort((a,b)=>a-b); const av = ans.filter(a=>a<=+an); const a = av.length ? av[av.length-1] : ans[ans.length-1]; return a ? v.dv[a] : ''; };
-const libSrc = s => s==='prix' ? 'Prix' : SOURCES_ESSAIS[s]?.court || s;
+const libSrc = s => s==='prix' ? 'Prix' : s==='lp' ? 'Liste positive' : s==='dev' ? 'Liste dév.' : SOURCES_ESSAIS[s]?.court || s;
 const parcours = v => [...v.ou].sort((a,b)=>a.an-b.an || libSrc(a.src).localeCompare(libSrc(b.src))).map(o=>`${libSrc(o.src)} ${o.an}`).join(' · ');
 const btnFiche = (k, nom) => `<button class="lien-fiche" data-fiche="${h(k)}">${h(nom)}</button>`;
 
@@ -4320,17 +4360,19 @@ function barreAnCom(com){
 function vueCommissions(){
   const el = document.getElementById('v-commissions'); el.dataset.com = comActive;
   const c = COMMISSIONS.find(x=>x.id===comActive);
-  const parties = comActive==='cvto' ? PARTIES_CVTO : [['commission','La commission']];
+  const parties = comActive==='cvto' ? PARTIES_CVTO : [['commission','Calendrier & documents']];
   if(!parties.some(p=>p[0]===comPartie)) comPartie = parties[0][0];
   IDX = comActive==='cvto' ? indexGlobal() : {};
   if(ficheVar && !IDX[ficheVar]) ficheVar = '';
-  const corps = comPartie==='essais' ? partieEssais(anCom) : comPartie==='varietes' ? partieVarietes(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
+  const corps = comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
   el.innerHTML = `
   <div class="entete"><div class="eyebrow">05 — Commissions</div>
     <h2>Espaces de commission</h2>
-    <p>Une année à la fois pour toute la page : les essais et leurs résultats, les variétés, les prix des graines, puis la vie de la commission (calendrier, membres, documents cadres).</p></div>
+    <p>Choisissez l'année, cherchez une variété, puis consultez les résultats des essais, la liste positive, les prix des graines et le calendrier de la commission.</p></div>
   <div class="onglets-com">${COMMISSIONS.map(x=>`<button class="chip" data-com="${x.id}" aria-pressed="${x.id===comActive}">${x.nom}</button>`).join('')}</div>
   ${barreAnCom(comActive)}
+  ${comActive==='cvto' ? rechercheVarietes() : ''}
+  ${rappelCalendrier(comActive, anCom)}
   ${parties.length>1 ? `<div class="com-parties segment">${parties.map(([k,l])=>`<button data-com-partie="${k}" aria-pressed="${k===comPartie}">${l}</button>`).join('')}</div>` : ''}
   ${corps}
   ${ficheVar ? vueFicheVar(ficheVar) : ''}`;
@@ -4346,16 +4388,9 @@ function partieEssais(an){
     return `<button class="es-src${s===sourceEssai?' on':''}${d?'':' vide'}" data-es-src="${s}">
       <b>${h(I.nom)}</b><span>${h(I.lieu || I.desc)}</span>
       <em>${d ? h(resumeSource(s, d)) : `pas de données en ${an}${autres.length ? ' · voir '+autres.join(', ') : ''}`}</em></button>`; }).join('');
-  return `<div class="carte es-accueil">
-    <h3>Essais variétaux ${an} — où ils se trouvent, ce qu'ils contiennent</h3>
-    <div class="es-accueil-grille">
-      <div class="es-carte-fr">${carteEssais(an)}</div>
-      <div class="es-srcs">${cartes}</div>
-    </div>
-    ${rechercheVarietes()}
-  </div>
+  return `<div class="es-srcs">${cartes}</div>
   <div class="carte es-panneau">${panneauSource(sourceEssai, an)}</div>
-  ${docsEssaisAn(an)}
+  <div class="carte es-accueil"><h3>Où sont les essais ${an}</h3><div class="es-carte-fr">${carteEssais(an)}</div></div>
   ${estAdmin() ? importEssais(an) : ''}`;
 }
 
@@ -4464,7 +4499,7 @@ function vueSite(site, an, c){
           <div><h6>Vitesse de floraison (stade moyen)</h6>${sFlo.length ? courbesSem(sFlo,'Stade de floraison') : '<p class="aide">Pas de mesure pour ces variétés.</p>'}</div>
         </div></details>` : ''}
       ${rapportsSegment(an, site, seg)}
-      ${prixSegment(seg, an, l.map(r=>r.k))}
+      ${listeSegment(seg, an)}${prixSegment(seg, an, l.map(r=>r.k))}
     </section>`;
 }
 
@@ -4478,10 +4513,10 @@ function vueListeSite(site, an, c){
     ${pucesSegments(segs)}
     <section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés</span></h4>
       <div class="ra-liste">${l.map(v=>{ const n = ra?.vars?.[v.k]?.notes || {};
-        return `<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.dv)}<span>${h(v.sem||'')}</span></header>
+        return `<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.dv)}<span>${h(v.sem||'')}</span>${v.avis?`<span class="avis ${/arr/i.test(v.avis)?'arret':'maintien'}">Avis CVTO : ${h(v.avis)}</span>`:''}</header>
           ${Object.keys(n).length ? `<div class="ra-notes">${Object.entries(n).map(([vis,t])=>`<p><b>${h(vis)}</b>${h(t)}</p>`).join('')}</div>` : ''}</article>`; }).join('')}</div>
       ${rapportsSegment(an, site, seg)}
-      ${prixSegment(seg, an, l.map(v=>v.k))}
+      ${listeSegment(seg, an)}${prixSegment(seg, an, l.map(v=>v.k))}
     </section>`;
 }
 
@@ -4557,7 +4592,7 @@ function vueHiver(d, an){
           ${v.notes.map(n=>`<tr><td>${h(n.op)}<small>${h(n.prod||'')}</small></td><td>${h(n.mois)}</td><td>${h(n.eq||'—')}</td><td>${h(String(n.nou||'—').replace(/\s*\(.*$/,''))}</td><td>${h(String(n.forme||'—').replace(/\s*\(.*$/,''))}</td><td>${h(n.com||'')}${n.rdt?` <b>${h(n.rdt)} kg/m²</b>`:''}</td></tr>`).join('')}</tbody></table>` : ''}
         ${v.degu?.com?.length ? `<p class="hv-com">Dégustateurs : ${v.degu.com.map(h).join(' · ')}</p>` : ''}</article>`).join('')}</div>
       ${rapportsSegment(an, 'hiver', seg)}
-      ${prixSegment(seg, an, l.map(v=>v.k))}
+      ${listeSegment(seg, an)}${prixSegment(seg, an, l.map(v=>v.k))}
     </section>`;
 }
 
@@ -4569,9 +4604,9 @@ function vueRallyes(d, an){
   return `<p class="sx-resume">${vs.length} variétés vues pendant ${d.visites.length} visites : ${d.visites.map(h).join(' · ')}.</p>
     ${pucesSegments(segs)}
     <section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés</span></h4>
-      <div class="ra-liste">${l.map(v=>`<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.statut)}<span>${h(v.sem||'')}</span></header>
+      <div class="ra-liste">${l.map(v=>`<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.statut)}<span>${h(v.sem||'')}</span>${v.avis?`<span class="avis ${/arr/i.test(v.avis)?'arret':'maintien'}">Avis CVTO : ${h(v.avis)}</span>`:''}</header>
         <div class="ra-notes">${Object.entries(v.notes).map(([vis,t])=>`<p><b>${h(vis)}</b>${h(t)}</p>`).join('') || '<p class="aide">Pas de commentaire.</p>'}</div></article>`).join('')}</div>
-      ${prixSegment(seg, an, l.map(v=>v.k))}
+      ${listeSegment(seg, an)}${prixSegment(seg, an, l.map(v=>v.k))}
     </section>`;
 }
 
@@ -4584,7 +4619,8 @@ function blocDV3(e, src, an){
   const nb = (l, k) => new Set(l.map(r=>String(r[k]).trim()).filter(Boolean)).size;
   const kpis = [[e.pos.length,'essais positionnés'],[nb(e.pos,'v'),'variétés en essai'],[nb(e.pos,'soc'),'sites producteurs'],[e.obs.length,'observations agronomiques'],
     [e.qual.length,'contrôles qualité fruit'],[e.degu.length,'notes de dégustation']];
-  const vues = [['pos','Positionnement'],['var','Fiche variété'],['qual','Qualité fruit'],['degu','Dégustation'],['synth','Synthèse par segment']];
+  const vues = [['synth','Résultats par segment'],['degu','Dégustation'],['qual','Qualité fruit'],['pos','Où sont les essais']];
+  if(!vues.some(v=>v[0]===essaiVue)) essaiVue = 'synth';
   const corps = essaiVue==='pos' ? vuePositionnement(e, idx) : essaiVue==='var' ? vueFicheVariete(e, idx, vis) : essaiVue==='qual' ? vueQualite(e, vis)
     : essaiVue==='degu' ? vueDegustation(e, vis) : vueSynthese(e, idx, essaiSeg ? [essaiSeg] : segs);
   return `<div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
@@ -4594,8 +4630,8 @@ function blocDV3(e, src, an){
     </div>
     ${opFiltre && essaiVue==='pos' ? `<p class="es-filtre">Essais du bassin <b>${h(opFiltre)}</b> <button class="chip" data-op-effacer>Voir tous les bassins ✕</button></p>` : ''}
     ${corps}
-    ${essaiSeg ? `${rapportsSegment(an, src, essaiSeg)}${prixSegment(essaiSeg, an, vis.map(f=>cleSx(f.nom)))}`
-      : '<p class="aide es-astuce">Choisissez un segment pour afficher en bas les prix des graines et les rapports du segment.</p>'}`;
+    ${essaiSeg ? `${rapportsSegment(an, src, essaiSeg)}${listeSegment(essaiSeg, an)}${prixSegment(essaiSeg, an, vis.map(f=>cleSx(f.nom)))}`
+      : '<p class="aide es-astuce">Choisissez un segment pour afficher en bas la liste positive, les prix des graines et les rapports du segment.</p>'}`;
 }
 
 /* Rapports et documents d'essais de l'année */
@@ -4751,6 +4787,7 @@ function partieCommission(c, an){
     <div class="com-membres">${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}</div>
     ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}</div>`;
   return `${calendrier}<div class="deux com-bas">${membresB}${vueCadres(c, an)}</div>
+    ${c.id==='cvto' ? docsEssaisAn(an) : ''}
     ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3><p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
       ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
     <div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`;
@@ -4785,6 +4822,11 @@ function vueFicheVar(k){
   const v = IDX[k]; if(!v) return '';
   const ed = peutEditer(), adm = estAdmin(), f = S.espaces?.fiches?.[k] || {docs:[], coms:[]};
   const secs = [];
+  // statut dans les listes positives (production / développement) et avis de la commission
+  const st = statutListe(anCom, k), avis = Object.entries(S.essais?.avis||{}).map(([a,o])=>[a,o.vars?.[k]]).filter(x=>x[1]);
+  if(st || avis.length) secs.push(`<section class="fv-sec"><h5>Liste positive et décisions</h5>
+    ${st ? `<p>${st.type==='lp' ? `<b>En liste positive de production</b> ${h(anListe(anCom)-1+'-'+anListe(anCom))}${st.gout?' · '+h(st.gout):''}` : `<b>En développement ${h(st.dv)}</b> ${h(anListe(anCom)-1+'-'+anListe(anCom))}`} · ${h(st.typo)}</p>${tolerances(st)}${st.com?`<p class="li-com">${h(st.com)}</p>`:''}` : ''}
+    ${avis.map(([a,x])=>`<p><span class="avis ${/arr/i.test(x)?'arret':'maintien'}">Avis CVTO ${a} : ${h(x)}</span></p>`).join('')}</section>`);
   // prix des graines, toutes années
   const prix = anneesPrix().map(a=>prixVariete(a,k)).filter(Boolean).reverse();
   const r0 = prix[0];
@@ -4835,10 +4877,95 @@ function vueFicheVar(k){
       <p>${h([v.seg, v.sem].filter(Boolean).join(' · '))}</p>
       <div class="sx-fiche-badges">${dv?badgeDv(dv):''}${r0?.r?'<span class="sx-tobrfv">Résistante ToBRFV (annoncée)</span>':''}</div></div>
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
-    <div class="fv-parcours"><span>Parcours</span>${[...v.ou].sort((a,b)=>a.an-b.an).map(o=>o.src==='prix' ? `<b class="fv-p prix">Prix ${o.an}</b>`
+    <div class="fv-parcours"><span>Parcours</span>${[...v.ou].sort((a,b)=>a.an-b.an).map(o=>['prix','lp','dev'].includes(o.src) ? `<b class="fv-p prix">${h(libSrc(o.src))} ${o.an}</b>`
       : `<button class="fv-p" data-an-com="${o.an}" data-es-src="${o.src}">${h(libSrc(o.src))} ${o.an}</button>`).join('')}</div>
     ${secs.join('')}
   </aside>`;
+}
+
+
+/* ================= Partie « Liste positive » : variétés en production et en développement =================
+   S.essais.listes[année de fin de campagne] = {lp:{titre, maj, ref, lien, lignes:[{aop, typo, nom, sem, gout, tobrfv, tomv, ff, on, com, nouv, horsTypo}]},
+                                               dev:{…, lignes:[{aop, typo, nom, sem, dv, tobrfv, tomv, ff, on, com}]}} */
+let filtreListe = 'tout';
+const anListe = an => { const ans = Object.keys(S.essais?.listes||{}).map(Number).sort((a,b)=>a-b); if(!ans.length) return '';
+  if(ans.includes(+an+1)) return String(+an+1); if(ans.includes(+an)) return String(an); const av = ans.filter(a=>a<=+an+1); return String(av.length ? av[av.length-1] : ans[0]); };
+const cleListe = nom => cleSx(String(nom).replace(/\s*\(.*$/,''));
+function statutListe(an, k){
+  const L = S.essais?.listes?.[anListe(an)]; if(!L) return null;
+  const p = (L.lp?.lignes||[]).find(x=>cleListe(x.nom)===k && !x.horsTypo); if(p) return {type:'lp', ...p};
+  const d = (L.dev?.lignes||[]).find(x=>cleListe(x.nom)===k); return d ? {type:'dev', ...d} : null;
+}
+const tagTol = (lib, v) => !v || v==='-' ? `<span class="tol non" title="${lib} : non">${lib} –</span>` : `<span class="tol ${/hr/i.test(v)?'hr':'ir'}" title="${lib} : ${h(v)}">${lib} ${h(v)}</span>`;
+const tolerances = x => `<span class="tols">${tagTol('ToBRFV', x.tobrfv)}${tagTol('TomV', x.tomv)}${tagTol('Clado.', x.ff)}${tagTol('Oïdium', x.on)}</span>`;
+const GOUTS = ['Standard','Standard +','Gustatif','Excellence gustative'];
+function partieListe(an){
+  const aL = anListe(an), L = aL ? S.essais.listes[aL] : null;
+  const pdfs = Object.entries(espaceCom('cvto').cadres).flatMap(([a,l])=>l.filter(d=>/en production|en d[ée]veloppement/i.test(d.cat)).map(d=>({...d, a:+a})));
+  const pdfAn = pdfs.filter(d=>d.a===+an);
+  const lienPdf = d => { const Lk = liensDoc(d.url); return Lk.ouvrir ? `<a class="btn-ouvrir" href="${h(Lk.ouvrir)}" target="_blank" rel="noopener">${h(d.t)}</a>` : ''; };
+  if(!L) return `<div class="carte"><h3>Liste positive</h3><p class="aide">Aucune liste saisie pour l'instant.</p>${pdfAn.map(lienPdf).join(' ')}</div>`;
+  const prixDe = k => { const ac = anCatalogue(an); const p = ac ? prixVariete(ac, k) : null; return p && prixM2(p.prix)!==null ? `<span class="sx-prix-tag">${fmtPrix(prixM2(p.prix))} €/m²</span>` : ''; };
+  const resDe = k => { const v = IDX[k]; if(!v) return ''; const ess = v.ou.filter(o=>!['prix','lp','dev'].includes(o.src)); return ess.length ? `<span class="li-essais">${ess.length} essai${ess.length>1?'s':''}</span>` : ''; };
+  const filtre = x => filtreListe==='tout' || (filtreListe==='tobrfv' && /hr|ir/i.test(x.tobrfv||'')) || (filtreListe==='nouv' && x.nouv) || (filtreListe==='gout' && /gustatif|excellence/i.test(x.gout||''));
+  const ligneLp = x => { const k = cleListe(x.nom);
+    return `<div class="li-v${x.nouv?' nouv':''}${x.horsTypo?' hors':''}" data-nom="${h(normTexte(x.nom+' '+x.sem+' '+x.typo+' '+x.aop))}"${filtre(x)?'':' hidden'}>
+      <div class="li-nom">${btnFiche(k, x.nom)}<span>${h(x.sem)}</span></div>
+      <div class="li-tags">${x.gout?`<span class="gout g${GOUTS.indexOf(x.gout)}">${h(x.gout)}</span>`:''}${x.nouv?'<span class="li-nouv">Entre dans la liste</span>':''}${x.horsTypo?'<span class="li-hors">Non cultivée pour cette typologie</span>':''}${prixDe(k)}${resDe(k)}</div>
+      ${tolerances(x)}
+      ${x.com?`<p class="li-com">${h(x.com)}</p>`:''}</div>`; };
+  const ligneDev = x => { const k = cleListe(x.nom);
+    return `<div class="li-v" data-nom="${h(normTexte(x.nom+' '+x.sem+' '+x.typo+' '+x.aop+' '+x.dv))}"${filtre(x)?'':' hidden'}>
+      <div class="li-nom">${btnFiche(k, x.nom)}<span>${h(x.sem)}</span></div>
+      <div class="li-tags">${badgeDv(x.dv)}<span class="li-typo">${h(x.typo)}</span>${prixDe(k)}${resDe(k)}</div>
+      ${tolerances(x)}
+      ${x.com?`<p class="li-com">${h(x.com)}</p>`:''}</div>`; };
+  const groupes = (lignes, cle) => [...new Set(lignes.map(cle))];
+  const lp = L.lp?.lignes||[], dev = L.dev?.lignes||[];
+  const Lp = liensDoc(L.lp?.lien), Ld = liensDoc(L.dev?.lien);
+  return `<div class="carte li-carte">
+    <h3>Liste positive des variétés en production — ${aL-1}-${aL}</h3>
+    <div class="sx-tete"><span class="sx-resume">${h(L.lp?.ref||'')} · mise à jour du ${dateCourte(L.lp?.maj)}${+aL!==+an?` · liste de la campagne ${aL-1}-${aL}, préparée en ${aL-1}`:''}</span>
+      <span class="sx-sp">${Lp.ouvrir?`<a class="btn-ouvrir" href="${h(Lp.ouvrir)}" target="_blank" rel="noopener">Ouvrir le PDF</a>`:''}</span></div>
+    <div class="es-kpis">${[[lp.filter(x=>!x.horsTypo).length,'variétés autorisées'],[lp.filter(x=>x.nouv).length,'entrent dans la liste'],[lp.filter(x=>/hr|ir/i.test(x.tobrfv)).length,'tolérantes ToBRFV (a priori)'],
+      [lp.filter(x=>/gustatif|excellence/i.test(x.gout)).length,'gustatives ou excellence'],[dev.length,'en développement'],[dev.filter(x=>x.dv==='DV3').length,'en DV3']].map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
+    <div class="li-outils no-print">
+      <input type="search" data-li-rech placeholder="Chercher dans la liste positive : variété, semencier, typologie…" aria-label="Chercher dans la liste positive">
+      <div class="segment">${[['tout','Toutes'],['tobrfv','Tolérantes ToBRFV'],['gout','Gustatives'],['nouv','Nouvelles']].map(([k,l])=>`<button data-li-filtre="${k}" aria-pressed="${filtreListe===k}">${l}</button>`).join('')}</div>
+    </div>
+    <p class="aide">Tolérances : <span class="tol hr">Hr</span> haute résistance · <span class="tol ir">Ir</span> résistance intermédiaire · Clado. = cladosporiose (Fulvia fulva) · Oïdium = On / Lt. Le prix des graines et le nombre d'essais s'affichent quand ils sont connus ; un clic sur une variété ouvre sa fiche.</p>
+    ${groupes(lp, x=>x.aop).map(g=>`<section class="li-groupe" data-seg-bloc><h4>${h(g)}</h4>${groupes(lp.filter(x=>x.aop===g), x=>x.typo).map(ty=>`<div class="li-typo-t">${h(ty)}</div>${lp.filter(x=>x.aop===g && x.typo===ty).map(ligneLp).join('')}`).join('')}</section>`).join('')}
+  </div>
+  <div class="carte li-carte">
+    <h3>Variétés en développement — ${aL-1}-${aL}</h3>
+    <div class="sx-tete"><span class="sx-resume">${h(L.dev?.ref||'')} · mise à jour du ${dateCourte(L.dev?.maj)} · ${['DV3','DV2','DV1'].map(d=>`${dev.filter(x=>x.dv===d).length} en ${d}`).join(' · ')}</span>
+      <span class="sx-sp">${Ld.ouvrir?`<a class="btn-ouvrir" href="${h(Ld.ouvrir)}" target="_blank" rel="noopener">Ouvrir le PDF</a>`:''}</span></div>
+    ${['DV3','DV2','DV1'].map(d=>{ const l = dev.filter(x=>x.dv===d); return l.length ? `<section class="li-groupe" data-seg-bloc><h4>${d} <span>${l.length} variétés</span></h4>${groupes(l, x=>x.aop).map(g=>`<div class="li-typo-t">${h(g)}</div>${l.filter(x=>x.aop===g).map(ligneDev).join('')}`).join('')}</section>` : ''; }).join('')}
+  </div>
+  ${pdfs.length ? `<div class="carte"><h3>Listes des autres campagnes (PDF)</h3><div class="li-pdfs">${[...new Set(pdfs.map(d=>d.a))].sort((a,b)=>b-a).map(a=>`<div><b>${a-1}-${a}</b>${pdfs.filter(d=>d.a===a).map(d=>{ const Lk = liensDoc(d.url); return Lk.ouvrir ? `<a href="${h(Lk.ouvrir)}" target="_blank" rel="noopener">${h(d.t)}</a>` : ''; }).join('')}</div>`).join('')}</div></div>` : ''}`;
+}
+/* Liste positive du segment, en bas des résultats (avant les prix) */
+const inclusSeg = (typo, seg) => { const T = motsSeg(typo), Sg = motsSeg(seg); return T.length>=2 && T[0]===Sg[0] && T.every(w=>Sg.includes(w)); };
+function listeSegment(seg, an){
+  const aL = anListe(an), L = aL ? S.essais.listes[aL] : null; if(!L) return '';
+  const lp = (L.lp?.lignes||[]).filter(x=>procheSeg(x.aop+' '+x.typo, seg)>=0.75 || procheSeg(x.typo, seg)>=0.99 || inclusSeg(x.typo, seg));
+  const dev = (L.dev?.lignes||[]).filter(x=>procheSeg(x.typo, seg)>=0.99);
+  if(!lp.length && !dev.length) return '';
+  return `<div class="li-seg"><h5>Liste positive ${aL-1}-${aL} — ${h(seg)}</h5>
+    <div class="li-seg-l">${lp.map(x=>`<span class="li-puce lp">${btnFiche(cleListe(x.nom), x.nom)}<small>en production</small></span>`).join('')}
+      ${dev.map(x=>`<span class="li-puce">${btnFiche(cleListe(x.nom), x.nom)}<small>${h(x.dv)}</small></span>`).join('')}</div></div>`;
+}
+/* Rendez-vous de la commission : rappel en haut de page (le plus proche de l'année choisie) */
+function rappelCalendrier(com, an){
+  const l = espaceCom(com).calendrier.filter(e=>e.date).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!l.length) return '';
+  const auj = new Date().toISOString().slice(0,10);
+  const anL = l.filter(e=>+e.an===+an), prochain = l.find(e=>e.date>=auj), dernier = [...(anL.length?anL:l)].reverse().find(e=>e.date<auj) || anL[anL.length-1];
+  const ev = e => `<b>${h(dateCourte(e.date))}</b> ${h(e.titre)}`;
+  return `<div class="cal-rappel no-print"><span class="cal-rappel-t">Calendrier de la commission</span>
+    ${prochain && +an>=+auj.slice(0,4) ? `<span>Prochain : ${ev(prochain)}</span>` : ''}${dernier ? `<span>${prochain && +an>=+auj.slice(0,4)?'Dernier':'Dernier en '+an} : ${ev(dernier)}</span>` : ''}
+    <span>${anL.length} rendez-vous en ${an}</span>
+    <button class="chip" data-com-partie="commission">Voir le calendrier</button></div>`;
 }
 
 /* ================= Écouteurs (une seule fois) ================= */
@@ -4859,9 +4986,10 @@ function vueFicheVar(k){
     if(ds.sxSeg!==undefined){ segEssai = ds.sxSeg; rendre(); return; }
     if(ds.sxVoirVar){ const l = sxVoir[ds.sxVoirCle] ||= []; const i = l.indexOf(ds.sxVoirVar); i<0 ? l.push(ds.sxVoirVar) : l.splice(i,1); rendre(); return; }
     if(ds.ev){ essaiVue = ds.ev; rendre(); return; }
-    if(ds.evarOuvrir){ essaiVar = ds.evarOuvrir; essaiVue = 'var'; rendre(); return; }
+    if(ds.evarOuvrir){ const k = cleSx(ds.evarOuvrir); if(IDX[k]){ ficheVar = k; rendre(); } return; }
     if(ds.fiche){ ficheVar = ds.fiche; rendre(); el.querySelector('.fv-panneau')?.focus?.(); return; }
     if(ds.varTous){ varTous = ds.varTous==='1'; rendre(); return; }
+    if(ds.liFiltre){ filtreListe = ds.liFiltre; rendre(); return; }
     if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
     if(!peutEditer()) return;
     // fiche variété : documents et commentaires (éditeurs), suppression (admin)
@@ -4895,10 +5023,11 @@ function vueFicheVar(k){
     if(t.matches('[data-es-rech]')){ const q = normTexte(t.value.trim()), z = t.closest('.es-rech').querySelector('.es-rech-res'); let n = 0;
       z.hidden = !q; z.querySelectorAll('[data-nom]').forEach(b=>{ const ok = !!q && n<30 && b.dataset.nom.includes(q); b.hidden = !ok; if(ok) n++; });
       z.querySelector('.es-rech-vide').hidden = !q || n>0; return; }
-    if(!t.matches('[data-var-rech],[data-prix-rech]')) return;
+    if(!t.matches('[data-var-rech],[data-prix-rech],[data-li-rech]')) return;
     const q = normTexte(t.value.trim()), zone = t.closest('.carte');
-    zone.querySelectorAll('[data-seg-bloc]').forEach(b=>{ let vus = 0;
-      b.querySelectorAll('[data-nom]').forEach(x=>{ const ok = !q || x.dataset.nom.includes(q); x.hidden = !ok; if(ok) vus++; }); b.hidden = !!q && !vus; });
+    const zones = t.matches('[data-li-rech]') ? document.querySelectorAll('#v-commissions .li-carte') : [zone];
+    zones.forEach(z=>z.querySelectorAll('[data-seg-bloc]').forEach(b=>{ let vus = 0;
+      b.querySelectorAll('[data-nom]').forEach(x=>{ const ok = !q || x.dataset.nom.includes(q); x.hidden = !ok; if(ok) vus++; }); b.hidden = !!q && !vus; }));
   });
   el.addEventListener('change', async e=>{
     const t = e.target;
