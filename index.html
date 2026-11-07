@@ -1240,6 +1240,185 @@ details.multi > summary.choisis{color:var(--marque); font-weight:700; background
 .sx-voir button{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ligne); background:#fff; border-radius:99px; padding:4px 10px; font-size:11.5px; cursor:pointer; color:var(--ardoise)}
 .sx-voir button i{width:14px; height:3px; background:var(--c); border-radius:2px; opacity:.35} .sx-voir button i.t{background:repeating-linear-gradient(90deg,var(--c) 0 4px,transparent 4px 7px)}
 .sx-voir button[aria-pressed="true"]{border-color:var(--c); color:var(--encre); font-weight:600; background:#fff} .sx-voir button[aria-pressed="true"] i{opacity:1}
+.sx-recherche{margin:4px 0 10px} .sx-recherche input{width:100%; max-width:560px; padding:10px 14px; border:1.5px solid var(--marque); border-radius:99px; font-size:14px; background:#fff}
+button.sx-dev-v{width:100%; border:0; border-top:1px solid #F1ECE3; background:#fff; text-align:left; cursor:pointer; font:inherit}
+button.sx-dev-v:hover{background:#FCF8F3} button.sx-dev-v.ouverte{background:var(--marque-clair)}
+.sx-prix-tag{font-size:11px; font-weight:700; color:#2E7D4F; background:#E3F1E8; padding:1px 7px; border-radius:99px}
+.sx-cpt{font-size:10.5px; color:var(--marque); background:var(--marque-clair); padding:1px 7px; border-radius:99px}
+[data-seg-bloc][hidden],[data-nom][hidden]{display:none!important}
+.sx-fiche{border:1px solid var(--ligne); border-left:5px solid var(--marque); border-radius:12px; background:#fff; padding:14px 16px; margin-bottom:14px; display:flex; flex-direction:column; gap:12px}
+.sx-fiche header{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start}
+.sx-fiche h4{margin:0; font-family:'Archivo'; font-size:20px; color:var(--marque)} .sx-fiche header span{font-size:12.5px; color:var(--ardoise)}
+.sx-fiche-badges{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.sx-fiche h5{margin:0 0 6px; font-family:'Archivo'; font-size:13.5px; color:var(--marque)}
+.sx-fiche-grille{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.sx-fiche-grille > section{border:1px solid #F1ECE3; border-radius:10px; padding:10px 12px; background:#FCFBF8}
+.sx-tobrfv{font-size:10.5px; font-weight:700; color:#8A4B06; background:#FCE3C4; padding:2px 8px; border-radius:99px}
+.sx-prix-ligne{display:grid; grid-template-columns:44px auto 1fr; gap:2px 10px; align-items:baseline; padding:5px 0; border-top:1px solid #F1ECE3}
+.sx-prix-ligne:first-of-type{border-top:0} .sx-prix-ligne.ancien{opacity:.7} .sx-prix-ligne small{grid-column:2/-1; font-size:11.5px; color:var(--encre-2)}
+.sx-prix-ligne > span:last-of-type{font-size:11.5px; color:var(--ardoise)} .sx-prix-gros{font-family:'Archivo'; font-size:20px; font-weight:700; color:#2E7D4F}
+.sx-lien-essai{display:block; width:100%; text-align:left; border:1px solid var(--ligne); background:#fff; border-radius:8px; padding:6px 10px; margin-bottom:5px; font-size:12.5px; color:var(--marque); cursor:pointer}
+.sx-lien-essai:hover{border-color:var(--marque)}
+.sx-fiche-form{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px} .sx-fiche-form input{flex:1 1 200px; padding:7px 9px; border:1px solid var(--trait); border-radius:6px; font-size:13px}
+.sx-fiche-form textarea{flex:1 1 100%; padding:8px 10px; border:1px solid var(--trait); border-radius:6px; font:inherit; font-size:13px}
+.sx-com-l{position:relative; padding:7px 10px; border-left:3px solid var(--or); background:#FFFBF2; border-radius:6px; margin-bottom:6px}
+.sx-com-l b{font-size:12.5px; color:var(--marque)} .sx-com-l small{margin-left:8px; color:var(--ardoise); font-size:11px} .sx-com-l p{margin:3px 0 0; font-size:13px}
+.sx-com-l .suppr{position:absolute; top:6px; right:8px}
+.sx-confid{font-size:12px; font-weight:600; color:#8A1C1C; background:#FBE9E9; border:1px solid #F1C5C5; border-radius:8px; padding:6px 12px; margin-bottom:10px}
+.sx-prix-segs{display:grid; grid-template-columns:repeat(auto-fill,minmax(420px,1fr)); gap:12px}
+.sx-prix-seg{border:1px solid var(--ligne); border-radius:12px; background:#fff; overflow:hidden}
+.sx-prix-seg header{padding:9px 12px; background:var(--marque-clair); border-bottom:1px solid #EBD6DA}
+.sx-prix-seg h5{margin:0 0 4px; font-family:'Archivo'; font-size:14.5px; color:var(--marque)}
+.sx-ps-kpi{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--ardoise)} .sx-ps-kpi b{color:var(--encre)}
+.sx-prix-v{display:grid; grid-template-columns:minmax(120px,1.1fr) auto minmax(120px,1fr); gap:4px 10px; align-items:center; padding:8px 12px; border-top:1px solid #F1ECE3}
+.sx-prix-v:first-of-type{border-top:0}
+.sx-pv-nom{display:flex; flex-direction:column} .sx-pv-nom b{font-size:13.5px} .sx-pv-nom b.res{color:#C2650A} .sx-pv-nom span{font-size:11px; color:var(--ardoise)}
+.sx-pv-tags{display:flex; flex-direction:column; gap:3px; align-items:flex-start}
+.sx-pv-prix{display:flex; flex-direction:column; align-items:flex-end; text-align:right} .sx-pv-prix b{font-family:'Archivo'; font-size:17px; color:#2E7D4F}
+.sx-pv-prix span{font-size:10.5px; color:var(--ardoise)} .sx-pv-prix small{font-size:10.5px; color:var(--encre-2)}
+.sx-pv-com{grid-column:1/-1; font-size:11.5px; color:var(--encre-2)} .sx-pv-com:empty{display:none}
+@media(max-width:900px){ .sx-fiche-grille{grid-template-columns:1fr} .sx-prix-segs{grid-template-columns:1fr} }
+/* ===== Commissions v8 : année unique, carte des essais, fiche variété, calendrier ===== */
+.com-annee .com-camp{font-size:11.5px; color:var(--ardoise)}
+.com-annee .annees{display:flex; justify-content:space-between; gap:4px; flex-wrap:wrap; margin-top:4px}
+.com-annee .annees button{display:flex; flex-direction:column; align-items:center; gap:2px; padding:3px 4px; border-radius:6px}
+.com-annee .annees button.on{background:var(--titre-fond,#F6EDEE)}
+.com-annee .pts{display:flex; gap:2px; height:6px} .com-annee .pts b, .pts-leg b{display:inline-block; width:6px; height:6px; border-radius:50%}
+.pt-essais{background:#7A1F2B} .pt-prix{background:#2E7D4F} .pt-rdv{background:#C9A04A} .pt-cadres{background:#3B5BA9}
+.pts-leg{display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:6px; font-size:11px; color:var(--ardoise)} .pts-leg span{display:inline-flex; align-items:center; gap:5px}
+.com-parties{margin:0 0 14px}
+.lien-fiche{border:0; background:none; padding:0; font:inherit; font-weight:700; color:var(--marque); cursor:pointer; text-align:left; text-decoration:underline; text-decoration-color:rgba(122,31,43,.25); text-underline-offset:3px}
+.lien-fiche:hover{text-decoration-color:var(--marque)}
+.sx-carte h5 .lien-fiche{font-family:'Archivo'; font-size:15px}
+/* accueil des essais : carte + sources */
+.es-accueil-grille{display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:16px; align-items:start}
+.es-carte-fr{border:1px solid var(--ligne); border-radius:14px; overflow:hidden; background:#F3F6F8}
+.carte-essais{display:block; width:100%; height:auto}
+.carte-essais .ce-mer{fill:#EAF1F5}
+.carte-essais .ce-reg{fill:#F4F1EA; stroke:#D9D2C3; stroke-width:.5}
+.carte-essais .ce-reg.rg{fill:#FBF7EF; stroke:#CDBFA6}
+.carte-essais .ce-fil{fill:none; stroke:#9C8F7B; stroke-width:.45; stroke-dasharray:1.4 1.2}
+.carte-essais .ce-eti rect{fill:#fff; stroke:#E2D8C8; stroke-width:.5; filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.08))}
+.carte-essais .ce-eti.site rect{stroke:#7A1F2B; stroke-width:.7}
+.carte-essais .ce-eti.vide{opacity:.55}
+.carte-essais .ce-t1{font-family:'Archivo'; font-size:6.4px; font-weight:700; fill:#7A1F2B}
+.carte-essais .ce-t2{font-size:5.3px; fill:#4C5A53}
+.carte-essais [data-es-src], .carte-essais [data-es-op]{cursor:pointer}
+.carte-essais .ce-eti:hover rect{stroke:#7A1F2B; stroke-width:.9}
+.carte-essais .ce-op .pt{fill:#2E7D4F; stroke:#fff; stroke-width:.8} .carte-essais .ce-op .halo{fill:#2E7D4F; opacity:.18}
+.carte-essais .ce-op.vide .pt{fill:#B9C2BC} .carte-essais .ce-op.vide .halo{opacity:0}
+.carte-essais .ce-n{font-family:'IBM Plex Mono'; font-size:5px; font-weight:700; fill:#fff; text-anchor:middle}
+.carte-essais .ce-site .pt{fill:#7A1F2B; stroke:#fff; stroke-width:.8} .carte-essais .ce-site .halo{fill:#7A1F2B; opacity:.18}
+.carte-essais .ce-site.on .halo{opacity:.4} .carte-essais .ce-site.vide .pt{fill:#C9AEB2}
+.carte-essais .ce-op:hover .halo, .carte-essais .ce-site:hover .halo{opacity:.45}
+.ce-leg{display:flex; flex-wrap:wrap; gap:4px 16px; padding:8px 12px; font-size:11.5px; color:var(--ardoise); background:#fff; border-top:1px solid var(--ligne)}
+.ce-leg span{display:inline-flex; align-items:center; gap:6px} .ce-leg i{display:inline-block; width:10px; height:10px}
+.ce-leg .l-site{background:#7A1F2B; transform:rotate(45deg); width:8px; height:8px} .ce-leg .l-op{background:#2E7D4F; border-radius:50%}
+.es-srcs{display:flex; flex-direction:column; gap:8px}
+.es-src{display:grid; gap:2px; text-align:left; border:1px solid var(--ligne); border-left:5px solid var(--marque); border-radius:10px; background:#fff; padding:9px 12px; cursor:pointer; font:inherit}
+.es-src b{font-family:'Archivo'; font-size:14.5px; color:var(--marque)} .es-src span{font-size:11.5px; color:var(--ardoise)} .es-src em{font-style:normal; font-size:12px; color:var(--encre-2)}
+.es-src:hover{border-color:var(--marque)} .es-src.on{background:var(--titre-fond,#F6EDEE); box-shadow:inset 0 0 0 1px var(--marque)}
+.es-src.vide{border-left-color:#D6CFC2; opacity:.75} .es-src.vide b{color:var(--encre-2)}
+/* recherche de variété */
+.es-rech{position:relative; margin-top:14px}
+.es-rech input{width:100%; padding:12px 16px; border:2px solid var(--marque); border-radius:99px; font-size:14.5px; background:#fff}
+.es-rech-res{margin-top:8px; border:1px solid var(--ligne); border-radius:12px; background:#fff; max-height:420px; overflow:auto; box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.es-rech-res button{display:grid; grid-template-columns:auto minmax(110px,auto) 1fr; grid-template-rows:auto auto; gap:2px 10px; align-items:center; width:100%; text-align:left; border:0; border-top:1px solid #F1ECE3; background:#fff; padding:8px 12px; cursor:pointer; font:inherit}
+.es-rech-res button:first-child{border-top:0} .es-rech-res button:hover{background:#FCF8F3}
+.es-rech-res button b{color:var(--marque); font-size:14px} .es-rech-res button span{font-size:12px; color:var(--ardoise)}
+.es-rech-res button em{grid-column:2/-1; font-style:normal; font-size:11.5px; color:var(--encre-2)}
+.es-rech-res button[hidden], .es-rech-res[hidden], .es-rech-vide[hidden]{display:none!important}
+.es-rech-vide{padding:10px 14px; margin:0}
+/* panneau d'une source */
+.es-p-tete{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+.es-p-tete h3{margin:2px 0 0}
+.sx-resume{margin:4px 0 8px; font-size:13px; color:var(--encre-2)}
+.sx-duo{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:10px 0}
+.sx-sous{margin:14px 0 8px; font-family:'Archivo'; font-size:14px; color:var(--marque)}
+.sx-courbes{margin-top:12px} .sx-courbes summary{cursor:pointer; font-family:'Archivo'; font-weight:700; color:var(--marque)}
+.sx-cl-val small{font-weight:500; color:var(--ardoise)}
+.sx-cl{grid-template-columns:24px minmax(120px,1.1fr) 2.2fr 110px}
+.es-filtre{display:flex; align-items:center; gap:10px; margin:6px 0; font-size:13px}
+.es-astuce{margin-top:12px; padding:8px 12px; background:#FBF7EF; border-radius:8px}
+/* prix du segment */
+.ps-bloc{margin-top:14px; border:1px solid #CFE3D6; border-left:5px solid #2E7D4F; border-radius:12px; background:#F7FBF8; padding:10px 14px}
+.ps-bloc.vide{border-color:var(--ligne); border-left-color:#B9C2BC; background:#FAFAF8}
+.ps-bloc h5{margin:0; font-family:'Archivo'; font-size:14px; color:var(--marque)}
+.ps-tete{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline; margin-bottom:6px} .ps-tete span{font-size:12px; color:var(--ardoise)}
+.ps-l{display:flex; flex-direction:column}
+.ps-v{display:grid; grid-template-columns:minmax(150px,1.2fr) 1.6fr minmax(120px,auto); gap:10px; align-items:center; padding:6px 0; border-top:1px solid #E3EEE6}
+.ps-v:first-child{border-top:0} .ps-v.essai{background:#EAF5EE; margin:0 -8px; padding:6px 8px; border-radius:6px}
+.ps-nom{display:flex; flex-direction:column} .ps-nom small{font-size:11px; color:var(--ardoise)}
+.ps-barre{height:9px; background:#E3EEE6; border-radius:99px; overflow:hidden} .ps-barre b{display:block; height:100%; background:#2E7D4F; border-radius:99px}
+.ps-prix{text-align:right; font-family:'Archivo'; font-weight:700; color:#2E7D4F} .ps-prix small{display:block; font-family:'Public Sans'; font-weight:500; font-size:11px; color:var(--ardoise)}
+/* rapports */
+.sx-rapports{margin-top:14px} .sx-rapports h5{margin:0 0 6px; font-family:'Archivo'; font-size:14px; color:var(--marque)}
+.es-docs{border:1px solid var(--ligne); border-radius:10px; background:#fff; margin-top:8px}
+.es-docs summary{cursor:pointer; padding:9px 12px; font-family:'Archivo'; font-weight:700; color:var(--marque); background:var(--titre-fond,#F6EDEE); border-radius:10px}
+.es-docs[open] summary{border-radius:10px 10px 0 0}
+.es-docs-l{display:flex; flex-direction:column}
+.es-doc{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding:7px 12px; border-top:1px solid #F1ECE3}
+.es-docs-l > .es-doc:first-child{border-top:0}
+.es-doc .logo-fmt{width:30px; height:24px}
+.es-doc-t{display:flex; flex-direction:column; min-width:0} .es-doc-t b{font-size:13px; color:var(--encre)} .es-doc-t span{font-size:11.5px; color:var(--ardoise)}
+.es-doc-act{display:flex; align-items:center; gap:6px}
+/* grappes, hiver, rallyes */
+.gr-l, .ra-liste{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
+.gr-v, .ra-var, .hv-v{border:1px solid var(--ligne); border-top:4px solid var(--marque); border-radius:12px; background:#fff; padding:10px 12px; display:flex; flex-direction:column; gap:8px}
+.gr-v.temoin{border-top-style:dashed; background:#FAF8F3}
+.gr-v header, .ra-var header, .hv-v header{display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center} .gr-v header span, .ra-var header span, .hv-v header span{font-size:11.5px; color:var(--ardoise)}
+.hv-v header em{margin-left:auto; font-style:normal; font-size:12px; font-weight:700; color:#8A6A12}
+.gr-conf{display:flex; height:10px; border-radius:99px; overflow:hidden; background:#EEE9DF}
+.gr-conf .ras{background:#2E7D4F} .gr-conf .vig{background:#D08A12} .gr-conf .ale{background:#C4453C}
+.gr-leg{margin:0; font-size:11.5px; color:var(--encre-2)} .gr-leg span{color:var(--ardoise)}
+.hv-l{display:flex; flex-direction:column; gap:10px; margin-top:10px}
+.hv-t{font-size:12px} .hv-t td small{display:block; color:var(--ardoise)}
+.hv-com{margin:0; font-size:12px; color:var(--encre-2)}
+.ra-notes{display:flex; flex-direction:column; gap:6px} .ra-notes p{margin:0; font-size:12.5px; padding:6px 9px; background:#FBF7EF; border-left:3px solid var(--or,#C9A04A); border-radius:6px}
+.ra-notes b{display:block; font-size:11px; color:var(--marque)}
+/* variétés */
+.var-portee{margin-bottom:10px}
+.sx-dev-seg h5 span{font-family:'Public Sans'; font-weight:500; font-size:11.5px; color:var(--ardoise)}
+/* fiche variété (panneau latéral) */
+body.fiche-ouverte{overflow:hidden}
+.fv-voile{position:fixed; inset:0; background:rgba(22,33,29,.38); z-index:80}
+.fv-panneau{position:fixed; top:0; right:0; bottom:0; width:min(900px,100vw); background:#FBFAF7; z-index:81; overflow:auto; padding:0 20px 30px; box-shadow:-10px 0 30px rgba(0,0,0,.18)}
+.fv-tete{position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; background:#FBFAF7; padding:16px 0 10px; border-bottom:2px solid var(--marque)}
+.fv-tete h3{margin:2px 0 2px; font-family:'Archivo'; font-size:24px; color:var(--marque)} .fv-tete p{margin:0 0 6px; font-size:13px; color:var(--ardoise)}
+.fv-parcours{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:12px 0}
+.fv-parcours > span{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ardoise); margin-right:4px}
+.fv-p{border:1px solid var(--marque); background:#fff; color:var(--marque); border-radius:99px; padding:3px 10px; font-size:12px; font-weight:600; cursor:pointer}
+.fv-p.prix{border-color:#2E7D4F; color:#2E7D4F; cursor:default}
+.fv-sec{border:1px solid var(--ligne); border-radius:12px; background:#fff; padding:12px 14px; margin-top:12px}
+.fv-sec > h5{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 8px; font-family:'Archivo'; font-size:15px; color:var(--marque); background:var(--titre-fond,#F6EDEE); margin:-12px -14px 10px; padding:9px 14px; border-radius:12px 12px 0 0}
+.fv-sec > h5 .chip{font-size:11px; padding:2px 9px; margin-left:auto}
+.fv-rangs{margin:0 0 8px; font-size:12.5px; color:var(--encre-2)}
+.fv-com{margin:4px 0; font-size:12.5px; padding:5px 9px; background:#FBF7EF; border-radius:6px}
+.fv-dv3 .es-grille{grid-template-columns:1fr}
+/* calendrier */
+.cal-l{display:flex; flex-direction:column; gap:8px; margin:6px 0 10px; position:relative}
+.cal-ev{position:relative; display:grid; grid-template-columns:62px 1fr auto; gap:12px; align-items:start; border:1px solid var(--ligne); border-left:5px solid var(--marque); border-radius:12px; background:#fff; padding:10px 12px}
+.cal-ev.t-visite{border-left-color:#2E7D4F} .cal-ev.t-semenciers{border-left-color:#3B5BA9} .cal-ev.t-hiver{border-left-color:#C9A04A}
+.cal-date{display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--titre-fond,#F6EDEE); border-radius:10px; padding:6px 0; line-height:1.05}
+.cal-date b{font-family:'Archivo'; font-size:22px; color:var(--marque)} .cal-date b.mois{font-size:14px; text-transform:capitalize} .cal-date span{font-size:11px; color:var(--ardoise); text-transform:uppercase}
+.cal-corps h4{margin:2px 0 4px; font-family:'Archivo'; font-size:15px; color:var(--encre)} .cal-corps p{margin:0 0 4px; font-size:12.5px}
+.cal-type{font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--marque)}
+.cal-ev.t-visite .cal-type{color:#2E7D4F} .cal-ev.t-semenciers .cal-type{color:#3B5BA9} .cal-ev.t-hiver .cal-type{color:#8A6A12}
+.cal-docs{display:flex; flex-wrap:wrap; gap:6px}
+.cal-doc{display:inline-flex; align-items:center; gap:6px; max-width:100%; border:1px solid var(--ligne); border-radius:8px; padding:3px 9px 3px 4px; font-size:12px; color:var(--encre); text-decoration:none; background:#FCFBF8}
+.cal-doc:hover{border-color:var(--marque); color:var(--marque)} .cal-doc .logo-fmt{width:24px; height:19px; flex:none} .cal-doc span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:420px}
+.cal-par{font-size:11px; color:var(--ardoise)}
+.cal-autres{display:flex; flex-wrap:wrap; gap:6px; align-items:center; font-size:12.5px}
+.com-bas{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)!important}
+.com-membres{columns:2; column-gap:16px} .com-membres .membre{break-inside:avoid}
+.cadre-d{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding:7px 0; border-top:1px solid #F1ECE3}
+.cadre-d .logo-fmt{width:30px; height:24px} .cadre-d.vieux{opacity:.6}
+.cadre-t{display:flex; flex-direction:column; min-width:0} .cadre-t b{font-size:13px} .cadre-t span{font-size:11.5px; color:var(--ardoise)} .cadre-t small{font-size:12px; color:var(--encre-2)}
+@media(max-width:1000px){ .es-accueil-grille, .sx-duo, .com-bas{grid-template-columns:1fr!important} .com-membres{columns:1} }
+.sx-segs-choix{display:none}
+@media(max-width:640px){ .sx-segs{display:none} .sx-segs-choix{display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:700; color:var(--marque); margin:6px 0} .sx-segs-choix select{padding:9px 10px; font-size:14px; border:1.5px solid var(--marque); border-radius:8px; background:#fff}
+  .ps-v{grid-template-columns:1fr auto} .ps-barre{display:none} .cal-ev{grid-template-columns:52px 1fr} .es-doc{grid-template-columns:auto 1fr} .es-doc-act{grid-column:1/-1; justify-content:flex-end}
+  .fv-panneau{padding:0 12px 24px} .sx-cl{grid-template-columns:20px 1fr 70px} .sx-cl .sx-cl-barre{display:none} }
 </style>
 </head>
 <body>
@@ -1559,8 +1738,8 @@ const libEnjeu = n => (ENJEU_LIB[n]||[n])[0];
 const icoEnjeu = n => (ENJEU_LIB[n]||[,'•'])[1];
 
 /* ============ Persistance (Supabase, table app_state) ============ */
-const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais'];
-let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null};
+const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces'];
+let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null};
 let modeLocal = false;
 async function charger(){
   try{
@@ -1615,6 +1794,12 @@ function initialiserDonnees(){
   if(!Array.isArray(S.contacts)) S.contacts = seedContacts();
   if(!S.essais || typeof S.essais!=='object') S.essais = {};
   Object.keys(SITES_EXPE).forEach(k=>{ (S.essais[k] ||= {}).campagnes ||= {}; });
+  S.essais.prix ||= {};
+  // essais DV3 importés avant la v8 (rangés dans S.commissions[année].cvto.essais) : lus comme campagne de leur année de fin
+  S.essais.dv3 ||= {};
+  Object.values(S.commissions||{}).forEach(c=>{ const e = c?.cvto?.essais; const a = e?.campagne && /(\d{2})\s*$/.exec(e.campagne); if(a && !S.essais.dv3[2000 + +a[1]]) S.essais.dv3[2000 + +a[1]] = e; });
+  if(!S.espaces || typeof S.espaces!=='object') S.espaces = {coms:{}, fiches:{}};
+  S.espaces.coms ||= {}; S.espaces.fiches ||= {};
 }
 function initialiserAnnee(an){
   const prev = S.cartographie[an-1];
@@ -3518,184 +3703,6 @@ document.addEventListener('click', e=>{
   sauver(cle); vueCommissions();
 });
 
-function vueCommissions(){
-  const el = document.getElementById('v-commissions'); el.dataset.com = comActive;   // couleur de la commission affichée
-  const c = COMMISSIONS.find(x=>x.id===comActive);
-  const e = D.enjeux.find(x=>x.nom===c.enjeu);
-  const struct = Object.fromEntries(STRUCTS.map(s=>[s,(e.structures.find(x=>x.s===s)||{e:[]}).e]));
-  const membres = OPS.flatMap(s=>struct[s].map(n=>({n,s})));
-  const externes = struct.EXTERNE||[];
-  const dc = S.commissions[annee]?.[comActive];
-  const ro = !peutEditer() || anFige(annee);
-  // parties de l'espace : essais et variétés pour la commission Tomates, documents cadres et organisation pour toutes
-  const sections = [...(c.id==='cvto' ? [['essais','Essais variétaux'],['varietes','Variétés en développement']] : []), ['cadres','Documents cadres'], ['orga','Organisation']];
-  if(!sections.some(s=>s[0]===comSection)) comSection = sections[0][0];
-  const sources = [...Object.entries(SITES_EXPE).map(([k,s])=>[k, s.nom]), ['dv3','Essais producteurs (DV3)']];
-
-  el.innerHTML=`
-  <div class="entete"><div class="eyebrow">05 — Commissions</div>
-    <h2>Espaces de commission</h2>
-    <p>Un espace par commission et par année : les résultats des essais, les variétés en développement, les documents cadres et l'organisation de la commission.</p></div>
-  ${barreAnnee()}
-  <div class="onglets-com">${COMMISSIONS.map(x=>
-    `<button class="chip" data-com="${x.id}" aria-pressed="${x.id===comActive}">${x.nom}</button>`).join('')}</div>
-  ${!dc ? `<div class="carte"><h3>Pas de données de commission pour ${annee}</h3>
-      <p class="aide">On reprend les sites, variétés et documents de ${annee-1} ; le planning et les commentaires repartent à zéro.</p>
-      ${peutEditer()?`<button class="btn" data-init-an>Ouvrir ${annee}</button>`:''}</div>` : `
-  ${ro && anFige(annee) ? '<div class="lecture-seule">Année figée : consultation seule.</div>':''}
-  <div class="com-parties segment">${sections.map(([k,l])=>`<button data-com-section="${k}" aria-pressed="${k===comSection}">${l}</button>`).join('')}</div>
-
-  ${comSection==='essais' ? `<div class="carte sx-bloc">
-      <h3>Essais variétaux — ${c.nom}</h3>
-      <div class="sx-sources">${sources.map(([k,l])=>`<button data-sx-source="${k}" aria-pressed="${k===sourceEssai}">${h(l)}</button>`).join('')}</div>
-      ${sourceEssai==='dv3' ? '' : vueCampagneSite(sourceEssai)}
-    </div>
-    ${sourceEssai==='dv3' ? blocEssais(dc) : ''}` : ''}
-
-  ${comSection==='varietes' ? `<div class="carte"><h3>Variétés en développement — ${c.nom}</h3>${vueVarietesDev(dc)}</div>` : ''}
-
-  ${comSection==='cadres' ? `<div class="carte"><h3>Documents cadres — ${c.nom} ${annee}</h3>${vueDocsCadres(dc, c)}</div>` : ''}
-
-  ${comSection==='orga' ? `
-  <div class="deux">
-    <div class="carte">
-      <h3>Cartographie des bassins et sites d'essais — ${annee}</h3>
-      <p class="aide">Chaque point rouge est un bassin (le chiffre = nombre de sites d'essai). Les petits points sont les sites. Touchez un bassin pour voir et ajouter ses sites.</p>
-      <svg id="carteSvg" viewBox="0 0 340 360" role="img" aria-label="Carte des bassins et sites d'essais"></svg>
-      <div class="bassin-info" id="bassinInfo"></div>
-    </div>
-    <div>
-      <div class="carte">
-        <h3>Membres — ${membres.length}</h3>
-        <p class="aide">Issus des positionnements Excel de l'enjeu ${e.nom}.</p>
-        ${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}
-        ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}
-      </div>
-      <div class="carte">
-        <h3>Planning ${annee}</h3>
-        <p class="aide">Échéances de la commission.</p>
-        ${dc.planning.map(p=>`<div class="membre"><span>${h(p.t)}</span><span class="st">${h(p.q)}
-          ${ro?'':`<button class="suppr" data-rm-plan="${p.id}">${ICO_SUPPR}</button>`}</span></div>`).join('') || '<p class="aide" style="margin:0">Aucune échéance.</p>'}
-        ${ro?'':`<div class="form-ligne"><input id="nvPlanT" placeholder="Échéance"><input id="nvPlanQ" placeholder="ex. S12 · 18 mars"><button class="btn" data-add-plan>Ajouter</button></div>`}
-      </div>
-    </div>
-  </div>
-  ${c.id==='cvto'||c.id==='cvfr' ? banqueVarietale(dc, ro) : ''}
-  ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3>
-    <p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
-    ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
-  <div class="carte">
-    <h3>Ressources communes</h3>
-    <p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>
-    ${blocDocs('sharepoint', !peutEditer())}
-  </div>` : ''}`}`;
-
-  el.querySelectorAll('[data-com]').forEach(b=>b.onclick=()=>{ comActive=b.dataset.com; bassinActif=null; vueCommissions(); });
-  if(dc){ dessinerCarte(); montrerBassin(); }
-}
-
-function banqueVarietale(dc, ro){
-  const cols = ['n','s','statut','resist','bassins'], libs = ['Variété','Segment','Statut','Résistances','Bassins en essai'];
-  return `<div class="carte"><h3>Banque variétale ${annee}</h3>
-  <p class="aide">Les infos de chaque variété, puis une colonne de commentaires par OP : chaque OP note ses observations dans sa cellule.</p>
-  <div class="tableau"><table class="data" style="min-width:${600+OPS.length*170}px">
-    <thead><tr>${libs.map(l=>`<th>${l}</th>`).join('')}${OPS.map(o=>`<th style="min-width:160px">${o}</th>`).join('')}${ro?'':'<th class="no-print"></th>'}</tr></thead>
-    <tbody>${dc.varietes.map(v=>`<tr data-var="${v.id}">
-      ${cols.map(k=>`<td>${ro?(k==='n'?`<b>${h(v[k])}</b>`:h(v[k]||'—')):`<textarea data-vf="${k}" rows="2" ${k==='n'?'style="font-weight:600"':''}>${h(v[k]||'')}</textarea>`}</td>`).join('')}
-      ${OPS.map(o=>`<td>${ro?h(v.comm[o]||''):`<textarea data-vc="${o}" rows="2" placeholder="Commentaire ${o}">${h(v.comm[o]||'')}</textarea>`}</td>`).join('')}
-      ${ro?'':`<td class="no-print"><button class="suppr" data-rm-var="${v.id}" title="Supprimer la variété">${ICO_SUPPR}</button></td>`}</tr>`).join('')}</tbody>
-  </table></div>
-  ${ro?'':`<div class="form-ligne"><input id="nvVarN" placeholder="Variété *"><input id="nvVarS" placeholder="Segment"><button class="btn" data-add-var>Ajouter une variété</button></div>`}
-  </div>`;
-}
-
-/* ---- Carte des bassins ---- */
-const BASSINS=[
-  {n:'Landes / Chalosse', lon:-0.75, lat:43.85},
-  {n:'Marmande — Nérac', lon:0.25, lat:44.40},
-  {n:'Toulouse', lon:1.44, lat:43.60},
-  {n:'Perpignan', lon:2.90, lat:42.72},
-  {n:'Montpellier — Avignon', lon:4.10, lat:43.75},
-  {n:'Camargue — Crau', lon:4.85, lat:43.55}
-];
-const FRANCE=[[2.4,51.0],[1.85,50.95],[0.1,49.5],[-1.6,49.65],[-2.0,48.65],[-4.7,48.4],[-4.1,47.9],[-2.2,47.3],
-  [-1.15,46.16],[-1.2,44.6],[-1.55,43.48],[-0.4,42.8],[1.7,42.4],[3.05,42.5],[3.9,43.6],[5.37,43.3],[7.27,43.7],
-  [6.6,44.9],[6.15,46.2],[7.6,47.6],[7.75,48.6],[6.1,49.5],[4.2,50.0],[3.06,50.63],[2.4,51.0]];
-const W_C=340, H_C=360, LO1=-5.2, LO2=8.4, LA1=41.6, LA2=51.4;
-const XC=lo=>((lo-LO1)/(LO2-LO1))*W_C, YC=la=>((LA2-la)/(LA2-LA1))*H_C;
-
-function dessinerCarte(){
-  const svg=document.getElementById('carteSvg'); if(!svg) return;
-  const sites = S.commissions[annee][comActive].sites;
-  const path=FRANCE.map((p,i)=>(i?'L':'M')+XC(p[0]).toFixed(1)+','+YC(p[1]).toFixed(1)).join(' ')+' Z';
-  svg.innerHTML=`
-    <path d="${path}" fill="#EDEAE1" stroke="#D8DDD6" stroke-width="1"/>
-    <rect x="0" y="${YC(45.2)}" width="${W_C}" height="${H_C-YC(45.2)}" fill="var(--serre)" opacity=".05"/>
-    <text x="8" y="${H_C-8}" font-family="IBM Plex Mono" font-size="8" fill="#68746D" letter-spacing="1">BASSINS · SITES D'ESSAIS ${annee}</text>
-    ${BASSINS.map((b,i)=>{ const ls=sites.filter(s=>s.bassin===b.n), n=ls.length, r=8+Math.min(n,20)*0.6;
-      const pts = ls.map((s,j)=>{
-        const lat=parseFloat(s.lat), lon=parseFloat(s.lon);
-        const x = isFinite(lon)?XC(lon):XC(b.lon)+Math.cos(j*2.1)*(r+9), y = isFinite(lat)?YC(lat):YC(b.lat)+Math.sin(j*2.1)*(r+9);
-        return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.2" fill="var(--serre)" stroke="#fff" stroke-width="1"><title>${h(s.nom)} — ${h(s.essai)}</title></circle>`;
-      }).join('');
-      return `<g class="bassin" data-b="${i}" style="cursor:pointer">
-        <circle cx="${XC(b.lon)}" cy="${YC(b.lat)}" r="${r+5}" fill="var(--rouge)" opacity="${bassinActif===i?.25:.10}"/>
-        <circle cx="${XC(b.lon)}" cy="${YC(b.lat)}" r="${r}" fill="var(--rouge)" opacity=".85"/>
-        <text x="${XC(b.lon)}" y="${YC(b.lat)+3}" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" font-weight="600" fill="#fff">${n||'·'}</text>
-        <text x="${XC(b.lon)}" y="${YC(b.lat)-r-6}" text-anchor="middle" font-family="Public Sans" font-size="9" fill="#16211D">${b.n}</text>
-        ${pts}</g>`;}).join('')}`;
-  svg.querySelectorAll('.bassin').forEach(g=>g.onclick=()=>{ bassinActif=+g.dataset.b; dessinerCarte(); montrerBassin(); });
-}
-function montrerBassin(){
-  const zone=document.getElementById('bassinInfo'); if(!zone) return;
-  const ro = !peutEditer() || anFige(annee);
-  const sites = S.commissions[annee][comActive].sites;
-  if(bassinActif===null){
-    zone.innerHTML = sites.length ? `<b style="color:var(--encre)">Tous les sites d'essai (${sites.length})</b>
-      ${sites.map(s=>`<div class="membre"><span>${h(s.nom)} <span class="cible">· ${h(s.bassin)}</span></span><span class="st">${h(s.essai)} ${h(s.op)}</span></div>`).join('')}`
-      : 'Sélectionnez un bassin pour ajouter les sites où sont les essais.';
-    return;
-  }
-  const b=BASSINS[bassinActif], ls=sites.filter(s=>s.bassin===b.n);
-  zone.innerHTML=`<b style="color:var(--encre)">${b.n}</b> — ${ls.length} site${ls.length>1?'s':''} d'essai
-    ${ls.map(s=>`<div class="membre"><span>${h(s.nom)}<br><span class="cible">${h(s.essai)}</span></span>
-      <span class="st">${h(s.op)} ${ro?'':`<button class="suppr" data-rm-site="${s.id}">${ICO_SUPPR}</button>`}</span></div>`).join('')}
-    ${ro?'':`<div class="form-ligne" id="formSite">
-      <input data-k="nom" placeholder="Site / producteur *"><input data-k="essai" placeholder="Essai (variété, protocole…)">
-      <select data-k="op">${OPS.map(o=>`<option>${o}</option>`).join('')}</select>
-      <input data-k="lat" placeholder="Latitude (facultatif)" inputmode="decimal"><input data-k="lon" placeholder="Longitude (facultatif)" inputmode="decimal">
-      <button class="btn" data-add-site>Ajouter le site</button></div>`}`;
-}
-
-(function brancherCommissions(){
-  const el = document.getElementById('v-commissions');
-  const dc = () => S.commissions[annee][comActive];
-  const ok = () => peutEditer() && !anFige(annee) && S.commissions[annee];
-  el.addEventListener('click', e=>{
-    const t = e.target.closest('button'); if(!t || !ok()) return;
-    const ds = t.dataset, c = dc();
-    if(ds.addPlan!==undefined){ const tt=el.querySelector('#nvPlanT').value.trim(); if(!tt) return;
-      c.planning.push({id:uid(), t:tt, q:el.querySelector('#nvPlanQ').value.trim()}); }
-    else if(ds.rmPlan){ c.planning=c.planning.filter(p=>p.id!==ds.rmPlan); }
-    else if(ds.addSite!==undefined){
-      const f=Object.fromEntries([...el.querySelectorAll('#formSite [data-k]')].map(i=>[i.dataset.k,i.value.trim().replace(',','.')]));
-      if(!f.nom){ toast('Nom du site obligatoire'); return; }
-      c.sites.push({id:uid(), ...f, bassin:BASSINS[bassinActif].n}); }
-    else if(ds.rmSite){ c.sites=c.sites.filter(s=>s.id!==ds.rmSite); }
-    else if(ds.addVar!==undefined){ const n=el.querySelector('#nvVarN').value.trim(); if(!n) return;
-      c.varietes.push({id:uid(), n, s:el.querySelector('#nvVarS').value.trim(), statut:'', resist:'', bassins:'', comm:{}}); }
-    else if(ds.rmVar){ if(!confirm('Supprimer cette variété et ses commentaires ?')) return; c.varietes=c.varietes.filter(v=>v.id!==ds.rmVar); }
-    else return;
-    sauver('commissions'); vueCommissions();
-  });
-  el.addEventListener('change', e=>{
-    const t=e.target, tr=t.closest('[data-var]'); if(!tr || !ok()) return;
-    const v=dc().varietes.find(x=>x.id===tr.dataset.var);
-    if(t.dataset.vf) v[t.dataset.vf]=t.value.trim(); else if(t.dataset.vc) v.comm[t.dataset.vc]=t.value.trim();
-    sauver('commissions');
-  });
-})();
-
 /* ---- Commission Variétale Tomates : essais variétaux DV3 chez les producteurs ----
    Import par l'admin des 3 fichiers de la campagne (structure fixe, reconduite chaque année) :
    « Positionnements des essais TO DV3 », « EVALUATIONS Agronomiques des essais DV3 TO », « EVALUATIONS Organoleptiques-Dégustation ».
@@ -3814,48 +3821,15 @@ const barresFreq = (items, total) => items.length ? `<div class="es-barres">${it
     <b style="--p:${Math.round(100*i.n/Math.max(total,1))}%"></b><em>${i.n}</em></div>`).join('')}</div>` : '<p class="aide" style="margin:0">Rien de signalé.</p>';
 const jauge = (p, bon) => p===null ? '<span class="cible">—</span>' : `<span class="es-jauge ${p>=bon?'ok':p>=bon-25?'moyen':'faible'}"><i style="width:${p}%"></i><b>${p} %</b></span>`;
 
-/* --- le bloc --- */
-function blocEssais(dc){
-  const e = dc.essais, adm = estAdmin();
-  const liens = `<div class="es-liens">${LIENS_CVTO.map(l=>`<a href="${h(l.u)}" target="_blank" rel="noopener">${h(l.t)} ↗</a>`).join('')}</div>`;
-  const imp = adm ? `<label class="btn sec">Importer les fichiers de la campagne (Excel)<input type="file" accept=".xlsx,.xls" multiple data-import-essais hidden></label>` : '';
-  if(!e) return `<div class="carte"><h3>Essais variétaux DV3 chez les producteurs</h3>
-    <p class="aide">Les trois fichiers de la campagne (positionnement, évaluations agronomiques, évaluations organoleptiques) alimentent ici tableaux et graphiques.</p>
-    <div class="zrp-import no-print">${imp}</div>${liens}</div>`;
-  const idx = indexVarietes(e), toutes = Object.values(idx);
-  const segs = [...new Set(toutes.map(f=>f.seg))].sort((a,b)=>a==='Non positionnée'?1:b==='Non positionnée'?-1:a.localeCompare(b,'fr'));
-  const vis = toutes.filter(f=>!essaiSeg || f.seg===essaiSeg).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
-  const nb = (l, k) => new Set(l.map(r=>String(r[k]).trim()).filter(Boolean)).size;
-  const kpis = [[e.pos.length,'essais positionnés'],[nb(e.pos,'v'),'variétés en essai'],[nb(e.pos,'soc'),'sites producteurs'],[e.obs.length,'observations agronomiques'],
-    [e.qual.length,'contrôles qualité fruit'],[e.degu.length,'notes de dégustation']];
-  const vues = [['pos','Positionnement'],['var','Fiche variété'],['qual','Qualité fruit'],['degu','Dégustation'],['synth','Synthèse par segment']];
-  let corps = '';
-  if(essaiVue==='pos') corps = vuePositionnement(e, idx);
-  else if(essaiVue==='var') corps = vueFicheVariete(e, idx, vis);
-  else if(essaiVue==='qual') corps = vueQualite(e, vis);
-  else if(essaiVue==='degu') corps = vueDegustation(e, vis);
-  else corps = vueSynthese(e, idx, segs);
-  return `<div class="carte bloc-essais">
-    <h3>Essais variétaux DV3 chez les producteurs — campagne ${h(e.campagne||'')}</h3>
-    <div class="zrp-import no-print">${imp}${adm && e.importe ? `<span class="zrp-dernier">Dernier import : ${h(e.importe)}${e.par?' · '+h(e.par.split('@')[0]):''}</span>` : ''}</div>
-    <details class="sx-blocf" open><summary>Fichiers de la campagne ${h(e.campagne||'')}</summary>${blocFichiers(['pos','agro','orga'].map(k=>e.fichiers[k]).filter(Boolean), e.liens, 'dv3')}${liens}</details>
-    <div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
-    <div class="es-barre-outils">
-      <div class="segment">${vues.map(([k,l])=>`<button data-ev="${k}" aria-pressed="${k===essaiVue}">${l}</button>`).join('')}</div>
-      ${essaiVue!=='synth' ? `<select data-eseg aria-label="Segment"><option value="">Tous les segments</option>${segs.map(s=>`<option ${s===essaiSeg?'selected':''}>${h(s)}</option>`).join('')}</select>` : ''}
-    </div>
-    ${corps}
-  </div>`;
-}
-
 function vuePositionnement(e, idx){
-  const lignes = e.pos.filter(p=>!essaiSeg || (idx[cleVar(p.v)]||{}).seg===essaiSeg);
+  const bassin = BASSINS_OP.find(b=>b.nom===opFiltre);
+  const lignes = e.pos.filter(p=>(!essaiSeg || (idx[cleVar(p.v)]||{}).seg===essaiSeg) && (!bassin || bassin.re.test(p.op||'')));
   const parAop = {}; lignes.forEach(p=>{ (parAop[p.aop||'Autres'] ||= {})[p.typo||'—'] ||= []; parAop[p.aop||'Autres'][p.typo||'—'].push(p); });
   return `<div class="es-liste">${Object.keys(parAop).sort((a,b)=>a.localeCompare(b,'fr')).map(aop=>`
     <div class="ls-groupe">${h(aop)} <span class="zrp-compte">${Object.values(parAop[aop]).flat().length} essais</span></div>
     ${Object.entries(parAop[aop]).sort((a,b)=>a[0].localeCompare(b[0],'fr')).map(([typo, ps])=>`<div class="es-typo"><div class="es-typo-tete">${h(typo)}</div>
       ${ps.sort((a,b)=>a.v.localeCompare(b.v,'fr')).map(p=>`<div class="es-pos">
-        <div><button class="es-lien-var" data-evar-ouvrir="${h(cleVar(p.v))}">${h(p.v)}</button><span>${h(p.sem||'')}${p.dv?` · <i class="es-dv">${h(p.dv)}</i>`:''}</span></div>
+        <div><button class="es-lien-var" data-fiche="${h(cleSx(p.v.replace(/\s*\(.*$/,'')))}">${h(p.v)}</button><span>${h(p.sem||'')}${p.dv?` · <i class="es-dv">${h(p.dv)}</i>`:''}</span></div>
         <div><b>${h(p.soc||p.prod||'—')}</b><span>${h(p.op||'')}${p.prod?' · '+h(p.prod):''}</span></div>
         <div><span class="ls-lib2">Surface</span>${p.surf?fmtVol(p.surf)+' m²':'—'}</div>
         <div><span class="ls-lib2">Plantation</span>${p.plant?dateFr(p.plant):'—'}</div>
@@ -3863,7 +3837,7 @@ function vuePositionnement(e, idx){
       </div>`).join('')}</div>`).join('')}`).join('') || '<p class="aide">Aucun essai pour ce segment.</p>'}</div>`;
 }
 
-function vueFicheVariete(e, idx, vis){
+function vueFicheVariete(e, idx, vis, seul){
   if(!vis.length) return '<p class="aide">Aucune variété pour ce segment.</p>';
   if(!vis.some(f=>f.cle===essaiVar)) essaiVar = (vis.find(f=>f.essais.length && deVar(e.obs,f.cle).length) || vis[0]).cle;
   const f = idx[essaiVar], t = f.temoin ? idx[f.temoin] : null;
@@ -3875,7 +3849,7 @@ function vueFicheVariete(e, idx, vis){
   const coms = [...obs.filter(r=>r.com).map(r=>({sem:r.sem, num:r.num, t:r.com, src:'Agronomie'})), ...deVar(e.qual,f.cle).filter(r=>r.com).map(r=>({sem:r.sem, num:r.num, t:r.com, src:'Qualité fruit'}))].sort((a,b)=>(a.sem||0)-(b.sem||0));
   const ligneCmp = (lib, a, b, fmtf) => `<tr><td>${lib}</td><td><b>${fmtf(a)}</b></td>${t?`<td>${fmtf(b)}</td>`:''}</tr>`;
   const groupes = [...new Set(vis.map(v=>v.seg))];
-  return `<div class="es-choix"><label>Variété <select data-evar>${groupes.map(g=>`<optgroup label="${h(g)}">${vis.filter(v=>v.seg===g).map(v=>`<option value="${h(v.cle)}" ${v.cle===essaiVar?'selected':''}>${h(v.nom)}</option>`).join('')}</optgroup>`).join('')}</select></label></div>
+  return `${seul ? '' : `<div class="es-choix"><label>Variété <select data-evar>${groupes.map(g=>`<optgroup label="${h(g)}">${vis.filter(v=>v.seg===g).map(v=>`<option value="${h(v.cle)}" ${v.cle===essaiVar?'selected':''}>${h(v.nom)}</option>`).join('')}</optgroup>`).join('')}</select></label></div>`}
   <div class="es-fiche-tete">
     <div><h4>${h(f.nom)}</h4><span>${h(f.seg)}${f.aop?' · '+h(f.aop):''}</span></div>
     <div><span class="ls-lib2">Semencier</span>${h(f.sem||'—')}</div>
@@ -3949,35 +3923,6 @@ function vueSynthese(e, idx, segs){
   }).join('');
 }
 
-/* Import (admin) et navigation (tous) */
-(function brancherEssais(){
-  const el = document.getElementById('v-commissions');
-  el.addEventListener('click', e=>{
-    const t = e.target.closest('button'); if(!t) return;
-    if(t.dataset.ev){ essaiVue = t.dataset.ev; vueCommissions(); }
-    else if(t.dataset.evarOuvrir){ essaiVar = t.dataset.evarOuvrir; essaiVue = 'var'; vueCommissions(); }
-  });
-  el.addEventListener('change', async e=>{
-    const t = e.target;
-    if(t.matches('[data-eseg]')){ essaiSeg = t.value; vueCommissions(); }
-    else if(t.matches('[data-evar]')){ essaiVar = t.value; vueCommissions(); }
-    else if(t.matches('[data-import-essais]') && estAdmin() && t.files.length){
-      if(!window.XLSX){ toast('Module Excel non chargé'); return; }
-      try{
-        const fichiers = await Promise.all([...t.files].map(async f=>({nom:f.name, wb:XLSX.read(await f.arrayBuffer(), {type:'array', cellDates:true})})));
-        const lu = lireEssaisDV3(fichiers), dc = S.commissions[annee][comActive], avant = dc.essais || {};
-        // un fichier non fourni garde les données déjà importées
-        const essais = {...avant, ...lu, fichiers:{...(avant.fichiers||{}), ...lu.fichiers}};
-        ['pos','obs','optim','qual','degu'].forEach(k=>{ if(!lu[k].length && avant[k]) essais[k] = avant[k]; });
-        if(!Object.keys(lu.fichiers).length){ toast('Fichiers non reconnus (positionnement, évaluations agronomiques ou organoleptiques)'); return; }
-        essais.importe = new Date().toLocaleDateString('fr-FR'); essais.par = currentUser?.email||'';
-        dc.essais = essais; sauver('commissions'); vueCommissions();
-        toast(`${Object.keys(lu.fichiers).length} fichier${Object.keys(lu.fichiers).length>1?'s':''} importé${Object.keys(lu.fichiers).length>1?'s':''}`);
-      }catch(err){ console.error(err); toast('Fichier illisible'); }
-    }
-  });
-})();
-
 /* ---- Essais des sites d'expérimentation (Invenio, Camargue Innovation) ----
    Chaque campagne = 5 fichiers de même structure (mesures hebdo, agro périodiques, organo périodiques, rendement,
    dégustation), rangés dans un dossier SharePoint annuel. Les fichiers restent sur SharePoint : à l'import, l'app n'en
@@ -3990,7 +3935,7 @@ const SITES_EXPE = {
 const COUL_VAR = ['#7A1F2B','#2E7D4F','#C9A04A','#3B5BA9','#B8476E','#D08A12','#5E9A4A','#6B4C8A','#C4453C','#2C8C99'];
 const LIB_EQ = {TV:'Très végétative', V:'Végétative', E:'Équilibrée', G:'Générative', TG:'Très générative'};
 const PERIODES = ['Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre'];
-let comSection = 'essais', sourceEssai = 'invenio', campEssai = {}, segEssai = '';
+let sourceEssai = 'dv3', segEssai = '';
 
 // en-têtes comparés sans accents ni casse (« Variété » = « VARIETE »)
 const normSx = x => normEnt(x).normalize('NFD').replace(/[̀-ͯ]/g,'');
@@ -4028,9 +3973,9 @@ function lireCampagneSite(fichiers){
     v.dv ||= info.dv||''; v.seg ||= info.seg||''; v.sem ||= info.sem||''; return k; };
   // 1. paramètres de chaque fichier : code → variété, niveau de développement, segment, semencier
   fichiers.forEach(({wb})=>wb.SheetNames.filter(n=>/param/i.test(n)).forEach(n=>{
-    const t = tableAvecEntete(wb.Sheets[n], ['CODE','VARIETE','NIVEAU']); if(!t) return;
+    const t = tableAvecEntete(wb.Sheets[n], ['VARIETE','NIVEAU']); if(!t) return;
     const iC=colDe(t.ent,'CODE'), iV=colDe(t.ent,'VARIETE'), iN=colDe(t.ent,'NIVEAU'), iS=colDe(t.ent,'SEGMENT'), iSm=colDe(t.ent,'SEMENCIER');
-    t.lignes.forEach(l=>{ if(!String(l[iV]).trim()) return; codeNom[String(l[iC]).trim()] = l[iV];
+    t.lignes.forEach(l=>{ if(!String(l[iV]??'').trim()) return; if(iC>=0) codeNom[String(l[iC]).trim()] = l[iV];
       fiche(l[iV], {dv:String(l[iN]||'').trim(), seg:String(l[iS]||'').trim(), sem:String(l[iSm]||'').trim()}); });
   }));
   const nomDe = (code, nom) => String(nom||'').trim() || codeNom[String(code).trim()] || '';
@@ -4081,7 +4026,16 @@ function lireCampagneSite(fichiers){
       Object.values(c.organo).forEach(o=>{ o.brix = moy(o.brix); });
     }
     // 6. dégustation : classement dans chaque séance (même date, même typologie, même dégustateur)
+    // 7. conformité produit (grappes) : RAS / vigilance / alerte et classement visuel
+    t = chercherTable(wb, ['VARIETE','CONFORMITE PRODUIT'], /conform/i);
+    if(t && !Object.keys(c.conf||{}).length){ const iV = colDe(t.ent,'VARIETE'), iCf = colDe(t.ent,'CONFORMITE PRODUIT'), iK = colDe(t.ent,'CLASSEMENT'), iCm = colDe(t.ent,'COMMENTAIRE');
+      c.conf = {}; t.lignes.forEach(l=>{ const nom = String(l[iV]||'').trim(), cf = normSx(l[iCf]); if(!nom || !cf) return; const k = fiche(nom);
+        const o = c.conf[k] ||= {n:0, ras:0, vig:0, alerte:0, rangs:[], com:[]}; o.n++; if(cf.startsWith('RAS')) o.ras++; else if(cf.startsWith('VIGIL')) o.vig++; else if(cf.startsWith('ALERT')) o.alerte++;
+        if(nbr(l[iK])) o.rangs.push(nbr(l[iK])); const cm = String(l[iCm]??'').trim(); if(cm && o.com.length<4) o.com.push(cm); });
+      Object.values(c.conf).forEach(o=>{ o.rang = moy(o.rangs); delete o.rangs; }); }
+    // 6. dégustation (pas le classement visuel de conformité)
     t = chercherTable(wb, ['VARIETE','NOM DEGUSTATEUR','CLASSEMENT'], /mesures/i);
+    if(t && t.ent.some(e=>e.startsWith('CONFORMITE'))) t = null;
     if(t && !Object.keys(c.degu).length){ const iC=colDe(t.ent,'CODE VARIETE'), iT=colDe(t.ent,'TYPOLOGIE'), iSo=colDe(t.ent,'SOCIETE'), iV=colAvant(t.ent,'VARIETE',colDe(t.ent,'STATUT')),
         iSt=colDe(t.ent,'STATUT'), iD=colDe(t.ent,'DATE'), iG=colDe(t.ent,'NOM DEGUSTATEUR'), iK=colDe(t.ent,'CLASSEMENT'), iCm=colDe(t.ent,'COMMENTAIRES');
       const seances = {};
@@ -4094,6 +4048,55 @@ function lireCampagneSite(fichiers){
     }
   });
   return c;
+}
+
+/* ---- Lecture des essais hiver (un onglet par OP, un bloc de colonnes par mois) et des comptes rendus de rallyes ---- */
+const nomH = v => nomBase(String(v||"")).replace(/\s+\d$/,"").trim();
+function lireHiver(fichiers){
+  const h_ = {vars:{}, degu:{}, pos:[], fichiers:fichiers.map(f=>f.nom)};
+  const fiche = (nom, info={}) => { const k = cleSx(nomH(nom)); if(!k) return null; const v = h_.vars[k] ||= {nom:nomH(nom), sem:'', seg:'', notes:[]};
+    v.sem ||= info.sem||''; v.seg ||= info.seg||''; return k; };
+  // positionnements, qualité du fruit après conservation : même structure que les essais DV3
+  const e = lireEssaisDV3(fichiers); h_.pos = e.pos; h_.qual = e.qual;
+  fichiers.forEach(({nom, wb})=>{
+    // notes : onglets dont la 2e ligne contient « Equilibre de Plante »
+    wb.SheetNames.forEach(n=>{
+      const r = XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1, defval:'', raw:false}); if(r.length<3) return;
+      const e0 = r[0].map(normSx), e1 = r[1].map(normSx);
+      if(!e0.some(x=>x==='VARIETE') || !e1.some(x=>x.startsWith('EQUILIBRE'))) return;
+      const iV = e0.indexOf('VARIETE'), iP = e0.indexOf('PRODUCTEUR'), iS = e0.indexOf('SEMENCIER'), iT = e0.findIndex(x=>x.startsWith('TYPOLOGIE'));
+      let mois = ''; const colMois = e0.map((x,i)=>{ if(i>iT && x) mois = String(r[0][i]).trim(); return i>iT ? mois : ''; });
+      const champ = i => { const x = e1[i]; return x.startsWith('EQUILIBRE') ? 'eq' : x.startsWith('NOUAISON') ? 'nou' : x.startsWith('FORME') ? 'forme' : x.startsWith('DESORG') ? 'desorg'
+        : x.startsWith('COMMENTAIRE') ? 'com' : x.startsWith('RENDEMENT') ? 'rdt' : x.startsWith('VIGUEUR') ? 'vig' : x.startsWith('STADE') ? 'stade' : ''; };
+      r.slice(2).forEach(l=>{ const v = String(l[iV]||'').trim(); if(!v) return; const k = fiche(v, {sem:String(l[iS]||'').trim(), seg:String(l[iT]||'').trim()});
+        const parMois = {}; l.forEach((x,i)=>{ const m = colMois[i], c = champ(i); if(m && c && String(x).trim()) (parMois[m] ||= {})[c] = String(x).trim(); });
+        Object.entries(parMois).forEach(([m,o])=>h_.vars[k].notes.push({op:n, prod:String(l[iP]||'').trim(), mois:m, ...o})); });
+    });
+    // dégustation : classement dans chaque séance (même semaine, même producteur, même dégustateur)
+    if(wb.Sheets['Dégustation']){ const t = tableAvecEntete(wb.Sheets['Dégustation'], ['VARIETES','CLASSEMENT']); if(t){
+      const iS = colDe(t.ent,'SEMAINE'), iN = colDe(t.ent,'N° PRODUCTEUR'), iV = colDe(t.ent,'VARIETES'), iG = colDe(t.ent,'NOM DEGUSTATEUR')>=0 ? colDe(t.ent,'NOM DEGUSTATEUR') : colDe(t.ent,'DEGUSTATEUR'), iK = colDe(t.ent,'CLASSEMENT'), iC = colDe(t.ent,'COMMENTAIRES');
+      const seances = {}; t.lignes.forEach(l=>{ const v = String(l[iV]||'').trim(), rg = nbr(l[iK]); if(!v || !rg) return; const k = fiche(v);
+        (seances[[l[iS],l[iN],l[iG]].join('|')] ||= []).push({k, rg, com:String(l[iC]||'').trim()}); });
+      Object.values(seances).forEach(ls=>{ const n = ls.length; ls.forEach(x=>{ const d = h_.degu[x.k] ||= {n:0, rangs:[], pref:[], com:[]};
+        d.n++; d.rangs.push(x.rg); if(n>1) d.pref.push((n-x.rg)/(n-1)); if(x.com && d.com.length<4) d.com.push(x.com); }); });
+      Object.values(h_.degu).forEach(d=>{ d.rang = moy(d.rangs); d.pref = d.pref.length ? Math.round(100*moy(d.pref)) : null; delete d.rangs; });
+    } }
+  });
+  return h_;
+}
+function lireRallyes(fichiers){
+  const r_ = {vars:{}, visites:[], fichiers:fichiers.map(f=>f.nom)};
+  fichiers.forEach(({wb})=>wb.SheetNames.forEach(n=>{
+    const t = tableAvecEntete(wb.Sheets[n], ['VARIETE','SEMENCIER','STATUT']); if(!t) return;
+    const iV = colDe(t.ent,'VARIETE'), iSg = colDe(t.ent,'SEGMENT'), iS = colDe(t.ent,'SEMENCIER'), iSt = colDe(t.ent,'STATUT');
+    const vis = t.ent.map((e,i)=>e.startsWith('VISITE') ? i : -1).filter(i=>i>=0);
+    const noms = XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1, defval:''}).find(l=>l.some(x=>normSx(x).startsWith('VISITE')))||[];
+    vis.forEach(i=>{ const lib = String(noms[i]||'').trim(); if(lib && !r_.visites.includes(lib)) r_.visites.push(lib); });
+    t.lignes.forEach(l=>{ const v = String(l[iV]||'').trim(); if(!v) return; const k = cleSx(v.replace(/\s*\(.*$/,''));
+      const o = r_.vars[k] ||= {nom:v.replace(/\s*\(.*$/,'').trim(), seg:String(l[iSg]||'').trim(), sem:String(l[iS]||'').trim(), statut:String(l[iSt]||'').trim(), notes:{}};
+      vis.forEach(i=>{ const tx = String(l[i]||'').trim(); if(tx) o.notes[String(noms[i]).trim()] = tx; }); });
+  }));
+  return r_;
 }
 
 /* --- calculs d'affichage --- */
@@ -4152,7 +4155,7 @@ function courbesSem(series, titreY){
 function carteVariete(r, ref, avant, coul){
   const kpi = (lib, val, ecart) => `<div class="sx-kpi"><span>${lib}</span><b>${val}</b>${ecart||''}</div>`;
   return `<article class="sx-carte${r.temoin?' temoin':''}" style="--c:${coul}">
-    <header><div><h5>${h(r.nom)}</h5><span>${h(r.sem||'')}</span></div>${badgeDv(r.dv)}</header>
+    <header><div><h5>${btnFiche(r.k, r.nom)}</h5><span>${h(r.sem||'')}</span></div>${badgeDv(r.dv)}</header>
     <div class="sx-kpis">
       ${kpi('Rendement cumulé', r.rdt!==null?fmt1(r.rdt)+' kg/m²':'—', !r.temoin && ref ? fleche(ecartPct(r.rdt, ref.rdt)) : '')}
       ${kpi('Poids moyen', r.pm!==null?Math.round(r.pm)+' g':'—', !r.temoin && ref ? fleche(ecartPct(r.pm, ref.pm)) : '')}
@@ -4195,150 +4198,751 @@ function barresRendement(l, coul){
   const v = l.filter(r=>r.rdt!==null).sort((a,b)=>b.rdt-a.rdt); if(!v.length) return '';
   const max = v[0].rdt;
   return `<div class="sx-classement">${v.map((r,i)=>`<div class="sx-cl${r.temoin?' t':''}">
-    <span class="sx-cl-rang">${i+1}</span><span class="sx-cl-nom">${h(r.nom)}${r.temoin?' <i>témoin</i>':''}</span>
+    <span class="sx-cl-rang">${i+1}</span><span class="sx-cl-nom">${btnFiche(r.k, r.nom)}${r.temoin?' <i>témoin</i>':''}</span>
     <span class="sx-cl-barre"><b style="width:${Math.round(100*r.rdt/max)}%; --c:${coul[r.k]}"></b></span><span class="sx-cl-val">${fmt1(r.rdt)} kg/m²</span></div>`).join('')}</div>`;
 }
 
-function vueCampagneSite(site){
-  const S_ = S.essais[site], camps = Object.keys(S_.campagnes).sort();
-  const adm = estAdmin(), anAuj = new Date().getFullYear();
-  const an = campEssai[site] || camps[camps.length-1] || String(anAuj);
-  // curseur des campagnes : de la plus ancienne importée (ou N-2) jusqu'à l'année en cours
-  const debut = Math.min(...camps.map(Number), anAuj-2), annees = Array.from({length:anAuj-debut+1}, (_,i)=>String(debut+i));
-  const c = S_.campagnes[an], cAv = S_.campagnes[String(+an-1)];
-  const rs = c ? Object.keys(c.vars).map(k=>resumeVar(c,k)) : [], rsAv = cAv ? Object.keys(cAv.vars).map(k=>resumeVar(cAv,k)) : null;
-  const curseur = `<div class="barre-annee sx-barre no-print">
-    <div><div class="eyebrow">Campagne ${h(SITES_EXPE[site].nom)}</div><div class="an-courant">${an}</div></div>
+/* ============ 05 · Commissions ============
+   Une seule année pour tout l'onglet (anCom), de 2020 à l'année prochaine.
+   Commission Variétale Tomates : 4 parties (essais & résultats, variétés, prix des graines, la commission).
+   Autres commissions : la commission (calendrier, membres, documents cadres).
+   Données : S.essais = résultats d'essais par source et par année, rapports (docs), catalogues de prix ;
+             S.espaces = {coms:{<commission>:{calendrier:[], cadres:{<année>:[]}}}, fiches:{<clé variété>:{nom, docs[], coms[]}}} */
+let anCom = new Date().getFullYear(), comPartie = 'essais', opFiltre = '', varTous = false, IDX = {};
+const PARTIES_CVTO = [['essais','Essais & résultats'],['varietes','Variétés'],['prix','Prix des graines'],['commission','La commission']];
+const SOURCES_ESSAIS = {
+  invenio:{nom:'Invenio', court:'Invenio', lieu:'Sainte-Livrade-sur-Lot (47)', desc:'Site d\'expérimentation · DV1 et DV2', lon:0.59, lat:44.40},
+  camargue:{nom:'Camargue Innovation', court:'Camargue', lieu:'Saint-Laurent-d\'Aigouze (30)', desc:'Site d\'expérimentation · DV1 et DV2', lon:4.20, lat:43.63},
+  dv3:{nom:'Essais producteurs DV3', court:'Producteurs DV3', desc:'Pré-développement chez les producteurs des OP'},
+  grappes:{nom:'Grappes DV3 — qualité', court:'Grappes DV3', desc:'Mesures organoleptiques et conformité des grappes'},
+  hiver:{nom:'Essais hiver', court:'Hiver', desc:'Tomates grappe d\'hiver chez les producteurs'},
+  sol:{nom:'Essais sol agroécologie', court:'Sol', desc:'Culture en sol vivant chez les producteurs'},
+  rallyes:{nom:'Rallyes variétaux', court:'Rallyes', desc:'Comptes rendus des visites de la commission'}
+};
+/* Bassins des OP (position des essais chez les producteurs) et place de leur étiquette sur la carte */
+const BASSINS_OP = [
+  {re:/valprim|perrinot/i, nom:'Valprim · Les Perrinots', lieu:'Marmande', lon:0.165, lat:44.50, eti:[-2.5,45.55]},
+  {re:/cadralbret/i, nom:'Cadralbret', lieu:'Nérac', lon:0.339, lat:44.136, eti:[-2.5,43.55]},
+  {re:/agrisud/i, nom:'Agrisud', lieu:'Perpignan', lon:2.89, lat:42.70, eti:[-0.6,42.95]},
+  {re:/crau/i, nom:'Primeurs de la Crau', lieu:'Saint-Martin-de-Crau', lon:4.81, lat:43.64, eti:[6.3,43.3]},
+  {re:/pardi|anais/i, nom:'Pardi', lieu:'Saint-Andiol', lon:4.946, lat:43.836, eti:[6.3,44.95]}
+];
+const ETI_SITES = {invenio:[1.5,45.6], camargue:[2.6,42.75]};
+const nbCles = o => Object.keys(o||{}).length;
+const espaceCom = com => { S.espaces ||= {coms:{}, fiches:{}}; const c = (S.espaces.coms ||= {})[com] ||= {}; c.calendrier ||= []; c.cadres ||= {}; return c; };
+
+/* --- accès aux données d'essai --- */
+function donneesEssai(src, an){
+  const E = S.essais||{}; an = String(an);
+  return SITES_EXPE[src] ? (E[src]?.campagnes?.[an] || null) : (E[src]?.[an] || null);
+}
+const anneesSource = src => Object.keys(SITES_EXPE[src] ? (S.essais?.[src]?.campagnes||{}) : (S.essais?.[src]||{})).map(Number).sort((a,b)=>a-b);
+const sourcesAn = an => Object.keys(SOURCES_ESSAIS).filter(s=>donneesEssai(s, an));
+const nomsFichiers = d => Array.isArray(d.fichiers) ? d.fichiers : Object.values(d.fichiers||{});
+function resumeSource(src, d){
+  if(SITES_EXPE[src]) return d.liste ? `${nbCles(d.vars)} variétés implantées · résultats à venir` : `${nbCles(d.vars)} variétés · ${nbCles(d.rdt)} suivies en rendement · ${nbCles(d.degu)} dégustées`;
+  if(src==='dv3' || src==='sol') return `${d.pos.length} essais · ${new Set(d.pos.map(p=>p.soc).filter(Boolean)).size} sites · ${d.degu.length} notes de dégustation`;
+  if(src==='grappes') return `${nbCles(d.vars)} variétés · ${nbCles(d.organo)} contrôlées · ${nbCles(d.conf)} en conformité`;
+  if(src==='hiver') return `${nbCles(d.vars)} variétés · ${d.pos.length} essais · ${nbCles(d.degu)} dégustées`;
+  return `${nbCles(d.vars)} variétés · ${d.visites.length} visites`;
+}
+const libCampagne = (src, an, d) => SITES_EXPE[src] || src==='rallyes' || src==='grappes' ? `${an}` : `campagne ${d?.campagne || (an-2001)+' '+(an-2000)}`;
+/* Année du catalogue de prix pour une année d'essai : celui préparé pour la campagne suivante, sinon le plus récent */
+function anCatalogue(an){
+  const ans = Object.keys(S.essais?.prix||{}).map(Number).sort((a,b)=>a-b);
+  if(ans.includes(+an+1)) return String(+an+1); if(ans.includes(+an)) return String(an);
+  const av = ans.filter(a=>a<=+an+1); return av.length ? String(av[av.length-1]) : ans.length ? String(ans[0]) : '';
+}
+/* Segments comparés par leurs mots (« Côtelées Jaunes » = « Côtelée Jaune ») */
+const MOTS_VIDES = ['rapport','visite','cvto','essai','essais','synthese','inter','intermediaire','expe','camargue','invenio','resultats','segment','temoin','tomate','tomates','rougeline','var','variete','varietes','evaluation'];
+const motsSeg = s => normTexte(String(s||'').replace(/œ/gi,'oe')).replace(/[^a-z ]/g,' ').split(/\s+/).filter(w=>w.length>3 && !MOTS_VIDES.includes(w)).map(w=>w.replace(/[sx]$/,''));
+function procheSeg(a, b){ const A = [...new Set(motsSeg(a))], B = [...new Set(motsSeg(b))]; if(!A.length || !B.length) return 0;
+  const c = A.filter(w=>B.includes(w)).length; return c / new Set([...A,...B]).size; }
+
+/* --- index de toutes les variétés (toutes sources, toutes années) --- */
+function indexGlobal(){
+  const idx = {};
+  const add = (nom, i) => { const n = String(nom||'').replace(/\s*\(.*$/,'').replace(/\s+-\s+\d{1,2}\s*$/,'').trim(); const k = cleSx(n); if(!k || k.length<2) return;
+    const v = idx[k] ||= {k, nom:n, seg:'', sem:'', dv:{}, ou:[]};
+    if(i.seg && !v.seg) v.seg = segNorm(i.seg); if(i.sem && !v.sem) v.sem = String(i.sem).trim();
+    if(i.dv && (!v.dv[i.an] || estTemoinDv(v.dv[i.an]))) v.dv[i.an] = String(i.dv).trim();
+    if(!v.ou.some(o=>o.src===i.src && o.an===i.an)) v.ou.push({src:i.src, an:i.an}); };
+  Object.keys(SITES_EXPE).forEach(s=>Object.entries(S.essais?.[s]?.campagnes||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, dv:v.dv, src:s, an:+an}))));
+  ['dv3','sol'].forEach(s=>Object.entries(S.essais?.[s]||{}).forEach(([an,e])=>{
+    (e.pos||[]).forEach(p=>add(p.v, {seg:p.typo, sem:p.sem, dv:p.dv, src:s, an:+an}));
+    [...(e.degu||[]), ...(e.qual||[])].forEach(r=>add(r.v, {src:s, an:+an})); }));
+  Object.entries(S.essais?.grappes||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, dv:v.dv, src:'grappes', an:+an})));
+  Object.entries(S.essais?.hiver||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, src:'hiver', an:+an})));
+  Object.entries(S.essais?.rallyes||{}).forEach(([an,c])=>Object.values(c.vars||{}).forEach(v=>add(v.nom, {seg:v.seg, sem:v.sem, dv:v.statut, src:'rallyes', an:+an})));
+  Object.entries(S.essais?.prix||{}).forEach(([an,c])=>(c.segments||[]).forEach(s=>s.varietes.forEach(v=>add(v.nom, {seg:s.nom, sem:v.semencier, dv:v.niveau==='LP'?'Liste positive':v.niveau, src:'prix', an:+an}))));
+  Object.entries(S.espaces?.fiches||{}).forEach(([k,f])=>{ if(!idx[k] && f.nom) idx[k] = {k, nom:f.nom, seg:'', sem:'', dv:{}, ou:[]}; });
+  return idx;
+}
+const dvDe = (v, an) => { const ans = Object.keys(v.dv).map(Number).sort((a,b)=>a-b); const av = ans.filter(a=>a<=+an); const a = av.length ? av[av.length-1] : ans[ans.length-1]; return a ? v.dv[a] : ''; };
+const libSrc = s => s==='prix' ? 'Prix' : SOURCES_ESSAIS[s]?.court || s;
+const parcours = v => [...v.ou].sort((a,b)=>a.an-b.an || libSrc(a.src).localeCompare(libSrc(b.src))).map(o=>`${libSrc(o.src)} ${o.an}`).join(' · ');
+const btnFiche = (k, nom) => `<button class="lien-fiche" data-fiche="${h(k)}">${h(nom)}</button>`;
+
+/* --- curseur unique des années --- */
+function anneesCom(){
+  const ans = new Set();
+  Object.keys(SOURCES_ESSAIS).forEach(s=>anneesSource(s).forEach(a=>ans.add(a)));
+  ['prix','docs'].forEach(k=>Object.keys(S.essais?.[k]||{}).forEach(a=>ans.add(+a)));
+  Object.values(S.espaces?.coms||{}).forEach(c=>{ (c.calendrier||[]).forEach(e=>ans.add(+e.an)); Object.keys(c.cadres||{}).forEach(a=>ans.add(+a)); });
+  const anAuj = new Date().getFullYear(), l = [...ans].filter(a=>a>2000 && a<2100);
+  const min = Math.min(2020, ...l), max = Math.max(anAuj+1, ...l);
+  return Array.from({length:max-min+1}, (_,i)=>min+i);
+}
+function contenuAn(com, a){
+  const t = [];
+  if(com==='cvto'){ if(sourcesAn(a).length || (S.essais?.docs?.[a]||[]).length) t.push(['essais','essais']); if(S.essais?.prix?.[a]) t.push(['prix','prix des graines']); }
+  const E = espaceCom(com);
+  if(E.calendrier.some(e=>+e.an===a)) t.push(['rdv','rendez-vous']);
+  if((E.cadres[a]||[]).length || (S.commissions?.[a]?.[com]?.docs||[]).some(d=>urlSure(d.url))) t.push(['cadres','documents cadres']);
+  return t;
+}
+function barreAnCom(com){
+  const ans = anneesCom(); if(!ans.includes(anCom)) anCom = ans[ans.length-1];
+  const ici = contenuAn(com, anCom);
+  return `<div class="barre-annee com-annee no-print">
+    <div><div class="eyebrow">Année</div><div class="an-courant">${anCom}</div><div class="com-camp">campagne ${anCom-2001} ${anCom-2000}</div></div>
     <div class="curseur-an">
-      <input type="range" min="${annees[0]}" max="${annees[annees.length-1]}" step="1" value="${an}" data-sx-range="${site}" aria-label="Choisir la campagne">
-      <div class="annees">${annees.map(y=>`<button class="${y===an?'on':''} ${S_.campagnes[y]?'':'vide'}" data-sx-camp="${site}|${y}">${y}</button>`).join('')}</div>
+      <input type="range" min="${ans[0]}" max="${ans[ans.length-1]}" step="1" value="${anCom}" data-an-range aria-label="Choisir l'année">
+      <div class="annees">${ans.map(y=>{ const c = contenuAn(com, y);
+        return `<button class="${y===anCom?'on':''} ${c.length?'':'vide'}" data-an-com="${y}" title="${y} : ${h(c.map(x=>x[1]).join(', ')||'rien pour l\'instant')}">${y}<i class="pts">${c.map(x=>`<b class="pt-${x[0]}"></b>`).join('')}</i></button>`; }).join('')}</div>
+      <div class="pts-leg">${com==='cvto'?'<span><b class="pt-essais"></b>essais</span><span><b class="pt-prix"></b>prix des graines</span>':''}<span><b class="pt-rdv"></b>rendez-vous</span><span><b class="pt-cadres"></b>documents cadres</span></div>
     </div>
-    <span class="etat ${c?'ok':''}">${c ? rs.length+' variétés' : 'pas de données'}</span>
+    <span class="etat ${ici.length?'ok':''}">${ici.length ? h(ici.map(x=>x[1]).join(' · ')) : 'rien pour l\'instant'}</span>
   </div>`;
-  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>${c?'Remplacer':'Importer'} la campagne ${an} ${h(SITES_EXPE[site].nom)}</summary>
-      <p class="aide">Choisissez les 5 fichiers de la campagne (mesures hebdo, agro périodiques, organo périodiques, rendement, dégustation).
-        Les fichiers restent sur SharePoint : l'app ne garde que les résultats par variété.</p>
-      <div class="form-grille">
-        <label>Campagne (année) <input type="number" min="2015" max="2040" data-sx-an value="${an}"></label>
-        <label class="large">Lien du dossier SharePoint de la campagne <input data-sx-dossier value="${h(c?.dossier||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label>
-      </div>
-      <label class="btn">Choisir les fichiers et importer<input type="file" accept=".xlsx,.xls" multiple data-sx-import="${site}" hidden></label></details>` : '';
-  if(!c) return `${curseur}<div class="sx-vide"><p>Pas encore de résultats pour la campagne ${an} à ${h(SITES_EXPE[site].nom)}.</p>
-    <a class="btn-ouvrir" href="${h(SITES_EXPE[site].lien)}" target="_blank" rel="noopener">Ouvrir le SharePoint ${h(SITES_EXPE[site].nom)}</a></div>${imp}`;
-  const segs = [...new Set(rs.map(r=>r.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
-  if(segEssai!=='*' && !segs.includes(segEssai)) segEssai = segs[0]||'';
-  const segsVus = segEssai==='*' ? segs : [segEssai];
-  const L = liensDoc(c.dossier || SITES_EXPE[site].lien);
-  const nbDv = l => rs.filter(r=>new RegExp(l,'i').test(r.dv) && !r.temoin).length;
-  return `${curseur}
-    <div class="sx-tete">
-      <span class="sx-resume">${rs.length} variétés · ${nbDv('dv\\s*1')} en DV1 · ${nbDv('dv\\s*2')} en DV2 · ${rs.filter(r=>r.temoin).length} témoins${cAv?` · comparées à ${+an-1}`:''}</span>
-      <span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Dossier SharePoint ${an}</a>`:''}</span>
+}
+
+/* --- page --- */
+function vueCommissions(){
+  const el = document.getElementById('v-commissions'); el.dataset.com = comActive;
+  const c = COMMISSIONS.find(x=>x.id===comActive);
+  const parties = comActive==='cvto' ? PARTIES_CVTO : [['commission','La commission']];
+  if(!parties.some(p=>p[0]===comPartie)) comPartie = parties[0][0];
+  IDX = comActive==='cvto' ? indexGlobal() : {};
+  if(ficheVar && !IDX[ficheVar]) ficheVar = '';
+  const corps = comPartie==='essais' ? partieEssais(anCom) : comPartie==='varietes' ? partieVarietes(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
+  el.innerHTML = `
+  <div class="entete"><div class="eyebrow">05 — Commissions</div>
+    <h2>Espaces de commission</h2>
+    <p>Une année à la fois pour toute la page : les essais et leurs résultats, les variétés, les prix des graines, puis la vie de la commission (calendrier, membres, documents cadres).</p></div>
+  <div class="onglets-com">${COMMISSIONS.map(x=>`<button class="chip" data-com="${x.id}" aria-pressed="${x.id===comActive}">${x.nom}</button>`).join('')}</div>
+  ${barreAnCom(comActive)}
+  ${parties.length>1 ? `<div class="com-parties segment">${parties.map(([k,l])=>`<button data-com-partie="${k}" aria-pressed="${k===comPartie}">${l}</button>`).join('')}</div>` : ''}
+  ${corps}
+  ${ficheVar ? vueFicheVar(ficheVar) : ''}`;
+  document.body.classList.toggle('fiche-ouverte', !!ficheVar);
+}
+
+/* ================= Partie « Essais & résultats » ================= */
+function partieEssais(an){
+  const srcs = sourcesAn(an);
+  if(!srcs.includes(sourceEssai)) sourceEssai = srcs[0] || sourceEssai;
+  const cartes = Object.keys(SOURCES_ESSAIS).map(s=>{ const d = donneesEssai(s, an), I = SOURCES_ESSAIS[s], autres = anneesSource(s);
+    if(!d && !autres.length && !SITES_EXPE[s]) return '';
+    return `<button class="es-src${s===sourceEssai?' on':''}${d?'':' vide'}" data-es-src="${s}">
+      <b>${h(I.nom)}</b><span>${h(I.lieu || I.desc)}</span>
+      <em>${d ? h(resumeSource(s, d)) : `pas de données en ${an}${autres.length ? ' · voir '+autres.join(', ') : ''}`}</em></button>`; }).join('');
+  return `<div class="carte es-accueil">
+    <h3>Essais variétaux ${an} — où ils se trouvent, ce qu'ils contiennent</h3>
+    <div class="es-accueil-grille">
+      <div class="es-carte-fr">${carteEssais(an)}</div>
+      <div class="es-srcs">${cartes}</div>
     </div>
-    <details class="sx-blocf" open><summary>Fichiers de la campagne ${an}${adm && c.importe?` <small>importés le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}</small>`:''}</summary>
-      ${blocFichiers(c.fichiers||[], c.liens, site+'|'+an)}</details>
+    ${rechercheVarietes()}
+  </div>
+  <div class="carte es-panneau">${panneauSource(sourceEssai, an)}</div>
+  ${docsEssaisAn(an)}
+  ${estAdmin() ? importEssais(an) : ''}`;
+}
+
+/* Carte du Sud de la France : sites d'expérimentation (losanges) et essais chez les producteurs par bassin (cercles) */
+function carteEssais(an){
+  const {W,LO1,LO2,LA2,k} = CARTE_FR, sx = W/((LO2-LO1)*k);
+  const X = lo => (lo-LO1)*k*sx, Y = la => (LA2-la)*sx, f = v => v.toFixed(1);
+  const x0 = X(-2.7), y0 = Y(46.1), w = X(9.6)-x0, hh = Y(41.75)-y0;
+  const bassins = BASSINS_OP.map(b=>({...b, essais:0, sites:new Set(), srcs:new Set()}));
+  const ajout = (op, site, src) => { const b = bassins.find(x=>x.re.test(op||'')); if(!b) return; b.essais++; if(site) b.sites.add(String(site).trim()); b.srcs.add(src); };
+  ['dv3','sol','hiver'].forEach(s=>(donneesEssai(s, an)?.pos||[]).forEach(p=>ajout(p.op, p.soc||p.prod, s)));
+  const hv = donneesEssai('hiver', an);
+  if(hv && !hv.pos.length) Object.values(hv.vars).forEach(v=>v.notes.forEach(n=>ajout(n.op, n.prod, 'hiver')));
+  const etiquette = (lon, lat, eti, lignes, cls, attrs) => {
+    const larg = Math.max(...lignes.map((l,i)=>l.length*(i?3.55:4.2))) + 14, haut = 9 + lignes.length*8.2;
+    const bx = X(eti[0]), by = Y(eti[1]), ax = X(lon), ay = Y(lat);
+    const cx = Math.min(Math.max(ax, bx+6), bx+larg-6), cy = ay < by ? by : by+haut;
+    return `<g class="ce-eti ${cls}" ${attrs}><path d="M${f(ax)},${f(ay)} L${f(cx)},${f(cy)}" class="ce-fil"/>
+      <rect x="${f(bx)}" y="${f(by)}" width="${f(larg)}" height="${f(haut)}" rx="4"/>
+      ${lignes.map((l,i)=>`<text x="${f(bx+7)}" y="${f(by+10+i*8.2)}" class="${i?'ce-t2':'ce-t1'}">${h(l)}</text>`).join('')}</g>`; };
+  const regions = Object.entries(REGIONS_SVG).map(([nom,d])=>`<path d="${d}" class="ce-reg${REGIONS_ROUGELINE.includes(nom)?' rg':''}"><title>${h(nom)}</title></path>`).join('');
+  const ops = bassins.map(b=>{ const r = b.essais ? 4 + Math.sqrt(b.essais)*1.35 : 2.6;
+    return `${b.essais ? etiquette(b.lon, b.lat, b.eti, [b.nom, `${b.essais} essai${b.essais>1?'s':''} · ${b.sites.size} site${b.sites.size>1?'s':''}`, b.lieu], 'op', `data-es-op="${h(b.nom)}" role="button" tabindex="0"`) : ''}
+      <g class="ce-op${b.essais?'':' vide'}" ${b.essais?`data-es-op="${h(b.nom)}" role="button" tabindex="0"`:''}><circle cx="${f(X(b.lon))}" cy="${f(Y(b.lat))}" r="${f(r+2.5)}" class="halo"/>
+        <circle cx="${f(X(b.lon))}" cy="${f(Y(b.lat))}" r="${f(r)}" class="pt"><title>${h(b.nom)} — ${b.essais} essais chez les producteurs</title></circle>
+        ${b.essais?`<text x="${f(X(b.lon))}" y="${f(Y(b.lat)+2.4)}" class="ce-n">${b.essais}</text>`:''}</g>`; }).join('');
+  const sites = Object.keys(SITES_EXPE).map(s=>{ const I = SOURCES_ESSAIS[s], d = donneesEssai(s, an), x = X(I.lon), y = Y(I.lat), r = 5.2;
+    return `${etiquette(I.lon, I.lat, ETI_SITES[s], [I.nom, d ? (d.liste ? `${nbCles(d.vars)} variétés implantées` : `${nbCles(d.vars)} variétés en essai`) : `pas de données en ${an}`, I.lieu], 'site'+(d?'':' vide'), `data-es-src="${s}" role="button" tabindex="0"`)}
+      <g class="ce-site${d?'':' vide'}${s===sourceEssai?' on':''}" data-es-src="${s}" role="button" tabindex="0"><path d="M${f(x)},${f(y-r-2)} L${f(x+r+2)},${f(y)} L${f(x)},${f(y+r+2)} L${f(x-r-2)},${f(y)}Z" class="halo"/>
+        <path d="M${f(x)},${f(y-r)} L${f(x+r)},${f(y)} L${f(x)},${f(y+r)} L${f(x-r)},${f(y)}Z" class="pt"><title>${h(I.nom)}</title></path></g>`; }).join('');
+  return `<svg class="carte-essais" viewBox="${f(x0)} ${f(y0)} ${f(w)} ${f(hh)}" role="img" aria-label="Carte des essais variétaux ${an}">
+    <rect x="${f(x0)}" y="${f(y0)}" width="${f(w)}" height="${f(hh)}" class="ce-mer"/>${regions}${ops}${sites}</svg>
+    <div class="ce-leg"><span><i class="l-site"></i>Site d'expérimentation</span><span><i class="l-op"></i>Essais chez les producteurs (nombre d'essais par bassin)</span><span>Cliquez pour ouvrir les résultats</span></div>`;
+}
+
+/* Recherche de variété : nom, semencier ou segment → fiche complète */
+function rechercheVarietes(){
+  const vs = Object.values(IDX).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
+  return `<div class="es-rech no-print">
+    <input type="search" data-es-rech placeholder="Chercher une variété (nom, semencier, segment) : ses résultats de toutes les années, ses prix, ses documents…" aria-label="Chercher une variété" autocomplete="off">
+    <div class="es-rech-res" hidden>${vs.map(v=>`<button data-fiche="${h(v.k)}" data-nom="${h(normTexte(v.nom+' '+v.sem+' '+v.seg))}" hidden>
+      ${badgeDv(dvDe(v, anCom)||'—')}<b>${h(v.nom)}</b><span>${h([v.seg, v.sem].filter(Boolean).join(' · '))}</span><em>${h(parcours(v))}</em></button>`).join('')}
+      <p class="aide es-rech-vide" hidden>Aucune variété trouvée.</p></div>
+  </div>`;
+}
+
+/* Panneau de la source choisie */
+function panneauSource(src, an){
+  const I = SOURCES_ESSAIS[src], d = donneesEssai(src, an), L = liensDoc(d?.dossier || SITES_EXPE[src]?.lien || '');
+  const tete = `<div class="es-p-tete"><div><div class="eyebrow">${h(I.desc)}</div><h3>${h(I.nom)} — ${h(libCampagne(src, an, d))}</h3></div>
+    ${L.ouvrir ? `<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Dossier SharePoint</a>` : ''}</div>`;
+  if(!d){ const autres = anneesSource(src);
+    return `${tete}<div class="sx-vide"><p>Pas de données ${h(I.nom)} pour ${an}.</p>
+      ${autres.length ? `<p>Années disponibles : ${autres.map(a=>`<button class="chip" data-an-com="${a}" data-es-src="${src}">${a}</button>`).join(' ')}</p>` : ''}</div>`; }
+  const noms = nomsFichiers(d);
+  const fichiers = noms.length ? `<details class="sx-blocf"><summary>Fichiers sources de la campagne (${noms.length}) — ouverture sur SharePoint${estAdmin() && d.importe?` <small>importés le ${h(d.importe)}${d.par?' par '+h(d.par.split('@')[0]):''}</small>`:''}</summary>
+    ${blocFichiers(noms, d.liens, src+'|'+an)}</details>` : '';
+  let corps;
+  if(SITES_EXPE[src]) corps = d.liste ? vueListeSite(src, an, d) : vueSite(src, an, d);
+  else if(src==='dv3' || src==='sol') corps = blocDV3(d, src, an);
+  else if(src==='grappes') corps = vueGrappes(d, an);
+  else if(src==='hiver') corps = vueHiver(d, an);
+  else corps = vueRallyes(d, an);
+  return tete + fichiers + corps;
+}
+
+/* Puces des segments + choix mémorisé */
+function pucesSegments(segs){
+  segs = [...segs].sort((a,b)=>(a==='Autres')-(b==='Autres'));
+  if(!segs.includes(segEssai)) segEssai = segs[0] || '';
+  return `<div class="sx-segs">${segs.map(s=>`<button class="chip" data-sx-seg="${h(s)}" aria-pressed="${s===segEssai}">${h(s)}</button>`).join('')}</div>
+    <label class="sx-segs-choix">Segment <select data-sx-seg-choix>${segs.map(s=>`<option ${s===segEssai?'selected':''}>${h(s)}</option>`).join('')}</select></label>`;
+}
+
+/* Résultats d'un site d'expérimentation pour une campagne */
+function vueSite(site, an, c){
+  const rs = Object.keys(c.vars).map(k=>resumeVar(c,k));
+  const avant = anneesSource(site).filter(a=>a<+an && !donneesEssai(site,a).liste).pop();
+  const cAv = avant ? donneesEssai(site, avant) : null, rsAv = cAv ? Object.keys(cAv.vars).map(k=>resumeVar(cAv,k)) : null;
+  const segs = [...new Set(rs.map(r=>r.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const nbDv = l => rs.filter(r=>new RegExp(l,'i').test(r.dv) && !r.temoin).length;
+  const tete = `<p class="sx-resume">${rs.length} variétés · ${nbDv('dv\\s*1')} en DV1 · ${nbDv('dv\\s*2')} en DV2 · ${rs.filter(r=>r.temoin).length} témoins · ${segs.length} segments${cAv?` · comparaison avec ${avant}`:''}</p>`;
+  const seg = (pucesSegments(segs), segEssai);
+  const l = rs.filter(r=>r.seg===seg).sort((a,b)=>b.temoin-a.temoin || (b.rdt||0)-(a.rdt||0));
+  const ref = l.filter(r=>r.temoin).sort((a,b)=>(b.rdt||0)-(a.rdt||0))[0];
+  const coul = Object.fromEntries(l.map((r,i)=>[r.k, COUL_VAR[i%COUL_VAR.length]]));
+  const concl = conclusions(l, rsAv && rsAv.filter(r=>r.seg===seg));
+  const cle = `${site}|${an}|${seg}`, voir = choixCourbes(cle, l), vus = l.filter(r=>voir.includes(r.k));
+  const sRdt = vus.filter(r=>c.rdt[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:cumul(c.rdt[r.k])}));
+  const sFlo = vus.filter(r=>c.flo[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:Object.entries(c.flo[r.k]).map(([w,v])=>[+w,v]).sort((a,b)=>a[0]-b[0])}));
+  return `${tete}${pucesSegments(segs)}
+    <section class="sx-seg">
+      <h4>${h(seg)} <span>${l.length} variétés · ${SOURCES_ESSAIS[site].court} ${an}</span></h4>
+      ${concl.length ? `<div class="sx-concl"><b class="sx-concl-titre">Ce qu'il faut retenir</b><ul>${concl.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : ''}
+      <div class="sx-duo">
+        <div class="sx-graphe"><h5>Rendement cumulé sur la campagne</h5>${l.some(r=>r.rdt!==null) ? barresRendement(l, coul) : '<p class="aide">Pas de mesure de rendement.</p>'}</div>
+        <div class="sx-graphe"><h5>Dégustation — classement des préférences</h5>${barresDegu(l)}</div>
+      </div>
+      <h5 class="sx-sous">Les variétés du segment</h5>
+      <div class="sx-cartes">${l.map(r=>carteVariete(r, ref, rsAv && rsAv.find(x=>x.k===r.k), coul[r.k])).join('')}</div>
+      ${l.some(r=>c.rdt[r.k] || c.flo[r.k]) ? `<details class="sx-graphe sx-courbes"><summary>Courbes semaine par semaine (rendement cumulé, vitesse de floraison)</summary>
+        <p class="aide" style="margin:6px 0">Cliquez sur les variétés pour les ajouter ou les retirer (témoins en pointillés).</p>
+        <div class="sx-voir">${l.map(r=>`<button data-sx-voir-cle="${h(cle)}" data-sx-voir-var="${h(r.k)}" aria-pressed="${voir.includes(r.k)}" style="--c:${coul[r.k]}"><i class="${r.temoin?'t':''}"></i>${h(r.nom)}</button>`).join('')}</div>
+        <div class="sx-graphes">
+          <div><h6>Rendement cumulé (kg/m²)</h6>${sRdt.length ? courbesSem(sRdt,'Rendement cumulé') : '<p class="aide">Choisissez au moins une variété.</p>'}</div>
+          <div><h6>Vitesse de floraison (stade moyen)</h6>${sFlo.length ? courbesSem(sFlo,'Stade de floraison') : '<p class="aide">Pas de mesure pour ces variétés.</p>'}</div>
+        </div></details>` : ''}
+      ${rapportsSegment(an, site, seg)}
+      ${prixSegment(seg, an, l.map(r=>r.k))}
+    </section>`;
+}
+
+/* Campagne d'un site sans résultats : variétés implantées, avec les commentaires des rallyes de l'année */
+function vueListeSite(site, an, c){
+  const ra = donneesEssai('rallyes', an);
+  const vs = Object.entries(c.vars).map(([k,v])=>({k, ...v, seg:segNorm(v.seg)||'Autres'}));
+  const segs = [...new Set(vs.map(v=>v.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const seg = (pucesSegments(segs), segEssai), l = vs.filter(v=>v.seg===seg).sort((a,b)=>estTemoinDv(b.dv)-estTemoinDv(a.dv) || a.nom.localeCompare(b.nom,'fr'));
+  return `<p class="sx-resume">${vs.length} variétés implantées en ${an} · ${segs.length} segments · les résultats s'afficheront après l'import des fichiers de la campagne.</p>
+    ${pucesSegments(segs)}
+    <section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés</span></h4>
+      <div class="ra-liste">${l.map(v=>{ const n = ra?.vars?.[v.k]?.notes || {};
+        return `<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.dv)}<span>${h(v.sem||'')}</span></header>
+          ${Object.keys(n).length ? `<div class="ra-notes">${Object.entries(n).map(([vis,t])=>`<p><b>${h(vis)}</b>${h(t)}</p>`).join('')}</div>` : ''}</article>`; }).join('')}</div>
+      ${rapportsSegment(an, site, seg)}
+      ${prixSegment(seg, an, l.map(v=>v.k))}
+    </section>`;
+}
+
+/* Classement des dégustations d'un segment */
+function barresDegu(l){
+  const v = l.filter(r=>r.pref!==null && r.pref!==undefined).sort((a,b)=>b.pref-a.pref);
+  if(!v.length) return '<p class="aide">Pas de dégustation pour ce segment.</p>';
+  return `<div class="sx-classement">${v.map((r,i)=>`<div class="sx-cl${r.temoin?' t':''}">
+    <span class="sx-cl-rang">${i+1}</span><span class="sx-cl-nom">${btnFiche(r.k, r.nom)}${r.temoin?' <i>témoin</i>':''}</span>
+    <span class="sx-cl-barre"><b style="width:${Math.max(r.pref,2)}%; --c:#C9A04A"></b></span><span class="sx-cl-val">${r.pref} %<small> · rang ${fmt1(r.rang)}</small></span></div>`).join('')}</div>
+    <p class="aide" style="margin:6px 0 0">Préférence : 100 % = toujours classée première de sa séance, 0 % = toujours dernière.</p>`;
+}
+
+/* Rapports (synthèses, comptes rendus de visite) du segment pour l'année */
+function rapportsSegment(an, src, seg){
+  const l = (S.essais?.docs?.[an]||[]).filter(d=>['rapport','visite','degu'].includes(d.cat) && (!d.source || d.source===src || !SITES_EXPE[src]) && procheSeg(d.t, seg)>=0.5);
+  if(!l.length) return '';
+  return `<div class="sx-rapports"><h5>Rapports et comptes rendus du segment — ${an}</h5><div class="es-docs-l">${l.map(ligneDoc).join('')}</div></div>`;
+}
+
+/* Prix des graines du segment, en bas de chaque segment d'essai */
+function prixSegment(seg, an, cles=[]){
+  const ac = anCatalogue(an);
+  if(!ac) return `<div class="ps-bloc vide"><h5>Prix des graines</h5><p class="aide" style="margin:0">Aucun catalogue de prix importé pour l'instant.</p></div>`;
+  const c = S.essais.prix[ac], av = S.essais.prix[String(+ac-1)];
+  const segC = (c.segments||[]).map(s=>({s, p:procheSeg(s.nom, seg)})).filter(x=>x.p>=0.6).sort((a,b)=>b.p-a.p)[0]?.s;
+  const vs = segC ? segC.varietes : (c.segments||[]).flatMap(s=>s.varietes.filter(v=>cles.includes(cleSx(v.nom))));
+  if(!vs.length) return `<div class="ps-bloc vide"><h5>Prix des graines — catalogue ${ac}</h5><p class="aide" style="margin:0">Ce segment n'est pas dans le catalogue ${ac}.</p></div>`;
+  const l = vs.map(v=>({v, p:prixM2(v.prix), avant:av ? prixVariete(String(+ac-1), cleSx(v.nom)) : null})).sort((a,b)=>(a.p??99)-(b.p??99));
+  const max = Math.max(...l.map(x=>x.p||0), 0.01);
+  return `<div class="ps-bloc"><div class="ps-tete"><h5>Prix des graines — catalogue ${ac}${Math.abs(ac-an)>1?` (le plus proche de ${an})`:''}${segC?' · '+h(segC.nom):''}</h5>
+      ${segC ? `<span>Potentiel <b>${h(segC.potentiel||'—')}</b> · prix moyen <b>${h(segC.prixMoy||'—')}/m²</b></span>` : ''}</div>
+    <div class="ps-l">${l.map(({v,p,avant})=>{ const pa = avant ? prixM2(avant.prix) : null, e = pa && p!==null ? ecartPct(p, pa) : null;
+      return `<div class="ps-v${cles.includes(cleSx(v.nom))?' essai':''}">
+        <span class="ps-nom">${btnFiche(cleSx(v.nom), v.nom)}<small>${h(v.semencier)} · ${h(v.niveau==='LP'?'liste positive':v.niveau)}${v.r?' · ToBRFV':''}</small></span>
+        <span class="ps-barre"><b style="width:${p!==null?Math.round(100*p/max):0}%"></b></span>
+        <span class="ps-prix">${p!==null?fmtPrix(p)+' €/m²':h(v.prix)}${pa!==null && pa!==undefined ? `<small>${+ac-1} : ${fmtPrix(pa)} ${e!==null?fleche(e, true):''}</small>`:''}</span></div>`; }).join('')}</div>
+    <p class="aide" style="margin:6px 0 0">Prix des graines seulement (hors pépiniériste). Document confidentiel. En surbrillance : les variétés présentes dans cet essai.</p></div>`;
+}
+
+/* Grappes DV3 : qualité et conformité */
+function vueGrappes(d, an){
+  const rs = Object.keys(d.vars).map(k=>({...resumeVar(d,k), conf:d.conf?.[k]})).sort((a,b)=>b.temoin-a.temoin || a.nom.localeCompare(b.nom,'fr'));
+  const pc = (n, t) => t ? Math.round(100*n/t) : 0;
+  return `<p class="sx-resume">${rs.length} variétés de grappes suivies en ${an} chez les producteurs : mesures après récolte (Brix, fermeté, coloration) et conformité du produit (RAS, vigilance, alerte).</p>
+    <div class="gr-l">${rs.map(r=>`<article class="gr-v${r.temoin?' temoin':''}">
+      <header>${btnFiche(r.k, r.nom)}${badgeDv(r.dv)}<span>${h(r.sem||'')}</span></header>
+      <div class="sx-kpis">
+        <div class="sx-kpi"><span>Brix moyen</span><b>${fmt1(r.brix)}</b></div>
+        <div class="sx-kpi"><span>Fermeté cible</span><b>${r.fermCible!==null?r.fermCible+' %':'—'}</b></div>
+        <div class="sx-kpi"><span>Coloration cible</span><b>${r.colorCible!==null?r.colorCible+' %':'—'}</b></div>
+        <div class="sx-kpi"><span>Classement visuel</span><b>${r.conf?.rang ? fmt1(r.conf.rang) : '—'}</b></div>
+      </div>
+      ${r.conf ? `<div class="gr-conf" title="Conformité produit sur ${r.conf.n} contrôles"><i class="ras" style="width:${pc(r.conf.ras,r.conf.n)}%"></i><i class="vig" style="width:${pc(r.conf.vig,r.conf.n)}%"></i><i class="ale" style="width:${pc(r.conf.alerte,r.conf.n)}%"></i></div>
+        <p class="gr-leg">RAS ${pc(r.conf.ras,r.conf.n)} % · vigilance ${pc(r.conf.vig,r.conf.n)} % · alerte ${pc(r.conf.alerte,r.conf.n)} % <span>(${r.conf.n} contrôles)</span></p>` : ''}
+      ${[...(r.conf?.com||[]), ...(r.com||[])].length ? `<details class="sx-com"><summary>Observations</summary>${[...(r.conf?.com||[]), ...(r.com||[])].slice(0,6).map(t=>`<p>${h(t)}</p>`).join('')}</details>` : ''}
+    </article>`).join('')}</div>
+    ${prixSegment('Grappe Ronde Rouge', an, rs.map(r=>r.k))}`;
+}
+
+/* Essais hiver : notes par OP et par mois, dégustation */
+function vueHiver(d, an){
+  const vs = Object.entries(d.vars).map(([k,v])=>({k, ...v, seg:segNorm(v.seg)||'Autres', degu:d.degu?.[k]}));
+  const segs = [...new Set(vs.map(v=>v.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const seg = (pucesSegments(segs), segEssai), l = vs.filter(v=>v.seg===seg).sort((a,b)=>(b.degu?.pref??-1)-(a.degu?.pref??-1) || a.nom.localeCompare(b.nom,'fr'));
+  const deg = l.filter(v=>v.degu && v.degu.pref!==null).map(v=>({k:v.k, nom:v.nom, pref:v.degu.pref, rang:v.degu.rang, temoin:false}));
+  return `<p class="sx-resume">${vs.length} variétés suivies chez les producteurs (${[...new Set(vs.flatMap(v=>v.notes.map(n=>n.op)))].join(', ')}) · notes de septembre à mai.</p>
+    ${pucesSegments(segs)}
+    <section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés</span></h4>
+      ${deg.length ? `<div class="sx-graphe"><h5>Dégustation — classement des préférences</h5>${barresDegu(deg)}</div>` : ''}
+      <div class="hv-l">${l.map(v=>`<article class="hv-v"><header>${btnFiche(v.k, v.nom)}<span>${h(v.sem||'')}</span>${v.degu?`<em>dégustation ${v.degu.pref!==null?v.degu.pref+' %':''} · rang ${fmt1(v.degu.rang)}</em>`:''}</header>
+        ${v.notes.length ? `<table class="data hv-t"><thead><tr><th>OP · producteur</th><th>Mois</th><th>Équilibre</th><th>Nouaison</th><th>Forme</th><th>Commentaire</th></tr></thead><tbody>
+          ${v.notes.map(n=>`<tr><td>${h(n.op)}<small>${h(n.prod||'')}</small></td><td>${h(n.mois)}</td><td>${h(n.eq||'—')}</td><td>${h(String(n.nou||'—').replace(/\s*\(.*$/,''))}</td><td>${h(String(n.forme||'—').replace(/\s*\(.*$/,''))}</td><td>${h(n.com||'')}${n.rdt?` <b>${h(n.rdt)} kg/m²</b>`:''}</td></tr>`).join('')}</tbody></table>` : ''}
+        ${v.degu?.com?.length ? `<p class="hv-com">Dégustateurs : ${v.degu.com.map(h).join(' · ')}</p>` : ''}</article>`).join('')}</div>
+      ${rapportsSegment(an, 'hiver', seg)}
+      ${prixSegment(seg, an, l.map(v=>v.k))}
+    </section>`;
+}
+
+/* Rallyes : commentaires des visites, par segment */
+function vueRallyes(d, an){
+  const vs = Object.entries(d.vars).map(([k,v])=>({k, ...v, seg:segNorm(v.seg)||'Autres'}));
+  const segs = [...new Set(vs.map(v=>v.seg))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const seg = (pucesSegments(segs), segEssai), l = vs.filter(v=>v.seg===seg).sort((a,b)=>estTemoinDv(b.statut)-estTemoinDv(a.statut) || a.nom.localeCompare(b.nom,'fr'));
+  return `<p class="sx-resume">${vs.length} variétés vues pendant ${d.visites.length} visites : ${d.visites.map(h).join(' · ')}.</p>
+    ${pucesSegments(segs)}
+    <section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés</span></h4>
+      <div class="ra-liste">${l.map(v=>`<article class="ra-var"><header>${btnFiche(v.k, v.nom)}${badgeDv(v.statut)}<span>${h(v.sem||'')}</span></header>
+        <div class="ra-notes">${Object.entries(v.notes).map(([vis,t])=>`<p><b>${h(vis)}</b>${h(t)}</p>`).join('') || '<p class="aide">Pas de commentaire.</p>'}</div></article>`).join('')}</div>
+      ${prixSegment(seg, an, l.map(v=>v.k))}
+    </section>`;
+}
+
+/* Essais producteurs DV3 (et sol) : la vue détaillée d'origine, avec les prix du segment en bas */
+function blocDV3(e, src, an){
+  const idx = indexVarietes(e), toutes = Object.values(idx);
+  const segs = [...new Set(toutes.map(f=>f.seg))].sort((a,b)=>a==='Non positionnée'?1:b==='Non positionnée'?-1:a.localeCompare(b,'fr'));
+  if(essaiSeg && !segs.includes(essaiSeg)) essaiSeg = '';
+  const vis = toutes.filter(f=>!essaiSeg || f.seg===essaiSeg).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
+  const nb = (l, k) => new Set(l.map(r=>String(r[k]).trim()).filter(Boolean)).size;
+  const kpis = [[e.pos.length,'essais positionnés'],[nb(e.pos,'v'),'variétés en essai'],[nb(e.pos,'soc'),'sites producteurs'],[e.obs.length,'observations agronomiques'],
+    [e.qual.length,'contrôles qualité fruit'],[e.degu.length,'notes de dégustation']];
+  const vues = [['pos','Positionnement'],['var','Fiche variété'],['qual','Qualité fruit'],['degu','Dégustation'],['synth','Synthèse par segment']];
+  const corps = essaiVue==='pos' ? vuePositionnement(e, idx) : essaiVue==='var' ? vueFicheVariete(e, idx, vis) : essaiVue==='qual' ? vueQualite(e, vis)
+    : essaiVue==='degu' ? vueDegustation(e, vis) : vueSynthese(e, idx, essaiSeg ? [essaiSeg] : segs);
+  return `<div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
+    <div class="es-barre-outils">
+      <div class="segment">${vues.map(([k,l])=>`<button data-ev="${k}" aria-pressed="${k===essaiVue}">${l}</button>`).join('')}</div>
+      <select data-eseg aria-label="Segment"><option value="">Tous les segments</option>${segs.map(s=>`<option ${s===essaiSeg?'selected':''}>${h(s)}</option>`).join('')}</select>
+    </div>
+    ${opFiltre && essaiVue==='pos' ? `<p class="es-filtre">Essais du bassin <b>${h(opFiltre)}</b> <button class="chip" data-op-effacer>Voir tous les bassins ✕</button></p>` : ''}
+    ${corps}
+    ${essaiSeg ? `${rapportsSegment(an, src, essaiSeg)}${prixSegment(essaiSeg, an, vis.map(f=>cleSx(f.nom)))}`
+      : '<p class="aide es-astuce">Choisissez un segment pour afficher en bas les prix des graines et les rapports du segment.</p>'}`;
+}
+
+/* Rapports et documents d'essais de l'année */
+const CATS_DOCS_ESSAIS = [['rapport','Rapports, synthèses et résultats'],['visite','Comptes rendus de visites, rallyes et semenciers'],['degu','Fiches de dégustation'],['catalogue','Catalogues variétaux'],['aide','Protocoles et documents d\'aide']];
+const dateCourte = d => !d ? '' : d.length===7 ? new Date(d+'-01').toLocaleDateString('fr-FR',{month:'long', year:'numeric'}) : new Date(d).toLocaleDateString('fr-FR',{day:'numeric', month:'short', year:'numeric'});
+function ligneDoc(d){
+  const L = liensDoc(d.url);
+  return `<div class="es-doc">${iconeFormat(d.f || typeLien(d.url))}<div class="es-doc-t"><b>${h(d.t)}</b>
+    <span>${h([SOURCES_ESSAIS[d.source]?.court, d.dossier, dateCourte(d.date)].filter(Boolean).join(' · '))}</span></div>
+    <span class="es-doc-act">${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger" aria-label="Télécharger">${ICO_TELECHARGER}</a>`:''}
+    ${L.dossier?`<a class="btn-icone" href="${h(L.dossier)}" target="_blank" rel="noopener" title="Dossier SharePoint" aria-label="Dossier SharePoint">${ICO_DOSSIER}</a>`:''}
+    ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}</span></div>`;
+}
+function docsEssaisAn(an){
+  const l = S.essais?.docs?.[an]||[]; if(!l.length) return '';
+  return `<div class="carte"><h3>Rapports et documents d'essais ${an} <span class="zrp-compte">${l.length}</span></h3>
+    <p class="aide">Les documents restent sur SharePoint ; chaque ligne s'ouvre dans le navigateur, se télécharge ou ouvre son dossier.</p>
+    ${CATS_DOCS_ESSAIS.map(([k,lib])=>{ const g = l.filter(d=>d.cat===k); if(!g.length) return '';
+      return `<details class="es-docs"${k==='rapport'?' open':''}><summary>${lib} <span class="zrp-compte">${g.length}</span></summary><div class="es-docs-l">${g.map(ligneDoc).join('')}</div></details>`; }).join('')}</div>`;
+}
+
+/* Import (administrateur) : une seule zone pour toutes les sources */
+function importEssais(an){
+  return `<details class="carte sx-import no-print"><summary>Importer ou remplacer des résultats d'essais</summary>
+    <p class="aide">Choisissez la source et l'année, collez le lien du dossier SharePoint de la campagne, puis sélectionnez ses fichiers Excel (même structure chaque année).
+      Les fichiers restent sur SharePoint : l'app garde les résultats par variété. La version précédente reste dans l'historique de la base.</p>
+    <div class="form-grille">
+      <label>Source <select data-imp-src>${Object.entries(SOURCES_ESSAIS).map(([k,s])=>`<option value="${k}" ${k===sourceEssai?'selected':''}>${h(s.nom)}</option>`).join('')}</select></label>
+      <label>Année <input type="number" min="2015" max="2040" data-imp-an value="${an}"></label>
+      <label class="large">Lien du dossier SharePoint <input data-imp-dossier placeholder="https://grouperougeline.sharepoint.com/…"></label>
+    </div>
+    <label class="btn">Choisir les fichiers et importer<input type="file" accept=".xlsx,.xls" multiple data-imp-fichiers hidden></label>
+  </details>`;
+}
+
+/* ================= Partie « Variétés » ================= */
+function partieVarietes(an){
+  const vs = Object.values(IDX).filter(v=>varTous || v.ou.some(o=>o.an===+an && o.src!=='prix'));
+  const n = re => vs.filter(v=>{ const d = dvDe(v, an); return re.test(d) && !estTemoinDv(d); }).length;
+  const segs = [...new Set(vs.map(v=>v.seg||'Autres'))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const ac = anCatalogue(an), fiches = S.espaces?.fiches||{};
+  const ordreDv = d => estTemoinDv(d) ? 9 : /dv\s*3/i.test(d) ? 1 : /dv\s*2/i.test(d) ? 2 : /dv\s*1/i.test(d) ? 3 : /positive|^lp$/i.test(d) ? 0 : 5;
+  const ligne = v => { const f = fiches[v.k]||{}, d = dvDe(v, an), p = ac ? prixVariete(ac, v.k) : null;
+    return `<button class="sx-dev-v" data-fiche="${h(v.k)}" data-nom="${h(normTexte(v.nom+' '+v.sem+' '+v.seg))}">
+      ${badgeDv(d||'—')}<b>${h(v.nom)}</b><span>${h(v.sem||'')}</span>
+      ${p && prixM2(p.prix)!==null ? `<span class="sx-prix-tag">${fmtPrix(prixM2(p.prix))} €/m²</span>` : ''}
+      ${(f.docs||[]).length ? `<span class="sx-cpt">${f.docs.length} doc.</span>` : ''}${(f.coms||[]).length ? `<span class="sx-cpt">${f.coms.length} comm.</span>` : ''}
+      <em>${h(parcours(v))}</em></button>`; };
+  return `<div class="carte"><h3>Variétés ${varTous ? '— toutes les années' : `en essai en ${an}`}</h3>
+    <div class="segment var-portee no-print"><button data-var-tous="0" aria-pressed="${!varTous}">Essais ${an}</button><button data-var-tous="1" aria-pressed="${varTous}">Toutes les années</button></div>
+    <div class="es-kpis">${[[n(/dv\s*1/i),'en DV1'],[n(/dv\s*2/i),'en DV2'],[n(/dv\s*3/i),'en DV3'],[n(/liste positive|^lp$/i),'en liste positive'],[vs.filter(v=>estTemoinDv(dvDe(v,an))).length,'témoins'],[vs.length,'variétés']].map(([x,t])=>`<div><b>${x}</b><span>${t}</span></div>`).join('')}</div>
+    <div class="sx-recherche no-print"><input type="search" data-var-rech placeholder="Chercher une variété ou un semencier…" aria-label="Chercher une variété"></div>
+    <p class="aide">Niveau de développement ${varTous?'le plus récent':`en ${an}`}. Cliquez sur une variété pour ouvrir sa fiche : résultats de toutes les années, prix des graines, documents et commentaires des techniciens.</p>
+    <div class="sx-dev">${segs.map(s=>`<div class="sx-dev-seg" data-seg-bloc><h5>${h(s)} <span>${vs.filter(v=>(v.seg||'Autres')===s).length}</span></h5>${vs.filter(v=>(v.seg||'Autres')===s)
+      .sort((a,b)=>ordreDv(dvDe(a,an))-ordreDv(dvDe(b,an)) || a.nom.localeCompare(b.nom,'fr')).map(ligne).join('')}</div>`).join('') || '<p class="aide">Aucune variété pour cette année.</p>'}</div></div>`;
+}
+
+/* ================= Partie « Prix des graines » ================= */
+let ficheVar = '';
+const fmtPrix = n => n===null || n===undefined ? '—' : n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2});
+const prixM2 = t => { const m = [...String(t||'').matchAll(/(\d[\d\s]*(?:[,.]\d+)?)\s*€\s*\/\s*m/g)]; return m.length ? parseFloat(m[m.length-1][1].replace(/\s/g,'').replace(',','.')) : null; };
+const anneesPrix = () => Object.keys(S.essais?.prix||{}).sort();
+function prixVariete(an, k){
+  for(const s of (S.essais?.prix?.[an]?.segments||[])){ const v = s.varietes.find(x=>cleSx(x.nom)===k); if(v) return {...v, segment:s.nom, an}; }
+  return null;
+}
+function partiePrix(an){
+  const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an], av = S.essais?.prix?.[String(an-1)];
+  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>${c?'Remplacer':'Importer'} le catalogue ${an}</summary>
+      <p class="aide">Le catalogue s'importe à partir du modèle Excel (une ligne par variété : segment, variété, niveau, semencier, prix, résistance ToBRFV, commentaires ;
+        un onglet « Segments » pour les potentiels et prix moyens). Téléchargez le modèle pré-rempli avec le dernier catalogue, mettez-le à jour, puis importez-le.
+        Les catalogues des années précédentes restent consultables.</p>
+      <div class="form-grille"><label class="large">Lien du catalogue sur SharePoint (PDF) <input data-prix-lien-nv value="${h(c?.lien||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label></div>
+      <button class="btn sec" data-prix-modele>Télécharger le modèle Excel</button>
+      <label class="btn">Importer le catalogue ${an}<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
+  if(!c) return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
+    <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
+  const L = liensDoc(c.lien);
+  const ligne = (v, s) => { const p = prixM2(v.prix), pAv = av ? prixVariete(String(an-1), cleSx(v.nom)) : null, e = pAv && p!==null && prixM2(pAv.prix) ? ecartPct(p, prixM2(pAv.prix)) : null;
+    return `<div class="sx-prix-v" data-nom="${h(normTexte(v.nom+' '+v.semencier+' '+s.nom))}">
+      <div class="sx-pv-nom">${btnFiche(cleSx(v.nom), v.nom)}<span>${h(v.semencier)}</span></div>
+      <div class="sx-pv-tags"><span class="sx-dv ${v.niveau==='DV3'?'d3':''}">${h(v.niveau==='LP'?'Liste positive':v.niveau)}</span>${v.r?'<span class="sx-tobrfv">ToBRFV</span>':''}</div>
+      <div class="sx-pv-prix"><b>${p!==null?fmtPrix(p)+' €/m²':h(v.prix)}</b><span>${h(v.prix)}</span>${pAv?`<small>${an-1} : ${h(pAv.prix)} ${e!==null?fleche(e, true):''}</small>`:''}</div>
+      <div class="sx-pv-com">${h(v.commentaire||'')}</div></div>`; };
+  return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
+    <div class="sx-confid">Document confidentiel — ne pas diffuser sans autorisation. Prix des graines uniquement, hors marge du pépiniériste.</div>
+    <div class="sx-tete"><span class="sx-resume">${h(c.titre||'')}</span><span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue ${an}</a>`:''}</span></div>
     ${imp}
-    <div class="sx-segs"><button class="chip" data-sx-seg="*" aria-pressed="${segEssai==='*'}">Tous les segments</button>${segs.map(s=>`<button class="chip" data-sx-seg="${h(s)}" aria-pressed="${s===segEssai}">${h(s)}</button>`).join('')}</div>
-    ${segsVus.map(seg=>{
-      const l = rs.filter(r=>r.seg===seg).sort((a,b)=>b.temoin-a.temoin || (b.rdt||0)-(a.rdt||0));
-      const ref = l.filter(r=>r.temoin).sort((a,b)=>(b.rdt||0)-(a.rdt||0))[0];
-      const coul = Object.fromEntries(l.map((r,i)=>[r.k, COUL_VAR[i%COUL_VAR.length]]));
-      const concl = conclusions(l, rsAv && rsAv.filter(r=>r.seg===seg));
-      const cle = `${site}|${an}|${seg}`, voir = choixCourbes(cle, l);
-      const vus = l.filter(r=>voir.includes(r.k));
-      const sRdt = vus.filter(r=>c.rdt[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:cumul(c.rdt[r.k])}));
-      const sFlo = vus.filter(r=>c.flo[r.k]).map(r=>({nom:r.nom, coul:coul[r.k], temoin:r.temoin, pts:Object.entries(c.flo[r.k]).map(([w,v])=>[+w,v]).sort((a,b)=>a[0]-b[0])}));
-      const avecCourbes = l.some(r=>c.rdt[r.k] || c.flo[r.k]);
-      return `<section class="sx-seg">
-        <h4>${h(seg)} <span>${l.length} variétés</span></h4>
-        ${concl.length ? `<div class="sx-concl"><b class="sx-concl-titre">Ce qu'il faut retenir</b><ul>${concl.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : ''}
-        <div class="sx-cartes">${l.map(r=>carteVariete(r, ref, rsAv && rsAv.find(x=>x.k===r.k), coul[r.k])).join('')}</div>
-        ${l.some(r=>r.rdt!==null) ? `<div class="sx-graphe sx-graphe-large"><h5>Classement du rendement cumulé sur la campagne</h5>${barresRendement(l, coul)}</div>` : ''}
-        ${avecCourbes ? `<div class="sx-graphe sx-graphe-large">
-          <h5>Évolution semaine par semaine — variétés comparées</h5>
-          <p class="aide" style="margin:0 0 6px">Cliquez sur les variétés pour les ajouter ou les retirer des courbes (témoins en pointillés).</p>
-          <div class="sx-voir">${l.map(r=>`<button data-sx-voir-cle="${h(cle)}" data-sx-voir-var="${h(r.k)}" aria-pressed="${voir.includes(r.k)}" style="--c:${coul[r.k]}"><i class="${r.temoin?'t':''}"></i>${h(r.nom)}</button>`).join('')}</div>
-          <div class="sx-graphes">
-            <div><h6>Rendement cumulé (kg/m²)</h6>${sRdt.length ? courbesSem(sRdt,'Rendement cumulé') : '<p class="aide">Choisissez au moins une variété.</p>'}</div>
-            <div><h6>Vitesse de floraison (stade moyen)</h6>${sFlo.length ? courbesSem(sFlo,'Stade de floraison') : '<p class="aide">Pas de mesure pour ces variétés.</p>'}</div>
-          </div></div>` : ''}
-      </section>`; }).join('')}`;
+    <div class="sx-recherche no-print"><input type="search" data-prix-rech placeholder="Chercher une variété : son prix s'affiche…" aria-label="Chercher le prix d'une variété"></div>
+    <div class="es-kpis">${[[c.segments.reduce((n,s)=>n+s.varietes.length,0),'variétés'],[c.segments.length,'segments'],[c.segments.reduce((n,s)=>n+s.varietes.filter(v=>v.r).length,0),'résistantes ToBRFV'],
+      [h(c.totalActuel||'—'),'montant total estimé'],[h(c.totalResistant||'—'),'si 100 % résistantes ToBRFV'],[av?(an-1):'—','année comparée']].map(([x,t])=>`<div><b>${x}</b><span>${t}</span></div>`).join('')}</div>
+    <div class="sx-prix-segs">${c.segments.map(s=>`<section class="sx-prix-seg" data-seg-bloc>
+      <header><h5>${h(s.nom)}</h5><div class="sx-ps-kpi"><span>Potentiel <b>${h(s.potentiel||'—')}</b></span><span>Prix moyen <b>${h(s.prixMoy||'—')}/m²</b></span>
+        <span>Non résistantes <b>${h(s.prixNonRes||'—')}</b></span><span>Résistantes <b>${h(s.prixRes||'—')}</b></span><span>Valeur estimée <b>${h(s.total||'—')}</b></span></div></header>
+      ${s.varietes.map(v=>ligne(v,s)).join('')}${s.note?`<p class="aide" style="margin:6px 12px">${h(s.note)}</p>`:''}</section>`).join('')}</div>
+    <p class="aide">${h(c.methode||'')}${adm && c.importe?` — importé le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}`:''}</p></div>`;
+}
+function modeleCatalogue(an){
+  const c = (S.essais.prix||{})[an] || {segments:[]};
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(c.segments.flatMap(s=>s.varietes.map(v=>({Segment:s.nom, 'Variété':v.nom, Niveau:v.niveau, Semencier:v.semencier,
+    'Prix (le 1000 et m²)':v.prix, 'Résistante ToBRFV':v.r?'oui':'non', Commentaires:v.commentaire||''}))).concat(c.segments.length?[]:[{Segment:'', 'Variété':'', Niveau:'', Semencier:'', 'Prix (le 1000 et m²)':'', 'Résistante ToBRFV':'', Commentaires:''}])), 'Variétés');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(c.segments.map(s=>({Segment:s.nom, Potentiel:s.potentiel, 'Nombre de graines':s.graines, 'Prix moyen non résistantes':s.prixNonRes,
+    'Prix moyen résistantes':s.prixRes, 'Prix moyen':s.prixMoy, 'Valeur totale estimée':s.total, Remarque:s.note||''}))), 'Segments');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{Titre:c.titre||'', 'Méthode':c.methode||'', 'Montant total estimé':c.totalActuel||'', 'Montant si 100 % résistantes':c.totalResistant||''}]), 'Synthèse');
+  XLSX.writeFile(wb, `Catalogue prix graines ${an}.xlsx`);
+}
+function lireCatalogue(wb){
+  const lig = n => wb.Sheets[n] ? XLSX.utils.sheet_to_json(wb.Sheets[n], {defval:'', raw:false}) : [];
+  const v_ = (l, nom) => { const k = Object.keys(l).find(x=>normSx(x)===normSx(nom)); return k===undefined ? '' : String(l[k]).trim(); };
+  const segs = {}, ordre = [];
+  lig('Variétés').forEach(l=>{ const s = v_(l,'Segment'), n = v_(l,'Variété'); if(!s || !n) return;
+    if(!segs[s]){ segs[s] = {nom:s, varietes:[]}; ordre.push(s); }
+    segs[s].varietes.push({nom:n, niveau:v_(l,'Niveau'), semencier:v_(l,'Semencier'), prix:v_(l,'Prix (le 1000 et m²)'), r:/^o/i.test(v_(l,'Résistante ToBRFV')), commentaire:v_(l,'Commentaires')}); });
+  lig('Segments').forEach(l=>{ const s = segs[v_(l,'Segment')]; if(!s) return;
+    Object.assign(s, {potentiel:v_(l,'Potentiel'), graines:v_(l,'Nombre de graines'), prixNonRes:v_(l,'Prix moyen non résistantes'), prixRes:v_(l,'Prix moyen résistantes'),
+      prixMoy:v_(l,'Prix moyen'), total:v_(l,'Valeur totale estimée'), note:v_(l,'Remarque')}); });
+  const syn = lig('Synthèse')[0] || {};
+  return {titre:v_(syn,'Titre'), methode:v_(syn,'Méthode'), totalActuel:v_(syn,'Montant total estimé'), totalResistant:v_(syn,'Montant si 100 % résistantes'), segments:ordre.map(s=>segs[s])};
 }
 
-/* Liste des variétés en développement : dernière campagne de chaque site + essais producteurs (DV3) */
-function vueVarietesDev(dc){
-  const l = {};
-  const ajouteV = (nom, dv, seg, sem, source) => { const k = cleVar(nom); if(!k) return; const v = l[k] ||= {nom, dv:'', seg:'', sem:'', sources:{}};
-    if(!v.dv || (/dv\s*3/i.test(dv) && !/dv\s*3/i.test(v.dv)) || (!estTemoinDv(dv) && estTemoinDv(v.dv))) v.dv = dv; v.seg ||= segNorm(seg); v.sem ||= sem; v.sources[source] = dv; };
-  Object.entries(S.essais).forEach(([site, o])=>{ const an = Object.keys(o.campagnes||{}).sort().pop(); if(!an) return;
-    Object.values(o.campagnes[an].vars).filter(v=>v.dv).forEach(v=>ajouteV(v.nom, v.dv, v.seg, v.sem, SITES_EXPE[site].nom+' '+an)); });
-  (dc.essais?.pos||[]).forEach(p=>ajouteV(p.v.replace(/\s*\(.*$/,''), p.dv, p.typo, p.sem, 'Producteurs '+(dc.essais.campagne||'')));
-  const vs = Object.values(l), segs = [...new Set(vs.map(v=>v.seg||'Autres'))].sort((a,b)=>a.localeCompare(b,'fr'));
-  if(!vs.length) return '<p class="aide">Importez une campagne Invenio, Camargue ou les essais producteurs pour voir la liste des variétés en développement.</p>';
-  const n = re => vs.filter(v=>re.test(v.dv) && !estTemoinDv(v.dv)).length;
-  return `<div class="es-kpis">${[[n(/dv\s*1/i),'en DV1 (premier essai)'],[n(/dv\s*2/i),'en DV2 (confirmation)'],[n(/dv\s*3/i),'en DV3 (chez les producteurs)'],[vs.filter(v=>estTemoinDv(v.dv)).length,'témoins'],[segs.length,'segments'],[vs.length,'variétés au total']].map(([x,t])=>`<div><b>${x}</b><span>${t}</span></div>`).join('')}</div>
-    <p class="aide">Le niveau affiché est le plus avancé atteint par la variété. Chaque étiquette indique où elle est en essai.</p>
-    <div class="sx-dev">${segs.map(s=>`<div class="sx-dev-seg"><h5>${h(s)}</h5>${vs.filter(v=>(v.seg||'Autres')===s).sort((a,b)=>estTemoinDv(a.dv)-estTemoinDv(b.dv) || String(b.dv).localeCompare(String(a.dv)) || a.nom.localeCompare(b.nom,'fr'))
-      .map(v=>`<div class="sx-dev-v">${badgeDv(v.dv)}<b>${h(v.nom)}</b><span>${h(v.sem||'')}</span><em>${Object.keys(v.sources).map(x=>`<i>${h(x)}</i>`).join('')}</em></div>`).join('')}</div>`).join('')}</div>`;
+/* ================= Partie « La commission » : calendrier, membres, documents cadres ================= */
+const TYPES_RDV = {commission:'Commission', visite:'Visite / rallye', semenciers:'Semenciers', hiver:'Tomates hiver', autre:'Autre'};
+function partieCommission(c, an){
+  const ed = peutEditer(), adm = estAdmin(), E = espaceCom(c.id);
+  const e = D.enjeux.find(x=>x.nom===c.enjeu);
+  const struct = Object.fromEntries(STRUCTS.map(s=>[s,(e.structures.find(x=>x.s===s)||{e:[]}).e]));
+  const membres = OPS.flatMap(s=>struct[s].map(n=>({n,s}))), externes = struct.EXTERNE||[];
+  // calendrier de l'année (+ anciennes échéances saisies)
+  const evs = E.calendrier.filter(x=>+x.an===+an).sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999'));
+  const autresAns = [...new Set(E.calendrier.map(x=>+x.an))].sort().filter(a=>a!==+an);
+  const jour = d => d && d.length===10 ? `<b>${+d.slice(8)}</b><span>${new Date(d).toLocaleDateString('fr-FR',{month:'short'})}</span>` : d ? `<b class="mois">${new Date(d+'-01').toLocaleDateString('fr-FR',{month:'short'})}</b><span>${d.slice(0,4)}</span>` : '<b class="mois">—</b><span>sans date</span>';
+  const evt = x => `<article class="cal-ev t-${h(x.type||'autre')}">
+    <div class="cal-date">${jour(x.date)}</div>
+    <div class="cal-corps"><span class="cal-type">${h(TYPES_RDV[x.type]||'Autre')}</span><h4>${h(x.titre)}</h4>
+      ${x.d?`<p>${h(x.d)}</p>`:''}
+      <div class="cal-docs">${(x.docs||[]).map(d=>{ const L = liensDoc(d.url); return `<a href="${h(L.ouvrir||'#')}" target="_blank" rel="noopener" class="cal-doc">${iconeFormat(d.f||typeLien(d.url))}<span>${h(d.t||d.nom)}</span></a>`; }).join('')}</div>
+      ${x.par?`<small class="cal-par">Ajouté par ${h(x.par.split('@')[0])}</small>`:''}</div>
+    ${adm ? `<button class="btn-icone suppr-icone no-print" data-cal-rm="${h(x.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}</article>`;
+  const calendrier = `<div class="carte"><h3>Calendrier de la commission — ${an}</h3>
+    <p class="aide">Réunions, rallyes et rendez-vous de l'année, avec leurs supports (dossier « RDV COMMISSIONS » sur SharePoint).</p>
+    ${evs.length ? `<div class="cal-l">${evs.map(evt).join('')}</div>` : `<p class="aide">Aucun rendez-vous enregistré pour ${an}.</p>`}
+    ${autresAns.length ? `<p class="cal-autres">Autres années : ${autresAns.map(a=>`<button class="chip" data-an-com="${a}">${a} <small>(${E.calendrier.filter(x=>+x.an===a).length})</small></button>`).join(' ')}</p>` : ''}
+    ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un rendez-vous</div>
+      <div class="form-grille"><label>Date <input type="date" data-cal="date"></label>
+        <label>Type <select data-cal="type">${Object.entries(TYPES_RDV).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select></label>
+        <label class="large">Intitulé <input data-cal="titre" placeholder="ex. Commission de lancement de campagne"></label>
+        <label class="large">Support (lien SharePoint, facultatif) <input data-cal="url" placeholder="https://grouperougeline.sharepoint.com/…"></label>
+        <label class="large">Nom du support <input data-cal="nom" placeholder="ex. Présentation du 08/09"></label></div>
+      <button class="btn" data-cal-add>Ajouter au calendrier</button></div>` : ''}</div>`;
+  const membresB = `<div class="carte"><h3>Membres — ${membres.length}</h3>
+    <p class="aide">Référents de l'enjeu ${h(e.nom)} dans le fichier Excel de la cartographie.</p>
+    <div class="com-membres">${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}</div>
+    ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}</div>`;
+  return `${calendrier}<div class="deux com-bas">${membresB}${vueCadres(c, an)}</div>
+    ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3><p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
+      ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
+    <div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`;
+}
+/* Documents cadres de la campagne (an-1 / an) : listes, règles, profils produits… La version la plus récente de chaque document est mise en avant. */
+function vueCadres(c, an){
+  const ed = peutEditer(), adm = estAdmin(), E = espaceCom(c.id);
+  const l = [...(E.cadres[an]||[]), ...(S.commissions?.[an]?.[c.id]?.docs||[]).filter(d=>urlSure(d.url)).map(d=>({...d, cat:d.cat||'Documents ajoutés', ancien:true}))];
+  const base = t => normTexte(t).replace(/\b\d{1,2}[ .\-]\d{1,2}[ .\-]\d{2,4}\b/g,'').replace(/provisoire|\bv\s?\d\b|-/g,'').replace(/\s+/g,' ').trim();
+  const recent = {}; l.forEach(d=>{ const b = base(d.t); if(!recent[b] || (d.date||'') > (recent[b].date||'')) recent[b] = d; });
+  const cats = [...new Set(l.map(d=>d.cat||'Documentation'))];
+  const carte = d => { const L = liensDoc(d.url), vieux = recent[base(d.t)]!==d;
+    return `<div class="cadre-d${vieux?' vieux':''}">${iconeFormat(d.f || (d.url?typeLien(d.url):'LIEN'))}
+      <div class="cadre-t"><b>${h(d.t)}</b><span>${h([d.sol?'Sol / agroécologie':'', d.date?dateCourte(d.date):'', vieux?'version précédente':'', d.par?'ajouté par '+d.par.split('@')[0]:''].filter(Boolean).join(' · '))}</span>${d.d?`<small>${h(d.d)}</small>`:''}</div>
+      <span class="es-doc-act">${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger" aria-label="Télécharger">${ICO_TELECHARGER}</a>`:''}
+        ${adm && !d.ancien ? `<button class="btn-icone suppr-icone no-print" data-cadre-rm="${h(d.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}
+        ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}</span></div>`; };
+  return `<div class="carte"><h3>Documents cadres — campagne ${an-2001} ${an-2000}</h3>
+    <p class="aide">Listes des variétés, règles de développement et de mélange, profils produits… Les documents restent sur SharePoint.</p>
+    ${l.length ? cats.map(k=>`<div class="sous">${h(k)}</div>${l.filter(d=>(d.cat||'Documentation')===k).map(carte).join('')}`).join('') : `<p class="aide">Aucun document cadre pour la campagne ${an-2001} ${an-2000}.</p>`}
+    ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un document cadre</div>
+      <div class="form-grille"><label class="large">Titre <input data-cadre="t" placeholder="ex. Liste des variétés en développement 26 27"></label>
+        <label class="large">Lien SharePoint <input data-cadre="url" placeholder="https://grouperougeline.sharepoint.com/…"></label>
+        <label>Catégorie <select data-cadre="cat">${['Liste des variétés en développement','Liste des variétés en production','Règles de développement et de mélange','Profils produits','Prix des graines','Documentation'].map(x=>`<option>${x}</option>`).join('')}</select></label>
+        <label>Date de la version <input type="date" data-cadre="date"></label>
+        <label class="large">Ce que contient le document <input data-cadre="d" placeholder="En une ligne"></label></div>
+      <button class="btn" data-cadre-add>Ajouter le document</button></div>` : ''}</div>`;
 }
 
-/* Documents cadres de la commission : mêmes cartes que les documents de l'Institut */
-function vueDocsCadres(dc, c){
-  const ed = peutEditer() && !anFige(annee);
-  const carte = d => { const L = liensDoc(d.url), u = L.ouvrir, fmt = d.url ? typeLien(d.url) : (d.f||'LIEN');
-    return `<article class="doc-carte">
-      <div class="dc-haut">${iconeFormat(fmt)}${d.ajoute?`<span class="dc-date">${h(new Date(d.ajoute).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}))}</span>`:''}</div>
-      <h4 class="dc-titre">${u?`<a href="${h(u)}" target="_blank" rel="noopener">${h(d.t)}</a>`:h(d.t)}</h4>
-      ${d.d?`<p class="dc-contenu">${h(d.d)}</p>`:''}
-      <p class="dc-par">${d.par?'Ajouté par '+h(d.par.split('@')[0]):'&nbsp;'}</p>
-      <div class="dc-pied"><span class="dc-actions">
-        ${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger" aria-label="Télécharger">${ICO_TELECHARGER}</a>`:''}
-        ${L.dossier?`<a class="btn-icone" href="${h(L.dossier)}" target="_blank" rel="noopener" title="Dossier SharePoint" aria-label="Dossier SharePoint">${ICO_DOSSIER}</a>`:''}
-        ${estAdmin()?`<button class="btn-icone suppr-icone no-print" data-rm-doc="com" data-id="${d.id}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>`:''}
-        ${u?`<a class="btn-ouvrir" href="${h(u)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}
-      </span></div></article>`; };
-  return `<p class="aide">Listes de référence, profils produits, règles de développement, protocoles… Les documents restent sur SharePoint : on garde ici leur lien, avec ouverture dans le navigateur, téléchargement et accès au dossier.</p>
-    <div class="g-cartes">${(dc.docs||[]).map(carte).join('') || '<p class="aide">Aucun document pour l\'instant.</p>'}</div>
-    ${ed ? `<div class="form-saisie no-print" data-form-doc="com"><div class="sous">Ajouter un document cadre</div>
-      <div class="form-grille"><label class="large">Titre <input data-k="t" placeholder="ex. Liste des variétés en développement 26 27"></label>
-        <label class="large">Lien SharePoint <input data-k="url" placeholder="https://grouperougeline.sharepoint.com/…"></label>
-        <label class="large">Ce que contient le document <input data-k="d" placeholder="En une ligne"></label></div>
-      <button class="btn" data-add-doc="com">Ajouter le document</button></div>` : ''}`;
+/* ================= Fiche d'une variété (panneau latéral) ================= */
+function vueFicheVar(k){
+  const v = IDX[k]; if(!v) return '';
+  const ed = peutEditer(), adm = estAdmin(), f = S.espaces?.fiches?.[k] || {docs:[], coms:[]};
+  const secs = [];
+  // prix des graines, toutes années
+  const prix = anneesPrix().map(a=>prixVariete(a,k)).filter(Boolean).reverse();
+  const r0 = prix[0];
+  secs.push(`<section class="fv-sec"><h5>Prix des graines</h5>${prix.length ? prix.map((p,i)=>`<div class="sx-prix-ligne${i?' ancien':''}"><b>${h(p.an)}</b>
+      <span class="sx-prix-gros">${prixM2(p.prix)!==null?fmtPrix(prixM2(p.prix))+' €/m²':h(p.prix)}</span><span>${h(p.prix)} · ${h(p.segment)}</span>${p.commentaire?`<small>${h(p.commentaire)}</small>`:''}</div>`).join('')
+    : '<p class="aide" style="margin:0">Pas dans les catalogues de prix importés.</p>'}</section>`);
+  // sites d'expérimentation
+  Object.keys(SITES_EXPE).forEach(s=>anneesSource(s).slice().reverse().forEach(a=>{ const c = donneesEssai(s,a); if(!c.vars[k]) return;
+    if(c.liste){ secs.push(`<section class="fv-sec"><h5>${h(SOURCES_ESSAIS[s].nom)} ${a} <button class="chip" data-an-com="${a}" data-es-src="${s}">voir l'essai</button></h5><p>Implantée en ${a} (${h(c.vars[k].dv||'')}) — résultats à venir.</p></section>`); return; }
+    const r = resumeVar(c,k), rs = Object.keys(c.vars).map(x=>resumeVar(c,x)).filter(x=>x.seg===r.seg);
+    const ref = rs.filter(x=>x.temoin).sort((a,b)=>(b.rdt||0)-(a.rdt||0))[0];
+    const rangDe = (champ) => { const l = rs.filter(x=>x[champ]!==null).sort((a,b)=>b[champ]-a[champ]); const i = l.findIndex(x=>x.k===k); return i<0 ? '' : `${i+1}${i?'e':'re'} sur ${l.length}`; };
+    secs.push(`<section class="fv-sec"><h5>${h(SOURCES_ESSAIS[s].nom)} ${a} — ${h(r.seg)} <button class="chip" data-an-com="${a}" data-es-src="${s}" data-sx-seg="${h(r.seg)}">voir l'essai</button></h5>
+      <p class="fv-rangs">${r.rdt!==null?`Rendement : <b>${rangDe('rdt')}</b>`:''}${r.pref!==null?` · Dégustation : <b>${rangDe('pref')}</b>`:''}${r.brix!==null?` · Brix : <b>${rangDe('brix')}</b>`:''}${ref && !r.temoin?` · témoin ${h(ref.nom)}`:''}</p>
+      ${carteVariete(r, ref, null, '#7A1F2B')}</section>`); }));
+  // essais producteurs DV3 et sol
+  ['dv3','sol'].forEach(s=>anneesSource(s).slice().reverse().forEach(a=>{ const e = donneesEssai(s,a), idx = indexVarietes(e);
+    const fv = Object.values(idx).find(x=>cleSx(x.nom.replace(/\s*\(.*$/,''))===k); if(!fv) return;
+    const sv = essaiVar; essaiVar = fv.cle; const html = vueFicheVariete(e, idx, [fv], true); essaiVar = sv;
+    secs.push(`<section class="fv-sec fv-dv3"><h5>${h(SOURCES_ESSAIS[s].nom)} — ${h(libCampagne(s, a, e))} <button class="chip" data-an-com="${a}" data-es-src="${s}">voir l'essai</button></h5>${html}</section>`); }));
+  // grappes, hiver, rallyes
+  anneesSource('grappes').forEach(a=>{ const c = donneesEssai('grappes',a); if(!c.vars[k]) return; const r = resumeVar(c,k), cf = c.conf?.[k];
+    secs.push(`<section class="fv-sec"><h5>Grappes DV3 — ${a}</h5><p>Brix ${fmt1(r.brix)} · fermeté cible ${r.fermCible??'—'} % · coloration cible ${r.colorCible??'—'} %${cf?` · conformité RAS ${Math.round(100*cf.ras/cf.n)} % (vigilance ${cf.vig}, alerte ${cf.alerte} sur ${cf.n})`:''}</p>
+      ${[...(cf?.com||[]), ...r.com].slice(0,5).map(t=>`<p class="fv-com">${h(t)}</p>`).join('')}</section>`); });
+  anneesSource('hiver').forEach(a=>{ const c = donneesEssai('hiver',a), x = c.vars[k]; if(!x) return; const dg = c.degu?.[k];
+    secs.push(`<section class="fv-sec"><h5>Essais hiver — campagne ${a-2001} ${a-2000}</h5>${dg?`<p>Dégustation : préférence ${dg.pref??'—'} %, rang moyen ${fmt1(dg.rang)} (${dg.n} notes)</p>`:''}
+      ${x.notes.length?`<table class="data hv-t"><thead><tr><th>OP · producteur</th><th>Mois</th><th>Équilibre</th><th>Nouaison</th><th>Commentaire</th></tr></thead><tbody>${x.notes.map(n=>`<tr><td>${h(n.op)}<small>${h(n.prod||'')}</small></td><td>${h(n.mois)}</td><td>${h(n.eq||'—')}</td><td>${h(String(n.nou||'—').replace(/\s*\(.*$/,''))}</td><td>${h(n.com||'')}</td></tr>`).join('')}</tbody></table>`:''}</section>`); });
+  anneesSource('rallyes').forEach(a=>{ const x = donneesEssai('rallyes',a).vars[k]; if(!x) return;
+    secs.push(`<section class="fv-sec"><h5>Rallyes ${a} — ${h(x.statut||'')}</h5><div class="ra-notes">${Object.entries(x.notes).map(([vis,t])=>`<p><b>${h(vis)}</b>${h(t)}</p>`).join('') || '<p class="aide">Pas de commentaire.</p>'}</div></section>`); });
+  // documents et commentaires des techniciens
+  const docs = (f.docs||[]).slice().reverse(), coms = (f.coms||[]).slice().reverse();
+  secs.push(`<section class="fv-sec"><h5>Documents sur la variété</h5>
+    ${docs.length ? `<div class="es-docs-l">${docs.map(d=>{ const L = liensDoc(d.url);
+      return `<div class="es-doc">${iconeFormat(d.url?typeLien(d.url):'LIEN')}<div class="es-doc-t"><b>${h(d.t)}</b><span>${h([d.d, d.par?d.par.split('@')[0]:'', d.ajoute?dateCourte(d.ajoute):''].filter(Boolean).join(' · '))}</span></div>
+        <span class="es-doc-act">${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger">${ICO_TELECHARGER}</a>`:''}
+        ${adm?`<button class="btn-icone suppr-icone no-print" data-fv-doc-rm="${h(d.id)}" title="Supprimer">${ICO_SUPPR}</button>`:''}
+        ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:''}</span></div>`; }).join('')}</div>` : '<p class="aide" style="margin:0">Aucun document pour l\'instant.</p>'}
+    ${ed ? `<div class="sx-fiche-form no-print"><input data-fd="t" placeholder="Titre (fiche semencier, photo, article…)"><input data-fd="url" placeholder="Lien SharePoint ou web">
+      <input data-fd="d" placeholder="En une ligne"><button class="btn" data-fv-doc-add>Ajouter le document</button></div>` : ''}</section>
+  <section class="fv-sec"><h5>Commentaires</h5>
+    ${coms.length ? coms.map(c=>`<div class="sx-com-l"><b>${h((c.par||'').split('@')[0])}</b><small>${h(c.quand||'')}</small><p>${h(c.t)}</p>
+      ${adm?`<button class="suppr no-print" data-fv-com-rm="${h(c.id)}">supprimer</button>`:''}</div>`).join('') : '<p class="aide" style="margin:0">Aucun commentaire pour l\'instant.</p>'}
+    ${ed ? `<div class="sx-fiche-form no-print"><textarea data-fc rows="2" placeholder="Votre commentaire sur la variété…"></textarea><button class="btn" data-fv-com-add>Ajouter le commentaire</button></div>` : ''}</section>`);
+  const dv = dvDe(v, anCom);
+  return `<div class="fv-voile" data-fiche-fermer></div>
+  <aside class="fv-panneau" role="dialog" aria-modal="true" aria-label="Fiche de la variété ${h(v.nom)}">
+    <header class="fv-tete"><div><div class="eyebrow">Fiche variété</div><h3>${h(v.nom)}</h3>
+      <p>${h([v.seg, v.sem].filter(Boolean).join(' · '))}</p>
+      <div class="sx-fiche-badges">${dv?badgeDv(dv):''}${r0?.r?'<span class="sx-tobrfv">Résistante ToBRFV (annoncée)</span>':''}</div></div>
+      <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
+    <div class="fv-parcours"><span>Parcours</span>${[...v.ou].sort((a,b)=>a.an-b.an).map(o=>o.src==='prix' ? `<b class="fv-p prix">Prix ${o.an}</b>`
+      : `<button class="fv-p" data-an-com="${o.an}" data-es-src="${o.src}">${h(libSrc(o.src))} ${o.an}</button>`).join('')}</div>
+    ${secs.join('')}
+  </aside>`;
 }
 
-/* Navigation et import (essais des sites) */
-(function brancherSites(){
+/* ================= Écouteurs (une seule fois) ================= */
+(function brancherCommissions(){
   const el = document.getElementById('v-commissions');
+  const fiche = () => { S.espaces ||= {coms:{}, fiches:{}}; const fs = S.espaces.fiches ||= {}; const f = fs[ficheVar] ||= {docs:[], coms:[]}; f.nom ||= IDX[ficheVar]?.nom || ficheVar; return f; };
+  const rendre = () => vueCommissions();
   el.addEventListener('click', e=>{
-    const t = e.target.closest('button'); if(!t) return; const ds = t.dataset;
-    if(ds.comSection){ comSection = ds.comSection; vueCommissions(); }
-    else if(ds.sxSource){ sourceEssai = ds.sxSource; segEssai = ''; vueCommissions(); }
-    else if(ds.sxCamp){ const [s,y] = ds.sxCamp.split('|'); campEssai[s] = y; vueCommissions(); }
-    else if(ds.sxSeg!==undefined){ segEssai = ds.sxSeg; vueCommissions(); }
-    else if(ds.sxVoirVar){ const l = sxVoir[ds.sxVoirCle] ||= []; const i = l.indexOf(ds.sxVoirVar); i<0 ? l.push(ds.sxVoirVar) : l.splice(i,1); vueCommissions(); }
+    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
+    const ds = t.dataset;
+    if(ds.com){ comActive = ds.com; ficheVar = ''; rendre(); return; }
+    if(ds.ficheFermer!==undefined){ ficheVar = ''; rendre(); return; }
+    if(ds.anCom){ anCom = +ds.anCom; if(ds.esSrc){ comPartie = 'essais'; sourceEssai = ds.esSrc; segEssai = ds.sxSeg || ''; essaiSeg = ''; ficheVar = ''; } rendre(); return; }
+    if(ds.comPartie){ comPartie = ds.comPartie; rendre(); return; }
+    if(ds.esSrc){ sourceEssai = ds.esSrc; segEssai = ''; essaiSeg = ''; opFiltre = ''; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if(ds.esOp){ sourceEssai = donneesEssai('dv3', anCom) ? 'dv3' : sourceEssai; essaiVue = 'pos'; opFiltre = ds.esOp; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if(ds.opEffacer!==undefined){ opFiltre = ''; rendre(); return; }
+    if(ds.sxSeg!==undefined){ segEssai = ds.sxSeg; rendre(); return; }
+    if(ds.sxVoirVar){ const l = sxVoir[ds.sxVoirCle] ||= []; const i = l.indexOf(ds.sxVoirVar); i<0 ? l.push(ds.sxVoirVar) : l.splice(i,1); rendre(); return; }
+    if(ds.ev){ essaiVue = ds.ev; rendre(); return; }
+    if(ds.evarOuvrir){ essaiVar = ds.evarOuvrir; essaiVue = 'var'; rendre(); return; }
+    if(ds.fiche){ ficheVar = ds.fiche; rendre(); el.querySelector('.fv-panneau')?.focus?.(); return; }
+    if(ds.varTous){ varTous = ds.varTous==='1'; rendre(); return; }
+    if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
+    if(!peutEditer()) return;
+    // fiche variété : documents et commentaires (éditeurs), suppression (admin)
+    if(ds.fvDocAdd!==undefined){ const z = t.closest('.sx-fiche-form'), g = k => z.querySelector(`[data-fd="${k}"]`).value.trim();
+      if(!g('t')){ toast('Titre obligatoire'); return; }
+      fiche().docs.push({id:uid(), t:g('t'), url:g('url'), d:g('d'), an:anCom, par:currentUser?.email||'', ajoute:new Date().toISOString().slice(0,10)}); sauver('espaces'); rendre(); }
+    else if(ds.fvComAdd!==undefined){ const tx = t.closest('.sx-fiche-form').querySelector('[data-fc]').value.trim(); if(!tx) return;
+      fiche().coms.push({id:uid(), t:tx, an:anCom, par:currentUser?.email||'', quand:new Date().toLocaleDateString('fr-FR')}); sauver('espaces'); rendre(); }
+    else if(ds.fvDocRm && estAdmin()){ if(!confirm('Supprimer ce document ?')) return; const f = fiche(); f.docs = f.docs.filter(d=>d.id!==ds.fvDocRm); sauver('espaces'); rendre(); }
+    else if(ds.fvComRm && estAdmin()){ if(!confirm('Supprimer ce commentaire ?')) return; const f = fiche(); f.coms = f.coms.filter(c=>c.id!==ds.fvComRm); sauver('espaces'); rendre(); }
+    // calendrier
+    else if(ds.calAdd!==undefined){ const z = t.closest('.form-saisie'), g = k => z.querySelector(`[data-cal="${k}"]`).value.trim();
+      if(!g('titre') || !g('date')){ toast('Date et intitulé obligatoires'); return; }
+      const url = g('url'), d = g('date');
+      espaceCom(comActive).calendrier.push({id:uid(), date:d, an:+d.slice(0,4), titre:g('titre'), type:g('type'), docs:url?[{nom:g('nom')||'Support', t:g('nom')||'Support', f:typeLien(url), url}]:[], par:currentUser?.email||'', ajoute:new Date().toISOString().slice(0,10)});
+      anCom = +d.slice(0,4); sauver('espaces'); rendre(); }
+    else if(ds.calRm && estAdmin()){ if(!confirm('Supprimer ce rendez-vous du calendrier ?')) return; const E = espaceCom(comActive); E.calendrier = E.calendrier.filter(x=>x.id!==ds.calRm); sauver('espaces'); rendre(); }
+    // documents cadres
+    else if(ds.cadreAdd!==undefined){ const z = t.closest('.form-saisie'), g = k => z.querySelector(`[data-cadre="${k}"]`).value.trim();
+      if(!g('t')){ toast('Titre obligatoire'); return; }
+      const E = espaceCom(comActive); (E.cadres[anCom] ||= []).push({id:uid(), t:g('t'), url:g('url'), cat:g('cat'), d:g('d'), date:g('date'), f:g('url')?typeLien(g('url')):'LIEN', par:currentUser?.email||'', ajoute:new Date().toISOString().slice(0,10)});
+      sauver('espaces'); rendre(); }
+    else if(ds.cadreRm && estAdmin()){ if(!confirm('Supprimer ce document cadre ?')) return; const E = espaceCom(comActive); E.cadres[anCom] = (E.cadres[anCom]||[]).filter(d=>d.id!==ds.cadreRm); sauver('espaces'); rendre(); }
+  });
+  // la carte se pilote aussi au clavier
+  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && ficheVar){ ficheVar = ''; vueCommissions(); } });
+  // recherches immédiates (sans redessiner la page)
+  el.addEventListener('input', e=>{
+    const t = e.target;
+    if(t.matches('[data-es-rech]')){ const q = normTexte(t.value.trim()), z = t.closest('.es-rech').querySelector('.es-rech-res'); let n = 0;
+      z.hidden = !q; z.querySelectorAll('[data-nom]').forEach(b=>{ const ok = !!q && n<30 && b.dataset.nom.includes(q); b.hidden = !ok; if(ok) n++; });
+      z.querySelector('.es-rech-vide').hidden = !q || n>0; return; }
+    if(!t.matches('[data-var-rech],[data-prix-rech]')) return;
+    const q = normTexte(t.value.trim()), zone = t.closest('.carte');
+    zone.querySelectorAll('[data-seg-bloc]').forEach(b=>{ let vus = 0;
+      b.querySelectorAll('[data-nom]').forEach(x=>{ const ok = !q || x.dataset.nom.includes(q); x.hidden = !ok; if(ok) vus++; }); b.hidden = !!q && !vus; });
   });
   el.addEventListener('change', async e=>{
     const t = e.target;
-    if(t.matches('[data-sx-range]')){ campEssai[t.dataset.sxRange] = String(t.value); vueCommissions(); return; }
-    if(t.matches('[data-sx-lien]') && estAdmin()){ const [site, an] = t.dataset.sxLien.split('|');
-      const o = site==='dv3' ? S.commissions[annee][comActive].essais : S.essais[site].campagnes[an];
+    if(t.matches('[data-an-range]')){ anCom = +t.value; rendre(); return; }
+    if(t.matches('[data-eseg]')){ essaiSeg = t.value; rendre(); return; }
+    if(t.matches('[data-sx-seg-choix]')){ segEssai = t.value; rendre(); return; }
+    if(t.matches('[data-evar]')){ essaiVar = t.value; rendre(); return; }
+    if(!estAdmin()) return;
+    if(t.matches('[data-sx-lien]')){ const [src, an] = t.dataset.sxLien.split('|'), o = donneesEssai(src, an); if(!o) return;
       (o.liens ||= {})[t.dataset.sxFichier] = t.value.trim(); if(!o.liens[t.dataset.sxFichier]) delete o.liens[t.dataset.sxFichier];
-      sauver(site==='dv3' ? 'commissions' : 'essais'); vueCommissions(); return; }
-    if(!t.matches('[data-sx-import]') || !estAdmin() || !t.files.length) return;
-    if(!window.XLSX){ toast('Module Excel non chargé'); return; }
-    const site = t.dataset.sxImport, zone = t.closest('.sx-import');
-    try{
-      const fichiers = await Promise.all([...t.files].map(async f=>({nom:f.name, wb:XLSX.read(await f.arrayBuffer(), {type:'array', cellDates:true})})));
-      const an = zone.querySelector('[data-sx-an]').value.trim() || (fichiers.map(f=>(f.nom.match(/20\d\d/)||[])[0]).find(Boolean)||'');
-      if(!/^20\d\d$/.test(an)){ toast('Indiquez l\'année de la campagne'); return; }
-      const c = lireCampagneSite(fichiers);
-      if(!Object.keys(c.vars).length){ toast('Fichiers non reconnus'); return; }
-      const avant = S.essais[site].campagnes[an];
-      c.dossier = zone.querySelector('[data-sx-dossier]').value.trim() || avant?.dossier || '';
-      c.importe = new Date().toLocaleDateString('fr-FR'); c.par = currentUser?.email||'';
-      S.essais[site].campagnes[an] = c; campEssai[site] = an; sauver('essais'); vueCommissions();
-      toast(`Campagne ${an} importée : ${Object.keys(c.vars).length} variétés`);
-    }catch(err){ console.error(err); toast('Fichier illisible'); }
+      sauver('essais'); rendre(); return; }
+    if(t.matches('[data-imp-fichiers]') && t.files.length){
+      if(!window.XLSX){ toast('Module Excel non chargé'); return; }
+      const z = t.closest('.sx-import'), src = z.querySelector('[data-imp-src]').value, an = z.querySelector('[data-imp-an]').value.trim();
+      if(!/^20\d\d$/.test(an)){ toast('Indiquez l\'année'); return; }
+      try{
+        const fichiers = await Promise.all([...t.files].map(async f=>({nom:f.name, wb:XLSX.read(await f.arrayBuffer(), {type:'array', cellDates:true})})));
+        const avant = donneesEssai(src, an);
+        let d;
+        if(SITES_EXPE[src] || src==='grappes'){ d = lireCampagneSite(fichiers);
+          if(!Object.keys(d.rdt).length && !Object.keys(d.organo).length && !Object.keys(d.degu).length){ const r = lireRallyes(fichiers);
+            if(Object.keys(r.vars).length){ d.liste = true; Object.entries(r.vars).forEach(([k,v])=>{ d.vars[k] = {nom:v.nom, dv:v.statut, seg:v.seg, sem:v.sem}; }); } } }
+        else if(src==='dv3' || src==='sol'){ const lu = lireEssaisDV3(fichiers), a0 = avant||{};
+          d = {...a0, ...lu, fichiers:{...(a0.fichiers||{}), ...lu.fichiers}}; ['pos','obs','optim','qual','degu'].forEach(k=>{ if(!lu[k].length && a0[k]) d[k] = a0[k]; });
+          if(!Object.keys(lu.fichiers).length){ toast('Fichiers non reconnus'); return; } }
+        else if(src==='hiver') d = lireHiver(fichiers);
+        else d = lireRallyes(fichiers);
+        if(!d || (d.vars && !Object.keys(d.vars).length && !(d.pos||[]).length)){ toast('Fichiers non reconnus'); return; }
+        d.liens = {...(avant?.liens||{})}; d.dossier = z.querySelector('[data-imp-dossier]').value.trim() || avant?.dossier || '';
+        d.importe = new Date().toLocaleDateString('fr-FR'); d.par = currentUser?.email||'';
+        if(SITES_EXPE[src]) (S.essais[src] ||= {campagnes:{}}).campagnes[an] = d; else (S.essais[src] ||= {})[an] = d;
+        anCom = +an; sourceEssai = src; segEssai = ''; essaiSeg = ''; sauver('essais'); rendre();
+        toast(`${SOURCES_ESSAIS[src].nom} ${an} importé`);
+      }catch(err){ console.error(err); toast('Fichier illisible'); }
+      return; }
+    if(t.matches('[data-prix-import]') && t.files[0]){
+      if(!window.XLSX){ toast('Module Excel non chargé'); return; }
+      const z = t.closest('.sx-import'), an = String(anCom);
+      try{ const c = lireCatalogue(XLSX.read(await t.files[0].arrayBuffer(), {type:'array'}));
+        if(!c.segments.length){ toast('Aucune variété trouvée dans le fichier'); return; }
+        Object.assign(c, {lien:z.querySelector('[data-prix-lien-nv]').value.trim() || S.essais.prix?.[an]?.lien || '', fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''});
+        (S.essais.prix ||= {})[an] = c; sauver('essais'); rendre(); toast(`Catalogue ${an} importé : ${c.segments.reduce((n,s)=>n+s.varietes.length,0)} variétés`);
+      }catch(err){ console.error(err); toast('Fichier illisible'); }
+    }
   });
 })();
 
