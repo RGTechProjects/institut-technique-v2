@@ -1457,6 +1457,45 @@ body.fiche-ouverte{overflow:hidden}
 .li-puce{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ligne); border-radius:99px; padding:3px 10px; background:#fff; font-size:12.5px}
 .li-puce small{font-size:10.5px; color:var(--ardoise)} .li-puce.lp{border-color:#9CC9AD; background:#EEF8F1}
 @media(max-width:700px){ .li-v{grid-template-columns:1fr} .tols{justify-content:flex-start} .cal-rappel .chip{margin-left:0} }
+/* ===== Commissions v10 : chiffres clés et comparaison des variétés ===== */
+.cmp-kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px; margin:6px 0 12px}
+.cmp-kpi{border:1px solid var(--ligne); border-top:4px solid var(--marque); border-radius:10px; background:#fff; padding:9px 12px; display:flex; flex-direction:column; gap:1px; min-width:0}
+.cmp-kpi span{font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--marque)}
+.cmp-kpi b{font-family:'Archivo'; font-size:22px; color:var(--encre); line-height:1.15}
+.cmp-kpi small{font-size:11.5px; color:var(--encre-2); overflow:hidden; text-overflow:ellipsis}
+.cmp-kpi.prix{border-top-color:#2E7D4F} .cmp-kpi.prix b{color:#2E7D4F}
+.cmp-bloc{border:1px solid var(--ligne); border-radius:12px; background:#fff; padding:10px 12px; margin:8px 0}
+.cmp-tete{display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 14px; align-items:baseline; margin-bottom:8px}
+.cmp-tete h5{margin:0; font-family:'Archivo'; font-size:14px; color:var(--marque)} .cmp-tete h5 span{font-family:'Public Sans'; font-weight:500; font-size:12px; color:var(--ardoise)}
+.cmp-leg{display:flex; flex-wrap:wrap; align-items:center; gap:5px; font-size:11.5px; color:var(--ardoise)}
+.cmp-leg i{display:inline-block; width:12px; height:12px; border-radius:3px} .cmp-leg i.v{background:hsl(130 58% 85%)} .cmp-leg i.r{background:hsl(4 58% 85%); margin-left:8px}
+.cmp-tab{border:0; max-height:none}
+table.cmp{width:100%; border-collapse:separate; border-spacing:0; font-size:12.5px}
+table.cmp th{position:sticky; top:0; background:var(--titre-fond,#F6EDEE); border-bottom:2px solid var(--marque); padding:0; text-align:center; vertical-align:bottom}
+table.cmp th.nom{text-align:left; padding:6px 8px; color:var(--marque); font-weight:700}
+table.cmp th button{border:0; background:none; font:inherit; font-size:11px; font-weight:700; color:var(--marque); padding:6px 6px; cursor:pointer; line-height:1.2}
+table.cmp th button.on{text-decoration:underline; text-underline-offset:3px}
+table.cmp td{padding:6px 7px; text-align:center; border-bottom:1px solid #F1ECE3; white-space:nowrap}
+table.cmp td b{font-weight:700} table.cmp td.txt{font-size:11.5px; color:var(--encre-2); white-space:normal; min-width:80px}
+table.cmp td.nom{text-align:left; white-space:normal; min-width:170px; position:sticky; left:0; background:#fff; z-index:1}
+table.cmp td.nom label{margin-right:6px} table.cmp td.nom input{accent-color:var(--marque); vertical-align:middle}
+table.cmp tr.temoin td.nom{background:#F4F2EE} table.cmp tr.temoin td{border-bottom-style:dashed}
+table.cmp tr.sel td.nom{box-shadow:inset 4px 0 0 var(--marque)}
+.cmp-t{font-style:normal; font-size:10px; font-weight:700; background:#68746D; color:#fff; padding:1px 6px; border-radius:99px}
+.cmp-e{display:block; font-size:10.5px; font-weight:700} .cmp-e.mieux{color:#22663F} .cmp-e.moins{color:#9B2C22} .cmp-e.egal{color:var(--ardoise); font-weight:500}
+.cmp-duel{border:2px solid var(--marque); border-radius:12px; background:#FDFBF7; padding:10px 12px; margin-bottom:10px}
+.cmp-duel-t{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:6px} .cmp-duel-t h5{margin:0; font-family:'Archivo'; color:var(--marque)}
+table.cmp-d{width:100%; border-collapse:collapse; font-size:12.5px}
+table.cmp-d th{background:var(--titre-fond,#F6EDEE); color:var(--marque); padding:7px 8px; text-align:left; border-bottom:2px solid var(--marque)}
+table.cmp-d td{padding:6px 8px; border-bottom:1px solid #F1ECE3; min-width:120px} table.cmp-d td.lib{font-weight:700; color:var(--encre-2); min-width:140px}
+table.cmp-d td.best{color:#22663F; background:#EEF8F1}
+.cmp-bar{display:block; height:6px; background:#F1ECE3; border-radius:99px; overflow:hidden; margin-bottom:3px} .cmp-bar i{display:block; height:100%; background:var(--marque); border-radius:99px}
+table.cmp-d td.best .cmp-bar i{background:#2E7D4F}
+.sx-fiches-det{margin-top:10px} .sx-fiches-det > summary{cursor:pointer; font-family:'Archivo'; font-weight:700; color:var(--marque); padding:6px 0}
+.ps-rech{margin:4px 0 8px} .ps-rech input{width:100%; max-width:420px; padding:8px 12px; border:1.5px solid #2E7D4F; border-radius:99px; font-size:13px; background:#fff}
+.ps-v[hidden]{display:none!important}
+.es-rech-res .rech-tags{display:inline-flex; gap:5px; align-items:center; margin-left:6px}
+@media(max-width:640px){ .cmp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .cmp-kpi{padding:7px 9px} .cmp-kpi b{font-size:18px} table.cmp td.nom{min-width:130px} }
 </style>
 </head>
 <body>
@@ -4428,11 +4467,13 @@ function carteEssais(an){
 
 /* Recherche de variété : nom, semencier ou segment → fiche complète */
 function rechercheVarietes(){
-  const vs = Object.values(IDX).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
+  const vs = Object.values(IDX).sort((a,b)=>a.nom.localeCompare(b.nom,'fr')), ac = anCatalogue(anCom);
+  const tags = v => { const p = ac ? prixVariete(ac, v.k) : null, st = statutListe(anCom, v.k);
+    return `${p && prixM2(p.prix)!==null ? `<span class="sx-prix-tag">${fmtPrix(prixM2(p.prix))} €/m² · ${ac}</span>` : ''}${st ? `<span class="li-essais">${st.type==='lp' ? 'Liste positive' : 'En '+h(st.dv)}</span>` : ''}`; };
   return `<div class="es-rech no-print">
-    <input type="search" data-es-rech placeholder="Chercher une variété (nom, semencier, segment) : ses résultats de toutes les années, ses prix, ses documents…" aria-label="Chercher une variété" autocomplete="off">
+    <input type="search" data-es-rech placeholder="Chercher une variété, un semencier ou un segment : prix des graines, liste positive, résultats de toutes les années…" aria-label="Chercher une variété" autocomplete="off">
     <div class="es-rech-res" hidden>${vs.map(v=>`<button data-fiche="${h(v.k)}" data-nom="${h(normTexte(v.nom+' '+v.sem+' '+v.seg))}" hidden>
-      ${badgeDv(dvDe(v, anCom)||'—')}<b>${h(v.nom)}</b><span>${h([v.seg, v.sem].filter(Boolean).join(' · '))}</span><em>${h(parcours(v))}</em></button>`).join('')}
+      ${badgeDv(dvDe(v, anCom)||'—')}<b>${h(v.nom)}</b><span>${h([v.seg, v.sem].filter(Boolean).join(' · '))}</span><em>${h(parcours(v))}<span class="rech-tags">${tags(v)}</span></em></button>`).join('')}
       <p class="aide es-rech-vide" hidden>Aucune variété trouvée.</p></div>
   </div>`;
 }
@@ -4485,12 +4526,13 @@ function vueSite(site, an, c){
     <section class="sx-seg">
       <h4>${h(seg)} <span>${l.length} variétés · ${SOURCES_ESSAIS[site].court} ${an}</span></h4>
       ${concl.length ? `<div class="sx-concl"><b class="sx-concl-titre">Ce qu'il faut retenir</b><ul>${concl.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : ''}
+      ${resultatsSegmentSite(site, an, seg, l)}
       <div class="sx-duo">
         <div class="sx-graphe"><h5>Rendement cumulé sur la campagne</h5>${l.some(r=>r.rdt!==null) ? barresRendement(l, coul) : '<p class="aide">Pas de mesure de rendement.</p>'}</div>
         <div class="sx-graphe"><h5>Dégustation — classement des préférences</h5>${barresDegu(l)}</div>
       </div>
-      <h5 class="sx-sous">Les variétés du segment</h5>
-      <div class="sx-cartes">${l.map(r=>carteVariete(r, ref, rsAv && rsAv.find(x=>x.k===r.k), coul[r.k])).join('')}</div>
+      <details class="sx-fiches-det"><summary>Fiches détaillées des ${l.length} variétés (observations, points de vigilance, comparaison avec l'année précédente)</summary>
+      <div class="sx-cartes">${l.map(r=>carteVariete(r, ref, rsAv && rsAv.find(x=>x.k===r.k), coul[r.k])).join('')}</div></details>
       ${l.some(r=>c.rdt[r.k] || c.flo[r.k]) ? `<details class="sx-graphe sx-courbes"><summary>Courbes semaine par semaine (rendement cumulé, vitesse de floraison)</summary>
         <p class="aide" style="margin:6px 0">Cliquez sur les variétés pour les ajouter ou les retirer (témoins en pointillés).</p>
         <div class="sx-voir">${l.map(r=>`<button data-sx-voir-cle="${h(cle)}" data-sx-voir-var="${h(r.k)}" aria-pressed="${voir.includes(r.k)}" style="--c:${coul[r.k]}"><i class="${r.temoin?'t':''}"></i>${h(r.nom)}</button>`).join('')}</div>
@@ -4549,8 +4591,9 @@ function prixSegment(seg, an, cles=[]){
   const max = Math.max(...l.map(x=>x.p||0), 0.01);
   return `<div class="ps-bloc"><div class="ps-tete"><h5>Prix des graines — catalogue ${ac}${Math.abs(ac-an)>1?` (le plus proche de ${an})`:''}${segC?' · '+h(segC.nom):''}</h5>
       ${segC ? `<span>Potentiel <b>${h(segC.potentiel||'—')}</b> · prix moyen <b>${h(segC.prixMoy||'—')}/m²</b></span>` : ''}</div>
+    ${l.length>4 ? `<div class="ps-rech no-print"><input type="search" data-ps-rech placeholder="Chercher le prix d'une variété du segment…" aria-label="Chercher un prix"></div>` : ''}
     <div class="ps-l">${l.map(({v,p,avant})=>{ const pa = avant ? prixM2(avant.prix) : null, e = pa && p!==null ? ecartPct(p, pa) : null;
-      return `<div class="ps-v${cles.includes(cleSx(v.nom))?' essai':''}">
+      return `<div class="ps-v${cles.includes(cleSx(v.nom))?' essai':''}" data-nom="${h(normTexte(v.nom+' '+v.semencier))}">
         <span class="ps-nom">${btnFiche(cleSx(v.nom), v.nom)}<small>${h(v.semencier)} · ${h(v.niveau==='LP'?'liste positive':v.niveau)}${v.r?' · ToBRFV':''}</small></span>
         <span class="ps-barre"><b style="width:${p!==null?Math.round(100*p/max):0}%"></b></span>
         <span class="ps-prix">${p!==null?fmtPrix(p)+' €/m²':h(v.prix)}${pa!==null && pa!==undefined ? `<small>${+ac-1} : ${fmtPrix(pa)} ${e!==null?fleche(e, true):''}</small>`:''}</span></div>`; }).join('')}</div>
@@ -4623,7 +4666,7 @@ function blocDV3(e, src, an){
   const vues = [['synth','Résultats par segment'],['degu','Dégustation'],['qual','Qualité fruit'],['pos','Où sont les essais']];
   if(!vues.some(v=>v[0]===essaiVue)) essaiVue = 'synth';
   const corps = essaiVue==='pos' ? vuePositionnement(e, idx) : essaiVue==='var' ? vueFicheVariete(e, idx, vis) : essaiVue==='qual' ? vueQualite(e, vis)
-    : essaiVue==='degu' ? vueDegustation(e, vis) : vueSynthese(e, idx, essaiSeg ? [essaiSeg] : segs);
+    : essaiVue==='degu' ? vueDegustation(e, vis) : ((essaiSeg ? [essaiSeg] : segs).map(sg=>resultatsSegmentDV3(e, idx, sg, src, an)).join('') || '<p class="aide">Pas de résultat pour ce segment.</p>');
   return `<div class="es-kpis">${kpis.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
     <div class="es-barre-outils">
       <div class="segment">${vues.map(([k,l])=>`<button data-ev="${k}" aria-pressed="${k===essaiVue}">${l}</button>`).join('')}</div>
@@ -4971,6 +5014,116 @@ function rappelCalendrier(com, an){
     <button class="chip" data-com-partie="commission">Voir le calendrier</button></div>`;
 }
 
+
+/* ================= Comparaison des variétés d'un segment =================
+   Chiffres clés en tête, tableau coloré (vert = meilleur, rouge = moins bon dans la colonne), tri par colonne,
+   écart au témoin, et comparaison côte à côte de 2 à 4 variétés cochées.
+   lignes = [{k, nom, temoin, vals:{col:nombre}, txt:{col:texte}}] ; cols = [{id, lib, sens:1|-1|0, fmt, txt, defaut}] */
+let cmpTri = {}, cmpSel = {};
+const pctF = n => n===null || n===undefined ? '—' : Math.round(n)+' %';
+const prixF = n => n===null || n===undefined ? '—' : fmtPrix(n)+' €';
+const valeurOk = v => v!==null && v!==undefined && isFinite(v);
+function kpiSegment(items){
+  return `<div class="cmp-kpis">${items.filter(Boolean).map(i=>`<div class="cmp-kpi${i.c?' '+i.c:''}"><span>${i.l}</span><b>${i.v}</b>${i.s?`<small>${i.s}</small>`:''}</div>`).join('')}</div>`;
+}
+/* Meilleure variété (hors témoins) sur une colonne, et valeur du meilleur témoin */
+function meilleur(lignes, col, sens){
+  const ok = l => l.filter(r=>valeurOk(r.vals[col])).sort((a,b)=>sens*(b.vals[col]-a.vals[col]));
+  return {v:ok(lignes.filter(r=>!r.temoin))[0], t:ok(lignes.filter(r=>r.temoin))[0]};
+}
+function kpiDe(lignes, col, lib, fmt, sens=1){
+  const {v, t} = meilleur(lignes, col, sens); if(!v) return null;
+  const egaux = lignes.filter(r=>!r.temoin && r.vals[col]===v.vals[col]).length;
+  return {l:lib, v:`${fmt(v.vals[col])}`, s:`${h(v.nom)}${egaux>1?` et ${egaux-1} autre${egaux>2?'s':''}`:''}${t?` · témoin ${h(t.nom)} ${fmt(t.vals[col])}`:''}`};
+}
+function matriceComparaison(cle, lignes, cols){
+  if(!lignes.length) return '';
+  const tri = cmpTri[cle] || {col:(cols.find(c=>c.defaut)||cols[0]).id, sens:1};
+  const sel = (cmpSel[cle] ||= []).filter(k=>lignes.some(r=>r.k===k));
+  cmpSel[cle] = sel;
+  const ref = lignes.filter(r=>r.temoin)[0];
+  const ext = {};
+  cols.forEach(c=>{ if(!c.sens) return; const v = lignes.map(r=>r.vals[c.id]).filter(valeurOk); if(v.length>1 && Math.max(...v)>Math.min(...v)) ext[c.id] = [Math.min(...v), Math.max(...v)]; });
+  const teinte = (c, v) => { const e = ext[c.id]; if(!e || !valeurOk(v)) return ''; let t = (v-e[0])/(e[1]-e[0]); if(c.sens<0) t = 1-t;
+    return ` style="background:hsl(${Math.round(4+t*126)} 58% ${91-Math.round(Math.abs(t-0.5)*6)}%)"`; };
+  const cTri = cols.find(c=>c.id===tri.col) || cols[0];
+  const cleTri = r => cTri.txt ? String(r.txt[cTri.id]||'') : r.vals[cTri.id];
+  const ordre = [...lignes].sort((a,b)=>{ const x = cleTri(a), y = cleTri(b);
+    if(cTri.txt) return tri.sens*String(x).localeCompare(String(y),'fr');
+    if(!valeurOk(x) && !valeurOk(y)) return 0; if(!valeurOk(x)) return 1; if(!valeurOk(y)) return -1;
+    return tri.sens*((cTri.sens||1)*(y-x)); });
+  const ecart = (c, r) => { if(!c.sens || r.temoin || !ref || !valeurOk(r.vals[c.id]) || !valeurOk(ref.vals[c.id]) || !ref.vals[c.id]) return '';
+    const e = Math.round(100*(r.vals[c.id]-ref.vals[c.id])/Math.abs(ref.vals[c.id])); if(!e) return '<small class="cmp-e egal">= témoin</small>';
+    const bien = c.sens*e > 0; return `<small class="cmp-e ${bien?'mieux':'moins'}">${e>0?'+':''}${e} %</small>`; };
+  const cellule = (c, r) => c.txt ? `<td class="txt">${r.txt[c.id] ? (c.badge ? badgeDv(r.txt[c.id]) : h(r.txt[c.id])) : '—'}</td>`
+    : `<td${teinte(c, r.vals[c.id])}><b>${valeurOk(r.vals[c.id]) ? c.fmt(r.vals[c.id]) : '—'}</b>${ecart(c, r)}</td>`;
+  const duel = sel.length>=2 ? (()=>{ const vs = sel.map(k=>lignes.find(r=>r.k===k));
+    return `<div class="cmp-duel"><div class="cmp-duel-t"><h5>Comparaison côte à côte</h5><button class="chip" data-cmp-vider="${h(cle)}">Effacer la sélection</button></div>
+      <div class="tableau"><table class="cmp-d"><thead><tr><th>Critère</th>${vs.map(r=>`<th>${btnFiche(r.k, r.nom)}${r.temoin?' <i class="cmp-t">témoin</i>':''}</th>`).join('')}</tr></thead><tbody>
+      ${cols.map(c=>{ const v = vs.map(r=>c.txt ? null : r.vals[c.id]), ok = v.filter(valeurOk);
+        const best = c.sens && ok.length>1 ? (c.sens>0 ? Math.max(...ok) : Math.min(...ok)) : null, max = Math.max(...ok.map(Math.abs), 0.0001);
+        return `<tr><td class="lib">${c.lib}</td>${vs.map((r,i)=>c.txt ? `<td class="txt">${r.txt[c.id] ? (c.badge ? badgeDv(r.txt[c.id]) : h(r.txt[c.id])) : '—'}</td>`
+          : `<td class="${valeurOk(v[i]) && v[i]===best ? 'best' : ''}"><span class="cmp-bar"><i style="width:${valeurOk(v[i]) ? Math.round(100*Math.abs(v[i])/max) : 0}%"></i></span><b>${valeurOk(v[i]) ? c.fmt(v[i]) : '—'}</b>${valeurOk(v[i]) && v[i]===best ? ' ★' : ''}</td>`).join('')}</tr>`; }).join('')}
+      </tbody></table></div></div>`; })() : '';
+  return `<div class="cmp-bloc">
+    <div class="cmp-tete"><h5>Tableau de comparaison <span>${lignes.length} variétés${ref?` · écarts calculés par rapport au témoin ${h(ref.nom)}`:''}</span></h5>
+      <span class="cmp-leg"><i class="v"></i>meilleur de la colonne <i class="r"></i>moins bon · cliquez sur un titre pour trier · cochez 2 à 4 variétés pour les comparer</span></div>
+    ${duel}
+    <div class="tableau cmp-tab"><table class="cmp"><thead><tr><th class="nom">Variété</th>${cols.map(c=>`<th><button data-cmp-tri="${h(cle)}|${c.id}" class="${tri.col===c.id?'on':''}">${c.lib}${tri.col===c.id?(tri.sens>0?' ▼':' ▲'):''}</button></th>`).join('')}</tr></thead>
+    <tbody>${ordre.map(r=>`<tr class="${r.temoin?'temoin':''}${sel.includes(r.k)?' sel':''}">
+      <td class="nom"><label><input type="checkbox" data-cmp-sel="${h(cle)}" value="${h(r.k)}" ${sel.includes(r.k)?'checked':''} aria-label="Comparer ${h(r.nom)}"></label>${btnFiche(r.k, r.nom)}${r.temoin?' <i class="cmp-t">témoin</i>':''}</td>
+      ${cols.map(c=>cellule(c, r)).join('')}</tr>`).join('')}</tbody></table></div>
+  </div>`;
+}
+
+/* --- essais producteurs DV3 : lignes et colonnes --- */
+const COLS_DV3 = [
+  {id:'statut', lib:'Statut', txt:1, badge:1}, {id:'essais', lib:'Sites', sens:0, fmt:n=>n},
+  {id:'aime', lib:'Dégustation : aiment', sens:1, fmt:pctF, defaut:1}, {id:'rang', lib:'Rang moyen dégustation', sens:-1, fmt:fmt1},
+  {id:'brix', lib:'Brix', sens:1, fmt:fmt1}, {id:'ferm', lib:'Fermeté cible', sens:1, fmt:pctF}, {id:'color', lib:'Coloration cible', sens:1, fmt:pctF},
+  {id:'nou', lib:'Nouaison RAS', sens:1, fmt:pctF}, {id:'eq', lib:'Équilibre plante', txt:1}, {id:'def', lib:'Défaut principal', txt:1},
+  {id:'prix', lib:'Prix graines €/m²', sens:-1, fmt:prixF}];
+function lignesDV3(e, idx, seg, an){
+  const ac = anCatalogue(an);
+  return Object.values(idx).filter(f=>f.seg===seg).map(f=>{
+    const obs = deVar(e.obs, f.cle), q = statsQual(deVar(e.qual, f.cle)), d = statsDegu(deVar(e.degu, f.cle)), def = frequences(obs,'def')[0];
+    const k = cleSx(f.nom.replace(/\s*\(.*$/,'')), p = ac ? prixVariete(ac, k) : null, st = statutListe(an, k), eqm = moy(obs.map(r=>r.eq));
+    return {k, nom:f.nom, temoin:!!f.estTemoin,
+      vals:{essais:f.essais.length||null, aime:d.n?d.aime:null, rang:d.rang, brix:q.brix, ferm:q.ferm, color:q.color, nou:pctSi(obs.map(r=>r.nou), x=>x===1), prix:p?prixM2(p.prix):null},
+      txt:{statut:f.estTemoin ? 'Témoin' : st ? (st.type==='lp' ? 'Liste positive' : st.dv) : (f.dv||''), eq:obs.length && eqm ? CODES_DV3.eq[Math.round(eqm)] : '', def:def ? def.lib : (obs.length ? 'RAS' : '')}};
+  }).filter(r=>Object.values(r.vals).some(valeurOk) || r.temoin);
+}
+function resultatsSegmentDV3(e, idx, seg, src, an){
+  const l = lignesDV3(e, idx, seg, an); if(!l.length) return '';
+  const prixMoy = moy(l.map(r=>r.vals.prix).filter(valeurOk));
+  return `<section class="sx-seg"><h4>${h(seg)} <span>${l.length} variétés${l.some(r=>r.temoin)?` · ${l.filter(r=>r.temoin).length} témoin${l.filter(r=>r.temoin).length>1?'s':''}`:''}</span></h4>
+    ${kpiSegment([{l:'Variétés comparées', v:l.length, s:`${l.reduce((n,r)=>n+(r.vals.essais||0),0)} essais chez les producteurs`},
+      kpiDe(l,'aime','Préférée en dégustation', pctF), kpiDe(l,'brix','Meilleur Brix', fmt1), kpiDe(l,'ferm','Meilleure fermeté', pctF),
+      kpiDe(l,'nou','Meilleure nouaison', pctF), prixMoy!==null ? {l:'Prix moyen des graines', v:prixF(prixMoy)+'/m²', s:`catalogue ${anCatalogue(an)}`, c:'prix'} : null])}
+    ${matriceComparaison(`${src}|${an}|${seg}`, l, COLS_DV3)}
+  </section>`;
+}
+
+/* --- sites d'expérimentation : lignes et colonnes --- */
+const COLS_SITE = [
+  {id:'statut', lib:'Niveau', txt:1, badge:1}, {id:'rdt', lib:'Rendement kg/m²', sens:1, fmt:fmt1, defaut:1}, {id:'dech', lib:'Déchets', sens:-1, fmt:pctF},
+  {id:'pm', lib:'Poids moyen (g)', sens:0, fmt:n=>Math.round(n)}, {id:'pref', lib:'Dégustation : préférence', sens:1, fmt:pctF}, {id:'rang', lib:'Rang moyen', sens:-1, fmt:fmt1},
+  {id:'brix', lib:'Brix', sens:1, fmt:fmt1}, {id:'ferm', lib:'Fermeté cible', sens:1, fmt:pctF}, {id:'nou', lib:'Nouaison RAS', sens:1, fmt:pctF},
+  {id:'eq', lib:'Équilibre plante', txt:1}, {id:'prix', lib:'Prix graines €/m²', sens:-1, fmt:prixF}];
+function lignesSite(l, an){
+  const ac = anCatalogue(an);
+  return l.map(r=>{ const p = ac ? prixVariete(ac, r.k) : null;
+    return {k:r.k, nom:r.nom, temoin:r.temoin, vals:{rdt:r.rdt, dech:r.dechPct, pm:r.pm, pref:r.pref, rang:r.rang, brix:r.brix, ferm:r.fermCible, nou:r.nouRas, prix:p?prixM2(p.prix):null},
+      txt:{statut:r.dv, eq:r.eq||''}}; });
+}
+function resultatsSegmentSite(site, an, seg, l){
+  const lg = lignesSite(l, an), prixMoy = moy(lg.map(r=>r.vals.prix).filter(valeurOk));
+  return `${kpiSegment([{l:'Variétés comparées', v:lg.length, s:`${lg.filter(r=>r.temoin).length} témoins`},
+      kpiDe(lg,'rdt','Meilleur rendement', v=>fmt1(v)+' kg/m²'), kpiDe(lg,'pref','Préférée en dégustation', pctF), kpiDe(lg,'brix','Meilleur Brix', fmt1),
+      kpiDe(lg,'dech','Moins de déchets', pctF, -1), prixMoy!==null ? {l:'Prix moyen des graines', v:prixF(prixMoy)+'/m²', s:`catalogue ${anCatalogue(an)}`, c:'prix'} : null])}
+    ${matriceComparaison(`${site}|${an}|${seg}`, lg, COLS_SITE)}`;
+}
+
 /* ================= Écouteurs (une seule fois) ================= */
 (function brancherCommissions(){
   const el = document.getElementById('v-commissions');
@@ -4993,6 +5146,9 @@ function rappelCalendrier(com, an){
     if(ds.evarOuvrir){ const k = cleSx(ds.evarOuvrir); if(IDX[k]){ ficheVar = k; rendre(); } return; }
     if(ds.fiche){ ficheVar = ds.fiche; rendre(); el.querySelector('.fv-panneau')?.focus?.(); return; }
     if(ds.varTous){ varTous = ds.varTous==='1'; rendre(); return; }
+    if(ds.cmpTri){ const i = ds.cmpTri.lastIndexOf('|'), cle = ds.cmpTri.slice(0,i), col = ds.cmpTri.slice(i+1), a = cmpTri[cle];
+      cmpTri[cle] = {col, sens: a && a.col===col ? -a.sens : 1}; rendre(); return; }
+    if(ds.cmpVider){ cmpSel[ds.cmpVider] = []; rendre(); return; }
     if(ds.liFiltre){ filtreListe = ds.liFiltre; rendre(); return; }
     if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
     if(!peutEditer()) return;
@@ -5024,6 +5180,7 @@ function rappelCalendrier(com, an){
   // recherches immédiates (sans redessiner la page)
   el.addEventListener('input', e=>{
     const t = e.target;
+    if(t.matches('[data-ps-rech]')){ const q = normTexte(t.value.trim()); t.closest('.ps-bloc').querySelectorAll('.ps-v').forEach(x=>{ x.hidden = !!q && !x.dataset.nom.includes(q); }); return; }
     if(t.matches('[data-es-rech]')){ const q = normTexte(t.value.trim()), z = t.closest('.es-rech').querySelector('.es-rech-res'); let n = 0;
       z.hidden = !q; z.querySelectorAll('[data-nom]').forEach(b=>{ const ok = !!q && n<30 && b.dataset.nom.includes(q); b.hidden = !ok; if(ok) n++; });
       z.querySelector('.es-rech-vide').hidden = !q || n>0; return; }
@@ -5035,6 +5192,9 @@ function rappelCalendrier(com, an){
   });
   el.addEventListener('change', async e=>{
     const t = e.target;
+    if(t.matches('[data-cmp-sel]')){ const l = cmpSel[t.dataset.cmpSel] ||= [], i = l.indexOf(t.value);
+      if(t.checked && i<0){ if(l.length>=4){ toast('4 variétés au plus'); t.checked = false; return; } l.push(t.value); } else if(!t.checked && i>=0) l.splice(i,1);
+      rendre(); return; }
     if(t.matches('[data-an-range]')){ anCom = +t.value; essaiSeg = ''; essaiSegChoisi = false; rendre(); return; }
     if(t.matches('[data-eseg]')){ essaiSeg = t.value; essaiSegChoisi = true; rendre(); return; }
     if(t.matches('[data-sx-seg-choix]')){ segEssai = t.value; rendre(); return; }
