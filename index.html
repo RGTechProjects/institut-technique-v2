@@ -1528,6 +1528,15 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 .san-e h5{margin:0; font-size:13.5px; color:var(--encre); line-height:1.35}
 .san-meta{margin:0; font-size:12px; color:var(--encre-2)} .san-eval{margin:0; font-size:12px; font-weight:600}
 .san-com{margin:0; font-size:12px; color:var(--encre-2); background:#FBF7EF; border-radius:6px; padding:5px 8px}
+.san-e[data-san-essai]{cursor:pointer; transition:box-shadow .15s, transform .15s} .san-e[data-san-essai]:hover, .san-e[data-san-essai]:focus-visible{box-shadow:0 4px 14px rgba(122,31,43,.14); outline:none}
+.san-apercu{margin:0; font-size:12px; color:var(--encre-2); line-height:1.4}
+.san-e-act{display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-left:auto}
+.san-fiche-btn{border-color:var(--marque); color:var(--marque); font-weight:700}
+.sf-txt{margin:0; font-size:13.5px; line-height:1.55; color:var(--encre); text-align:justify}
+.sf-manque{margin:12px 0 0; padding:10px 14px; border-radius:10px; background:#FBF0D9; color:#6B5210; font-size:13px; font-weight:600}
+.sf-dl{display:grid; grid-template-columns:170px 1fr; gap:4px 12px; margin:0; font-size:13px} .sf-dl dt{font-weight:700; color:var(--marque)} .sf-dl dd{margin:0}
+.sf-note{margin-top:14px} .sf-panneau .fv-tete h3{font-size:20px; line-height:1.25}
+@media (max-width:640px){ .sf-dl{grid-template-columns:1fr} .sf-dl dd{margin-bottom:6px} .sf-txt{text-align:left} }
 .san-e footer{display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; margin-top:auto; font-size:11px; color:var(--ardoise)}
 .san-res{font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; background:#EEE9DF; color:var(--encre-2)}
 .san-res.ok{background:#E3F1E8; color:#22663F} .san-res.part{background:#FBF0D9; color:#8A6A12} .san-res.non{background:#FBE3E1; color:#9B2C22} .san-res.com{background:#E6ECF8; color:#3B5BA9}
@@ -4480,8 +4489,9 @@ function vueCommissions(){
   ${rappelCalendrier(comActive, anCom)}
   ${parties.length>1 ? `<div class="com-parties segment">${parties.map(([k,l])=>`<button data-com-partie="${k}" aria-pressed="${k===comPartie}">${l}</button>`).join('')}</div>` : ''}
   ${corps}
-  ${ficheVar ? vueFicheVar(ficheVar) : ''}`;
-  document.body.classList.toggle('fiche-ouverte', !!ficheVar);
+  ${ficheVar ? vueFicheVar(ficheVar) : ''}
+  ${!ficheVar && ficheSan && comActive==='csan' ? vueFicheSan(ficheSan) : ''}`;
+  document.body.classList.toggle('fiche-ouverte', !!ficheVar || (!!ficheSan && comActive==='csan'));
 }
 
 /* ================= Partie « Essais & résultats » ================= */
@@ -5197,7 +5207,7 @@ function resultatsSegmentSite(site, an, seg, l){
                   docs:{année:[{t, f, cat:'cr'|'protocole', dossier, url}]}}
    Calendrier et documents cadres : S.espaces.coms.csan (comme les autres commissions). */
 const PARTIES_CSAN = [['essais','Essais & résultats'],['leviers','Solutions & leviers'],['commission','Calendrier & documents']];
-let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:'', lieu:''}, levFiltre = '';
+let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:'', lieu:''}, levFiltre = '', ficheSan = '';
 const CIBLES_SAN = [[/o[iï]d/i,'Oïdium'],[/pucer/i,'Pucerons'],[/aleurod|bemisia|trialeurod/i,'Aleurodes'],[/cyrto|nesidio/i,'Cyrtopeltis (Nesidiocoris)'],
   [/acariose/i,'Acariose bronzée'],[/t[ée]tranyq|acarien/i,'Acariens tétranyques'],[/n[ée]mato/i,'Nématodes'],[/clado/i,'Cladosporiose'],[/clavib|coryn/i,'Clavibacter (chancre)'],
   [/thrips/i,'Thrips'],[/macrolo/i,'Macrolophus (auxiliaire)'],[/tobrfv/i,'ToBRFV'],[/drosoph/i,'Drosophile'],[/pestalo/i,'Pestalotiopsis'],[/punaise|lygus|liocoris/i,'Punaises'],
@@ -5274,14 +5284,16 @@ function partieEssaisSan(an){
   const cultures = [...new Set(portee.map(e=>e.cultureN))].sort((a,b)=>portee.filter(e=>e.cultureN===b).length-portee.filter(e=>e.cultureN===a).length);
   const cibles = [...new Set(l.map(e=>e.cibleN))].sort((a,b)=>l.filter(e=>e.cibleN===b).length-l.filter(e=>e.cibleN===a).length || a.localeCompare(b,'fr'));
   const barre = g => `<span class="san-barre">${RES_SAN.map(r=>{ const x = g.filter(e=>e.resN===r).length; return x ? `<i class="${clsRes(r)}" style="flex:${x}" title="${r} : ${x}"></i>` : ''; }).join('')}</span>`;
-  const carteE = e => `<article class="san-e r-${clsRes(e.resN)}" data-san-nom="${h(normTexte([e.objectif, e.cible, e.cibleN, e.op, e.site, e.prod, e.referent, e.culture, e.com, e.an].join(' ')))}">
+  const carteE = e => `<article class="san-e r-${clsRes(e.resN)}" data-san-essai="${h(e.id)}" tabindex="0" title="Ouvrir la fiche de l'essai" data-san-nom="${h(normTexte([e.objectif, e.cible, e.cibleN, e.op, e.site, e.prod, e.referent, e.culture, e.com, e.an, e.fiche?.contexte, e.fiche?.methode].join(' ')))}">
       <header><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span>${/non diff/i.test(e.conf)?'<span class="san-conf">Non diffusable</span>':''}<span class="san-an">${e.an||''}</span></header>
       <h5>${h(e.objectif)}</h5>
+      ${e.fiche && !e.fiche.manque ? `<p class="san-apercu">${h((e.fiche.contexte || e.fiche.objectif || '').slice(0,150))}${(e.fiche.contexte || e.fiche.objectif || '').length>150?'…':''}</p>` : ''}
       <p class="san-meta">${[e.cultureN, e.op, e.site, e.prod].filter(x=>x && x!=='Non précisée').map(h).join(' · ')}</p>
       ${e.eval && e.eval!==e.resN ? `<p class="san-eval">${h(e.eval)}</p>` : ''}
       ${e.com ? `<p class="san-com">${h(e.com)}</p>` : ''}
       <footer><span>${[e.cat, e.externe?'Externe':'Interne', e.referent?'Référent : '+e.referent:''].filter(Boolean).map(h).join(' · ')}</span>
-        ${urlSure(e.crLien) ? `<a class="btn-ouvrir" href="${h(liensDoc(e.crLien).ouvrir||e.crLien)}" target="_blank" rel="noopener" title="${h(e.cr)}">Compte rendu</a>` : e.cr ? `<span class="sans-lien" title="${h(e.cr)}">CR : ${h(e.cr.slice(0,40))}</span>` : ''}</footer>
+        <span class="san-e-act">${urlSure(e.crLien) ? `<a class="btn-ouvrir" href="${h(liensDoc(e.crLien).ouvrir||e.crLien)}" target="_blank" rel="noopener" title="${h(e.cr)}">Compte rendu</a>` : e.cr ? `<span class="sans-lien" title="${h(e.cr)}">CR : ${h(e.cr.slice(0,40))}</span>` : ''}
+        <button class="chip san-fiche-btn" data-san-essai="${h(e.id)}">${e.fiche && !e.fiche.manque ? 'Contexte, objectif, résultats ›' : 'Fiche de l\'essai ›'}</button></span></footer>
     </article>`;
   const prev = (S.sanitaire.essais.prev||[]);
   return `<div class="carte">
@@ -5310,6 +5322,36 @@ function partieEssaisSan(an){
     <div class="san-l">${prev.map(e=>carteE({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:'À conclure', externe:/ext/i.test(e.perim)})).join('')}</div></div>` : ''}
   ${(E.catalogue||[]).length ? `<div class="carte"><h3>Catalogues sanitaires</h3><div class="es-docs-l">${E.catalogue.map(d=>ligneDoc({...d, f:'PDF', dossier:'Support technique'})).join('')}</div></div>` : ''}
   ${estAdmin() ? importSan() : ''}`;
+}
+/* Fiche détaillée d'un essai (panneau latéral) : contexte, objectif, méthode, résultats, conclusion, sources.
+   Le contenu vient des documents de la commission (champ « fiche » de chaque essai) ; rien n'est déduit ici. */
+function vueFicheSan(id){
+  const E = S.sanitaire?.essais || {};
+  const p = (E.prev||[]).find(x=>x.id===id);
+  const e = p ? {...p, cibleN:cibleSan(p.cible), cultureN:cultureSan(p.culture), resN:'À conclure', externe:/ext/i.test(p.perim)} : essaisSan().find(x=>x.id===id);
+  if(!e) return '';
+  const f = e.fiche || {};
+  const bloc = (titre, txt) => txt ? `<section class="fv-sec"><h5>${titre}</h5><p class="sf-txt">${h(txt)}</p></section>` : '';
+  const bilan = [['Évaluation du bilan', e.eval], ['Commentaire du bilan', e.com], ['Catégorie', e.cat], ['Référent', e.referent], ['Périmètre', [e.externe?'Externe':'Interne', e.conf].filter(Boolean).join(' · ')], ['Compte rendu cité', e.cr]].filter(([,v])=>v);
+  const cr = urlSure(e.crLien) ? liensDoc(e.crLien).ouvrir || e.crLien : '';
+  return `<div class="fv-voile" data-fiche-fermer></div>
+  <aside class="fv-panneau sf-panneau" role="dialog" aria-modal="true" aria-label="Fiche de l'essai" tabindex="-1">
+    <header class="fv-tete"><div><div class="eyebrow">Fiche de l'essai${p?' — en cours':''} · ${h(e.cibleN||e.cible||'')}</div><h3>${h(e.objectif)}</h3>
+      <p>${[e.cultureN, e.op, e.site, e.prod, e.an].filter(x=>x && x!=='Non précisée').map(h).join(' · ')}</p>
+      <div class="sx-fiche-badges"><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span>${/non diff/i.test(e.conf)?'<span class="san-conf">Non diffusable</span>':''}</div></div>
+      <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
+    ${f.manque ? `<p class="sf-manque">${h(f.manque)}</p>` : ''}
+    ${!e.fiche ? `<p class="sf-manque">Pas encore de fiche pour cet essai : seules les informations du bilan sont disponibles.</p>` : ''}
+    ${bloc('Contexte', f.contexte)}${f.objectif && f.objectif!==e.objectif ? bloc('Objectif', f.objectif) : f.contexte || f.methode ? bloc('Objectif', e.objectif) : ''}
+    ${bloc('Méthode et dispositif', f.methode)}${bloc('Résultats', f.resultats)}${bloc('Conclusion', f.conclusion)}
+    ${bilan.length ? `<section class="fv-sec"><h5>Dans le bilan des essais</h5><dl class="sf-dl">${bilan.map(([k,v])=>`<dt>${k}</dt><dd>${h(v)}</dd>`).join('')}</dl>
+      ${cr ? `<p><a class="btn-ouvrir" href="${h(cr)}" target="_blank" rel="noopener">Ouvrir le compte rendu</a></p>` : ''}</section>` : ''}
+    ${(f.sources||[]).length ? `<section class="fv-sec"><h5>Sources <span class="chip">${f.sources.length} document${f.sources.length>1?'s':''}</span></h5>
+      <div class="es-docs-l">${f.sources.map(s=>{ const L = liensDoc(s.url);
+        return `<div class="es-doc">${iconeFormat(typeLien(s.url))}<div class="es-doc-t"><b>${h(s.t)}</b><span>${h(s.ref||'document entier')}</span></div>
+          <span class="es-doc-act">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:''}</span></div>`; }).join('')}</div></section>` : ''}
+    ${e.fiche ? `<p class="aide sf-note">Fiche rédigée à partir des documents de la commission sanitaire${f.redige?' ('+h(dateCourte(f.redige))+')':''}, sans ajout. À compléter ou corriger avec le référent de l'essai.</p>` : ''}
+  </aside>`;
 }
 function importSan(){
   return `<details class="carte sx-import no-print"><summary>Importer une nouvelle version du bilan des essais</summary>
@@ -5389,10 +5431,12 @@ function docsSanAn(an){
   const fiche = () => { S.espaces ||= {coms:{}, fiches:{}}; const fs = S.espaces.fiches ||= {}; const f = fs[ficheVar] ||= {docs:[], coms:[]}; f.nom ||= IDX[ficheVar]?.nom || ficheVar; return f; };
   const rendre = () => vueCommissions();
   el.addEventListener('click', e=>{
-    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-san-f],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
+    if(e.target.closest('a')) return;   // liens (compte rendu, sources) : laisser le navigateur ouvrir
+    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-san-f],[data-san-essai],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
     const ds = t.dataset;
-    if(ds.com){ comActive = ds.com; ficheVar = ''; rendre(); return; }
-    if(ds.ficheFermer!==undefined){ ficheVar = ''; rendre(); return; }
+    if(ds.com){ comActive = ds.com; ficheVar = ''; ficheSan = ''; rendre(); return; }
+    if(ds.ficheFermer!==undefined){ ficheVar = ''; ficheSan = ''; rendre(); return; }
+    if(ds.sanEssai){ ficheSan = ds.sanEssai; rendre(); el.querySelector('.sf-panneau')?.focus?.(); return; }
     if(ds.anCom){ anCom = +ds.anCom; essaiSeg = ''; essaiSegChoisi = false; if(ds.esSrc){ comPartie = 'essais'; sourceEssai = ds.esSrc; segEssai = ds.sxSeg || ''; essaiSeg = ''; essaiSegChoisi = false; ficheVar = ''; } rendre(); return; }
     if(ds.comPartie){ comPartie = ds.comPartie; rendre(); return; }
     if(ds.esSrc){ sourceEssai = ds.esSrc; segEssai = ''; essaiSeg = ''; essaiSegChoisi = false; opFiltre = ''; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
@@ -5439,8 +5483,8 @@ function docsSanAn(an){
     else if(ds.cadreRm && estAdmin()){ if(!confirm('Supprimer ce document cadre ?')) return; const E = espaceCom(comActive); E.cadres[anCom] = (E.cadres[anCom]||[]).filter(d=>d.id!==ds.cadreRm); sauver('espaces'); rendre(); }
   });
   // la carte se pilote aussi au clavier
-  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op],g[data-san-f]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && ficheVar){ ficheVar = ''; vueCommissions(); } });
+  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op],g[data-san-f],article[data-san-essai]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && (ficheVar || ficheSan)){ ficheVar = ''; ficheSan = ''; vueCommissions(); } });
   // recherches immédiates (sans redessiner la page)
   el.addEventListener('input', e=>{
     const t = e.target;
@@ -5500,6 +5544,9 @@ function docsSanAn(an){
       try{ const b = lireBilanSan(XLSX.read(await t.files[0].arrayBuffer(), {type:'array'}));
         if(!b.lignes.length){ toast('Aucun essai trouvé dans le fichier'); return; }
         S.sanitaire ||= {}; const av = S.sanitaire.essais || {};
+        // garder les fiches détaillées déjà rédigées (même objectif et même site)
+        const cleE = x => normTexte([x.objectif, x.site, x.an].join(' ')), fiches = new Map([...(av.lignes||[]), ...(av.prev||[])].filter(x=>x.fiche).map(x=>[cleE(x), x.fiche]));
+        [...b.lignes, ...b.prev].forEach(x=>{ const fi = fiches.get(cleE(x)); if(fi) x.fiche = fi; });
         S.sanitaire.essais = {...av, ...b, fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''};
         sauver('sanitaire'); rendre(); toast(b.lignes.length+' essais importés'); }
       catch(err){ console.error(err); toast('Fichier illisible'); }
