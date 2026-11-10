@@ -1548,6 +1548,19 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 .pos-v.ok{background:#E3F1E8; color:#22663F} .pos-v.part{background:#FBF0D9; color:#8A6A12} .pos-v.non{background:#FBE3E1; color:#9B2C22} .pos-v.txt{font-weight:500; font-size:11px}
 @media(max-width:1000px){ .san-duo{grid-template-columns:1fr} }
 @media(max-width:640px){ .san-cible{grid-template-columns:1fr 30px} .san-cible .san-barre{grid-column:1/-1} .san-l, .lev-l{grid-template-columns:1fr} .lev dl{grid-template-columns:1fr} }
+/* carte sanitaire cliquable */
+.carte-san .san-pt{cursor:pointer; outline:none} .carte-san .san-pt .halo{transition:opacity .15s}
+.carte-san .san-pt:hover .halo, .carte-san .san-pt:focus .halo{opacity:.45} .carte-san .san-pt:hover .pt, .carte-san .san-pt:focus .pt{stroke:#16211D; stroke-width:1.5}
+.carte-san.choix .san-pt:not(.on){opacity:.4} .carte-san .san-pt.on .halo{opacity:.5} .carte-san .san-pt.on .pt{stroke:#7A1F2B; stroke-width:2.5}
+.san-lieux button{display:inline-flex; align-items:center; gap:5px; border:1px solid transparent; background:none; border-radius:99px; padding:2px 8px; font:inherit; font-size:12px; color:var(--encre-2); cursor:pointer}
+.san-lieux button:hover{border-color:var(--ligne); background:#FCFBF8} .san-lieux button.on{border-color:var(--marque); background:var(--titre-fond,#F6EDEE)}
+.san-lieux button i{width:9px; height:9px; border-radius:50%; background:#2E7D4F} .san-lieux button.ext i{background:#3B5BA9} .san-lieux button b{color:var(--encre)}
+.san-lieu-fiche{display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; padding:9px 12px; background:#F7FBF8; border-top:1px solid var(--ligne); border-left:5px solid #2E7D4F}
+.san-lieu-fiche.ext{background:#F4F6FC; border-left-color:#3B5BA9}
+.san-lieu-fiche > div:first-child{display:flex; flex-direction:column} .san-lieu-fiche > div:first-child b{font-family:'Archivo'; font-size:15px; color:var(--marque)} .san-lieu-fiche > div:first-child span{font-size:11.5px; color:var(--ardoise)}
+.san-lieu-kpi{display:flex; gap:10px; flex-wrap:wrap; font-size:12px} .san-lieu-kpi b{font-family:'Archivo'; font-size:16px}
+.san-lieu-kpi .ok b{color:#2E7D4F} .san-lieu-kpi .part b{color:#D08A12} .san-lieu-kpi .non b{color:#C4453C}
+.san-lieu-fiche p{margin:0; flex:1 1 260px; font-size:12px; color:var(--encre-2)} .san-lieu-aide{margin:0; padding:6px 12px; background:#fff; border-top:1px solid var(--ligne)}
 </style>
 </head>
 <body>
@@ -5184,7 +5197,7 @@ function resultatsSegmentSite(site, an, seg, l){
                   docs:{année:[{t, f, cat:'cr'|'protocole', dossier, url}]}}
    Calendrier et documents cadres : S.espaces.coms.csan (comme les autres commissions). */
 const PARTIES_CSAN = [['essais','Essais & résultats'],['leviers','Solutions & leviers'],['commission','Calendrier & documents']];
-let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:''}, levFiltre = '';
+let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:'', lieu:''}, levFiltre = '';
 const CIBLES_SAN = [[/o[iï]d/i,'Oïdium'],[/pucer/i,'Pucerons'],[/aleurod|bemisia|trialeurod/i,'Aleurodes'],[/cyrto|nesidio/i,'Cyrtopeltis (Nesidiocoris)'],
   [/acariose/i,'Acariose bronzée'],[/t[ée]tranyq|acarien/i,'Acariens tétranyques'],[/n[ée]mato/i,'Nématodes'],[/clado/i,'Cladosporiose'],[/clavib|coryn/i,'Clavibacter (chancre)'],
   [/thrips/i,'Thrips'],[/macrolo/i,'Macrolophus (auxiliaire)'],[/tobrfv/i,'ToBRFV'],[/drosoph/i,'Drosophile'],[/pestalo/i,'Pestalotiopsis'],[/punaise|lygus|liocoris/i,'Punaises'],
@@ -5203,26 +5216,42 @@ function rechercheSan(){
 }
 
 /* --- Carte des essais : OP (vert) et structures externes (bleu) --- */
+/* Lieu d'un essai sur la carte : bassin de l'OP (essais internes) ou département de la structure externe */
+function lieuSan(e){
+  const b = BASSINS_OP.find(x=>x.re.test(e.op)) || (/rougeline/i.test(e.op) ? {nom:'Rougeline (UDC)', lieu:'Marmande', lon:0.165, lat:44.50} : null);
+  if(b && !e.externe) return {cle:b.nom, nom:b.nom, lieu:b.lieu, lon:b.lon, lat:b.lat, ext:false};
+  const d = DEPS_SAN[String(e.dep).trim()]; if(!d) return null;
+  const nom = e.op.replace(/^XT\s*-\s*/,'').replace(/CTFIL/i,'CTIFL').replace(/^Prestaire/i,'Prestataire');
+  return {cle:'d'+String(e.dep).trim()+normTexte(nom).split(/\s+/)[0], nom, lieu:d[2], lon:d[0], lat:d[1], ext:true};
+}
+/* Carte cliquable : un clic sur un point (ou sur un nom de la liste) n'affiche que les essais de ce lieu */
 function carteSan(l){
   const {W,H,LO1,LO2,LA2,k} = CARTE_FR, sx = W/((LO2-LO1)*k);
   const X = lo => (lo-LO1)*k*sx, Y = la => (LA2-la)*sx, f = v => v.toFixed(1);
-  const pts = {};
-  l.forEach(e=>{ let p = null;
-    const b = BASSINS_OP.find(x=>x.re.test(e.op)) || (/rougeline/i.test(e.op) ? {nom:'Rougeline (UDC)', lieu:'Marmande', lon:0.165, lat:44.50} : null);
-    if(b && !e.externe) p = {cle:b.nom, nom:b.nom, lieu:b.lieu, lon:b.lon, lat:b.lat, ext:false};
-    else { const d = DEPS_SAN[String(e.dep).trim()]; if(d){ const nom = e.op.replace(/^XT\s*-\s*/,'').replace(/CTFIL/i,'CTIFL').replace(/^Prestaire/i,'Prestataire');
-      p = {cle:'d'+e.dep+normTexte(nom).split(/\s+/)[0], nom, lieu:d[2], lon:d[0], lat:d[1], ext:true}; } }
-    if(!p) return; const o = pts[p.cle] ||= {...p, n:0}; o.n++; });
-  const l2 = Object.values(pts); if(!l2.length) return '';
+  const pts = {}, sel = sanFiltre.lieu;
+  l.forEach(e=>{ const p = lieuSan(e); if(!p) return; const o = pts[p.cle] ||= {...p, n:0, es:[]}; o.n++; o.es.push(e); });
+  const l2 = Object.values(pts); if(!l2.length) return '<p class="aide">Aucun lieu connu pour ces essais.</p>';
   // décalage des points au même endroit
   const vus = {}; l2.forEach(p=>{ const c = p.lon.toFixed(1)+p.lat.toFixed(1); const i = vus[c] = (vus[c]||0)+1; if(i>1){ p.lon += 0.35*(i-1); p.lat -= 0.22*(i-1); } });
   const regions = Object.entries(REGIONS_SVG).map(([nom,d])=>`<path d="${d}" class="ce-reg${REGIONS_ROUGELINE.includes(nom)?' rg':''}"><title>${h(nom)}</title></path>`).join('');
-  return `<svg class="carte-essais carte-san" viewBox="0 0 ${W} ${H}" role="img" aria-label="Carte des essais sanitaires">${regions}
-    ${l2.map(p=>{ const r = 5 + Math.sqrt(p.n)*2.6, x = X(p.lon), y = Y(p.lat);
-      return `<g class="san-pt${p.ext?' ext':''}"><circle cx="${f(x)}" cy="${f(y)}" r="${f(r+3)}" class="halo"/><circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" class="pt"><title>${h(p.nom)} — ${p.n} essai${p.n>1?'s':''} (${h(p.lieu)})</title></circle>
-        <text x="${f(x)}" y="${f(y+3.6)}" class="san-n">${p.n}</text></g>`; }).join('')}</svg>
-    <div class="ce-leg"><span><i class="l-op"></i>Essais dans les OP</span><span><i class="l-ext"></i>Essais externes (APREL, CTIFL, CDDM…)</span></div>
-    <div class="san-lieux">${[...l2].sort((a,b)=>b.n-a.n).map(p=>`<span class="${p.ext?'ext':''}"><i></i><b>${h(p.nom.length>34?p.nom.slice(0,32)+'…':p.nom)}</b> ${h(p.lieu)} · ${p.n} essai${p.n>1?'s':''}</span>`).join('')}</div>`;
+  const choix = l2.find(p=>p.cle===sel);
+  const ordre = [...l2].sort((a,b)=>(a.cle===sel)-(b.cle===sel) || b.n-a.n);   // le point choisi est dessiné en dernier (au-dessus)
+  const fiche = choix ? (()=>{ const g = choix.es, n = r => g.filter(e=>e.resN===r).length;
+    const cibles = Object.entries(g.reduce((o,e)=>(o[e.cibleN]=(o[e.cibleN]||0)+1,o),{})).sort((a,b)=>b[1]-a[1]);
+    return `<div class="san-lieu-fiche ${choix.ext?'ext':''}">
+      <div><b>${h(choix.nom)}</b><span>${h(choix.lieu)} · ${choix.ext?'structure externe':'OP'}</span></div>
+      <div class="san-lieu-kpi"><span><b>${choix.n}</b> essai${choix.n>1?'s':''}</span><span class="ok"><b>${n('Efficace')}</b> efficace${n('Efficace')>1?'s':''}</span><span class="part"><b>${n('Partielle')}</b> partiel${n('Partielle')>1?'s':''}</span><span class="non"><b>${n('Inefficace')}</b> inefficace${n('Inefficace')>1?'s':''}</span></div>
+      <p>Cibles : ${cibles.slice(0,5).map(([c,x])=>`${h(c)} (${x})`).join(', ')}${cibles.length>5?'…':''}<br>Cultures : ${h([...new Set(g.map(e=>e.cultureN))].join(', '))}</p>
+      <button class="chip" data-san-f="lieu|">Voir tous les lieux ✕</button></div>`; })() : '<p class="aide san-lieu-aide">Cliquez sur un point ou sur un nom pour n\'afficher que ses essais.</p>';
+  return `<svg class="carte-essais carte-san${sel?' choix':''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Carte des essais sanitaires">${regions}
+    ${ordre.map(p=>{ const r = 5 + Math.sqrt(p.n)*2.6, x = X(p.lon), y = Y(p.lat), on = p.cle===sel;
+      return `<g class="san-pt${p.ext?' ext':''}${on?' on':''}" data-san-f="lieu|${on?'':h(p.cle)}" role="button" tabindex="0" aria-label="${h(p.nom)} : ${p.n} essai${p.n>1?'s':''}">
+        <circle cx="${f(x)}" cy="${f(y)}" r="${f(r+4)}" class="halo"/><circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" class="pt"><title>${h(p.nom)} — ${p.n} essai${p.n>1?'s':''} (${h(p.lieu)})</title></circle>
+        <text x="${f(x)}" y="${f(y+3.6)}" class="san-n">${p.n}</text>
+        ${on ? `<text x="${f(x+r+5)}" y="${f(y+4)}" class="san-l">${h(p.nom)}</text>` : ''}</g>`; }).join('')}</svg>
+    <div class="ce-leg"><span><i class="l-op"></i>Essais dans les OP</span><span><i class="l-ext"></i>Essais externes (APREL, CTIFL, CDDM…)</span><span>Cliquez pour filtrer</span></div>
+    ${fiche}
+    <div class="san-lieux">${[...l2].sort((a,b)=>b.n-a.n).map(p=>`<button class="${p.ext?'ext':''}${p.cle===sel?' on':''}" data-san-f="lieu|${p.cle===sel?'':h(p.cle)}"><i></i><b>${h(p.nom.length>34?p.nom.slice(0,32)+'…':p.nom)}</b> ${h(p.lieu)} · ${p.n} essai${p.n>1?'s':''}</button>`).join('')}</div>`;
 }
 
 /* --- Partie « Essais & résultats » --- */
@@ -5231,7 +5260,10 @@ function partieEssaisSan(an){
   if(!E) return `<div class="carte"><h3>Essais sanitaires</h3><p class="aide">Aucun bilan d'essais importé pour l'instant.</p>${estAdmin()?importSan():''}</div>`;
   const tous = essaisSan(), ans = [...new Set(tous.map(e=>e.an).filter(Boolean))].sort();
   const portee = sanTous ? tous : tous.filter(e=>e.an===+an), f = sanFiltre;
-  const l = portee.filter(e=>(!f.culture || e.cultureN===f.culture) && (!f.res || e.resN===f.res) && (!f.perim || (f.perim==='Externe')===e.externe) && (!f.cible || e.cibleN===f.cible));
+  const lCarte = portee.filter(e=>(!f.culture || e.cultureN===f.culture) && (!f.res || e.resN===f.res) && (!f.perim || (f.perim==='Externe')===e.externe) && (!f.cible || e.cibleN===f.cible));
+  if(f.lieu && !lCarte.some(e=>lieuSan(e)?.cle===f.lieu)) f.lieu = '';
+  const l = lCarte.filter(e=>!f.lieu || lieuSan(e)?.cle===f.lieu);
+  const lieuChoisi = f.lieu ? lieuSan(l[0]||{})?.nom : '';
   const n = r => l.filter(e=>e.resN===r).length, conclus = l.filter(e=>['Efficace','Partielle','Inefficace'].includes(e.resN)).length;
   const pc = x => conclus ? Math.round(100*x/conclus)+' % des essais conclus' : '';
   const kpis = kpiSegment([{l:'Essais', v:l.length, s:`${new Set(l.map(e=>e.cibleN)).size} cibles · ${new Set(l.map(e=>e.op)).size} OP et partenaires`},
@@ -5260,6 +5292,7 @@ function partieEssaisSan(an){
     ${kpis}
     ${puces('culture', cultures, 'Culture')}${puces('res', RES_SAN.filter(r=>portee.some(e=>e.resN===r)), 'Résultat')}${puces('perim', ['Interne','Externe'], 'Essais')}
     ${f.cible ? `<p class="es-filtre">Cible : <b>${h(f.cible)}</b> <button class="chip" data-san-f="cible|">Toutes les cibles ✕</button></p>` : ''}
+    ${f.lieu ? `<p class="es-filtre">Lieu : <b>${h(lieuChoisi||'')}</b> <button class="chip" data-san-f="lieu|">Tous les lieux ✕</button></p>` : ''}
   </div>
   <div class="san-duo">
     <div class="carte"><h3>Résultats par cible</h3>
@@ -5267,9 +5300,9 @@ function partieEssaisSan(an){
       <div class="san-cibles">${cibles.map(c=>{ const g = l.filter(e=>e.cibleN===c);
         return `<button class="san-cible${f.cible===c?' on':''}" data-san-f="cible|${f.cible===c?'':h(c)}" data-san-nom="${h(normTexte(c+' '+g.map(e=>e.objectif+' '+e.cible).join(' ')))}"><b>${h(c)}</b><em>${g.length}</em>${barre(g)}<small>${h([...new Set(g.map(e=>e.cultureN))].join(', '))}</small></button>`; }).join('') || '<p class="aide">Aucun essai pour ces filtres.</p>'}</div>
       <div class="san-leg">${RES_SAN.map(r=>`<span><i class="${clsRes(r)}"></i>${r}</span>`).join('')}</div></div>
-    <div class="carte"><h3>Où ont lieu les essais</h3><div class="es-carte-fr">${carteSan(l)}</div></div>
+    <div class="carte"><h3>Où ont lieu les essais</h3><div class="es-carte-fr">${carteSan(lCarte)}</div></div>
   </div>
-  <div class="carte"><h3>Les essais ${f.cible ? '— '+h(f.cible) : 'par cible'} <span class="zrp-compte">${l.length}</span></h3>
+  <div class="carte san-liste"><h3>Les essais ${[f.cible, lieuChoisi].filter(Boolean).length ? '— '+[f.cible, lieuChoisi].filter(Boolean).map(h).join(' · ') : 'par cible'} <span class="zrp-compte">${l.length}</span></h3>
     ${cibles.map(c=>`<section class="san-groupe" data-san-groupe><h4>${h(c)} <span>${l.filter(e=>e.cibleN===c).length} essai${l.filter(e=>e.cibleN===c).length>1?'s':''}</span></h4>
       <div class="san-l">${l.filter(e=>e.cibleN===c).sort((a,b)=>RES_SAN.indexOf(a.resN)-RES_SAN.indexOf(b.resN) || (b.an||0)-(a.an||0)).map(carteE).join('')}</div></section>`).join('')}
   </div>
@@ -5356,7 +5389,7 @@ function docsSanAn(an){
   const fiche = () => { S.espaces ||= {coms:{}, fiches:{}}; const fs = S.espaces.fiches ||= {}; const f = fs[ficheVar] ||= {docs:[], coms:[]}; f.nom ||= IDX[ficheVar]?.nom || ficheVar; return f; };
   const rendre = () => vueCommissions();
   el.addEventListener('click', e=>{
-    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
+    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-san-f],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
     const ds = t.dataset;
     if(ds.com){ comActive = ds.com; ficheVar = ''; rendre(); return; }
     if(ds.ficheFermer!==undefined){ ficheVar = ''; rendre(); return; }
@@ -5377,7 +5410,8 @@ function docsSanAn(an){
     if(ds.cmpVider){ cmpSel[ds.cmpVider] = []; rendre(); return; }
     if(ds.sanTous){ sanTous = true; rendre(); return; }
     if(ds.sanAn){ sanTous = false; anCom = +ds.sanAn; rendre(); return; }
-    if(ds.sanF!==undefined){ const i = ds.sanF.indexOf('|'); sanFiltre[ds.sanF.slice(0,i)] = ds.sanF.slice(i+1); rendre(); return; }
+    if(ds.sanF!==undefined){ const i = ds.sanF.indexOf('|'), cle = ds.sanF.slice(0,i); sanFiltre[cle] = ds.sanF.slice(i+1); rendre();
+      if(cle==='lieu') el.querySelector(sanFiltre.lieu ? '.san-lieu-fiche' : '.carte-san')?.closest('.carte')?.scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
     if(ds.levF!==undefined){ levFiltre = ds.levF; rendre(); return; }
     if(ds.liFiltre){ filtreListe = ds.liFiltre; rendre(); return; }
     if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
@@ -5405,7 +5439,7 @@ function docsSanAn(an){
     else if(ds.cadreRm && estAdmin()){ if(!confirm('Supprimer ce document cadre ?')) return; const E = espaceCom(comActive); E.cadres[anCom] = (E.cadres[anCom]||[]).filter(d=>d.id!==ds.cadreRm); sauver('espaces'); rendre(); }
   });
   // la carte se pilote aussi au clavier
-  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
+  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op],g[data-san-f]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape' && ficheVar){ ficheVar = ''; vueCommissions(); } });
   // recherches immédiates (sans redessiner la page)
   el.addEventListener('input', e=>{
