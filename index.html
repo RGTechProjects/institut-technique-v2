@@ -1496,6 +1496,58 @@ table.cmp-d td.best .cmp-bar i{background:#2E7D4F}
 .ps-v[hidden]{display:none!important}
 .es-rech-res .rech-tags{display:inline-flex; gap:5px; align-items:center; margin-left:6px}
 @media(max-width:640px){ .cmp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .cmp-kpi{padding:7px 9px} .cmp-kpi b{font-size:18px} table.cmp td.nom{min-width:130px} }
+/* ===== Commission sanitaire ===== */
+.cmp-kpi.ok{border-top-color:#2E7D4F} .cmp-kpi.part{border-top-color:#D08A12} .cmp-kpi.non{border-top-color:#C4453C}
+.san-portee{margin:4px 0 10px} .san-portee small{opacity:.7}
+.san-filtre{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0}
+.san-filtre > span{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--marque); min-width:70px}
+.san-filtre .chip small{opacity:.65}
+.san-duo{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:14px; align-items:start}
+.san-cibles{display:flex; flex-direction:column; gap:4px}
+.san-cible{display:grid; grid-template-columns:minmax(150px,1fr) 34px 2fr; grid-template-rows:auto auto; gap:2px 10px; align-items:center; text-align:left; border:1px solid var(--ligne); border-radius:9px; background:#fff; padding:6px 10px; cursor:pointer; font:inherit}
+.san-cible:hover, .san-cible.on{border-color:var(--marque); background:var(--titre-fond,#F6EDEE)}
+.san-cible b{color:var(--marque); font-size:13px} .san-cible em{font-style:normal; font-weight:700; text-align:right}
+.san-cible small{grid-column:1/-1; font-size:11px; color:var(--ardoise)}
+.san-barre{display:flex; height:12px; border-radius:99px; overflow:hidden; background:#EEE9DF}
+.san-barre i, .san-leg i{display:block} .san-leg{display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:8px; font-size:11.5px; color:var(--ardoise)}
+.san-leg span{display:inline-flex; align-items:center; gap:5px} .san-leg i{width:11px; height:11px; border-radius:3px}
+i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.nd{background:#A39E93} i.com{background:#3B5BA9} i.ac{background:#D9D2C3}
+.carte-san .san-pt .pt{fill:#2E7D4F; stroke:#fff; stroke-width:1} .carte-san .san-pt .halo{fill:#2E7D4F; opacity:.18}
+.carte-san .san-pt.ext .pt{fill:#3B5BA9} .carte-san .san-pt.ext .halo{fill:#3B5BA9}
+.carte-san .san-n{font-family:'IBM Plex Mono'; font-size:9px; font-weight:700; fill:#fff; text-anchor:middle}
+.carte-san .san-l{font-family:'Archivo'; font-size:9.5px; font-weight:700; fill:#16211D; paint-order:stroke; stroke:#fff; stroke-width:3px}
+.ce-leg .l-ext{background:#3B5BA9; border-radius:50%}
+.san-lieux{display:flex; flex-wrap:wrap; gap:4px 14px; padding:8px 12px; font-size:12px; color:var(--encre-2); background:#fff; border-top:1px solid var(--ligne)}
+.san-lieux span{display:inline-flex; align-items:center; gap:5px} .san-lieux i{width:9px; height:9px; border-radius:50%; background:#2E7D4F} .san-lieux .ext i{background:#3B5BA9} .san-lieux b{color:var(--encre)}
+.san-groupe{margin-top:12px} .san-groupe > h4{margin:0 0 8px; padding:7px 12px; font-family:'Archivo'; font-size:15px; color:var(--marque); background:var(--titre-fond,#F6EDEE); border-radius:8px}
+.san-groupe > h4 span{font-family:'Public Sans'; font-size:12px; font-weight:500; color:var(--ardoise)}
+.san-l{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:10px}
+.san-e{display:flex; flex-direction:column; gap:5px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:10px; background:#fff; padding:9px 12px}
+.san-e.r-ok{border-left-color:#2E7D4F} .san-e.r-part{border-left-color:#D08A12} .san-e.r-non{border-left-color:#C4453C} .san-e.r-nd{border-left-color:#A39E93} .san-e.r-com{border-left-color:#3B5BA9}
+.san-e header{display:flex; gap:6px; align-items:center; flex-wrap:wrap} .san-an{margin-left:auto; font-family:'IBM Plex Mono'; font-size:11px; color:var(--ardoise)}
+.san-e h5{margin:0; font-size:13.5px; color:var(--encre); line-height:1.35}
+.san-meta{margin:0; font-size:12px; color:var(--encre-2)} .san-eval{margin:0; font-size:12px; font-weight:600}
+.san-com{margin:0; font-size:12px; color:var(--encre-2); background:#FBF7EF; border-radius:6px; padding:5px 8px}
+.san-e footer{display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; margin-top:auto; font-size:11px; color:var(--ardoise)}
+.san-res{font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; background:#EEE9DF; color:var(--encre-2)}
+.san-res.ok{background:#E3F1E8; color:#22663F} .san-res.part{background:#FBF0D9; color:#8A6A12} .san-res.non{background:#FBE3E1; color:#9B2C22} .san-res.com{background:#E6ECF8; color:#3B5BA9}
+.san-conf{font-size:10px; font-weight:700; color:#fff; background:#9B2C22; padding:2px 7px; border-radius:99px}
+[data-san-nom][hidden], [data-san-groupe][hidden]{display:none!important}
+.lev-l{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:10px; margin-top:8px}
+.lev{display:flex; flex-direction:column; gap:6px; border:1px solid var(--ligne); border-top:4px solid #3B5BA9; border-radius:10px; background:#fff; padding:10px 12px}
+.lev header{display:flex; justify-content:space-between; gap:8px; align-items:baseline} .lev header b{font-family:'Archivo'; font-size:15px; color:var(--marque)} .lev header span{font-size:11.5px; color:var(--ardoise)}
+.lev-tags{display:flex; flex-wrap:wrap; gap:4px}
+.lev-tags > span{font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:99px; background:#EEE9DF; color:var(--encre-2)}
+.lev-tags .lev-niv{background:#E6ECF8; color:#3B5BA9} .lev-tags .lev-ab{background:#E3F1E8; color:#22663F} .lev-tags .lev-dispo{background:#F6EDEE; color:var(--marque)}
+.lev-cible{margin:0; font-size:12px} .lev-cout{margin:0; font-size:12px; font-weight:700; color:#2E7D4F}
+.lev details summary{cursor:pointer; font-size:12px; font-weight:700; color:var(--marque)}
+.lev dl{display:grid; grid-template-columns:130px 1fr; gap:3px 10px; margin:6px 0 0; font-size:12px} .lev dt{font-weight:700; color:var(--encre-2)} .lev dd{margin:0}
+.lev-eq td small, .pos-t td small{display:block; font-size:11px; color:var(--ardoise)} .lev-eq td.txt{font-size:11.5px; white-space:normal; min-width:180px}
+.lev-innov{color:var(--marque); letter-spacing:2px}
+.pos-v{display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:6px; background:#F4F2EE; color:var(--encre-2)}
+.pos-v.ok{background:#E3F1E8; color:#22663F} .pos-v.part{background:#FBF0D9; color:#8A6A12} .pos-v.non{background:#FBE3E1; color:#9B2C22} .pos-v.txt{font-weight:500; font-size:11px}
+@media(max-width:1000px){ .san-duo{grid-template-columns:1fr} }
+@media(max-width:640px){ .san-cible{grid-template-columns:1fr 30px} .san-cible .san-barre{grid-column:1/-1} .san-l, .lev-l{grid-template-columns:1fr} .lev dl{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -1815,8 +1867,8 @@ const libEnjeu = n => (ENJEU_LIB[n]||[n])[0];
 const icoEnjeu = n => (ENJEU_LIB[n]||[,'•'])[1];
 
 /* ============ Persistance (Supabase, table app_state) ============ */
-const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces'];
-let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null};
+const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire'];
+let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null};
 let modeLocal = false;
 async function charger(){
   try{
@@ -1960,7 +2012,7 @@ function totalInterne(nom){ return OPS.reduce((a,o)=>a+nbExperts(nom,o),0); }
 /* ============ Navigation ============ */
 const VUES = [
   ['cartographie','Cartographie'], ['indicateurs','Indicateurs'], ['reunions','Visites, voyages & réunions'], ['hebdo','Réunion hebdo'],
-  ['commissions','Commissions'], ['annuaire','Annuaire']
+  ['commissions','Commissions']
 ];
 function bâtirNav(){
   // Indicateurs et Admin : réservés aux administrateurs
@@ -4374,6 +4426,7 @@ function anneesCom(){
 }
 function contenuAn(com, a){
   const t = [];
+  if(com==='csan' && ((S.sanitaire?.essais?.lignes||[]).some(e=>e.an===a) || (S.sanitaire?.docs?.[a]||[]).length)) t.push(['essais','essais']);
   if(com==='cvto'){ if(sourcesAn(a).length || (S.essais?.docs?.[a]||[]).length) t.push(['essais','essais']); if(S.essais?.prix?.[a]) t.push(['prix','prix des graines']); }
   const E = espaceCom(com);
   if(E.calendrier.some(e=>+e.an===a)) t.push(['rdv','rendez-vous']);
@@ -4389,7 +4442,7 @@ function barreAnCom(com){
       <input type="range" min="${ans[0]}" max="${ans[ans.length-1]}" step="1" value="${anCom}" data-an-range aria-label="Choisir l'année">
       <div class="annees">${ans.map(y=>{ const c = contenuAn(com, y);
         return `<button class="${y===anCom?'on':''} ${c.length?'':'vide'}" data-an-com="${y}" title="${y} : ${h(c.map(x=>x[1]).join(', ')||'rien pour l\'instant')}">${y}<i class="pts">${c.map(x=>`<b class="pt-${x[0]}"></b>`).join('')}</i></button>`; }).join('')}</div>
-      <div class="pts-leg">${com==='cvto'?'<span><b class="pt-essais"></b>essais</span><span><b class="pt-prix"></b>prix des graines</span>':''}<span><b class="pt-rdv"></b>rendez-vous</span><span><b class="pt-cadres"></b>documents cadres</span></div>
+      <div class="pts-leg">${com==='cvto'?'<span><b class="pt-essais"></b>essais</span><span><b class="pt-prix"></b>prix des graines</span>':com==='csan'?'<span><b class="pt-essais"></b>essais</span>':''}<span><b class="pt-rdv"></b>rendez-vous</span><span><b class="pt-cadres"></b>documents cadres</span></div>
     </div>
     <span class="etat ${ici.length?'ok':''}">${ici.length ? h(ici.map(x=>x[1]).join(' · ')) : 'rien pour l\'instant'}</span>
   </div>`;
@@ -4399,18 +4452,18 @@ function barreAnCom(com){
 function vueCommissions(){
   const el = document.getElementById('v-commissions'); el.dataset.com = comActive;
   const c = COMMISSIONS.find(x=>x.id===comActive);
-  const parties = comActive==='cvto' ? PARTIES_CVTO : [['commission','Calendrier & documents']];
+  const parties = comActive==='cvto' ? PARTIES_CVTO : comActive==='csan' ? PARTIES_CSAN : [['commission','Calendrier & documents']];
   if(!parties.some(p=>p[0]===comPartie)) comPartie = parties[0][0];
   IDX = comActive==='cvto' ? indexGlobal() : {};
   if(ficheVar && !IDX[ficheVar]) ficheVar = '';
-  const corps = comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
+  const corps = comActive==='csan' && comPartie==='essais' ? partieEssaisSan(anCom) : comPartie==='leviers' ? partieLeviers() : comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
   el.innerHTML = `
   <div class="entete"><div class="eyebrow">05 — Commissions</div>
     <h2>Espaces de commission</h2>
-    <p>Choisissez l'année, cherchez une variété, puis consultez les résultats des essais, la liste positive, les prix des graines et le calendrier de la commission.</p></div>
+    <p>Choisissez la commission et l'année, utilisez la recherche, puis consultez les résultats des essais, les solutions, le calendrier et les documents de la commission.</p></div>
   <div class="onglets-com">${COMMISSIONS.map(x=>`<button class="chip" data-com="${x.id}" aria-pressed="${x.id===comActive}">${x.nom}</button>`).join('')}</div>
   ${barreAnCom(comActive)}
-  ${comActive==='cvto' ? rechercheVarietes() : ''}
+  ${comActive==='cvto' ? rechercheVarietes() : comActive==='csan' ? rechercheSan() : ''}
   ${rappelCalendrier(comActive, anCom)}
   ${parties.length>1 ? `<div class="com-parties segment">${parties.map(([k,l])=>`<button data-com-partie="${k}" aria-pressed="${k===comPartie}">${l}</button>`).join('')}</div>` : ''}
   ${corps}
@@ -4818,7 +4871,7 @@ function partieCommission(c, an){
       ${x.par?`<small class="cal-par">Ajouté par ${h(x.par.split('@')[0])}</small>`:''}</div>
     ${adm ? `<button class="btn-icone suppr-icone no-print" data-cal-rm="${h(x.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}</article>`;
   const calendrier = `<div class="carte"><h3>Calendrier de la commission — ${an}</h3>
-    <p class="aide">Réunions, rallyes et rendez-vous de l'année, avec leurs supports (dossier « RDV COMMISSIONS » sur SharePoint).</p>
+    <p class="aide">Réunions, rallyes et rendez-vous de l'année, avec leurs supports (${c.id==='csan' ? 'dossier « 1 - Commission Sanitaire »' : 'dossier « RDV COMMISSIONS »'} sur SharePoint).</p>
     ${evs.length ? `<div class="cal-l">${evs.map(evt).join('')}</div>` : `<p class="aide">Aucun rendez-vous enregistré pour ${an}.</p>`}
     ${autresAns.length ? `<p class="cal-autres">Autres années : ${autresAns.map(a=>`<button class="chip" data-an-com="${a}">${a} <small>(${E.calendrier.filter(x=>+x.an===a).length})</small></button>`).join(' ')}</p>` : ''}
     ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un rendez-vous</div>
@@ -4833,7 +4886,7 @@ function partieCommission(c, an){
     <div class="com-membres">${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}</div>
     ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}</div>`;
   return `${calendrier}<div class="deux com-bas">${membresB}${vueCadres(c, an)}</div>
-    ${c.id==='cvto' ? docsEssaisAn(an) : ''}
+    ${c.id==='cvto' ? docsEssaisAn(an) : c.id==='csan' ? docsSanAn(an) : ''}
     ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3><p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
       ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
     <div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`;
@@ -4852,12 +4905,12 @@ function vueCadres(c, an){
         ${adm && !d.ancien ? `<button class="btn-icone suppr-icone no-print" data-cadre-rm="${h(d.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}
         ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}</span></div>`; };
   return `<div class="carte"><h3>Documents cadres — campagne ${an-2001} ${an-2000}</h3>
-    <p class="aide">Listes des variétés, règles de développement et de mélange, profils produits… Les documents restent sur SharePoint.</p>
+    <p class="aide">${c.id==='cvto' ? 'Listes des variétés, règles de développement et de mélange, profils produits…' : c.id==='csan' ? 'Fiches et plans d\'actions de la commission, planification des essais, synthèses, positionnement des solutions…' : 'Documents de référence de la commission.'} Les documents restent sur SharePoint.</p>
     ${l.length ? cats.map(k=>`<div class="sous">${h(k)}</div>${l.filter(d=>(d.cat||'Documentation')===k).map(carte).join('')}`).join('') : `<p class="aide">Aucun document cadre pour la campagne ${an-2001} ${an-2000}.</p>`}
     ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un document cadre</div>
       <div class="form-grille"><label class="large">Titre <input data-cadre="t" placeholder="ex. Liste des variétés en développement 26 27"></label>
         <label class="large">Lien SharePoint <input data-cadre="url" placeholder="https://grouperougeline.sharepoint.com/…"></label>
-        <label>Catégorie <select data-cadre="cat">${['Liste des variétés en développement','Liste des variétés en production','Règles de développement et de mélange','Profils produits','Prix des graines','Documentation'].map(x=>`<option>${x}</option>`).join('')}</select></label>
+        <label>Catégorie <select data-cadre="cat">${(c.id==='csan' ? ['Fiche et plan d\'actions de la commission','Planification des essais','Résultats et synthèses','Positionnement des solutions','Documentation'] : ['Liste des variétés en développement','Liste des variétés en production','Règles de développement et de mélange','Profils produits','Prix des graines','Documentation']).map(x=>`<option>${x}</option>`).join('')}</select></label>
         <label>Date de la version <input type="date" data-cadre="date"></label>
         <label class="large">Ce que contient le document <input data-cadre="d" placeholder="En une ligne"></label></div>
       <button class="btn" data-cadre-add>Ajouter le document</button></div>` : ''}</div>`;
@@ -5124,6 +5177,179 @@ function resultatsSegmentSite(site, an, seg, l){
     ${matriceComparaison(`${site}|${an}|${seg}`, lg, COLS_SITE)}`;
 }
 
+
+/* ================= Commission sanitaire =================
+   S.sanitaire = {essais:{fichier, lien, dossier, lignes:[{id, conf, an, perim, op, culture, objectif, cible, dep, site, prod, cat, referent, eval, res, cr, crLien, com}], prev:[…], catalogue:[]},
+                  leviers:{lien, lignes:[…base des nouveaux leviers Coop Protect…], equip:[…équipements digitaux…], positionnement:{techs, lignes, autres}, coop:[docs], coopDossier},
+                  docs:{année:[{t, f, cat:'cr'|'protocole', dossier, url}]}}
+   Calendrier et documents cadres : S.espaces.coms.csan (comme les autres commissions). */
+const PARTIES_CSAN = [['essais','Essais & résultats'],['leviers','Solutions & leviers'],['commission','Calendrier & documents']];
+let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:''}, levFiltre = '';
+const CIBLES_SAN = [[/o[iï]d/i,'Oïdium'],[/pucer/i,'Pucerons'],[/aleurod|bemisia|trialeurod/i,'Aleurodes'],[/cyrto|nesidio/i,'Cyrtopeltis (Nesidiocoris)'],
+  [/acariose/i,'Acariose bronzée'],[/t[ée]tranyq|acarien/i,'Acariens tétranyques'],[/n[ée]mato/i,'Nématodes'],[/clado/i,'Cladosporiose'],[/clavib|coryn/i,'Clavibacter (chancre)'],
+  [/thrips/i,'Thrips'],[/macrolo/i,'Macrolophus (auxiliaire)'],[/tobrfv/i,'ToBRFV'],[/drosoph/i,'Drosophile'],[/pestalo/i,'Pestalotiopsis'],[/punaise|lygus|liocoris/i,'Punaises'],
+  [/cochenil/i,'Cochenilles'],[/ravageur/i,'Ravageurs (général)']];
+const cibleSan = c => { const x = String(c||'').trim(); if(!x || x==='/') return 'Non précisée'; const m = CIBLES_SAN.find(([re])=>re.test(x)); return m ? m[1] : x.charAt(0).toUpperCase()+x.slice(1).toLowerCase(); };
+const cultureSan = c => { const x = String(c||'').trim(); return !x ? 'Non précisée' : x.charAt(0).toUpperCase()+x.slice(1).toLowerCase(); };
+const RES_SAN = ['Efficace','Partielle','Inefficace','ND','Voir commentaire','À conclure'];
+const clsRes = r => ({'Efficace':'ok','Partielle':'part','Inefficace':'non','ND':'nd','Voir commentaire':'com'})[r] || 'ac';
+/* Structures externes : position par département */
+const DEPS_SAN = {'13':[4.83,43.79,'Bouches-du-Rhône'], '30':[4.47,43.75,'Gard'], '44':[-1.55,47.22,'Loire-Atlantique'], '29':[-4.42,48.39,'Finistère'], '47':[0.62,44.20,'Lot-et-Garonne'], '84':[5.05,43.95,'Vaucluse']};
+const essaisSan = () => (S.sanitaire?.essais?.lignes||[]).map(e=>({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:e.res||'À conclure', externe:/ext/i.test(e.perim)}));
+
+function rechercheSan(){
+  return `<div class="es-rech no-print"><input type="search" data-san-rech placeholder="Chercher un produit, une cible (oïdium, pucerons…), une OP, un site, un levier…" aria-label="Chercher dans la commission sanitaire" autocomplete="off">
+    <p class="aide san-rech-n" hidden></p></div>`;
+}
+
+/* --- Carte des essais : OP (vert) et structures externes (bleu) --- */
+function carteSan(l){
+  const {W,H,LO1,LO2,LA2,k} = CARTE_FR, sx = W/((LO2-LO1)*k);
+  const X = lo => (lo-LO1)*k*sx, Y = la => (LA2-la)*sx, f = v => v.toFixed(1);
+  const pts = {};
+  l.forEach(e=>{ let p = null;
+    const b = BASSINS_OP.find(x=>x.re.test(e.op)) || (/rougeline/i.test(e.op) ? {nom:'Rougeline (UDC)', lieu:'Marmande', lon:0.165, lat:44.50} : null);
+    if(b && !e.externe) p = {cle:b.nom, nom:b.nom, lieu:b.lieu, lon:b.lon, lat:b.lat, ext:false};
+    else { const d = DEPS_SAN[String(e.dep).trim()]; if(d){ const nom = e.op.replace(/^XT\s*-\s*/,'').replace(/CTFIL/i,'CTIFL').replace(/^Prestaire/i,'Prestataire');
+      p = {cle:'d'+e.dep+normTexte(nom).split(/\s+/)[0], nom, lieu:d[2], lon:d[0], lat:d[1], ext:true}; } }
+    if(!p) return; const o = pts[p.cle] ||= {...p, n:0}; o.n++; });
+  const l2 = Object.values(pts); if(!l2.length) return '';
+  // décalage des points au même endroit
+  const vus = {}; l2.forEach(p=>{ const c = p.lon.toFixed(1)+p.lat.toFixed(1); const i = vus[c] = (vus[c]||0)+1; if(i>1){ p.lon += 0.35*(i-1); p.lat -= 0.22*(i-1); } });
+  const regions = Object.entries(REGIONS_SVG).map(([nom,d])=>`<path d="${d}" class="ce-reg${REGIONS_ROUGELINE.includes(nom)?' rg':''}"><title>${h(nom)}</title></path>`).join('');
+  return `<svg class="carte-essais carte-san" viewBox="0 0 ${W} ${H}" role="img" aria-label="Carte des essais sanitaires">${regions}
+    ${l2.map(p=>{ const r = 5 + Math.sqrt(p.n)*2.6, x = X(p.lon), y = Y(p.lat);
+      return `<g class="san-pt${p.ext?' ext':''}"><circle cx="${f(x)}" cy="${f(y)}" r="${f(r+3)}" class="halo"/><circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" class="pt"><title>${h(p.nom)} — ${p.n} essai${p.n>1?'s':''} (${h(p.lieu)})</title></circle>
+        <text x="${f(x)}" y="${f(y+3.6)}" class="san-n">${p.n}</text></g>`; }).join('')}</svg>
+    <div class="ce-leg"><span><i class="l-op"></i>Essais dans les OP</span><span><i class="l-ext"></i>Essais externes (APREL, CTIFL, CDDM…)</span></div>
+    <div class="san-lieux">${[...l2].sort((a,b)=>b.n-a.n).map(p=>`<span class="${p.ext?'ext':''}"><i></i><b>${h(p.nom.length>34?p.nom.slice(0,32)+'…':p.nom)}</b> ${h(p.lieu)} · ${p.n} essai${p.n>1?'s':''}</span>`).join('')}</div>`;
+}
+
+/* --- Partie « Essais & résultats » --- */
+function partieEssaisSan(an){
+  const E = S.sanitaire?.essais;
+  if(!E) return `<div class="carte"><h3>Essais sanitaires</h3><p class="aide">Aucun bilan d'essais importé pour l'instant.</p>${estAdmin()?importSan():''}</div>`;
+  const tous = essaisSan(), ans = [...new Set(tous.map(e=>e.an).filter(Boolean))].sort();
+  const portee = sanTous ? tous : tous.filter(e=>e.an===+an), f = sanFiltre;
+  const l = portee.filter(e=>(!f.culture || e.cultureN===f.culture) && (!f.res || e.resN===f.res) && (!f.perim || (f.perim==='Externe')===e.externe) && (!f.cible || e.cibleN===f.cible));
+  const n = r => l.filter(e=>e.resN===r).length, conclus = l.filter(e=>['Efficace','Partielle','Inefficace'].includes(e.resN)).length;
+  const pc = x => conclus ? Math.round(100*x/conclus)+' % des essais conclus' : '';
+  const kpis = kpiSegment([{l:'Essais', v:l.length, s:`${new Set(l.map(e=>e.cibleN)).size} cibles · ${new Set(l.map(e=>e.op)).size} OP et partenaires`},
+    {l:'Efficaces', v:n('Efficace'), s:pc(n('Efficace')), c:'ok'}, {l:'Partiellement efficaces', v:n('Partielle'), s:pc(n('Partielle')), c:'part'},
+    {l:'Inefficaces', v:n('Inefficace'), s:pc(n('Inefficace')), c:'non'}, {l:'À conclure', v:n('À conclure')+n('ND')+n('Voir commentaire'), s:'sans évaluation, non déterminé ou à lire en commentaire'},
+    {l:'Externes', v:l.filter(e=>e.externe).length, s:`${l.filter(e=>/non diff/i.test(e.conf)).length} non diffusables`}]);
+  const puces = (cle, valeurs, lib) => `<div class="san-filtre"><span>${lib}</span><button class="chip" data-san-f="${cle}|" aria-pressed="${!f[cle]}">Tous</button>${valeurs.map(v=>`<button class="chip" data-san-f="${cle}|${h(v)}" aria-pressed="${f[cle]===v}">${h(v)} <small>${portee.filter(e=>(cle==='perim' ? (v==='Externe')===e.externe : e[cle+'N']===v)).length}</small></button>`).join('')}</div>`;
+  const cultures = [...new Set(portee.map(e=>e.cultureN))].sort((a,b)=>portee.filter(e=>e.cultureN===b).length-portee.filter(e=>e.cultureN===a).length);
+  const cibles = [...new Set(l.map(e=>e.cibleN))].sort((a,b)=>l.filter(e=>e.cibleN===b).length-l.filter(e=>e.cibleN===a).length || a.localeCompare(b,'fr'));
+  const barre = g => `<span class="san-barre">${RES_SAN.map(r=>{ const x = g.filter(e=>e.resN===r).length; return x ? `<i class="${clsRes(r)}" style="flex:${x}" title="${r} : ${x}"></i>` : ''; }).join('')}</span>`;
+  const carteE = e => `<article class="san-e r-${clsRes(e.resN)}" data-san-nom="${h(normTexte([e.objectif, e.cible, e.cibleN, e.op, e.site, e.prod, e.referent, e.culture, e.com, e.an].join(' ')))}">
+      <header><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span>${/non diff/i.test(e.conf)?'<span class="san-conf">Non diffusable</span>':''}<span class="san-an">${e.an||''}</span></header>
+      <h5>${h(e.objectif)}</h5>
+      <p class="san-meta">${[e.cultureN, e.op, e.site, e.prod].filter(x=>x && x!=='Non précisée').map(h).join(' · ')}</p>
+      ${e.eval && e.eval!==e.resN ? `<p class="san-eval">${h(e.eval)}</p>` : ''}
+      ${e.com ? `<p class="san-com">${h(e.com)}</p>` : ''}
+      <footer><span>${[e.cat, e.externe?'Externe':'Interne', e.referent?'Référent : '+e.referent:''].filter(Boolean).map(h).join(' · ')}</span>
+        ${urlSure(e.crLien) ? `<a class="btn-ouvrir" href="${h(liensDoc(e.crLien).ouvrir||e.crLien)}" target="_blank" rel="noopener" title="${h(e.cr)}">Compte rendu</a>` : e.cr ? `<span class="sans-lien" title="${h(e.cr)}">CR : ${h(e.cr.slice(0,40))}</span>` : ''}</footer>
+    </article>`;
+  const prev = (S.sanitaire.essais.prev||[]);
+  return `<div class="carte">
+    <h3>Essais sanitaires — ${sanTous ? `toutes les années (${ans.join(', ')})` : an}</h3>
+    <div class="sx-tete"><span class="sx-resume">Bilan des essais tenu par la commission (${h(E.fichier)}${estAdmin() && E.importe?`, importé le ${h(E.importe)}`:''}).</span>
+      <span class="sx-sp">${liensDoc(E.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(E.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le bilan Excel</a>`:''}</span></div>
+    <div class="segment san-portee no-print"><button data-san-tous="1" aria-pressed="${sanTous}">Toutes les années</button>${ans.map(a=>`<button data-san-an="${a}" aria-pressed="${!sanTous && +an===a}">${a} <small>${tous.filter(e=>e.an===a).length}</small></button>`).join('')}</div>
+    ${kpis}
+    ${puces('culture', cultures, 'Culture')}${puces('res', RES_SAN.filter(r=>portee.some(e=>e.resN===r)), 'Résultat')}${puces('perim', ['Interne','Externe'], 'Essais')}
+    ${f.cible ? `<p class="es-filtre">Cible : <b>${h(f.cible)}</b> <button class="chip" data-san-f="cible|">Toutes les cibles ✕</button></p>` : ''}
+  </div>
+  <div class="san-duo">
+    <div class="carte"><h3>Résultats par cible</h3>
+      <p class="aide">Une ligne par bioagresseur : nombre d'essais et répartition des résultats (vert efficace, orange partiel, rouge inefficace, gris à conclure). Cliquez pour voir les essais de la cible.</p>
+      <div class="san-cibles">${cibles.map(c=>{ const g = l.filter(e=>e.cibleN===c);
+        return `<button class="san-cible${f.cible===c?' on':''}" data-san-f="cible|${f.cible===c?'':h(c)}" data-san-nom="${h(normTexte(c+' '+g.map(e=>e.objectif+' '+e.cible).join(' ')))}"><b>${h(c)}</b><em>${g.length}</em>${barre(g)}<small>${h([...new Set(g.map(e=>e.cultureN))].join(', '))}</small></button>`; }).join('') || '<p class="aide">Aucun essai pour ces filtres.</p>'}</div>
+      <div class="san-leg">${RES_SAN.map(r=>`<span><i class="${clsRes(r)}"></i>${r}</span>`).join('')}</div></div>
+    <div class="carte"><h3>Où ont lieu les essais</h3><div class="es-carte-fr">${carteSan(l)}</div></div>
+  </div>
+  <div class="carte"><h3>Les essais ${f.cible ? '— '+h(f.cible) : 'par cible'} <span class="zrp-compte">${l.length}</span></h3>
+    ${cibles.map(c=>`<section class="san-groupe" data-san-groupe><h4>${h(c)} <span>${l.filter(e=>e.cibleN===c).length} essai${l.filter(e=>e.cibleN===c).length>1?'s':''}</span></h4>
+      <div class="san-l">${l.filter(e=>e.cibleN===c).sort((a,b)=>RES_SAN.indexOf(a.resN)-RES_SAN.indexOf(b.resN) || (b.an||0)-(a.an||0)).map(carteE).join('')}</div></section>`).join('')}
+  </div>
+  ${prev.length ? `<div class="carte"><h3>Essais en cours — prévisionnel ${prev[0].an||''}</h3>
+    <div class="san-l">${prev.map(e=>carteE({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:'À conclure', externe:/ext/i.test(e.perim)})).join('')}</div></div>` : ''}
+  ${(E.catalogue||[]).length ? `<div class="carte"><h3>Catalogues sanitaires</h3><div class="es-docs-l">${E.catalogue.map(d=>ligneDoc({...d, f:'PDF', dossier:'Support technique'})).join('')}</div></div>` : ''}
+  ${estAdmin() ? importSan() : ''}`;
+}
+function importSan(){
+  return `<details class="carte sx-import no-print"><summary>Importer une nouvelle version du bilan des essais</summary>
+    <p class="aide">Choisissez le fichier « BILAN ESSAIS.xlsx » (onglets « Essais Sanitaires » et « Prévisionnel »). La version précédente reste dans l'historique de la base.</p>
+    <label class="btn">Choisir le fichier et importer<input type="file" accept=".xlsx,.xls" data-san-import hidden></label></details>`;
+}
+/* Lecture du bilan dans le navigateur (même logique que l'import initial) */
+function lireBilanSan(wb){
+  const t_ = x => String(x??'').replace(/\r?\n/g,' ').replace(/\s+/g,' ').trim(), n_ = x => normTexte(t_(x));
+  const EV = e => { const x = n_(e); return !x ? '' : /^inefficace/.test(x) ? 'Inefficace' : /^partiel/.test(x) ? 'Partielle' : /^efficace/.test(x) ? 'Efficace' : /^nd\b/.test(x) ? 'ND' : 'Voir commentaire'; };
+  const feuille = (nom, prev) => { const ws = wb.Sheets[nom]; if(!ws) return []; const r = XLSX.utils.sheet_to_json(ws, {header:1, defval:'', raw:false}); const ent = r[0].map(n_);
+    const col = d => ent.findIndex(e=>e.startsWith(d)), iL = col('lien compte rendu');
+    return r.slice(1).map((l,i)=>{ const obj = t_(l[col('objectif')]); if(!obj) return null; const c = ws[XLSX.utils.encode_cell({r:i+1, c:iL})], cib = c?.l?.Target||'';
+      const lien = /^https?:/i.test(cib) ? cib : (cib.match(/(\/:[a-z]:\/.*)$/i) ? 'https://grouperougeline.sharepoint.com'+cib.match(/(\/:[a-z]:\/.*)$/i)[1] : '');
+      return {id:(prev?'p':'e')+(i+1), conf:prev?'EN COURS':t_(l[col('confidentialite')]), an:+t_(l[col('annee')])||null, perim:t_(l[col('perimetre')]), op:t_(l[col('op')]), culture:t_(l[col('culture')]),
+        objectif:obj, cible:t_(l[col('cible')]), dep:col('departement')>=0?t_(l[col('departement')]):'', site:t_(l[col('site')]).replace(/^\/$/,''), prod:t_(l[col('producteur')]).replace(/^\/$/,''),
+        cat:t_(l[col('categorie')]), referent:t_(l[col('referant')]), eval:t_(l[col('evaluation')]), res:EV(l[col('evaluation')]), cr:t_(l[iL]), crLien:lien, com:t_(l[col('commentaire')])}; }).filter(Boolean); };
+  return {lignes:feuille(wb.SheetNames.find(n=>/essais/i.test(n))||wb.SheetNames[0]), prev:feuille(wb.SheetNames.find(n=>/pr[ée]vision/i.test(n)), true)};
+}
+
+/* --- Partie « Solutions & leviers » (base Coop Protect, positionnement des techniciens) --- */
+function partieLeviers(){
+  const L = S.sanitaire?.leviers; if(!L) return '<div class="carte"><h3>Solutions & leviers</h3><p class="aide">Aucune base importée.</p></div>';
+  const lv = L.lignes||[], eq = L.equip||[];
+  const natures = [...new Set(lv.map(x=>x.levier||'Autre'))].sort((a,b)=>lv.filter(x=>x.levier===b).length-lv.filter(x=>x.levier===a).length);
+  const vis = lv.filter(x=>!levFiltre || (x.levier||'Autre')===levFiltre);
+  const eff = e => { const x = normTexte(e); return /^efficace/.test(x) ? 'ok' : /interm|partiel/.test(x) ? 'part' : /inefficace/.test(x) ? 'non' : 'nd'; };
+  const carteL = x => `<article class="lev" data-san-nom="${h(normTexte(Object.values(x).join(' ')))}">
+    <header><b>${h(x.nom)}</b><span>${h(x.fourn)}</span></header>
+    <div class="lev-tags"><span class="lev-niv">${h(x.levier||x.nature)}</span>${x.statut?`<span class="lev-st">${h(x.statut)}</span>`:''}${/oui/i.test(x.ab)?'<span class="lev-ab">Utilisable en AB</span>':''}
+      <span class="san-res ${eff(x.eff)}">Efficacité : ${h(x.eff||'ND')}</span>${x.maturite?`<span class="lev-mat">${h(x.maturite)}</span>`:''}${x.dispo?`<span class="lev-dispo">${h(x.dispo)}</span>`:''}</div>
+    <p class="lev-cible"><b>Cibles :</b> ${h(x.cibles||'—')}<br><b>Cultures :</b> ${h(x.cultures||'—')}</p>
+    ${x.effCom?`<p class="san-com">${h(x.effCom)}</p>`:''}
+    ${x.coutHa||x.coutApp?`<p class="lev-cout">${h([x.coutApp, x.coutHa].filter(Boolean).join(' · '))}</p>`:''}
+    <details><summary>Détails : composition, mise en place, conditions, références</summary>
+      <dl>${[['Type',x.type],['Composition',x.subst],['Mode d\'action',x.mode],['Positionnement',x.pos],['Stade visé',x.stadeB],['Dose / applications',x.dose],['Intervalle (j)',x.interv],
+        ['Matériel',x.materiel],['Durée',x.duree],['Conditions de réussite',x.reussite],['Conditions d\'échec',x.echec],['Références',x.refs],['Main d\'œuvre',x.mo],['Achat groupé',x.achat],['Source',x.source]]
+        .filter(([,v])=>v).map(([k,v])=>`<dt>${k}</dt><dd>${h(v)}</dd>`).join('')}</dl></details></article>`;
+  const P = L.positionnement, avisCls = v => /\+\+/.test(v) ? 'ok' : /--/.test(v) ? 'non' : /^\/$/.test(v.trim()) ? 'part' : 'txt';
+  return `<div class="carte">
+    <h3>Nouveaux leviers — base Coop Protect</h3>
+    <div class="sx-tete"><span class="sx-resume">Produits et outils repérés pour les essais 2027 : biocontrôle, confusion sexuelle, auxiliaires, équipements… (fichier « ${h(L.fichier||'')} »).</span>
+      <span class="sx-sp">${liensDoc(L.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(L.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la base Excel</a>`:''}</span></div>
+    ${kpiSegment([{l:'Leviers repérés', v:lv.length, s:`${natures.length} familles`}, {l:'Biocontrôle', v:lv.filter(x=>/biocontr/i.test(x.levier)).length},
+      {l:'Efficacité établie', v:lv.filter(x=>eff(x.eff)==='ok').length, s:`${lv.filter(x=>eff(x.eff)==='part').length} intermédiaires`, c:'ok'},
+      {l:'Disponibles dès 2027', v:lv.filter(x=>/2027/.test(x.dispo)).length}, {l:'Utilisables en AB', v:lv.filter(x=>/oui/i.test(x.ab)).length},
+      {l:'Équipements digitaux', v:eq.length, s:'robots, caméras, pièges connectés'}])}
+    <div class="san-filtre"><span>Famille</span><button class="chip" data-lev-f="" aria-pressed="${!levFiltre}">Toutes <small>${lv.length}</small></button>${natures.map(v=>`<button class="chip" data-lev-f="${h(v)}" aria-pressed="${levFiltre===v}">${h(v)} <small>${lv.filter(x=>(x.levier||'Autre')===v).length}</small></button>`).join('')}</div>
+    <div class="lev-l">${vis.map(carteL).join('')}</div>
+  </div>
+  ${eq.length ? `<div class="carte"><h3>Équipements digitaux de détection et de traitement</h3>
+    <div class="tableau"><table class="data lev-eq"><thead><tr><th>Équipement</th><th>Type</th><th>Innovation</th><th>Disponibilité</th><th>Cibles · cultures</th><th>Coût estimé</th><th>Références</th></tr></thead>
+    <tbody>${eq.map(x=>`<tr data-san-nom="${h(normTexte(Object.values(x).join(' ')))}"><td><b>${h(x.nom)}</b><small>${h(x.fourn)}</small></td><td>${h(x.type||x.levier)}</td>
+      <td><span class="lev-innov" title="Niveau ${h(x.innov)} sur 4">${'●'.repeat(+x.innov||0)}${'○'.repeat(Math.max(0,4-(+x.innov||0)))}</span></td><td>${h(x.dispo)}</td>
+      <td>${h(x.cibles)}<small>${h(x.cultures)}</small></td><td class="txt">${h([x.location, x.achatC].filter(Boolean).join(' · ')||'—')}</td><td class="txt">${h([x.refs, x.com].filter(Boolean).join(' · '))}</td></tr>`).join('')}</tbody></table></div></div>` : ''}
+  ${P ? `<div class="carte"><h3>Intérêt des techniciens pour les solutions innovantes — commission du 27/08/2026</h3>
+    <p class="aide"><span class="pos-v ok">++</span> intérêt · <span class="pos-v part">/</span> intérêt intermédiaire · <span class="pos-v non">--</span> pas d'intérêt · texte = remarque du technicien. ${liensDoc(P.lien).ouvrir?`<a href="${h(liensDoc(P.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le fichier</a>`:''}</p>
+    <div class="tableau"><table class="data pos-t"><thead><tr><th>Thème</th><th>Solution</th>${P.techs.map(x=>`<th>${h(x)}</th>`).join('')}</tr></thead>
+    <tbody>${P.lignes.map((x,i)=>`<tr data-san-nom="${h(normTexte(x.theme+' '+x.nature+' '+x.nom))}"><td>${i && P.lignes[i-1].theme===x.theme ? '' : `<b>${h(x.theme)}</b>`}</td><td><b>${h(x.nom)}</b><small>${h(x.nature)}</small></td>
+      ${P.techs.map(tc=>{ const v = x.avis[tc]||''; return `<td>${v?`<span class="pos-v ${avisCls(v)}">${h(v)}</span>`:''}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>
+    ${P.autres?`<p class="aide">Autres pistes citées : ${h(P.autres)}</p>`:''}</div>` : ''}
+  ${(L.coop||[]).length ? `<div class="carte"><h3>Projet Coop Protect (AAP PRAAM) — documents</h3>
+    <p class="aide">Module du projet de financement intégré à la commission sanitaire : feuille de route, dossier de candidature, budget, planification des essais 2027. Les documents restent sur SharePoint.</p>
+    ${[...new Set(L.coop.map(d=>d.dossier))].map(g=>`<details class="es-docs"${g==='Projet'?' open':''}><summary>${g==='Projet'?'Documents principaux':h(g)} <span class="zrp-compte">${L.coop.filter(d=>d.dossier===g).length}</span></summary>
+      <div class="es-docs-l">${L.coop.filter(d=>d.dossier===g).map(d=>ligneDoc({...d, dossier:''})).join('')}</div></details>`).join('')}</div>` : ''}`;
+}
+/* Comptes rendus et protocoles d'essais de l'année (onglet « Calendrier & documents ») */
+function docsSanAn(an){
+  const l = S.sanitaire?.docs?.[an]||[]; if(!l.length) return '';
+  return `<div class="carte"><h3>Comptes rendus et protocoles d'essais ${an} <span class="zrp-compte">${l.length}</span></h3>
+    ${[['cr','Comptes rendus d\'essais'],['protocole','Protocoles et suivis']].map(([k,lib])=>{ const g = l.filter(d=>d.cat===k); return g.length ? `<details class="es-docs" open><summary>${lib} <span class="zrp-compte">${g.length}</span></summary><div class="es-docs-l">${g.map(ligneDoc).join('')}</div></details>` : ''; }).join('')}</div>`;
+}
+
 /* ================= Écouteurs (une seule fois) ================= */
 (function brancherCommissions(){
   const el = document.getElementById('v-commissions');
@@ -5149,6 +5375,10 @@ function resultatsSegmentSite(site, an, seg, l){
     if(ds.cmpTri){ const i = ds.cmpTri.lastIndexOf('|'), cle = ds.cmpTri.slice(0,i), col = ds.cmpTri.slice(i+1), a = cmpTri[cle];
       cmpTri[cle] = {col, sens: a && a.col===col ? -a.sens : 1}; rendre(); return; }
     if(ds.cmpVider){ cmpSel[ds.cmpVider] = []; rendre(); return; }
+    if(ds.sanTous){ sanTous = true; rendre(); return; }
+    if(ds.sanAn){ sanTous = false; anCom = +ds.sanAn; rendre(); return; }
+    if(ds.sanF!==undefined){ const i = ds.sanF.indexOf('|'); sanFiltre[ds.sanF.slice(0,i)] = ds.sanF.slice(i+1); rendre(); return; }
+    if(ds.levF!==undefined){ levFiltre = ds.levF; rendre(); return; }
     if(ds.liFiltre){ filtreListe = ds.liFiltre; rendre(); return; }
     if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
     if(!peutEditer()) return;
@@ -5180,6 +5410,10 @@ function resultatsSegmentSite(site, an, seg, l){
   // recherches immédiates (sans redessiner la page)
   el.addEventListener('input', e=>{
     const t = e.target;
+    if(t.matches('[data-san-rech]')){ const q = normTexte(t.value.trim()); let n = 0;
+      el.querySelectorAll('[data-san-nom]').forEach(x=>{ const ok = !q || x.dataset.sanNom.includes(q); x.hidden = !ok; if(ok && x.matches('.san-e,.lev,tr')) n++; });
+      el.querySelectorAll('[data-san-groupe]').forEach(g=>{ g.hidden = !!q && !g.querySelector('[data-san-nom]:not([hidden])'); });
+      const p = t.closest('.es-rech').querySelector('.san-rech-n'); p.hidden = !q; p.textContent = n ? n+' résultat'+(n>1?'s':'')+' sur cette page' : 'Aucun résultat sur cette page (essayez un autre onglet ou « Toutes les années »).'; return; }
     if(t.matches('[data-ps-rech]')){ const q = normTexte(t.value.trim()); t.closest('.ps-bloc').querySelectorAll('.ps-v').forEach(x=>{ x.hidden = !!q && !x.dataset.nom.includes(q); }); return; }
     if(t.matches('[data-es-rech]')){ const q = normTexte(t.value.trim()), z = t.closest('.es-rech').querySelector('.es-rech-res'); let n = 0;
       z.hidden = !q; z.querySelectorAll('[data-nom]').forEach(b=>{ const ok = !!q && n<30 && b.dataset.nom.includes(q); b.hidden = !ok; if(ok) n++; });
@@ -5226,6 +5460,15 @@ function resultatsSegmentSite(site, an, seg, l){
         anCom = +an; sourceEssai = src; segEssai = ''; essaiSeg = ''; sauver('essais'); rendre();
         toast(`${SOURCES_ESSAIS[src].nom} ${an} importé`);
       }catch(err){ console.error(err); toast('Fichier illisible'); }
+      return; }
+    if(t.matches('[data-san-import]') && t.files[0]){
+      if(!window.XLSX){ toast('Module Excel non chargé'); return; }
+      try{ const b = lireBilanSan(XLSX.read(await t.files[0].arrayBuffer(), {type:'array'}));
+        if(!b.lignes.length){ toast('Aucun essai trouvé dans le fichier'); return; }
+        S.sanitaire ||= {}; const av = S.sanitaire.essais || {};
+        S.sanitaire.essais = {...av, ...b, fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''};
+        sauver('sanitaire'); rendre(); toast(b.lignes.length+' essais importés'); }
+      catch(err){ console.error(err); toast('Fichier illisible'); }
       return; }
     if(t.matches('[data-prix-import]') && t.files[0]){
       if(!window.XLSX){ toast('Module Excel non chargé'); return; }
