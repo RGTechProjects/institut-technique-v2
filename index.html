@@ -1371,7 +1371,7 @@ button.sx-dev-v:hover{background:#FCF8F3} button.sx-dev-v.ouverte{background:var
 .com-annee .annees button{display:flex; flex-direction:column; align-items:center; gap:2px; padding:3px 4px; border-radius:6px}
 .com-annee .annees button.on{background:var(--titre-fond,#F6EDEE)}
 .com-annee .pts{display:flex; gap:2px; height:6px} .com-annee .pts b, .pts-leg b{display:inline-block; width:6px; height:6px; border-radius:50%}
-.pt-essais{background:#7A1F2B} .pt-prix{background:#2E7D4F} .pt-rdv{background:#C9A04A} .pt-cadres{background:#3B5BA9}
+.pt-essais{background:var(--marque)} .pt-prix{background:#2E7D4F} .pt-rdv{background:#C9A04A} .pt-cadres{background:#3B5BA9}
 .pts-leg{display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:6px; font-size:11px; color:var(--ardoise)} .pts-leg span{display:inline-flex; align-items:center; gap:5px}
 .com-parties{margin:0 0 14px}
 .lien-fiche{border:0; background:none; padding:0; font:inherit; font-weight:700; color:var(--marque); cursor:pointer; text-align:left; text-decoration:underline; text-decoration-color:rgba(122,31,43,.25); text-underline-offset:3px}
@@ -1386,21 +1386,21 @@ button.sx-dev-v:hover{background:#FCF8F3} button.sx-dev-v.ouverte{background:var
 .carte-essais .ce-reg.rg{fill:#FBF7EF; stroke:#CDBFA6}
 .carte-essais .ce-fil{fill:none; stroke:#9C8F7B; stroke-width:.45; stroke-dasharray:1.4 1.2}
 .carte-essais .ce-eti rect{fill:#fff; stroke:#E2D8C8; stroke-width:.5; filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.08))}
-.carte-essais .ce-eti.site rect{stroke:#7A1F2B; stroke-width:.7}
+.carte-essais .ce-eti.site rect{stroke:var(--marque); stroke-width:.7}
 .carte-essais .ce-eti.vide{opacity:.55}
-.carte-essais .ce-t1{font-family:'Archivo'; font-size:6.4px; font-weight:700; fill:#7A1F2B}
+.carte-essais .ce-t1{font-family:'Archivo'; font-size:6.4px; font-weight:700; fill:var(--marque)}
 .carte-essais .ce-t2{font-size:5.3px; fill:#4C5A53}
 .carte-essais [data-es-src], .carte-essais [data-es-op]{cursor:pointer}
-.carte-essais .ce-eti:hover rect{stroke:#7A1F2B; stroke-width:.9}
+.carte-essais .ce-eti:hover rect{stroke:var(--marque); stroke-width:.9}
 .carte-essais .ce-op .pt{fill:#2E7D4F; stroke:#fff; stroke-width:.8} .carte-essais .ce-op .halo{fill:#2E7D4F; opacity:.18}
 .carte-essais .ce-op.vide .pt{fill:#B9C2BC} .carte-essais .ce-op.vide .halo{opacity:0}
 .carte-essais .ce-n{font-family:'IBM Plex Mono'; font-size:5px; font-weight:700; fill:#fff; text-anchor:middle}
-.carte-essais .ce-site .pt{fill:#7A1F2B; stroke:#fff; stroke-width:.8} .carte-essais .ce-site .halo{fill:#7A1F2B; opacity:.18}
+.carte-essais .ce-site .pt{fill:var(--marque); stroke:#fff; stroke-width:.8} .carte-essais .ce-site .halo{fill:var(--marque); opacity:.18}
 .carte-essais .ce-site.on .halo{opacity:.4} .carte-essais .ce-site.vide .pt{fill:#C9AEB2}
 .carte-essais .ce-op:hover .halo, .carte-essais .ce-site:hover .halo{opacity:.45}
 .ce-leg{display:flex; flex-wrap:wrap; gap:4px 16px; padding:8px 12px; font-size:11.5px; color:var(--ardoise); background:#fff; border-top:1px solid var(--ligne)}
 .ce-leg span{display:inline-flex; align-items:center; gap:6px} .ce-leg i{display:inline-block; width:10px; height:10px}
-.ce-leg .l-site{background:#7A1F2B; transform:rotate(45deg); width:8px; height:8px} .ce-leg .l-op{background:#2E7D4F; border-radius:50%}
+.ce-leg .l-site{background:var(--marque); transform:rotate(45deg); width:8px; height:8px} .ce-leg .l-op{background:#2E7D4F; border-radius:50%}
 .es-srcs{display:flex; flex-direction:column; gap:8px}
 .es-src{display:grid; gap:2px; text-align:left; border:1px solid var(--ligne); border-left:5px solid var(--marque); border-radius:10px; background:#fff; padding:9px 12px; cursor:pointer; font:inherit}
 .es-src b{font-family:'Archivo'; font-size:14.5px; color:var(--marque)} .es-src span{font-size:11.5px; color:var(--ardoise)} .es-src em{font-style:normal; font-size:12px; color:var(--encre-2)}
@@ -1657,6 +1657,35 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 .san-lieu-kpi{display:flex; gap:10px; flex-wrap:wrap; font-size:12px} .san-lieu-kpi b{font-family:'Archivo'; font-size:16px}
 .san-lieu-kpi .ok b{color:#2E7D4F} .san-lieu-kpi .part b{color:#D08A12} .san-lieu-kpi .non b{color:#C4453C}
 .san-lieu-fiche p{margin:0; flex:1 1 260px; font-size:12px; color:var(--encre-2)} .san-lieu-aide{margin:0; padding:6px 12px; background:#fff; border-top:1px solid var(--ligne)}
+/* ================= Commissions : palette calme =================
+   Demande du 10/11 : « trop chargé et trop rouge, des couleurs qui rendent la lecture très simple ».
+   Dans Commissions, la couleur de structure devient un vert profond, les fonds de titres un gris-vert très clair,
+   les bordures de couleur sont retirées. Le rouge ne sert plus qu'à dire quelque chose : inefficace, arrêt, confidentiel. */
+#v-commissions{--marque:#1F5F4A; --marque-fonce:#174A3A; --marque-nuit:#0E3328; --marque-clair:#EDF4F0; --titre:#1F5F4A; --titre-fond:#F1F5F2;
+  --acc:#1F5F4A; --acc-fond:#EDF4F0; --c-cvto:#1F5F4A; --c-cvfr:#1F5F4A; --c-csan:#1F5F4A; --c-cagt:#1F5F4A; --or:#B9C9BF}
+#v-commissions[data-com]{--cc:#1F5F4A}
+#v-commissions .eyebrow{color:#5E6E67}
+#v-commissions .entete h2{color:var(--encre)}
+/* choix de la commission : onglets sobres, un seul plein */
+#v-commissions .onglets-com .chip[data-com]{--cc:#1F5F4A; border-width:1px; border-color:var(--ligne); color:var(--encre-2); background:#fff; font-weight:600; padding:8px 16px; font-size:13.5px}
+#v-commissions .onglets-com .chip[data-com]:hover{border-color:var(--marque); color:var(--marque)}
+#v-commissions .onglets-com .chip[data-com][aria-pressed="true"]{background:var(--marque); border-color:var(--marque); color:#fff}
+/* cartes : plus de liseré de couleur en haut, titres nets sur fond blanc */
+#v-commissions .carte{border-top:1px solid var(--ligne); box-shadow:0 1px 3px rgba(22,33,29,.04)}
+#v-commissions .carte > h3{color:var(--encre); font-size:17px}
+#v-commissions .carte > h3::before{background:var(--marque)}
+#v-commissions .aide{color:#5E6E67}
+/* chiffres clés : un trait fin, la couleur seulement quand elle a un sens */
+#v-commissions .es-kpis div{border-top:1px solid var(--ligne)}
+/* recherche : contour fin */
+#v-commissions .es-rech input{border-width:1px; border-color:#C9D6CE} #v-commissions .es-rech input:focus{border-color:var(--marque); box-shadow:0 0 0 3px rgba(31,95,74,.12); outline:none}
+/* rappel du calendrier : fond neutre */
+#v-commissions .cal-rappel{background:#fff; border-color:var(--ligne); border-left-color:var(--marque)}
+/* boutons « ouvrir » et liens */
+#v-commissions .btn-ouvrir{background:#fff; color:var(--marque); border:1px solid #C9D6CE} #v-commissions .btn-ouvrir:hover{background:var(--marque-clair); border-color:var(--marque)}
+#v-commissions a{color:var(--marque)}
+/* essais sanitaires : ombre de survol neutre */
+#v-commissions .san-e[data-san-essai]:hover, #v-commissions .san-e[data-san-essai]:focus-visible{box-shadow:0 4px 14px rgba(22,33,29,.12)}
 </style>
 </head>
 <body>
