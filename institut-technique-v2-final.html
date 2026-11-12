@@ -1812,6 +1812,12 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 /* tableaux des commissions : défilement dans le cadre plutôt que coupés, cellules qui se replient sur téléphone */
 #v-commissions .tableau{overflow-x:auto; -webkit-overflow-scrolling:touch}
 @media(max-width:700px){ #v-commissions .tableau table.data{min-width:0} #v-commissions .tableau td, #v-commissions .tableau th{white-space:normal; padding:6px 8px; font-size:12px} }
+.at-essais{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:12px; margin-top:8px}
+.at-es{display:flex; flex-direction:column; gap:6px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:12px; padding:12px 14px; background:#fff}
+.at-es[data-outil]{cursor:pointer} .at-es[data-outil]:hover{box-shadow:0 6px 16px rgba(22,33,29,.12)} .at-es header{display:flex; justify-content:space-between; gap:8px; align-items:center} .at-es header b{font-size:15px}
+.at-es.r-ok{border-left-color:#2E7D4F} .at-es.r-part{border-left-color:#D08A12} .at-es.r-non{border-left-color:#C4453C} .at-es.r-info{border-left-color:#5B7FC4}
+.at-stat.bil-ok{border-color:#9FD2B3; background:#F2FAF5} .at-stat.bil-part{border-color:#EBC97A; background:#FFF9EA} .at-stat.bil-non{border-color:#EDA7A1; background:#FEF5F4} .at-stat.bil-info{border-color:#B9C9E8; background:#F3F7FD} .at-stats .at-stat{cursor:default}
+.as-table th{background:#EAF6EF; color:#17594A; border-bottom-color:#1F6F52}
 </style>
 </head>
 <body>
@@ -1872,7 +1878,7 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 <button id="btnAssistant" class="assistant-btn no-print" aria-expanded="false" aria-controls="panneauAssistant" aria-label="Poser une question au robot de l'Institut"><span class="as-bulle"><b id="asBulleT">Bonjour 👋</b><span id="asBulleS">Je suis le robot de l'Institut. Une question ?</span></span><span class="robot"><svg class="robot-svg" viewBox="0 0 80 96" aria-hidden="true"><ellipse class="robot-ombre" cx="40" cy="92" rx="20" ry="3.5" fill="#16211D" opacity=".16"/><line x1="40" y1="14" x2="40" y2="6" stroke="#1F6F52" stroke-width="3" stroke-linecap="round"/><circle class="robot-antenne" cx="40" cy="5" r="4.5" fill="#F2B33D"/><g class="robot-bras-g"><rect x="9" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="13.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><g class="robot-bras"><rect x="62" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="66.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><rect x="20" y="54" width="40" height="34" rx="12" fill="#2E8B6A"/><rect x="27" y="61" width="26" height="14" rx="7" fill="#EAF6EF"/><circle class="robot-coeur" cx="40" cy="68" r="3.6" fill="#F2B33D"/><rect x="7" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="66" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="12" y="13" width="56" height="42" rx="16" fill="#FFFFFF" stroke="#1F6F52" stroke-width="3"/><rect x="19" y="21" width="42" height="21" rx="10.5" fill="#143E31"/><g class="robot-yeux"><ellipse class="robot-oeil" cx="31" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/><ellipse class="robot-oeil" cx="49" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/></g><path d="M33 47 Q40 52 47 47" fill="none" stroke="#1F6F52" stroke-width="2.6" stroke-linecap="round"/><circle cx="20.5" cy="46" r="2.6" fill="#F7C9A8"/><circle cx="59.5" cy="46" r="2.6" fill="#F7C9A8"/></svg></span></button>
 <aside id="panneauAssistant" class="assistant-panneau no-print" hidden aria-label="Assistant de l'Institut">
   <div class="assistant-tete">
-    <span class="robot petit"><svg class="robot-svg" viewBox="0 0 80 96" aria-hidden="true"><ellipse class="robot-ombre" cx="40" cy="92" rx="20" ry="3.5" fill="#16211D" opacity=".16"/><line x1="40" y1="14" x2="40" y2="6" stroke="#1F6F52" stroke-width="3" stroke-linecap="round"/><circle class="robot-antenne" cx="40" cy="5" r="4.5" fill="#F2B33D"/><g class="robot-bras-g"><rect x="9" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="13.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><g class="robot-bras"><rect x="62" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="66.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><rect x="20" y="54" width="40" height="34" rx="12" fill="#2E8B6A"/><rect x="27" y="61" width="26" height="14" rx="7" fill="#EAF6EF"/><circle class="robot-coeur" cx="40" cy="68" r="3.6" fill="#F2B33D"/><rect x="7" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="66" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="12" y="13" width="56" height="42" rx="16" fill="#FFFFFF" stroke="#1F6F52" stroke-width="3"/><rect x="19" y="21" width="42" height="21" rx="10.5" fill="#143E31"/><g class="robot-yeux"><ellipse class="robot-oeil" cx="31" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/><ellipse class="robot-oeil" cx="49" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/></g><path d="M33 47 Q40 52 47 47" fill="none" stroke="#1F6F52" stroke-width="2.6" stroke-linecap="round"/><circle cx="20.5" cy="46" r="2.6" fill="#F7C9A8"/><circle cx="59.5" cy="46" r="2.6" fill="#F7C9A8"/></svg></span><div><b>Le robot de l'Institut</b><small>Je cherche dans toute l'app et je résume, avec les sources</small></div>
+    <span class="robot petit"><svg class="robot-svg" viewBox="0 0 80 96" aria-hidden="true"><ellipse class="robot-ombre" cx="40" cy="92" rx="20" ry="3.5" fill="#16211D" opacity=".16"/><line x1="40" y1="14" x2="40" y2="6" stroke="#1F6F52" stroke-width="3" stroke-linecap="round"/><circle class="robot-antenne" cx="40" cy="5" r="4.5" fill="#F2B33D"/><g class="robot-bras-g"><rect x="9" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="13.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><g class="robot-bras"><rect x="62" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="66.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><rect x="20" y="54" width="40" height="34" rx="12" fill="#2E8B6A"/><rect x="27" y="61" width="26" height="14" rx="7" fill="#EAF6EF"/><circle class="robot-coeur" cx="40" cy="68" r="3.6" fill="#F2B33D"/><rect x="7" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="66" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="12" y="13" width="56" height="42" rx="16" fill="#FFFFFF" stroke="#1F6F52" stroke-width="3"/><rect x="19" y="21" width="42" height="21" rx="10.5" fill="#143E31"/><g class="robot-yeux"><ellipse class="robot-oeil" cx="31" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/><ellipse class="robot-oeil" cx="49" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/></g><path d="M33 47 Q40 52 47 47" fill="none" stroke="#1F6F52" stroke-width="2.6" stroke-linecap="round"/><circle cx="20.5" cy="46" r="2.6" fill="#F7C9A8"/><circle cx="59.5" cy="46" r="2.6" fill="#F7C9A8"/></svg></span><div><b>Le robot de l'Institut</b><small>Je comprends vos phrases, je cherche et je résume, avec les sources</small></div>
     <button data-voix aria-pressed="false" title="Lire les réponses à voix haute" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5zM15 8.2a1 1 0 0 1 1.4.1 5.6 5.6 0 0 1 0 7.4 1 1 0 1 1-1.5-1.3 3.6 3.6 0 0 0 0-4.8 1 1 0 0 1 .1-1.4z" fill="currentColor"/></svg></button>
     <button data-vider title="Nouvelle conversation">↺</button>
     <button data-fermer aria-label="Fermer">×</button>
@@ -1883,7 +1889,7 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
     <textarea id="questionAssistant" rows="2" placeholder="Posez votre question… (Entrée pour envoyer)"></textarea>
     <button class="btn" type="submit">Envoyer</button>
   </form>
-  <p class="assistant-note">Recherche dans les données de l'app, sans IA : les réponses reprennent les textes existants. <span id="noteVoix" hidden>La dictée utilise la reconnaissance vocale de votre navigateur.</span></p>
+  <p class="assistant-note">Sans IA payante : je comprends vos phrases et je cherche dans les données de l'app, sans rien inventer. <span id="noteVoix" hidden>La dictée utilise la reconnaissance vocale de votre navigateur.</span></p>
 </aside>
 </div><!-- FIN appPage -->
 
@@ -5693,14 +5699,31 @@ const docsParCat = docs => { const cats = [...new Set(docs.map(d=>d.cat||'Docume
 /* ---------------- Agro-Tech Innovation : veille technologique ---------------- */
 const STATUT_AT = {actif:['Projet actif','ok'], essai:['Essai en cours','part'], contacte:['Contacté','info'], repere:['Fiche seule','info'], acontacter:['À contacter','nd'], abandon:['Pas d\'intérêt','non']};
 const ORDRE_AT = ['actif','essai','contacte','repere','acontacter','abandon'];
-const RETOUR_AT = {'Positive':'ok', 'En attente':'part', 'Négatif':'non'};
+const RETOUR_AT = {'Positive':'ok', 'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'En attente':'part', 'En cours':'info', 'Pas concluant':'non', 'Négatif':'non'};
+const okRet = o => o.retour && o.retour!=="Pas d'essai";
+const RES_ESSAI = {'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'Pas concluant':'non', 'Négatif':'non', 'En cours':'info'};
+/* L'essai de l'année correspondant à un outil (nom de l'entreprise : premier mot, « Airsprid » = « Aisprid ») */
+const premierMot = s => normTexte(s).replace(/^airsprid/,'aisprid').split(/[^a-z0-9]+/)[0];
+const essaiDe = o => (S.agrotech?.essais?.lignes||[]).find(l=>premierMot(l.entreprise)===premierMot(o.nom));
+const outilDeEssai = l => (S.agrotech?.outils||[]).find(o=>premierMot(o.nom)===premierMot(l.entreprise));
+function suiviEssais(A){
+  const E = A.essais; if(!E?.lignes?.length) return '';
+  return `<div class="carte"><h3>Suivi des essais ${h(E.annee)} — résultats des tests terrain</h3>
+    <p class="aide">Ce que les sites pilotes ont mesuré. Cliquez sur un essai pour ouvrir la fiche de l'outil. Les tarifs ne sont pas repris.</p>
+    <div class="at-stats">${E.bilan.filter(x=>x[1]).map(([l,n])=>`<div class="at-stat bil-${RES_ESSAI[l]||'nd'}"><b>${n}</b><span>${h(l)}</span></div>`).join('')}</div>
+    <div class="at-essais">${E.lignes.map(l=>{ const o = outilDeEssai(l), c = RES_ESSAI[l.resultat]||'nd';
+      return `<article class="at-es r-${c}"${o?` data-outil="${h(o.id)}" tabindex="0" role="button"`:''}><header><b>${h(l.entreprise)}</b><span class="at-st ${c}">${h(l.resultat)}</span></header>
+        <p class="at-meta">${[l.tech, l.sites, l.nb?l.nb+' unité'+(+l.nb>1?'s':''):'', l.debut?l.debut+(l.fin?' → '+l.fin:' → en cours'):''].filter(Boolean).map(h).join(' · ')}</p>
+        <p class="at-desc">${h(l.conclusion)}</p>${o?'<span class="at-plus">Fiche de l\'outil ›</span>':''}</article>`; }).join('')}</div>
+    ${(E.legende||[]).length?`<p class="aide">${E.legende.map(x=>`<b>${h(x[0])}</b> : ${h(x[1])}`).join(' · ')}</p>`:''}</div>`;
+}
 const badgeAt = s => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>`;
 const badgeDvAt = dv => dv ? `<span class="sx-dv ${dv==='DV3'?'d3':dv==='DV2'?'d2':'d1'}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
 const carteOutil = o => `<article class="at-c st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button" aria-label="Fiche de ${h(o.nom)}">
   <header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
   <p class="at-meta">${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
   <p class="at-desc">${h(coupeTxt(o.desc || o.detail || 'Pas encore de fiche pour cet outil.', 160))}</p>
-  <footer>${o.retour?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
+  <footer>${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
 function partieVeille(){
   const A = S.agrotech; if(!A?.outils?.length) return aucunImport('Veille technologique');
   const f = veilleFiltre, all = A.outils, cpt = k => all.reduce((o,x)=>(o[x[k]]=(o[x[k]]||0)+1,o),{}), cs = cpt('statut'), cc = cpt('cat');
@@ -5727,11 +5750,12 @@ function vueFicheOutil(id){
   return `<div class="fv-voile" data-fiche-fermer></div>
   <aside class="fv-panneau sf-panneau" role="dialog" aria-modal="true" aria-label="Fiche de ${h(o.nom)}" tabindex="-1">
     <header class="fv-tete"><div><div class="eyebrow">Fiche de l'outil · veille technologique</div><h3>${h(o.nom)}</h3><p>${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
-      <div class="sx-fiche-badges">${badgeAt(o.statut)}${badgeDvAt(o.dv)}${o.retour?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
+      <div class="sx-fiche-badges">${badgeAt(o.statut)}${badgeDvAt(o.dv)}${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
     ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
     ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
     ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${h(v)}</dd>`).join('')}</dl>` : ''))}
+    ${essaiDe(o) ? sec('Résultat de l\'essai '+h(S.agrotech.essais.annee), `<p><span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}">${h(essaiDe(o).resultat)}</span> ${h([essaiDe(o).tech, essaiDe(o).sites, essaiDe(o).debut?essaiDe(o).debut+(essaiDe(o).fin?' → '+essaiDe(o).fin:' → en cours'):''].filter(Boolean).join(' · '))}</p><p class="sf-txt">${h(essaiDe(o).conclusion)}</p>`) : ''}
     ${sec('Limites et points de vigilance', o.limites ? `<p class="sf-txt">${h(o.limites)}</p>` : '')}
     ${sec('Contact', (o.contact ? `<p>${o.contact.split(' ; ').filter(Boolean).map(m=>/@/.test(m) ? `<a href="mailto:${h(m.trim())}">${h(m.trim())}</a>` : h(m)).join(' · ')}</p>` : '') + (web ? `<p><a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : ''))}
     ${sec(`Documents <span class="chip">${o.docs.length}</span>`, o.docs.length ? listeDocs(o.docs.map(d=>({...d, cat:''}))) + (o.dossier && liensDoc(o.dossier).ouvrir ? `<p><a class="btn-ouvrir" href="${h(liensDoc(o.dossier).ouvrir)}" target="_blank" rel="noopener">Ouvrir le dossier SharePoint</a></p>` : '') : '')}
@@ -5745,12 +5769,12 @@ function partiePilotes(){
   const pil = A.outils.filter(o=>['actif','essai'].includes(o.statut)).sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut) || a.nom.localeCompare(b.nom,'fr'));
   const nbSites = new Set(pil.flatMap(o=>o.sites.map(s=>s.replace(/\s*\(.*$/,'').toLowerCase()))).size;
   const th = [...new Set((A.projets||[]).map(p=>p.theme))];
-  return `<div class="carte"><h3>Projets pilotes en cours — ${pil.length} outils</h3>
-    ${kpiSegment([{l:'Projets actifs', v:pil.filter(o=>o.statut==='actif').length, c:'ok'}, {l:'Essais en cours', v:pil.filter(o=>o.statut==='essai').length, c:'part'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>o.retour==='Positive').length, s:`${pil.filter(o=>o.retour==='En attente').length} en attente`, c:'ok'}])}
+  return suiviEssais(A) + `<div class="carte"><h3>Projets pilotes en cours — ${pil.length} outils</h3>
+    ${kpiSegment([{l:'Projets actifs', v:pil.filter(o=>o.statut==='actif').length, c:'ok'}, {l:'Essais en cours', v:pil.filter(o=>o.statut==='essai').length, c:'part'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>/^positi/i.test(o.retour)).length, s:`${pil.filter(o=>o.retour==='En cours').length} en cours · ${pil.filter(o=>o.retour==='Moyen').length} moyens`, c:'ok'}])}
     <p class="aide">Les outils lancés sur un site pilote ou en phase d'essai. Chaque pilote suit le protocole de la commission (voir « Méthode & décisions »).</p>
     <div class="at-pil">${pil.map(o=>`<article class="at-p st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button"><header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}<h5>${h(o.nom)}</h5></header>
       <p class="at-meta">${[o.type||o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p><p class="at-desc">${h(coupeTxt(o.desc, 210))}</p>
-      <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Retour producteurs</dt><dd><span class="at-ret ${RETOUR_AT[o.retour]||''}">${h(o.retour||'non renseigné')}</span></dd>${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
+      <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Retour producteurs</dt><dd><span class="at-ret ${RETOUR_AT[o.retour]||''}">${h(o.retour||'non renseigné')}</span></dd>${essaiDe(o)?`<dt>Essai ${h(S.agrotech.essais.annee)}</dt><dd>${h(coupeTxt(essaiDe(o).conclusion, 150))}</dd>`:''}${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
       <span class="at-plus">Ouvrir la fiche ›</span></article>`).join('')}</div></div>
   <div class="carte"><h3>Projets et études du dossier « Serre du futur » <span class="zrp-compte">${(A.projets||[]).length}</span></h3>
     <p class="aide">Essais, projets des OP, Ecoserre, études internes et projets de filière. Les documents restent sur SharePoint.</p>
@@ -5892,6 +5916,8 @@ function resultatsRecherche(com, q){
     const A = S.agrotech, os = (A?.outils||[]).filter(o=>trouveMots(mots, o.nom, o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet))
       .sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut));
     g('Outils de la veille technologique', os.length, `<div class="rech-l">${os.slice(0,10).map(o=>`<article class="rech-e" data-outil="${h(o.id)}" tabindex="0">${badgeAt(o.statut)}<div><h5>${h(o.nom)} <small>${badgeDvAt(o.dv)}</small></h5><p>${h(coupeTxt(o.desc||o.detail||'', 200))}</p>${o.limites?`<p><b>Limites :</b> ${h(coupeTxt(o.limites, 120))}</p>`:''}<small>${[o.cat, o.pays, o.sites.length?'sites : '+o.sites.join(', '):'', o.retour?'producteurs : '+o.retour.toLowerCase():'', o.contact?'contact : '+o.contact.split(' ; ')[0]:''].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-outil="${h(o.id)}">Fiche ›</button></article>`).join('')}</div>${os.length>10?`<p class="aide">… et ${os.length-10} autres : affinez la recherche.</p>`:''}`);
+    const es = (A?.essais?.lignes||[]).filter(l=>trouveMots(mots, l.entreprise, l.cat, l.tech, l.sites, l.resultat, l.conclusion));
+    g('Résultats des essais '+(A?.essais?.annee||''), es.length, `<div class="rech-l">${es.map(l=>{ const o = outilDeEssai(l); return `<article class="rech-e r-${RES_ESSAI[l.resultat]||'nd'}"${o?` data-outil="${h(o.id)}"`:''} tabindex="0"><span class="at-st ${RES_ESSAI[l.resultat]||'nd'}">${h(l.resultat)}</span><div><h5>${h(l.entreprise)} <small>— ${h(l.tech)}</small></h5><p>${h(coupeTxt(l.conclusion, 240))}</p><small>${[l.sites, l.nb?l.nb+' unité(s)':'', l.debut].filter(Boolean).map(h).join(' · ')}</small></div>${o?`<button class="chip" data-outil="${h(o.id)}">Fiche ›</button>`:''}</article>`; }).join('')}</div>`);
     const pj = (A?.projets||[]).filter(p=>trouveMots(mots, p.titre, p.desc, p.theme));
     g('Projets et études', pj.length, `<div class="rech-l">${pj.map(p=>`<article class="rech-e" data-com-partie="pilotes" tabindex="0"><span class="san-res">${h(p.theme)}</span><div><h5>${h(p.titre)}</h5><p>${h(coupeTxt(p.desc, 200))}</p><small>${p.docs.length} documents</small></div><button class="chip" data-com-partie="pilotes">Voir ›</button></article>`).join('')}</div>`);
     const bn = (A?.binomes||[]).filter(b=>trouveMots(mots, b.op, b.tech, b.prod));
@@ -6145,13 +6171,7 @@ function vueAnnuaire(){
 // L'assistant cherche dans les données déjà chargées dans l'app et assemble une synthèse à partir des textes existants.
 // Aucune donnée ne sort de l'app, aucun service payant. Pour brancher une IA plus tard (Copilot, fonction Supabase
 // « assistant »), remplacer reponseAssistant() par un appel au service : le reste de l'interface ne change pas.
-const SUGGESTIONS = [
-  'Quelles solutions contre les pucerons en fraise ?',
-  'Qu\'est-ce qui a été testé contre l\'acariose bronzée ?',
-  'Quel est le prix des graines de Climundo ?',
-  'Qui contacter sur les nématodes ?',
-  'Qui sont les référents de l\'enjeu Eau et Climat ?'
-];
+const SUGGESTIONS = ['Quelle solution marche contre les pucerons en fraise ?', 'Où en est le test du robot IUNU ?', 'Que pense la commission de la variété Meggy ?', 'Compare IUNU et Source.ag', 'Qui contacter pour les nématodes ?', 'Quand est la prochaine commission sanitaire ?'];
 let conversation = [], enAttente = false;
 const ROBOT_SVG = '<svg class="robot-svg" viewBox="0 0 80 96" aria-hidden="true"><ellipse class="robot-ombre" cx="40" cy="92" rx="20" ry="3.5" fill="#16211D" opacity=".16"/><line x1="40" y1="14" x2="40" y2="6" stroke="#1F6F52" stroke-width="3" stroke-linecap="round"/><circle class="robot-antenne" cx="40" cy="5" r="4.5" fill="#F2B33D"/><g class="robot-bras-g"><rect x="9" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="13.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><g class="robot-bras"><rect x="62" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="66.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><rect x="20" y="54" width="40" height="34" rx="12" fill="#2E8B6A"/><rect x="27" y="61" width="26" height="14" rx="7" fill="#EAF6EF"/><circle class="robot-coeur" cx="40" cy="68" r="3.6" fill="#F2B33D"/><rect x="7" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="66" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="12" y="13" width="56" height="42" rx="16" fill="#FFFFFF" stroke="#1F6F52" stroke-width="3"/><rect x="19" y="21" width="42" height="21" rx="10.5" fill="#143E31"/><g class="robot-yeux"><ellipse class="robot-oeil" cx="31" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/><ellipse class="robot-oeil" cx="49" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/></g><path d="M33 47 Q40 52 47 47" fill="none" stroke="#1F6F52" stroke-width="2.6" stroke-linecap="round"/><circle cx="20.5" cy="46" r="2.6" fill="#F7C9A8"/><circle cx="59.5" cy="46" r="2.6" fill="#F7C9A8"/></svg>';
 const MICRO_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 0 0-7 0v5A3.5 3.5 0 0 0 12 15zm6-3.5a1 1 0 0 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-2 0 6 6 0 0 0 5 5.9V20H8.5a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H13v-2.6a6 6 0 0 0 5-5.9z" fill="currentColor"/></svg>';
@@ -6212,13 +6232,6 @@ const SYNONYMES = {cyrto:['cyrtopeltis','nesidiocoris','tenuis'], cyrtopeltis:['
   mildiou:['mildiou'], drosophile:['suzukii'], chancre:['clavibacter','corynebacterium'], biocontrole:['biocontrole'], climat:['climat'], eau:['eau']};
 const MOTS_PRIX = new Set('prix tarif tarifs cout couts coute coutent couter combien cher chers chere cheres euro euros graine graines'.split(' '));
 const racineMot = m => m.length>4 ? m.replace(/(es|s|x)$/,'') : m;
-function motsQuestion(q){
-  const bruts = normTexte(q).split(/[^a-z0-9]+/).filter(m=>m.length>1 && !MOTS_VIDES_AS.has(m));
-  const contact = bruts.some(m=>MOTS_CONTACT.has(m)) || /\bqui\b/.test(normTexte(q));
-  const prix = bruts.some(m=>MOTS_PRIX.has(m)) || /€/.test(q);
-  const mots = [...new Set(bruts.filter(m=>!MOTS_CONTACT.has(m) && !MOTS_PRIX.has(m)))].map(m=>({m, variantes:[...new Set([racineMot(m), ...(SYNONYMES[m]||SYNONYMES[racineMot(m)]||[])])]}));
-  return {mots, contact, prix, tri:/moins cher|plus bas|economique|meilleur prix/.test(normTexte(q)) ? 1 : /plus cher|plus eleve|plus haut/.test(normTexte(q)) ? -1 : 0};
-}
 /* Tout ce que l'app sait, mis à plat : {type, titre, texte, ...}. Reconstruit à chaque question (données en mémoire). */
 function indexAssistant(){
   const l = [], N = x => ' '+normTexte(Array.isArray(x) ? x.filter(Boolean).join(' ') : x).replace(/[^a-z0-9]+/g,' ')+' ';
@@ -6232,9 +6245,10 @@ function indexAssistant(){
   (S.sanitaire?.leviers?.equip||[]).forEach(x=>aj('levier', x.nom, [x.fourn, x.type, x.levier, x.cibles, x.cultures, x.refs, x.com], {x, equip:true}));
   // variétés (commission variétale tomates)
   try{ Object.entries(indexGlobal()).forEach(([k,v])=>aj('variete', v.nom, [v.seg, v.sem], {k, v})); }catch(_){}
-  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom, [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet], {o}));
-  (S.fraise?.synthese?.varietes||[]).forEach(v=>aj('fvar', v.nom, [v.profil, v.temoin, v.statut, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire], {v}));
-  (S.fraise?.propositions?.lignes||[]).forEach(p=>aj('fprop', p.nom, [p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos], {p}));
+  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom, [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet, essaiDe(o) ? [essaiDe(o).tech, essaiDe(o).resultat, essaiDe(o).conclusion] : ''], {o, nt2:N([o.type, o.cat, (o.desc||'').slice(0,110)])}));
+  (S.agrotech?.projets||[]).forEach(p=>aj('projet', p.titre, [p.theme, p.desc, p.docs.map(d=>d.t)], {p, nt2:N([p.theme, 'projet etude'])}));
+  (S.fraise?.synthese?.varietes||[]).forEach(v=>aj('fvar', v.nom, ['fraise fraises variete', v.profil, v.temoin, v.statut, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire], {v}));
+  (S.fraise?.propositions?.lignes||[]).forEach(p=>aj('fprop', p.nom, ['fraise fraises variete proposition', p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos], {p}));
   // prix des graines (catalogue le plus récent d'abord) : une ligne par variété et une par segment
   anneesPrix().slice().reverse().forEach((an,i)=>{ const C = S.essais.prix[an]; (C.segments||[]).forEach(s=>{
     if(!i) aj('segprix', s.nom, ['prix', an], {seg:s, an});
@@ -6261,33 +6275,205 @@ function indexAssistant(){
   (S.contacts||[]).forEach(c=>aj('contact', c.nom, [c.org, c.cat, c.fonction, c.notes], {c}));
   return l;
 }
-/* Recherche : chaque mot (ou un synonyme) doit se retrouver ; le titre compte plus que le texte */
-/* Distance d'édition (fautes de frappe) : nombre de lettres à changer pour passer de a à b */
-function distanceMots(a, b){ if(Math.abs(a.length-b.length)>2) return 9; let p = [...Array(b.length+1).keys()];
-  for(let i=1;i<=a.length;i++){ const c = [i]; for(let j=1;j<=b.length;j++) c[j] = Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1)); p = c; } return p[b.length]; }
+/* ================= Agent : phrases libres, fautes de frappe, mémoire de la conversation =================
+   Sans IA payante ni service externe : l'agent comprend la phrase (intentions, mots utiles, synonymes, fautes y compris phonétiques),
+   retrouve les éléments de l'Institut les plus pertinents (les mots rares comptent plus que les mots courants), rédige une synthèse
+   sourcée, garde le fil de la discussion et dit clairement quand il ne trouve pas. Il n'invente rien. */
+let FLAGS_FORCE = null, NOTE_AG = '';
+const STOP_AG = new Set([...MOTS_VIDES_AS, ...('bonjour bonsoir salut hello coucou hey svp stp merci plait plais pouvez pouvons peux pouvoir voudrais voulais souhaite souhaiterais aimerais aimerai savoir connaitre connais dis dites donnes donnez montres montrez affiches trouves trouvez cherches cherchez recherche parles parlez expliques expliquez raconte racontes indique indiquez ci voila voici aide aider besoin question questions reponse repondre repondez jai ai as avons avez ont suis es sommes etes etait serait sera faut faudrait fais fait faites peut peuvent doit doivent aussi encore deja toujours jamais rien tres trop peu assez plutot environ vraiment exactement notamment surtout ca cela ceci celui celle ceux celles eux elles ton ta tes votre vos leurs si alors donc car comme puis ensuite enfin ainsi autre autres meme chaque plusieurs certain certains certaine certaines quelque quelques aucun aucune cest sest nest nai ya yatil existent exister idee idees truc trucs chose choses genre type sorte sortes parler concernant sujet info infos kel kels quelle quel koi quoi ou comment pourquoi quand combien lequel laquelle lesquels vs versus ainsi voir regarde regardez veut veux voulez souhaitez besoin souvent parfois peutetre vois sait sais savez trouver recommandes recommande conseille conseilles conseil recommandation propose proposes proposer faire fais faut dois doit devrais beaucoup bien bon bonne ok okay oui non infiniment mille parfait genial super nickel top bravo excellent'
+).split(' ')]);
+const ABREV_AG = [[/\btt\b/g,'tout'], [/\bbcp\b/g,'beaucoup'], [/\bpk\b|\bpq\b/g,'pourquoi'], [/\bqd\b/g,'quand'], [/\bkoi\b/g,'quoi'], [/\bcmt\b/g,'comment'], [/\bslt\b/g,'salut'], [/\bbjr\b/g,'bonjour'], [/\bds\b/g,'dans'], [/\bpr\b/g,'pour'], [/\bc quoi\b|\bcest quoi\b/g,'quoi'], [/\bfrais\b(?=\s+(?:rouge|gariguette|variete|essai))/g,'fraise'], [/\b(en|sur|pour|chez) frais\b/g,'$1 fraise'], [/\bfrais$/,'fraise']];
+const GROUPES_AG = [
+  ['cyrto','cyrtopeltis','nesidiocoris','tenuis','miride','mirides'], ['aleurode','aleurodes','bemisia','trialeurodes','mouche blanche','mouches blanches'], ['puceron','pucerons','aphidius','macrosiphum','aphid'],
+  ['oidium','oidiums','erysiphe'], ['botrytis','pourriture grise','botrytis cinerea'], ['clado','cladosporiose','fulvia','cladosporium'],
+  ['acarien','acariens','aculops','acariose','tetranyque','tetranyques','araignee rouge','acariose bronzee'], ['nematode','nematodes','meloidogyne','galles','arenaria'],
+  ['thrips','frankliniella'], ['tuta','mineuse','mineuses','tuta absoluta'], ['punaise','punaises','lygus','liocoris','nesidiocoris'], ['drosophile','suzukii','drosophila'],
+  ['robot','robots','robotique','automate','robotise','robotisee'], ['capteur','capteurs','sonde','sondes','iot','senseur'], ['prevision','previsions','previsionnel','prediction','estimation','forecast','prevoir','prevoyance'],
+  ['recolte','recoltes','recolter','cueillette','cueillir','ramasser','ramassage','harvest'], ['effeuillage','effeuiller','effeuillee','defeuillage'],
+  ['gout','gustatif','gustative','gustatives','degustation','saveur','brix','sucre','sucree','organoleptique'], ['resistant','resistante','resistantes','tolerant','tolerante','resistance','tolerance','tobrfv'],
+  ['biocontrole','biologique','biosolution','biosolutions','naturel'], ['auxiliaire','auxiliaires','macrolophus','orius','parasitoide','parasitoides','predateur','predateurs','swirskii'],
+  ['traitement','traitements','produit','produits','solution','solutions','molecule','fongicide','insecticide','acaricide','phytosanitaire'],
+  ['rendement','rendements','productivite','production','kg'], ['calibre','poids','gros','grosseur'], ['serre du futur','innovation','innovations','agrotech','technologie','technologies','numerique','digital','ia'],
+  ['fraise','fraises','fraisier','fraisiers'], ['tomate','tomates','tomato'], ['concombre','concombres'], ['reunion','reunions','rendezvous','rdv','rallye','visite','commission'],
+  ['irrigation','arrosage','fertirrigation','eau','goutte a goutte'], ['climat','climatique','temperature','hygrometrie','chauffage','ordinateur climatique'],
+  ['lumiere','eclairage','led','luminosite'], ['plante de service','plantes de service','pds','plante relais','plantes relais','bande fleurie','bandes fleuries'],
+  ['variete','varietes','cultivar','semence','semences','graine','graines'], ['semencier','semenciers','obtenteur','obtenteurs','breeder']];
+const SYN_AG = (()=>{ const m = new Map(); GROUPES_AG.forEach(g=>g.forEach(w=>{ const s = m.get(w) || new Set(); g.forEach(x=>{ if(x!==w) s.add(x); }); m.set(w, s); })); return m; })();
+/* Prononciation approchée (« macrolofus » = « macrolophus ») */
+const phonAg = w => w.replace(/ph/g,'f').replace(/qu|ck|k/g,'k').replace(/c(?=[eiy])/g,'s').replace(/c/g,'k').replace(/gu(?=[eiy])/g,'g').replace(/y/g,'i').replace(/ou/g,'u').replace(/eau|au/g,'o')
+  .replace(/ain|ein|in|im/g,'i').replace(/an|am|en|em/g,'a').replace(/on|om/g,'o').replace(/ai|ei/g,'e').replace(/h/g,'').replace(/(.)\1+/g,'$1').replace(/[sxtdz]+$/,'').replace(/e$/,'');
+/* Distance d'édition avec transposition (« oidium » ↔ « odiium ») */
+function distAg(a, b){ const la = a.length, lb = b.length; if(Math.abs(la-lb)>3) return 9; const d = [];
+  for(let i=0;i<=la;i++) d[i] = [i]; for(let j=1;j<=lb;j++) d[0][j] = j;
+  for(let i=1;i<=la;i++) for(let j=1;j<=lb;j++){ d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); if(i>1 && j>1 && a[i-1]===b[j-2] && a[i-2]===b[j-1]) d[i][j] = Math.min(d[i][j], d[i-2][j-2]+1); }
+  return d[la][lb]; }
+const normPhrase = q => { let n = normTexte(q).replace(/['’]/g,' ').replace(/[^a-z0-9€]+/g,' ').replace(/\s+/g,' ').trim(); ABREV_AG.forEach(([re,r])=>{ n = n.replace(re, r); }); return n; };
+/* Ce que veut la phrase : intentions repérées dans les mots (avant de retirer les mots courants) */
+function motsQuestion(q){
+  const n = normPhrase(q), jetons = n.split(' ').filter(Boolean), bruts = jetons.filter(m=>m.length>1 && !STOP_AG.has(m));
+  const flags = {
+    contact: jetons.some(m=>MOTS_CONTACT.has(m)) || /\bqui\b|\ba qui\b|\bpersonne\b/.test(n),
+    prix: jetons.some(m=>MOTS_PRIX.has(m) && m!=='combien') || /€/.test(q) || /\bcombien (coute|couter|coutent|vaut|valent)\b/.test(n),
+    tri: /moins cher|plus bas|economique|meilleur prix|pas cher|bon marche/.test(n) ? 1 : /plus cher|plus eleve|plus haut|le plus onereux/.test(n) ? -1 : 0,
+    combien: /\bcombien\b|\bnombre de\b|\bquantite\b/.test(n) && !/\bcombien (coute|couter|coutent|vaut|valent)\b/.test(n),
+    reco: /\b(meilleur|meilleure|meilleurs|meilleures|recommande|recommandes|conseille|conseilles|conseil|quelle solution|que faire|quoi faire|quoi utiliser|que choisir|que prendre|quoi prendre|efficace|efficaces|marche le mieux|fonctionne le mieux|quelle est la solution|ca marche|fonctionne|soigne|soigner|traiter|lutter|lutte|combattre|eliminer|debarrasser|eviter|prevenir|proteger|choisir|choix|planter|semer|implanter)\b/.test(n),
+    quand: /\b(quand|prochaine|prochain|derniere|dernier|calendrier|planning|agenda)\b/.test(n) && /\b(reunion|reunions|commission|rdv|rendez vous|rallye|visite|date|prochaine|calendrier|planning|agenda)\b/.test(n),
+    detail: /\b(plus de details|detaille|detail|developpe|developper|explique|en savoir plus|dis m en plus|approfondi|complet|tout savoir|plus d infos|plus d info)\b/.test(n),
+    compare: /\b(difference|differences|comparer|compare|comparaison|versus|vs|mieux que|plutot que|ou bien|par rapport a)\b/.test(n) || /\bentre .+ et .+/.test(n),
+    aide: /(que sais tu|que peux tu|que sais faire|tu sais faire|tu peux faire|a quoi tu sers|a quoi sers tu|qui es tu|tu es qui|presente toi|ton role|comment tu marches|comment ca marche|que fais tu|aide moi a|mode d emploi)/.test(n),
+    salut: /^(bonjour|salut|hello|coucou|bonsoir|hey|slt|bjr)\b/.test(n),
+    merci: /\b(merci|parfait|genial|super|nickel|top|bravo|excellent)\b/.test(n)};
+  const types = [], a = re => re.test(n);
+  if(a(/\b(variete|varietes|cultivar|semence|semences)\b/)) types.push('variete','fvar','liste','fprop');
+  if(a(/\b(essai|essais|resultat|resultats|test|tests)\b/)) types.push('essai');
+  if(a(/\b(outil|outils|robot|robots|capteur|capteurs|logiciel|appli|application|drone|camera|cameras|innovation|innovations)\b/)) types.push('outil');
+  if(a(/\b(produit|produits|solution|solutions|traitement|traitements|levier|leviers|molecule|soigne|soigner|traiter)\b/)) types.push('levier','essai');
+  if(a(/\b(document|documents|rapport|rapports|fichier|fichiers|pdf|compte rendu)\b/)) types.push('doc');
+  const mots = [...new Set(bruts.filter(m=>!MOTS_CONTACT.has(m) && !MOTS_PRIX.has(m)))].map(m=>({m, variantes:[racineMot(m)]}));
+  return {mots, types, ...flags};
+}
+/* Associe chaque mot de la phrase aux mots réellement présents dans l'Institut : tel quel, début de mot, faute de frappe, synonymes */
+function resoudreMots(mots, index){
+  const df = new Map(), dft = new Map(); index.forEach(it=>{ const s = new Set(((it.nt||'')+(it.nx||'')).split(' ')); s.forEach(w=>{ if(w.length>=3){ df.set(w, (df.get(w)||0)+1); let d = dft.get(w); if(!d) dft.set(w, d = {}); d[it.type] = (d[it.type]||0)+1; } }); });
+  const vocab = [...df.keys()], parDf = a => a.sort((x,y)=>df.get(y)-df.get(x)); let phonMap = null;
+  mots.forEach(o=>{
+    const m = o.m; let v = [];
+    if(df.has(m)) v.push(m);
+    const r = racineMot(m); if(r!==m && df.has(r)) v.push(r);
+    if(m.length>=4) vocab.forEach(w=>{ if(w!==m && (w.startsWith(m) || (w.length>=5 && m.startsWith(w) && m.length-w.length<=3))) v.push(w); });
+    v = [...new Set(v)]; if(v.length>8) v = parDf(v).slice(0,8);
+    if(v.length===1 && df.get(v[0])<=2 && m.length>=5 && !/\d/.test(m) && !SYN_AG.has(m)){ const maxD = m.length<=7 ? 1 : 2; let best = maxD+1, c2 = [];
+      vocab.forEach(w=>{ if(w===m || df.get(w)<5 || Math.abs(w.length-m.length)>maxD || w[0]!==m[0]) return; const d = distAg(m,w); if(d<best){ best = d; c2 = [w]; } else if(d===best) c2.push(w); });
+      if(c2.length){ const bons = parDf(c2); v = [...v, ...bons.slice(0,2)]; o.corrige = bons[0]; } }
+    if(!v.length && m.length>=4 && !/\d/.test(m) && !SYN_AG.has(m)){            // faute de frappe ou d'orthographe
+      phonMap ||= (()=>{ const p = new Map(); vocab.forEach(w=>{ if(w.length>=4){ const k = phonAg(w); (p.get(k) || p.set(k, []).get(k)).push(w); } }); return p; })();
+      let cands = (phonMap.get(phonAg(m))||[]).filter(w=>w[0]===m[0] || distAg(m,w)<=2);
+      if(!cands.length){ const maxD = m.length<=7 ? 1 : m.length<=10 ? 2 : 3; let best = maxD+1;
+        vocab.forEach(w=>{ if(Math.abs(w.length-m.length)>maxD || (m.length<=5 && w[0]!==m[0])) return; const d = distAg(m,w); if(d<best){ best = d; cands = [w]; } else if(d===best) cands.push(w); });
+        if(best>maxD) cands = []; }
+      if(cands.length){ v = parDf(cands).slice(0,3); o.corrige = v[0]; } }
+    const syn = new Set(); [m, r, ...v].forEach(x=>{ (SYN_AG.get(x)||[]).forEach(s=>syn.add(s)); });
+    o.variantes = [...new Set([...v, ...syn])]; o.df = v.length ? Math.max(...v.map(w=>df.get(w))) : 0; o.connu = v.length>0 || syn.size>0; });
+  return {df, dft, vocab};
+}
+/* Recherche pondérée : un mot rare (« nématodes ») pèse plus qu'un mot courant (« fraise »), un mot du titre plus que du texte */
 function chercherAssistant(q){
-  const Q = motsQuestion(q), {mots, contact} = Q; if(!mots.length) return {...Q, res:[], absents:[], corriges:[], partiel:false};
-  const index = indexAssistant(), corriges = [];
-  let res, vusMots;
-  // un mot est trouvé s'il commence un mot du texte (« eau » trouve « eaux », pas « niveau »)
-  const passe = () => { res = []; vusMots = new Set(); index.forEach(it=>{ let score = 0, trouves = 0, enTitre = 0;
-    mots.forEach(({m, variantes})=>{ const t = variantes.some(v=>it.nt.includes(' '+v)), x = !t && variantes.some(v=>it.nx.includes(' '+v)); if(t || x){ trouves++; score += t ? 3 : 1; if(t) enTitre++; vusMots.add(m); } });
-    if(trouves) res.push({...it, score, trouves, enTitre}); }); };
-  passe();
-  // mots introuvables : on essaie le mot le plus proche parmi les titres (faute de frappe), puis on relance une fois
-  const inconnus = mots.filter(x=>!vusMots.has(x.m) && x.m.length>=5);
-  if(inconnus.length){ const vocab = new Set(); index.forEach(it=>it.nt.split(' ').forEach(w=>{ if(w.length>=4) vocab.add(w); }));
-    inconnus.forEach(x=>{ let mieux = null, d0 = x.m.length>=8 ? 3 : 2; vocab.forEach(w=>{ const d = distanceMots(x.m, w); if(d<d0){ d0 = d; mieux = w; } });
-      if(mieux){ corriges.push([x.m, mieux]); x.m = mieux; x.variantes = [racineMot(mieux), ...(SYNONYMES[mieux]||[])]; } });
-    if(corriges.length) passe(); }
-  const seuil = Math.max(...res.map(r=>r.trouves), 0);   // on garde ce qui répond au plus de mots à la fois
-  return {...Q, corriges, absents:mots.map(x=>x.m).filter(m=>!vusMots.has(m)), partiel:seuil < mots.length,
-    res:res.filter(r=>r.trouves >= Math.max(1, seuil - (mots.length>3 ? 1 : 0))).sort((a,b)=>b.trouves-a.trouves || b.score-a.score)};
+  const Q = motsQuestion(q); if(FLAGS_FORCE) Object.assign(Q, FLAGS_FORCE);
+  if(!Q.mots.length) return {...Q, res:[], absents:[], corriges:[], partiel:false, suggestions:[]};
+  const index = indexAssistant(), mots = Q.mots, {df, dft, vocab} = resoudreMots(mots, index), N = index.length;
+  const utilesN = mots.filter(o=>o.connu).length;
+  const poids = mots.map(o=>o.connu ? Math.min(5, Math.max(0.6, Math.log((N+1)/(1+(o.df||Math.max(2, N/200)))))) : 0);
+  // de quoi parle la phrase : un mot qui apparaît surtout dans les essais oriente vers les essais, « robot » vers les outils…
+  const aff = {}; let somme = 0;
+  mots.forEach((o,i)=>{ if(!poids[i]) return; const tot = {}; let n = 0; o.variantes.forEach(w=>{ const d = dft.get(w); if(d) Object.entries(d).forEach(([ty,c])=>{ tot[ty] = (tot[ty]||0)+c; n += c; }); });
+    if(n){ Object.entries(tot).forEach(([ty,c])=>{ aff[ty] = (aff[ty]||0) + poids[i]*c/n; }); somme += poids[i]; } });
+  const PRIOR = {essai:1.15, fvar:1.05, doc:0.62, rdv:0.7, contact:0.8, enjeu:0.75, detection:0.9}, mult = ty => (somme ? 0.62 + 0.75*Math.min(1, (aff[ty]||0)/somme) : 1) * (PRIOR[ty]||1) * ((Q.types||[]).includes(ty) ? 1.7 : 1);
+  const res = [];
+  index.forEach(it=>{ let score = 0, trouves = 0, enTitre = 0;
+    mots.forEach((o,i)=>{ if(!poids[i]) return; const t = o.variantes.some(v=>it.nt.includes(' '+v)), t2 = !t && it.nt2 && o.variantes.some(v=>it.nt2.includes(' '+v)), x = !t && !t2 && o.variantes.some(v=>it.nx.includes(' '+v));
+      if(t || t2 || x){ trouves++; score += poids[i]*(t ? 2.2 : t2 ? 1.8 : 1); if(t) enTitre++; } });
+    if(trouves){ if(utilesN>1) score *= 0.55 + 0.45*trouves/utilesN; score *= mult(it.type); res.push({...it, score, trouves, enTitre}); } });
+  res.sort((a,b)=>b.score-a.score || b.trouves-a.trouves);
+  const top = res[0], utiles = poids.filter(Boolean).length, seuil = top ? top.score*0.42 : 0;
+  const absents = mots.filter((o,i)=>!poids[i]).map(o=>o.m);
+  // mots inconnus : mots proches à proposer (« vouliez-vous dire … ? »)
+  const suggestions = [...new Set(mots.filter((o,i)=>!poids[i] && o.m.length>=4 && !/\d/.test(o.m)).flatMap(o=>{ const l = []; vocab.forEach(w=>{ if(w.length>=4 && Math.abs(w.length-o.m.length)<=3 && (w.slice(0,3)===o.m.slice(0,3) || distAg(o.m,w)<=3)) l.push([distAg(o.m,w), w]); }); return l.filter(x=>x[0]<=(o.m.length<=7 ? 1 : o.m.length<=10 ? 2 : 3) && x[1][0]===o.m[0]).sort((a,b)=>a[0]-b[0] || df.get(b[1])-df.get(a[1])).slice(0,2).map(x=>x[1]); }))].slice(0,4);
+  return {...Q, mots, res:res.filter(r=>r.score>=seuil), corriges:mots.filter(o=>o.corrige).map(o=>[o.m, o.corrige]), absents, partiel:utiles>1 && !!top && top.trouves<Math.ceil(utiles*0.6), suggestions};
+}
+const CULTURES_AG = ['tomate','tomates','fraise','fraises','concombre','concombres','poivron','aubergine'];
+/* Suite de la conversation : « et en fraise ? », « qui contacter ? », « plus de détails » reprennent le sujet précédent */
+function fusionContexte(q, sujet){
+  if(!sujet) return {texte:q, fusion:false};
+  const n = normPhrase(q), Qn = motsQuestion(q), utiles = Qn.mots.length;
+  if(Qn.aide || (Qn.salut && !utiles) || (Qn.merci && !utiles) || Qn.compare) return {texte:q, fusion:false};
+  const suite = /^(et|alors|donc|aussi|mais|ok|oui|puis|sinon)\b/.test(n) || /\b(ca|cela|ceci|celui|celle|ceux|celles|lui|leur|leurs)\b/.test(n) || Qn.detail;
+  if(utiles===0 || (suite && utiles<=2) || (utiles===1 && /^(en|pour|chez|sur)\b/.test(n))){
+    const nouv = Qn.mots.filter(o=>CULTURES_AG.includes(o.m)).map(o=>o.m); let base = sujet;
+    if(nouv.length) CULTURES_AG.forEach(c=>{ if(!nouv.includes(c)) base = base.replace(new RegExp('\\b'+c+'\\b','g'),' '); });
+    return {texte:(base+' '+q).replace(/\s+/g,' ').trim(), fusion:true, base:sujet}; }
+  return {texte:q, fusion:false};
+}
+/* ---- réponses de conversation ---- */
+const SUGG_AG = SUGGESTIONS;
+const phraseCle = e => { const f = e.fiche||{}, tx = [f.resultats, f.conclusion].filter(Boolean).join(' ') || e.com || '', ph = tx.split(/(?<=[.;])\s+/).filter(p=>!/voir le détail/i.test(p));
+  return ph.find(p=>/(efficace|satisfaisant|meilleur|permet|réduit|diminue|limite|retarde|intéress|bon[nes]* )/i.test(p) && !/(inefficace|aucun effet|aucun intérêt|insuffisant)/i.test(p)) || ph[0] || tx; };
+const boutonsSugg = l => `<div class="as-suite">${l.map(s=>`<button class="chip" data-suggestion="${h(s)}">${h(s)}</button>`).join('')}</div>`;
+const reponseSalut = () => `<div class="as-court"><p>Bonjour ! Je suis le robot de l'Institut. Parlez-moi comme à un collègue : <b>essais, variétés, outils, prix, documents, qui contacter, dates de commission</b>… même avec des fautes ou sans les mots exacts, je cherche dans les données de l'Institut et je vous fais une synthèse.</p></div><p class="as-note">Par exemple :</p>${boutonsSugg(SUGG_AG.slice(0,4))}`;
+const reponseMerci = () => `<div class="as-court"><p>Avec plaisir ! Une autre question ? Vous pouvez aussi me demander « plus de détails » ou « et en fraise ? » : je garde le fil de la conversation.</p></div>`;
+const reponseAide = () => `<div class="as-court"><p>Voici ce que je sais faire, à partir des données de l'Institut (sans rien inventer) :</p>
+  <p>• <b>Retrouver et résumer</b> : résultats d'essais sanitaires, variétés de tomates et de fraises, outils de la veille technologique, leviers, documents.<br>
+  • <b>Recommander</b> : « que marche contre… ? » → ce qui a le mieux fonctionné, avec les essais.<br>
+  • <b>Comparer</b> : « différence entre IUNU et Source.ag ».<br>
+  • <b>Donner les dates et les contacts</b> : prochaine commission, référents, personnes à joindre.<br>
+  • <b>Discuter</b> : « et en fraise ? », « plus de détails », « qui contacter pour ça ? ».</p>
+  <p><b>Ma limite :</b> je ne suis pas une IA générative. Je comprends les phrases en les rapprochant des données de l'Institut ; quand je ne trouve pas, je le dis et je propose le bon interlocuteur.</p></div>${boutonsSugg(SUGG_AG)}`;
+function reponseQuand(texte, Q){
+  const n = normPhrase(texte), coms = [['csan',/sanitaire|phyto|maladie|ravageur/],['cvfr',/fraise|fraisier/],['cvto',/tomate|variet|semenc/],['cagt',/agro|innovation|robot|techno|serre du futur|capteur/]];
+  let ids = coms.filter(([,re])=>re.test(n)).map(c=>c[0]); const tous = !ids.length; if(tous) ids = coms.map(c=>c[0]);
+  const auj = new Date().toISOString().slice(0,10), nom = id => COMMISSIONS.find(c=>c.id===id)?.nom||id;
+  const ev = ids.flatMap(id=>(S.espaces?.coms?.[id]?.calendrier||[]).filter(e=>e.date && e.date.length===10).map(e=>({...e, com:id})));
+  if(!ev.length) return '';
+  const futur = ev.filter(e=>e.date>=auj).sort((a,b)=>a.date.localeCompare(b.date)), passe = ev.filter(e=>e.date<auj).sort((a,b)=>b.date.localeCompare(a.date));
+  const ligne = e => `<b>${h(dateCourte(e.date))}</b> — ${h(e.titre)} <small>(${h(nom(e.com))})</small>`;
+  const court = [futur.length ? `<b>Prochain rendez-vous :</b> ${ligne(futur[0])}` : `<b>Aucun rendez-vous à venir</b> n'est enregistré${tous?'':' pour cette commission'}.`, passe.length ? `<b>Dernier rendez-vous :</b> ${ligne(passe[0])}` : ''].filter(Boolean);
+  const dernier = passe[0] || futur[0], docs = dernier?.docs||[];
+  return `<div class="as-court">${court.map(c=>`<p>${c}</p>`).join('')}</div>
+    <details class="as-plus" open><summary><span>Pour plus d'infos</span><small>calendrier et documents</small></summary>
+      ${futur.length>1 ? `<h6>À venir</h6><ul>${futur.slice(0,4).map(e=>`<li>${ligne(e)}</li>`).join('')}</ul>` : ''}
+      <h6>Derniers rendez-vous</h6><ul>${passe.slice(0,4).map(e=>`<li>${ligne(e)}</li>`).join('')}</ul>
+      ${docs.length ? `<h6>Documents du dernier rendez-vous</h6><ul>${docs.slice(0,5).map(d=>`<li>${urlSure(d.url)?`<a href="${h(liensDoc(d.url).ouvrir||d.url)}" target="_blank" rel="noopener">${h(d.t||d.nom)}</a>`:h(d.t||d.nom)}</li>`).join('')}</ul>` : ''}
+      ${ids.map(id=>`<button class="chip" data-as-ouvrir="commission|${id}">Calendrier — ${h(nom(id))} ›</button>`).join(' ')}</details>`;
+}
+const champsComp = it => {
+  if(it.type==='outil'){ const o = it.o, e = essaiDe(o); return {nom:o.nom, ouvrir:'outil|'+o.id, c:[['Catégorie', [o.cat, o.pays].filter(Boolean).join(' · ')], ['Statut', o.statutLib], ['Maturité', o.dv], ['Retour des producteurs', okRet(o)?o.retour:''], ['Sites pilotes', o.sites.join(', ')], ['Essai '+(S.agrotech?.essais?.annee||''), e?e.resultat+' — '+coupe(e.conclusion,170):''], ['Limites', coupe(o.limites,140)], ['Description', coupe(o.desc,170)]]}; }
+  if(it.type==='fvar'){ const v = it.v; return {nom:v.nom, ouvrir:'fraise|'+v.nom, c:[['Culture','Fraise — profil '+v.profil.replace('P','')+', témoin '+v.temoin], ['Décision', STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||''], ['Points forts', v.forts.join(', ')], ['Points faibles', v.faibles.join(', ')], ['Commentaire', v.commentaire]]}; }
+  if(it.type==='variete'){ const v = it.v, st = statutListe(anCom, it.k), ac = anCatalogue(anCom), p = ac ? prixVariete(ac, it.k) : null; return {nom:v.nom, ouvrir:'variete|'+it.k, c:[['Segment', v.seg], ['Semencier', v.sem], ['Statut', st ? (st.type==='lp' ? 'liste positive' : 'en développement '+(st.dv||'')) : ''], ['Prix des graines', p && prixM2(p.prix)!==null ? fmtPrix(prixM2(p.prix))+' €/m² ('+ac+')' : ''], ['Essais', lignesResVar(it.k, 2).join(' ; ')]]}; }
+  if(it.type==='levier'){ const x = it.x; return {nom:x.nom, ouvrir:'leviers|', c:[['Famille', x.levier||x.type], ['Efficacité', x.eff], ['Cibles', x.cibles], ['Cultures', x.cultures], ['Disponibilité', x.dispo], ['Commentaire', coupe(x.effCom||x.com||'',170)]]}; }
+  if(it.type==='essai'){ const e = it.e; return {nom:coupe(e.objectif,60), ouvrir:'essai|'+e.id, c:[['Résultat', e.resN], ['Où et quand', [e.op, e.site, e.an].filter(Boolean).join(' · ')], ['À retenir', resumeEssaiRech(e)], ['Référent', e.referent]]}; }
+  return null; };
+function reponseComparaison(q, Qo){
+  const n = normPhrase(q).replace(/^(quelle est |quelles sont |c est quoi )?la (difference|comparaison)\s+/,'difference ');
+  const m = n.match(/(?:entre|compare|comparer|comparaison(?: de)?|difference(?: entre)?)\s+(.+?)\s+(?:et|ou|avec|vs|versus|contre)\s+(.+)$/) || n.match(/^(.+?)\s+(?:vs|versus|contre|ou bien|plutot que|mieux que|par rapport a)\s+(.+)$/) || n.match(/^(.+?)\s+ou\s+(.+)$/);
+  if(!m) return '';
+  const TYPES = ['outil','fvar','variete','levier','essai'], trouve = txt => { const r = chercherAssistant(txt); return r.res.filter(x=>TYPES.includes(x.type)).sort((a,b)=>b.enTitre-a.enTitre || b.score-a.score)[0]; };
+  const A = trouve(m[1]), B = trouve(m[2]); if(!A || !B) return '';
+  const a = champsComp(A), b = champsComp(B); if(!a || !b || (A.type===B.type && a.nom===b.nom)) return '';
+  const labels = [...new Set([...a.c.map(x=>x[0]), ...b.c.map(x=>x[0])])].filter(l=>(a.c.find(x=>x[0]===l)?.[1]) || (b.c.find(x=>x[0]===l)?.[1]));
+  const val = (f, l) => h(f.c.find(x=>x[0]===l)?.[1] || '—');
+  return `<div class="as-court"><p>Comparaison de <b>${h(a.nom)}</b> et <b>${h(b.nom)}</b>, d'après les données de l'Institut :</p></div>
+    <div class="as-table"><table><thead><tr><th></th><th>${h(a.nom)}</th><th>${h(b.nom)}</th></tr></thead><tbody>${labels.map(l=>`<tr><td><b>${h(l)}</b></td><td>${val(a,l)}</td><td>${val(b,l)}</td></tr>`).join('')}</tbody></table></div>
+    <p class="as-note">Je compare les informations disponibles ; je ne donne pas d'avis qui ne serait pas écrit dans les documents.</p>
+    <div class="as-suite"><button class="chip" data-as-ouvrir="${h(a.ouvrir)}">Ouvrir ${h(coupe(a.nom,30))} ›</button><button class="chip" data-as-ouvrir="${h(b.ouvrir)}">Ouvrir ${h(coupe(b.nom,30))} ›</button></div>`;
+}
+/* Point d'entrée : choisit entre conversation, date, comparaison ou recherche-synthèse */
+function reponseAssistant(texte, opt = {}){
+  const orig = opt.original || texte, Qo = motsQuestion(orig);
+  if(Qo.aide) return reponseAide();
+  if(Qo.salut && !Qo.mots.length) return reponseSalut();
+  if(Qo.merci && !Qo.mots.length && !Qo.prix) return reponseMerci();
+  if(Qo.quand){ const r = reponseQuand(texte, Qo); if(r) return r; }
+  if(Qo.compare){ const r = reponseComparaison(orig, Qo); if(r) return r; }
+  FLAGS_FORCE = {contact:Qo.contact, prix:Qo.prix, tri:Qo.tri, combien:Qo.combien, reco:Qo.reco, detail:Qo.detail}; NOTE_AG = opt.note || '';
+  try{ return reponseAssistantBase(texte); } finally{ FLAGS_FORCE = null; NOTE_AG = ''; }
+}
+
+/* Conversation : chaque question est replacée dans le fil (suite, culture changée…), les réponses sont gardées en mémoire tant que les données ne changent pas */
+let cacheAg = new Map(), cacheSig = '';
+function blocsConversation(){
+  const sig = [S.agrotech?.outils?.length, S.sanitaire?.essais?.lignes?.length, S.fraise?.synthese?.varietes?.length, Object.keys(S.essais||{}).length, S.journal?.entrees?.length].join('|'); if(sig!==cacheSig){ cacheAg.clear(); cacheSig = sig; }
+  let sujet = '';
+  return conversation.map(m=>{ if(m.role==='user') return `<div class="bulle moi">${h(m.content)}</div>`;
+    const q = m.content, f = fusionContexte(q, sujet), note = f.fusion ? `Je reprends le sujet précédent : <b>${h(coupe(sujet,70))}</b>.` : '', cle = f.texte+'¦'+q+'¦'+note;
+    let html = cacheAg.get(cle);
+    if(!html){ try{ html = reponseAssistant(f.texte, {original:q, note}); }catch(e){ console.error(e); html = '<p class="as-alerte">Je n\'ai pas réussi à répondre à cette question (erreur interne). Reformulez-la ou utilisez les onglets Commissions.</p>'; } cacheAg.set(cle, html); }
+    const Qf = motsQuestion(f.texte); if(Qf.mots.length) sujet = Qf.mots.map(o=>o.m).join(' ');
+    return `<div class="bulle ia as-rep">${html}</div>`; }).join('');
 }
 const coupe = (t, n) => { t = String(t||''); return t.length>n ? t.slice(0, t.lastIndexOf(' ', n) > n*0.6 ? t.lastIndexOf(' ', n) : n)+'…' : t; };
 /* Réponse (HTML sûr : tout texte passe par h()) */
-function reponseAssistant(q){
-  const {mots, contact, res, absents, partiel, prix:veutPrix, tri, corriges} = chercherAssistant(q);
+function reponseAssistantBase(q){
+  const {mots, contact, res, absents, partiel, prix:veutPrix, tri, corriges, reco, combien, detail, suggestions} = chercherAssistant(q);
+  const sMax = (res.find(x=>!['doc','rdv','enjeu','contact'].includes(x.type))||res[0]||{score:1}).score, fort = ty => res.some(x=>x.type===ty && x.score>=0.62*sMax);
   const confid = '<p class="as-confid">Document confidentiel — prix des graines uniquement, hors marge du pépiniériste.</p>', btnPrix = '<button class="chip" data-as-ouvrir="prix|">Ouvrir les prix des graines ›</button>';
   const ligneP = ({p, seg, an}) => `<tr><td><b>${h(p.nom)}</b><small>${h([p.semencier, p.niveau==='LP'?'liste positive':p.niveau, p.r?'résistante ToBRFV':''].filter(Boolean).join(' · '))}</small></td><td>${h(seg)}<small>${h(an)}</small></td><td class="as-prix">${prixM2(p.prix)!==null ? fmtPrix(prixM2(p.prix))+' €/m²' : h(p.prix||'—')}<small>${h(p.prix && prixM2(p.prix)!==null ? p.prix : '')}</small></td></tr>`;
   const tableP = l => `<div class="as-table"><table><thead><tr><th>Variété</th><th>Segment</th><th>Prix des graines</th></tr></thead><tbody>${l.map(ligneP).join('')}</tbody></table></div>`;
@@ -6377,7 +6563,8 @@ function reponseAssistant(q){
     <button class="chip" data-as-ouvrir="hebdo|">Ouvrir la réunion hebdo ›</button>`);
   const ct = de('contact');
   if(ct.length) blocs.push(`<h6>Contacts externes <span>${ct.length}</span></h6><ul>${ct.slice(0,5).map(({c})=>`<li><b>${h(c.nom)}</b> ${h([c.org, c.fonction, c.cat].filter(Boolean).join(' · '))}${c.email?` — <a href="mailto:${h(c.email)}">${h(c.email)}</a>`:''}${c.tel?' — '+h(c.tel):''}</li>`).join('')}</ul>`);
-  const ou = de('outil'), fv = de('fvar'), fp = de('fprop');
+  const ou = de('outil'), fv = de('fvar'), fp = de('fprop'), pj = de('projet');
+  if(pj.length) blocs.push(`<h6>Projets et études (Serre du futur) <span>${pj.length}</span></h6>${pj.slice(0,3).map(({p})=>`<div class="as-item"><b>${h(p.titre)}</b><small>${h(p.theme)} · ${p.docs.length} documents</small><p>${h(coupe(p.desc,260))}</p><button class="chip" data-as-ouvrir="projets|">Voir les projets ›</button></div>`).join('')}`);
   if(ou.length) blocs.push(`<h6>Veille technologique (Agro-Tech) <span>${ou.length}</span></h6>${ou.slice(0,4).map(({o})=>`<div class="as-item"><b>${h(o.nom)}</b><small>${[o.cat, o.pays, o.statutLib, o.dv].filter(Boolean).map(h).join(' · ')}</small><p>${h(coupe(o.desc||o.detail||'', 260))}</p>${o.limites?`<small>Limites : ${h(coupe(o.limites,140))}</small>`:''}${o.contact?`<small>Contact : ${h(o.contact.split(' ; ')[0])}</small>`:''}<button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche ›</button></div>`).join('')}`);
   if(fv.length) blocs.push(`<h6>Fraises — résultats des essais <span>${fv.length}</span></h6>${fv.slice(0,4).map(({v})=>`<div class="as-item"><b>${h(v.nom)}</b><small>Profil ${h(v.profil.replace('P',''))} · témoin ${h(v.temoin)} · ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}</small><p><b>Points forts :</b> ${h(v.forts.join(', ')||'—')}. <b>Points faibles :</b> ${h(v.faibles.join(', ')||'—')}.</p><button class="chip" data-as-ouvrir="fraise|${h(v.nom)}">Voir la synthèse ›</button></div>`).join('')}`);
   if(fp.length) blocs.push(`<h6>Fraises — propositions 2027 <span>${fp.length}</span></h6><ul>${fp.slice(0,6).map(({p})=>`<li><b>${h(p.nom)}</b> (${h(p.obtenteur)}) — ${h(p.stade)}, priorité ${p.priorite}</li>`).join('')}</ul>`);
@@ -6388,11 +6575,26 @@ function reponseAssistant(q){
     if(e) e.structures.filter(s=>s.e.length && s.s!=='EXTERNE').forEach(s=>s.e.forEach(p=>noter(p, 'référent '+libEnjeu(e.nom)+' ('+s.s+')'))); }
   const pers = [...personnes.entries()].sort((a,b)=>b[1].n-a[1].n).slice(0,8);
   const blocPers = pers.length ? `<h6>Personnes à contacter</h6><ul class="as-pers">${pers.map(([nom,p])=>`<li><b>${h(nom)}</b> <small>${h([...p.pq].slice(0,2).join(', '))}${p.n>1 && [...p.pq][0].startsWith('référent d\'essai')?` · ${p.n} essais`:''}</small></li>`).join('')}</ul>` : '';
-  if(!blocs.length) return `<p>Je n'ai rien trouvé dans l'app pour « ${h(q)} ».</p>${blocPers || `<p>Choisissez l'enjeu le plus proche pour voir ses référents :</p><div class="as-suite">${D.enjeux.map(e=>`<button class="chip" data-suggestion="Qui sont les référents de l'enjeu ${h(libEnjeu(e.nom))} ?">${h(libEnjeu(e.nom))}</button>`).join('')}</div>`}
+  if(!blocs.length) return `${NOTE_AG?`<p class="as-note">${NOTE_AG}</p>`:''}<p>Je n'ai rien trouvé dans l'app pour « ${h(q)} ».</p>${suggestions && suggestions.length ? `<p>Vouliez-vous parler de :</p>${boutonsSugg(suggestions)}` : `<p class="as-note">Je ne peux répondre que sur ce que contient l'Institut : essais, variétés, outils, documents, contacts, commissions. Essayez avec un produit, un bioagresseur, une variété ou un outil.</p>`}${blocPers || `<p>Choisissez l'enjeu le plus proche pour voir ses référents :</p><div class="as-suite">${D.enjeux.map(e=>`<button class="chip" data-suggestion="Qui sont les référents de l'enjeu ${h(libEnjeu(e.nom))} ?">${h(libEnjeu(e.nom))}</button>`).join('')}</div>`}
     <p class="as-note">L'assistant lit les données de l'app et les fiches rédigées à partir des documents ; il ne lit pas le contenu complet des fichiers SharePoint.</p>`;
   // --- La réponse en clair : deux ou trois phrases, le détail est replié dessous ---
   const court = [], P = x => prixM2(x.p.prix)!==null ? fmtPrix(prixM2(x.p.prix))+' €/m²' : (x.p.prix || 'prix non renseigné');
-  const montrePrix = veutPrix || pxDirects.some(x=>x.enTitre);
+  // « combien » : on compte ce qui a été trouvé
+  if(combien && !veutPrix){ const c = [[es.length,'essai sanitaire','essais sanitaires'],[lv.length,'solution ou levier','solutions ou leviers'],[va.length,'variété de tomate','variétés de tomate'],[de('fvar').length,'variété de fraise','variétés de fraise'],[de('outil').length,'outil de veille','outils de veille'],[de('projet').length,'projet ou étude','projets ou études'],[de('doc').length,'document','documents'],[de('detection').length,'détection','détections']].filter(x=>x[0]);
+    if(c.length) court.push(`Dans l'Institut, j'ai trouvé : <b>${c.map(x=>x[0]+' '+(x[0]>1?x[2]:x[1])).join('</b>, <b>')}</b>.`);
+    if(de('outil').length>1){ const par = {}; de('outil').forEach(x=>{ par[x.o.statutLib] = (par[x.o.statutLib]||0)+1; }); court.push(`Par statut : ${Object.entries(par).map(([k,n])=>'<b>'+n+'</b> '+h(k.toLowerCase())).join(', ')}.`); } }
+  if(reco && fv.length && fort('fvar')){ const rang = {LP:0, DV3:1, DV2:2, DV1:3}, ret = fv.map(x=>x.v).filter(v=>v.statut && rang[String(v.statut).toUpperCase()]!==undefined).sort((a,b)=>rang[String(a.statut).toUpperCase()]-rang[String(b.statut).toUpperCase()]);
+    if(ret.length) court.push(`<b>Variétés de fraise retenues par la commission</b> (choix du ${h(S.fraise?.synthese?.date||'')}) : ${ret.slice(0,4).map(v=>`<b>${h(v.nom)}</b> (${h((STATUT_FR[String(v.statut).toUpperCase()]||['']).at(0).toLowerCase())}) : ${h(v.forts.slice(0,3).join(', ')||'—')}`).join(' ; ')}.`); }
+  // « que marche contre… ? » : ce qui a le mieux fonctionné, avec les essais
+  if(reco && !veutPrix && fort('essai') && (es.length || lv.length)){
+    const bons = es.filter(x=>x.e.resN==='Efficace'), part = es.filter(x=>x.e.resN==='Partielle'), nons = es.filter(x=>x.e.resN==='Inefficace'), eff = lv.filter(x=>/^efficace/i.test(x.x?.eff||''));
+    const ligne = x => `<b>${h(coupe(x.e.objectif,80))}</b> (${h([x.e.op, x.e.an].filter(Boolean).join(', '))}) : ${h(coupe(phraseCle(x.e), 190))}`;
+    if(bons.length) court.push(`<b>Ce qui a le mieux marché</b> d'après les essais de l'Institut :<br>• ${bons.slice(0,3).map(ligne).join('<br>• ')}`);
+    else if(part.length) court.push(`<b>Rien n'est encore établi comme efficace</b> sur ce sujet. Pistes partiellement efficaces :<br>• ${part.slice(0,2).map(ligne).join('<br>• ')}`);
+    if(eff.length) court.push(`<b>Solutions jugées efficaces</b> dans la base Coop Protect : ${eff.slice(0,4).map(x=>h(x.x.nom)).join(', ')}.`);
+    if(nons.length) court.push(`<b>À éviter ou sans effet</b> : ${nons.slice(0,2).map(x=>h(coupe(x.e.objectif,60))+(x.e.fiche?.conclusion?' ('+h(coupe(x.e.fiche.conclusion,90))+')':'')).join(' ; ')}.`); }
+  const montrePrix = veutPrix && (pxDirects.length || sg.length || px.length);
+  if(veutPrix && !montrePrix) court.push("Je n'ai pas de prix pour cela (le catalogue ne couvre que les graines de tomate). Voici ce que j'ai trouvé :");
   if(montrePrix && pxDirects.length){ const l = pxDirects.slice().sort(tri ? parPrix : (a,b)=>b.enTitre-a.enTitre || b.score-a.score);
     if(tri) court.push(`${tri>0?'La moins chère':'La plus chère'} : <b>${h(l[0].p.nom)}</b>, <b>${h(P(l[0]))}</b> de graines (${h(l[0].seg)})${l.length>1?`. Ensuite : ${l.slice(1,3).map(x=>h(x.p.nom)+' '+h(P(x))).join(', ')}`:''}.`);
     else court.push(l.slice(0,3).map(x=>`<b>${h(x.p.nom)}</b> : <b>${h(P(x))}</b> de graines <small>(${h([x.seg, x.p.semencier, 'catalogue '+x.an].filter(Boolean).join(', '))})</small>`).join('<br>')+(l.length>3?`<br><small>+ ${l.length-3} autres dans le détail.</small>`:'')); }
@@ -6402,38 +6604,42 @@ function reponseAssistant(q){
   else if(montrePrix && px.length){ const l = px.slice().sort(tri ? parPrix : (a,b)=>b.score-a.score); court.push(l.slice(0,3).map(x=>`<b>${h(x.p.nom)}</b> : <b>${h(P(x))}</b> <small>(${h(x.seg)})</small>`).join('<br>')); }
   if(!court.length && va.length && va[0].enTitre){ const {k, v} = va[0], st = statutListe(anCom, k), p = anneesPrix().map(a=>prixVariete(a,k)).filter(Boolean).pop();
     court.push(`<b>${h(v.nom)}</b>${v.seg||v.sem?' ('+h([v.seg, v.sem].filter(Boolean).join(', '))+')':''} : ${st ? (st.type==='lp' ? 'en <b>liste positive de production</b>' : 'en <b>développement '+h(st.dv||'')+'</b>')+' '+h(anListe(anCom)-1+'-'+anListe(anCom)) : 'pas dans les listes positives en cours'}${p?`. Graines : <b>${h(P({p}))}</b>`:''}.`); }
+  if(!montrePrix && va.length && va[0].enTitre){ const rl = lignesResVar(va[0].k, 3); if(rl.length) court.push('<b>Résultats d\'essais</b> : '+rl.map(h).join(' ; ')+'.'); }
   if(!montrePrix && fv.length && fv[0].enTitre){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (fraise, profil ${h(v.profil.replace('P',''))}, témoin ${h(v.temoin)}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.${v.commentaire?' Décision : '+h(v.commentaire):''}`); }
-  if(es.length && !montrePrix && !(fv.length && fv[0].enTitre)){ const n = r => es.filter(x=>x.e.resN===r).length, parts = [[n('Efficace'),'efficace'],[n('Partielle'),'partiellement efficace'],[n('Inefficace'),'inefficace']].filter(x=>x[0]).map(x=>`${x[0]} ${x[1]}${x[0]>1?'s':''}`);
+  if(es.length && fort('essai') && !montrePrix && !(fv.length && fv[0].enTitre)){ const n = r => es.filter(x=>x.e.resN===r).length, parts = [[n('Efficace'),'efficace'],[n('Partielle'),'partiellement efficace'],[n('Inefficace'),'inefficace']].filter(x=>x[0]).map(x=>`${x[0]} ${x[1]}${x[0]>1?'s':''}`);
     const reste = es.length-n('Efficace')-n('Partielle')-n('Inefficace'); if(reste && parts.length) parts.push(reste+' à conclure');
     court.push(`<b>${es.length} essai${es.length>1?'s':''} sanitaire${es.length>1?'s':''}</b> sur ce sujet${parts.length?' : '+parts.join(', '):' (résultats à conclure)'}.`);
     const txt = x => { const fi = x.e.fiche||{}; return fi.conclusion && fi.conclusion.length>=120 ? fi.conclusion : [fi.resultats, fi.conclusion].filter(Boolean).join(' ') || x.e.com || ''; };
     const ok = es.find(x=>x.e.resN==='Efficace' && txt(x)), ko = !ok && es.find(x=>['Partielle','Inefficace'].includes(x.e.resN) && txt(x));
     if(ok) court.push(`<b>À retenir</b> : ${h(coupe(txt(ok), 240))} <small>(${h([ok.e.op, ok.e.an].filter(Boolean).join(', '))})</small>`);
     else if(ko) court.push(`<b>À retenir</b> : ${h(coupe(txt(ko), 240))} <small>(${h([ko.e.op, ko.e.an].filter(Boolean).join(', '))})</small>`); }
-  if(lv.length && !montrePrix) court.push(`<b>${lv.length} solution${lv.length>1?'s':''}</b> dans la base Coop Protect : ${lv.slice(0,3).map(x=>h(x.x.nom)).join(', ')}${lv.length>3?' et '+(lv.length-3)+' autre'+(lv.length>4?'s':''):''}.`);
-  if(li.length && !montrePrix){ const a = li.filter(x=>x.lp).length, b = li.length-a; court.push(`Liste positive ${h(li[0].aL-1+'-'+li[0].aL)} : ${[a?`<b>${a}</b> variété${a>1?'s':''} en production`:'', b?`<b>${b}</b> en développement`:''].filter(Boolean).join(' et ')}${li.length<=4?' ('+li.map(x=>h(x.x.nom)).join(', ')+')':''}.`); }
-  if(!montrePrix && ou.length){ const o = ou[0].o; court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+h(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 220))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}`); }
+  if(lv.length && fort('levier') && !montrePrix) court.push(`<b>${lv.length} solution${lv.length>1?'s':''}</b> dans la base Coop Protect : ${lv.slice(0,3).map(x=>h(x.x.nom)).join(', ')}${lv.length>3?' et '+(lv.length-3)+' autre'+(lv.length>4?'s':''):''}.`);
+  if(li.length && fort('liste') && !montrePrix){ const a = li.filter(x=>x.lp).length, b = li.length-a; court.push(`Liste positive ${h(li[0].aL-1+'-'+li[0].aL)} : ${[a?`<b>${a}</b> variété${a>1?'s':''} en production`:'', b?`<b>${b}</b> en développement`:''].filter(Boolean).join(' et ')}${li.length<=4?' ('+li.map(x=>h(x.x.nom)).join(', ')+')':''}.`); }
+  if(!montrePrix && pj.length && fort('projet')){ const p = pj[0].p; court.push(`<b>${h(p.titre)}</b> (${h(p.theme)}) : ${h(coupe(p.desc, 280))} ${p.docs.length} document${p.docs.length>1?'s':''} dans le dossier.`); }
+  if(!montrePrix && ou.length && fort('outil')){ const o = ou[0].o, e = essaiDe(o);
+    if(ou.length>1) court.push(`<b>${ou.length} outils</b> de la veille correspondent : ${ou.slice(0,4).map(x=>h(x.o.nom)+' ('+h(x.o.statutLib.toLowerCase())+')').join(', ')}${ou.length>4?'…':''}. Le plus proche :`);
+    court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+h(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 200))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}${e?` <b>Essai ${h(S.agrotech.essais.annee)} : ${h(e.resultat)}</b> — ${h(coupe(e.conclusion, 170))}`:''}`); }
   if(!montrePrix && !court.length && fv.length){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (profil ${h(v.profil.replace('P',''))}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.`); }
-  if(en.length && (contact || !court.length)){ const e = en[0].enjeu, r = e.structures.filter(s=>s.e.length && s.s!=='EXTERNE'); court.push(`Enjeu <b>${h(libEnjeu(e.nom))}</b> — référents : ${r.slice(0,4).map(s=>h(s.s)+' : '+h(s.e.slice(0,2).join(', '))).join(' ; ') || 'aucun dans la cartographie'}${r.length>4?'…':''}.`); }
+  if(en.length && (contact || !court.length)){ const e = en[0].enjeu, nq = normPhrase(q), opC = OPS.find(o=>o!=='UDC' && nq.includes(normTexte(o))), r0 = e.structures.filter(s=>s.e.length && s.s!=='EXTERNE'), r = opC && r0.some(s=>s.s===opC) ? r0.filter(s=>s.s===opC) : r0; court.push(`Enjeu <b>${h(libEnjeu(e.nom))}</b> — référents : ${r.slice(0,4).map(s=>h(s.s)+' : '+h(s.e.slice(0,2).join(', '))).join(' ; ') || 'aucun dans la cartographie'}${r.length>4?'…':''}.`); }
   if(!court.length && dt.length) court.push(`<b>${dt.length} détection${dt.length>1?'s':''}</b> en réunion hebdo sur ce sujet.`);
   if(!court.length && rd.length) court.push(`<b>${rd.length} rendez-vous</b> de commission : ${h(dateCourte(rd[0].r.date))} — ${h(rd[0].r.titre)}.`);
   if(!court.length && ct.length) court.push(ct.slice(0,3).map(({c})=>`<b>${h(c.nom)}</b> ${h([c.org, c.fonction].filter(Boolean).join(' · '))}`).join('<br>'));
-  if(!court.length && dc.length) court.push(`<b>${dc.length} document${dc.length>1?'s':''}</b> trouvé${dc.length>1?'s':''}, par exemple : ${urlSure(dc[0].d.url)?`<a href="${h(liensDoc(dc[0].d.url).ouvrir||dc[0].d.url)}" target="_blank" rel="noopener">${h(coupe(dc[0].titre,70))}</a>`:h(coupe(dc[0].titre,70))}.`);
+  if(!court.length && dc.length) court.push(`<b>${dc.length} document${dc.length>1?'s':''}</b> trouvé${dc.length>1?'s':''} : ${dc.slice(0,4).map(x=>urlSure(x.d.url)?`<a href="${h(liensDoc(x.d.url).ouvrir||x.d.url)}" target="_blank" rel="noopener">${h(coupe(x.titre,60))}</a>`:h(coupe(x.titre,60))).join(' · ')}${dc.length>4?' …':''}`);
   const aContacter = pers.length && !(en.length && contact && court.length===1) ? `<b>À contacter</b> : ${pers.slice(0,3).map(([nom])=>h(nom)).join(', ')}.` : '';
   if(aContacter) contact ? court.unshift(aContacter) : court.push(aContacter);
-  const notes = (corriges.length ? `<p class="as-note">J'ai compris ${corriges.map(([a,b])=>`« ${h(b)} » pour « ${h(a)} »`).join(', ')}.</p>` : '')
+  const notes = (NOTE_AG ? `<p class="as-note">${NOTE_AG}</p>` : '') + (corriges.length ? `<p class="as-note">J'ai compris ${corriges.map(([a,b])=>`« ${h(b)} » pour « ${h(a)} »`).join(', ')}.</p>` : '')
     + (absents.length ? `<p class="as-alerte">Rien dans l'app sur « ${h(absents.join(' », « '))} » : la réponse porte sur le reste de la question.</p>`
       : partiel ? `<p class="as-alerte">Aucun élément ne réunit tous les mots de la question : voici le plus proche.</p>` : '');
   return `<div class="as-court">${court.map(c=>`<p>${c}</p>`).join('')}${montrePrix && (pxDirects.length || sg.length || px.length) ? confid : ''}</div>${notes}
-    <details class="as-plus"><summary><span>Pour plus d'infos</span><small>${res.length} élément${res.length>1?'s':''} : détails, sources, documents, contacts</small></summary>${blocs.join('')}${blocPers}</details>`;
+    <details class="as-plus"${detail?' open':''}><summary><span>Pour plus d'infos</span><small>${res.length} élément${res.length>1?'s':''} : détails, sources, documents, contacts</small></summary>${blocs.join('')}${blocPers}</details>`;
 }
 function afficherConversation(){
   const fil = document.getElementById('filAssistant');
   fil.innerHTML = (conversation.length ? '' : `<div class="as-accueil"><span class="robot grand">${ROBOT_SVG}</span><h4>Bonjour ! Que cherchez-vous ?</h4>
-      <p>Posez votre question${RECO ? ', à l\'écrit ou à la voix' : ''} : je fouille les essais, les fiches, les leviers, les variétés, les enjeux, les documents et la réunion hebdo, puis je vous fais une synthèse avec les sources et les personnes à contacter.</p>
+      <p>Parlez-moi comme à un collègue, même avec des fautes : je cherche dans tout l'Institut (essais, variétés, outils, documents, contacts) et je vous réponds par une synthèse avec les sources. Je garde le fil : dites « et en fraise ? » ou « plus de détails ».</p>
       ${RECO ? `<button class="as-parler" data-micro>${MICRO_SVG}<span>Parler au robot</span></button>` : ''}</div>
       <div class="assistant-suggestions"><p>Ou essayez :</p>${SUGGESTIONS.map(s=>`<button data-suggestion="${h(s)}">${h(s)}</button>`).join('')}</div>`)
-    + conversation.map(m=>`<div class="bulle ${m.role==='user'?'moi':'ia as-rep'}">${m.role==='user'?h(m.content):reponseAssistant(m.content)}</div>`).join('');
+    + blocsConversation();
   const qs = fil.querySelectorAll('.bulle.moi'), der = qs[qs.length-1]; fil.scrollTop = der ? der.offsetTop - fil.offsetTop - 8 : 0;
   try{ sessionStorage.setItem('it_assistant', JSON.stringify(conversation)); }catch(_){}
 }
@@ -6467,11 +6673,13 @@ function demanderAssistant(question, parVoix){
     else if(type==='prix' || type==='lp'){ comActive = 'cvto'; comPartie = type; ficheVar = ''; ficheSan = ''; aller('commissions'); vueCommissions(); }
     else if(type==='variete'){ comActive = 'cvto'; ficheSan = ''; ficheOutil = ''; ficheVar = id; comRecherche = ''; aller('commissions'); vueCommissions(); }
     else if(type==='outil'){ comActive = 'cagt'; comPartie = 'veille'; ficheVar = ''; ficheSan = ''; ficheOutil = id; comRecherche = ''; aller('commissions'); vueCommissions(); }
+    else if(type==='projets'){ comActive = 'cagt'; comPartie = 'pilotes'; ficheVar = ''; ficheSan = ''; ficheOutil = ''; comRecherche = ''; aller('commissions'); vueCommissions(); }
+    else if(type==='commission'){ comActive = id; comPartie = 'commission'; ficheVar = ''; ficheSan = ''; ficheOutil = ''; comRecherche = ''; aller('commissions'); vueCommissions(); }
     else if(type==='fraise'){ comActive = 'cvfr'; comPartie = 'essais'; fraiseProfil = ''; fraiseOuvert[id] = true; ficheVar = ''; ficheSan = ''; ficheOutil = ''; comRecherche = ''; aller('commissions'); vueCommissions();
       setTimeout(()=>{ const x = [...document.querySelectorAll('#v-commissions [data-fr-nom]')].find(n=>n.dataset.frNom===id); x?.querySelector('details')?.setAttribute('open',''); x?.scrollIntoView({block:'center'}); }, 80); }
     else if(type==='enjeu'){ enjeuActif = id; aller('cartographie'); vueCartographie(); }
     else if(type==='hebdo'){ aller('hebdo'); }
-    if(innerWidth < 900 || type==='essai' || type==='variete' || type==='outil' || type==='fraise') basculer(false);
+    if(innerWidth < 900 || type==='essai' || type==='variete' || type==='outil' || type==='fraise' || type==='commission' || type==='projets') basculer(false);
   };
   document.getElementById('formAssistant').onsubmit = e => { e.preventDefault(); const q = champ.value; champ.value = ''; demanderAssistant(q); };
   champ.onkeydown = e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); document.getElementById('formAssistant').requestSubmit(); } };
