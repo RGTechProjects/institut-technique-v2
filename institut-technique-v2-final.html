@@ -1666,10 +1666,28 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 #v-commissions[data-com]{--cc:#1F5F4A}
 #v-commissions .eyebrow{color:#5E6E67}
 #v-commissions .entete h2{color:var(--encre)}
-/* choix de la commission : onglets sobres, un seul plein */
-#v-commissions .onglets-com .chip[data-com]{--cc:#1F5F4A; border-width:1px; border-color:var(--ligne); color:var(--encre-2); background:#fff; font-weight:600; padding:8px 16px; font-size:13.5px}
-#v-commissions .onglets-com .chip[data-com]:hover{border-color:var(--marque); color:var(--marque)}
-#v-commissions .onglets-com .chip[data-com][aria-pressed="true"]{background:var(--marque); border-color:var(--marque); color:#fff}
+/* choix de la commission : une grande tuile par commission, chacune sa couleur (aucune en rouge) */
+#v-commissions .onglets-com{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin-bottom:18px}
+#v-commissions .onglets-com .chip[data-com="cvto"]{--cc:#D9772B; --cc-clair:#FDF1E6; --cc-fonce:#A9561A}
+#v-commissions .onglets-com .chip[data-com="cvfr"]{--cc:#C0527C; --cc-clair:#FBEDF3; --cc-fonce:#96375D}
+#v-commissions .onglets-com .chip[data-com="csan"]{--cc:#2E8B6A; --cc-clair:#EAF6EF; --cc-fonce:#1F6F52}
+#v-commissions .onglets-com .chip[data-com="cagt"]{--cc:#3A6EA5; --cc-clair:#EAF1F9; --cc-fonce:#2A5482}
+#v-commissions .onglets-com .chip[data-com]{display:grid; grid-template-columns:auto 1fr; column-gap:12px; align-items:center; text-align:left; white-space:normal;
+  padding:12px 14px; border:2px solid var(--cc); border-radius:14px; background:var(--cc-clair); color:var(--cc-fonce);
+  font-family:'Archivo'; font-size:16px; font-weight:700; line-height:1.2; cursor:pointer; transition:transform .12s, box-shadow .12s}
+#v-commissions .onglets-com .chip[data-com]::before{grid-row:1 / span 2; display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#fff; font-size:23px; box-shadow:inset 0 0 0 2px var(--cc)}
+#v-commissions .onglets-com .chip[data-com="cvto"]::before{content:'🍅'} #v-commissions .onglets-com .chip[data-com="cvfr"]::before{content:'🍓'}
+#v-commissions .onglets-com .chip[data-com="csan"]::before{content:'🛡️'} #v-commissions .onglets-com .chip[data-com="cagt"]::before{content:'💡'}
+#v-commissions .onglets-com .chip[data-com]::after{grid-column:2; font-family:'Public Sans'; font-size:11.5px; font-weight:500; opacity:.85}
+#v-commissions .onglets-com .chip[data-com="cvto"]::after{content:'Essais, liste positive, prix'} #v-commissions .onglets-com .chip[data-com="cvfr"]::after{content:'Variétés de fraises'}
+#v-commissions .onglets-com .chip[data-com="csan"]::after{content:'Essais, solutions, leviers'} #v-commissions .onglets-com .chip[data-com="cagt"]::after{content:'Innovation, serre du futur'}
+#v-commissions .onglets-com .chip[data-com]:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(22,33,29,.12); border-color:var(--cc); color:var(--cc-fonce)}
+#v-commissions .onglets-com .chip[data-com][aria-pressed="true"]{background:var(--cc); border-color:var(--cc); color:#fff; box-shadow:0 6px 16px rgba(22,33,29,.18)}
+#v-commissions .onglets-com .chip[data-com][aria-pressed="true"]::before{box-shadow:none}
+#v-commissions .onglets-com .chip[data-com]:focus-visible{outline:3px solid var(--cc-fonce); outline-offset:2px}
+@media(max-width:900px){ #v-commissions .onglets-com{grid-template-columns:repeat(2, minmax(0,1fr))} }
+@media(max-width:480px){ #v-commissions .onglets-com{gap:8px} #v-commissions .onglets-com .chip[data-com]{padding:9px 10px; font-size:14px; column-gap:8px}
+  #v-commissions .onglets-com .chip[data-com]::before{width:34px; height:34px; font-size:18px} #v-commissions .onglets-com .chip[data-com]::after{display:none} }
 /* cartes : plus de liseré de couleur en haut, titres nets sur fond blanc */
 #v-commissions .carte{border-top:1px solid var(--ligne); box-shadow:0 1px 3px rgba(22,33,29,.04)}
 #v-commissions .carte > h3{color:var(--encre); font-size:17px}
