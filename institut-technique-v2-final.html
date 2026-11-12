@@ -1704,6 +1704,114 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 #v-commissions a{color:var(--marque)}
 /* essais sanitaires : ombre de survol neutre */
 #v-commissions .san-e[data-san-essai]:hover, #v-commissions .san-e[data-san-essai]:focus-visible{box-shadow:0 4px 14px rgba(22,33,29,.12)}
+/* ================= Commissions : une couleur par commission, recherche à résultats directs, nouvelles parties ================= */
+#v-commissions[data-com="cvto"]{--marque:#A9561A; --marque-fonce:#8A4412; --marque-nuit:#5E2E0B; --marque-clair:#FDF1E6; --titre:#A9561A; --titre-fond:#FDF3EA; --acc:#A9561A; --acc-fond:#FDF1E6; --cc:#D9772B}
+#v-commissions[data-com="cvfr"]{--marque:#96375D; --marque-fonce:#75294A; --marque-nuit:#4E1A31; --marque-clair:#FBEDF3; --titre:#96375D; --titre-fond:#FCF0F5; --acc:#96375D; --acc-fond:#FBEDF3; --cc:#C0527C}
+#v-commissions[data-com="csan"]{--marque:#1F6F52; --marque-fonce:#17594A; --marque-nuit:#0E3328; --marque-clair:#EAF6EF; --titre:#1F6F52; --titre-fond:#EFF7F2; --acc:#1F6F52; --acc-fond:#EAF6EF; --cc:#2E8B6A}
+#v-commissions[data-com="cagt"]{--marque:#2A5482; --marque-fonce:#1F4066; --marque-nuit:#142B47; --marque-clair:#EAF1F9; --titre:#2A5482; --titre-fond:#EEF3F9; --acc:#2A5482; --acc-fond:#EAF1F9; --cc:#3A6EA5}
+#v-commissions .carte > h3, #v-commissions .carte h4.at-gt{color:var(--marque)}
+#v-commissions .carte > h3::before{background:var(--marque)}
+#v-commissions .carte{border-top:3px solid var(--cc,#1F5F4A)}
+/* barre de recherche */
+.rech-com{margin:0 0 6px}
+.rech-champ{display:flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--cc,#1F5F4A); border-radius:14px; padding:4px 16px; color:var(--cc,#1F5F4A); box-shadow:0 2px 8px rgba(22,33,29,.06)}
+.rech-champ:focus-within{box-shadow:0 0 0 4px color-mix(in srgb, var(--cc,#1F5F4A) 18%, transparent)}
+.rech-champ input{flex:1; border:0; outline:0; background:transparent; padding:12px 0; font-size:16px; color:var(--encre); min-width:0}
+.rech-sug{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:8px 2px 12px; font-size:12px; color:var(--ardoise)}
+.rech-sug .chip{font-size:12px}
+.rech-res{background:#fff; border:1px solid var(--ligne); border-top:4px solid var(--cc,#1F5F4A); border-radius:12px; padding:12px 14px 14px; margin:0 0 16px}
+.rech-res[hidden], .com-corps[hidden]{display:none}
+.rech-tete{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; font-family:'Archivo'; font-size:16px; color:var(--marque)}
+.rech-g{margin:12px 0 0} .rech-g > h4{display:flex; align-items:center; gap:8px; margin:0 0 8px; padding:7px 12px; font-family:'Archivo'; font-size:14px; color:var(--marque); background:var(--titre-fond,#F1F5F2); border-left:4px solid var(--marque); border-radius:4px}
+.rech-g > h4 span{margin-left:auto; font-size:11px; background:#fff; border-radius:99px; padding:1px 8px}
+.rech-l{display:flex; flex-direction:column; gap:8px}
+.rech-e{display:flex; gap:10px; align-items:flex-start; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:10px; padding:9px 12px; background:#fff; cursor:pointer}
+.rech-e:hover, .rech-e:focus-visible{box-shadow:0 4px 14px rgba(22,33,29,.12); outline:none}
+.rech-e.r-ok{border-left-color:#2E7D4F} .rech-e.r-part{border-left-color:#D08A12} .rech-e.r-non{border-left-color:#C4453C}
+.rech-e > div{flex:1; min-width:0} .rech-e h5{margin:0 0 3px; font-size:14px; color:var(--encre); line-height:1.3} .rech-e h5 small{font-weight:500; color:var(--ardoise)}
+.rech-e p{margin:0 0 3px; font-size:12.5px; line-height:1.45; color:var(--encre-2)} .rech-e small{display:block; font-size:11.5px; color:var(--ardoise)}
+.rech-e > .chip, .rech-e > .san-res, .rech-e > .sx-dv, .rech-e > .fr-st, .rech-e > .at-st{flex:none}
+.rech-e > .chip{border-color:var(--marque); color:var(--marque); font-weight:700; align-self:center}
+.rech-bilan{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px} .rb{font-size:12px; padding:3px 10px; border-radius:99px; background:#EEE9DF} .rb.ok{background:#E3F1E8; color:#22663F} .rb.part{background:#FBF0D9; color:#8A6A12} .rb.non{background:#FBE3E1; color:#9B2C22}
+.rech-contact{margin:14px 0 0; padding:9px 12px; font-size:12.5px; background:var(--titre-fond,#F1F5F2); border-radius:8px; color:var(--encre-2)}
+.rech-res-l{font-size:12.5px}
+/* Sanitaire : bandeau de résultats, sujets, essais en lignes */
+.san-haut-t{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap} .san-haut-t > div{flex:1 1 420px}
+.san-stats{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:12px 0}
+.san-stat{display:flex; flex-direction:column; align-items:flex-start; gap:2px; text-align:left; padding:12px 14px; border:2px solid var(--ligne); border-radius:12px; background:#fff; cursor:pointer; font-family:inherit}
+.san-stat b{font-family:'Archivo'; font-size:28px; line-height:1; color:var(--encre)} .san-stat span{font-size:12.5px; color:var(--encre-2)}
+.san-stat.ok{border-color:#9FD2B3; background:#F2FAF5} .san-stat.ok b{color:#1F7A47} .san-stat.part{border-color:#EBC97A; background:#FFF9EA} .san-stat.part b{color:#A9730A} .san-stat.non{border-color:#EDA7A1; background:#FEF5F4} .san-stat.non b{color:#B3342A} .san-stat.nd{border-color:#D7D3CA; background:#F7F5F0}
+.san-stat:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(22,33,29,.1)} .san-stat.on{box-shadow:0 0 0 3px var(--cc,#1F5F4A); transform:none} .san-stat.tous{background:#fff}
+.san-plus{margin:6px 0} .san-plus > summary{cursor:pointer; font-size:12.5px; color:var(--marque); font-weight:600}
+.san-bref{margin:10px 0 0; font-size:13px; color:var(--encre-2)} .san-bref b{color:var(--marque); font-size:16px}
+.san-cible.on{box-shadow:0 0 0 3px var(--cc,#1F5F4A)}
+.san-groupe{border:1px solid var(--ligne); border-radius:10px; margin:0 0 10px; background:#fff}
+.san-groupe > summary{display:flex; align-items:center; gap:12px; cursor:pointer; padding:10px 14px; font-family:'Archivo'; list-style:none; background:var(--titre-fond,#F1F5F2); border-radius:10px}
+.san-groupe[open] > summary{border-bottom:1px solid var(--ligne); border-radius:10px 10px 0 0}
+.san-groupe > summary::-webkit-details-marker{display:none} .san-groupe > summary::before{content:'▸'; color:var(--marque)} .san-groupe[open] > summary::before{content:'▾'}
+.san-groupe > summary b{font-size:15px; color:var(--marque)} .san-groupe > summary em{font-style:normal; font-size:12px; color:var(--ardoise); font-family:'Public Sans'} .san-groupe > summary .san-barre{flex:1; max-width:220px; margin-left:auto}
+.san-lignes{display:flex; flex-direction:column}
+.san-l1{display:flex; gap:12px; align-items:flex-start; padding:11px 14px; border-bottom:1px solid var(--ligne); border-left:5px solid #D9D2C3; cursor:pointer; background:#fff}
+.san-l1:last-child{border-bottom:0} .san-l1:hover, .san-l1:focus-visible{background:#FBFAF7; outline:none}
+.san-l1.r-ok{border-left-color:#2E7D4F} .san-l1.r-part{border-left-color:#D08A12} .san-l1.r-non{border-left-color:#C4453C} .san-l1.r-nd{border-left-color:#A39E93} .san-l1.r-com{border-left-color:#3B5BA9}
+.san-l1 > .san-res{flex:none; min-width:92px; text-align:center} .san-l1-c{flex:1; min-width:0} .san-l1 h5{margin:0 0 3px; font-size:14px; line-height:1.35; color:var(--encre)}
+.san-l1-r{margin:0 0 3px; font-size:12.5px; line-height:1.45; color:var(--encre-2)} .san-l1-r b{color:var(--marque)} .san-l1 small{font-size:11.5px; color:var(--ardoise)}
+.san-l1 > .chip{flex:none; align-self:center; border-color:var(--marque); color:var(--marque); font-weight:700}
+@media(max-width:900px){ .san-stats{grid-template-columns:repeat(2,minmax(0,1fr))} .san-l1{flex-wrap:wrap} .san-l1 > .san-res{min-width:0} }
+/* Variétale Tomates : en bref */
+.es-bref{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+.es-bref .bref-t{grid-column:1 / -1; margin:0}
+.es-bref > div:not(.bref-t){border:1px solid var(--ligne); border-radius:12px; padding:10px 14px; background:var(--titre-fond,#F1F5F2)} .es-bref b{display:block; font-family:'Archivo'; font-size:26px; color:var(--marque); line-height:1.1} .es-bref span{font-size:12.5px; color:var(--encre-2)}
+.es-etapes{grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; font-size:12.5px; color:var(--encre-2)} .es-etapes span{display:flex; align-items:center; gap:6px} .es-etapes i{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--marque); color:#fff; font-style:normal; font-weight:700; align-items:center; justify-content:center; font-size:12px}
+@media(max-width:900px){ .es-bref{grid-template-columns:repeat(2,minmax(0,1fr))} }
+/* Agro-Tech : veille, pilotes, méthode */
+.at-st{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; background:#EEE9DF; color:var(--encre-2); white-space:nowrap}
+.at-st.ok{background:#E3F1E8; color:#22663F} .at-st.part{background:#FBF0D9; color:#8A6A12} .at-st.info{background:#E6ECF8; color:#2A4C8C} .at-st.non{background:#EEE9DF; color:#6B655A} .at-st.nd{background:#F1EEE6; color:#6B655A}
+.at-ret{font-size:11px; padding:2px 8px; border-radius:99px; background:#EEE9DF} .at-ret.ok{background:#E3F1E8; color:#22663F} .at-ret.part{background:#FBF0D9; color:#8A6A12} .at-ret.non{background:#FBE3E1; color:#9B2C22}
+.at-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:12px 0}
+.at-stat{display:flex; flex-direction:column; align-items:flex-start; text-align:left; padding:10px 14px; border:2px solid var(--ligne); border-radius:12px; background:#fff; cursor:pointer; font-family:inherit}
+.at-stat b{font-family:'Archivo'; font-size:26px; line-height:1; color:var(--encre)} .at-stat span{font-size:12.5px; color:var(--encre-2)}
+.at-stat.st-actif{border-color:#9FD2B3; background:#F2FAF5} .at-stat.st-essai{border-color:#EBC97A; background:#FFF9EA} .at-stat.st-contacte,.at-stat.st-repere{border-color:#B9C9E8; background:#F3F7FD}
+.at-stat:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(22,33,29,.1)} .at-stat.on{box-shadow:0 0 0 3px var(--cc,#3A6EA5)}
+.at-gt{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin:0 0 10px; padding:8px 12px; font-family:'Archivo'; font-size:16px; background:var(--titre-fond,#EEF3F9); border-left:5px solid var(--marque); border-radius:4px}
+.at-gt span{font-size:12px; background:#fff; border-radius:99px; padding:1px 9px} .at-gt small{font-family:'Public Sans'; font-size:12px; font-weight:500; color:var(--ardoise)}
+.at-grille{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px}
+.at-c{display:flex; flex-direction:column; gap:5px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:12px; padding:11px 14px; background:#fff; cursor:pointer}
+.at-c:hover, .at-c:focus-visible, .at-p:hover, .at-p:focus-visible{box-shadow:0 6px 16px rgba(22,33,29,.12); outline:none}
+.at-c.st-actif, .at-p.st-actif{border-left-color:#2E7D4F} .at-c.st-essai, .at-p.st-essai{border-left-color:#D08A12} .at-c.st-contacte, .at-c.st-repere{border-left-color:#5B7FC4}
+.at-c header, .at-p header{display:flex; gap:6px; align-items:center; flex-wrap:wrap} .at-c h5{margin:0; font-size:15px; color:var(--encre)}
+.at-meta{margin:0; font-size:12px; color:var(--ardoise)} .at-desc{margin:0; font-size:12.5px; line-height:1.45; color:var(--encre-2)}
+.at-c footer{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:auto; font-size:11.5px; color:var(--ardoise)} .at-plus{margin-left:auto; color:var(--marque); font-weight:700}
+.at-legende{padding:10px 14px} .at-legende summary{cursor:pointer; font-weight:700; color:var(--marque)}
+.at-pil{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:12px}
+.at-p{display:flex; flex-direction:column; gap:6px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:12px; padding:12px 14px; background:#fff; cursor:pointer}
+.at-p header h5{margin:0; flex:1 1 100%; font-size:16px; color:var(--encre)} .at-p dl{display:grid; grid-template-columns:120px 1fr; gap:3px 10px; margin:0; font-size:12.5px} .at-p dt{font-weight:700; color:var(--marque)} .at-p dd{margin:0}
+.at-etapes{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.at-e{border:1px solid var(--ligne); border-radius:12px; padding:12px 14px; background:var(--titre-fond,#EEF3F9)} .at-e b{display:inline-flex; width:26px; height:26px; border-radius:50%; background:var(--marque); color:#fff; align-items:center; justify-content:center; font-family:'Archivo'}
+.at-e h5{margin:6px 0 4px; font-size:15px; color:var(--marque)} .at-e p{margin:0 0 4px; font-size:12.5px; line-height:1.45}
+.at-dv{display:flex; gap:10px; align-items:flex-start; margin:0 0 8px} .at-dv p{margin:0; font-size:12.5px}
+.at-grille5{display:flex; flex-wrap:wrap; gap:6px; padding:0; list-style:none; margin:0 0 8px} .at-grille5 li{background:var(--titre-fond,#EEF3F9); border:1px solid var(--ligne); border-radius:99px; padding:4px 12px; font-size:12.5px; font-weight:600; color:var(--marque)}
+.at-cat{margin:0 0 4px; font-size:12.5px}
+.at-prof{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px} .at-prof h5{margin:0 0 4px; color:var(--marque)} .at-prof p{margin:0; font-size:12.5px; line-height:1.5}
+.at-apres{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px} .at-a{border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:10px; padding:10px 12px; background:#fff} .at-a.ok{border-left-color:#2E7D4F} .at-a.part{border-left-color:#D08A12} .at-a.non{border-left-color:#C4453C} .at-a p{margin:4px 0 0; font-size:12.5px}
+.at-liv{color:var(--ardoise)}
+/* Variétale Fraises */
+.fr-st{display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px; background:#EEE9DF; color:var(--encre-2); white-space:nowrap}
+.fr-st.ok{background:#E3F1E8; color:#22663F} .fr-st.part{background:#FBF0D9; color:#8A6A12} .fr-st.non{background:#FBE3E1; color:#9B2C22} .fr-st.nd{background:#F1EEE6; color:#6B655A}
+.fr-grille{display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:12px}
+.fr-v{display:flex; flex-direction:column; gap:8px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:12px; padding:12px 14px; background:#fff}
+.fr-v.st-lp, .fr-v.st-dv3{border-left-color:#2E7D4F} .fr-v.st-dv2, .fr-v.st-dv1{border-left-color:#D08A12} .fr-v.st-abandon, .fr-v.st-out{border-left-color:#C4453C}
+.fr-v header{display:flex; justify-content:space-between; gap:10px; align-items:flex-start} .fr-v h5{margin:0; font-size:16px; color:var(--encre)}
+.fr-fd{display:grid; grid-template-columns:1fr 1fr; gap:8px} .fr-fd > div{display:flex; flex-wrap:wrap; gap:4px; align-content:flex-start} .fr-fd span{flex:1 1 100%; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ardoise)}
+.fr-fd i{font-style:normal; font-size:12px; padding:2px 9px; border-radius:99px} .fr-fd .fort{background:#E3F1E8; color:#22663F} .fr-fd .faible{background:#FBF0D9; color:#8A6A12} .fr-fd em{font-size:12px; color:var(--ardoise)}
+.fr-desc{margin:0; font-size:12.5px; line-height:1.5; color:var(--encre-2)} .fr-com{margin:0; padding:7px 10px; font-size:12.5px; background:var(--titre-fond,#FCF0F5); border-radius:8px}
+.fr-ev{border-top:1px solid var(--ligne); padding-top:6px} .fr-ev > summary{cursor:pointer; font-size:12.5px; font-weight:700; color:var(--marque)} .fr-an{margin:6px 0 0} .fr-an ul{margin:2px 0 0; padding-left:18px; font-size:12.5px; line-height:1.5} .fr-an b{color:var(--marque)}
+.fr-prio{font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; background:#EEE9DF} .fr-prio.p1{background:#E3F1E8; color:#22663F} .fr-prio.p2{background:#EAF3DD; color:#4B6B1F} .fr-prio.p3{background:#FBF0D9; color:#8A6A12}
+.fr-inf{margin:0; padding-left:18px; font-size:12.5px; line-height:1.5}
+@media(max-width:600px){ .fr-grille, .at-grille, .at-pil{grid-template-columns:1fr} .fr-fd{grid-template-columns:1fr} .at-p dl{grid-template-columns:1fr} }
+/* tableaux des commissions : défilement dans le cadre plutôt que coupés, cellules qui se replient sur téléphone */
+#v-commissions .tableau{overflow-x:auto; -webkit-overflow-scrolling:touch}
+@media(max-width:700px){ #v-commissions .tableau table.data{min-width:0} #v-commissions .tableau td, #v-commissions .tableau th{white-space:normal; padding:6px 8px; font-size:12px} }
 </style>
 </head>
 <body>
@@ -2027,8 +2135,8 @@ const libEnjeu = n => (ENJEU_LIB[n]||[n])[0];
 const icoEnjeu = n => (ENJEU_LIB[n]||[,'•'])[1];
 
 /* ============ Persistance (Supabase, table app_state) ============ */
-const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal'];
-let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null};
+const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal','agrotech','fraise'];
+let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null, agrotech:null, fraise:null};
 let modeLocal = false;
 async function charger(){
   try{
@@ -4577,11 +4685,12 @@ const parcours = v => [...v.ou].sort((a,b)=>a.an-b.an || libSrc(a.src).localeCom
 const btnFiche = (k, nom) => `<button class="lien-fiche" data-fiche="${h(k)}">${h(nom)}</button>`;
 
 /* --- curseur unique des années --- */
-function anneesCom(){
-  const ans = new Set();
-  Object.keys(SOURCES_ESSAIS).forEach(s=>anneesSource(s).forEach(a=>ans.add(a)));
-  ['prix','docs'].forEach(k=>Object.keys(S.essais?.[k]||{}).forEach(a=>ans.add(+a)));
-  Object.values(S.espaces?.coms||{}).forEach(c=>{ (c.calendrier||[]).forEach(e=>ans.add(+e.an)); Object.keys(c.cadres||{}).forEach(a=>ans.add(+a)); });
+function anneesCom(com){
+  const ans = new Set(), E = S.espaces?.coms?.[com]||{};
+  (E.calendrier||[]).forEach(e=>ans.add(+e.an)); Object.keys(E.cadres||{}).forEach(a=>ans.add(+a));
+  if(com==='cvto'){ Object.keys(SOURCES_ESSAIS).forEach(s=>anneesSource(s).forEach(a=>ans.add(a))); ['prix','docs'].forEach(k=>Object.keys(S.essais?.[k]||{}).forEach(a=>ans.add(+a))); }
+  if(com==='csan'){ (S.sanitaire?.essais?.lignes||[]).forEach(e=>{ if(e.an) ans.add(e.an); }); Object.keys(S.sanitaire?.docs||{}).forEach(a=>ans.add(+a)); }
+  if(com==='cvfr'){ Object.keys(S.fraise?.docs||{}).forEach(a=>ans.add(+a)); if(S.fraise?.synthese) ans.add(2026); }
   const anAuj = new Date().getFullYear(), l = [...ans].filter(a=>a>2000 && a<2100);
   const min = Math.min(2020, ...l), max = Math.max(anAuj+1, ...l);
   return Array.from({length:max-min+1}, (_,i)=>min+i);
@@ -4590,13 +4699,14 @@ function contenuAn(com, a){
   const t = [];
   if(com==='csan' && ((S.sanitaire?.essais?.lignes||[]).some(e=>e.an===a) || (S.sanitaire?.docs?.[a]||[]).length)) t.push(['essais','essais']);
   if(com==='cvto'){ if(sourcesAn(a).length || (S.essais?.docs?.[a]||[]).length) t.push(['essais','essais']); if(S.essais?.prix?.[a]) t.push(['prix','prix des graines']); }
+  if(com==='cvfr' && ((S.fraise?.docs?.[a]||[]).length || (a===2026 && S.fraise?.synthese))) t.push(['essais','évaluations']);
   const E = espaceCom(com);
   if(E.calendrier.some(e=>+e.an===a)) t.push(['rdv','rendez-vous']);
   if((E.cadres[a]||[]).length || (S.commissions?.[a]?.[com]?.docs||[]).some(d=>urlSure(d.url))) t.push(['cadres','documents cadres']);
   return t;
 }
 function barreAnCom(com){
-  const ans = anneesCom(); if(!ans.includes(anCom)) anCom = ans[ans.length-1];
+  const ans = anneesCom(com); if(!ans.includes(anCom)) anCom = ans.includes(new Date().getFullYear()) ? new Date().getFullYear() : ans[ans.length-1];
   const ici = contenuAn(com, anCom);
   return `<div class="barre-annee com-annee no-print">
     <div><div class="eyebrow">Année</div><div class="an-courant">${anCom}</div><div class="com-camp">campagne ${anCom-2001} ${anCom-2000}</div></div>
@@ -4604,7 +4714,7 @@ function barreAnCom(com){
       <input type="range" min="${ans[0]}" max="${ans[ans.length-1]}" step="1" value="${anCom}" data-an-range aria-label="Choisir l'année">
       <div class="annees">${ans.map(y=>{ const c = contenuAn(com, y);
         return `<button class="${y===anCom?'on':''} ${c.length?'':'vide'}" data-an-com="${y}" title="${y} : ${h(c.map(x=>x[1]).join(', ')||'rien pour l\'instant')}">${y}<i class="pts">${c.map(x=>`<b class="pt-${x[0]}"></b>`).join('')}</i></button>`; }).join('')}</div>
-      <div class="pts-leg">${com==='cvto'?'<span><b class="pt-essais"></b>essais</span><span><b class="pt-prix"></b>prix des graines</span>':com==='csan'?'<span><b class="pt-essais"></b>essais</span>':''}<span><b class="pt-rdv"></b>rendez-vous</span><span><b class="pt-cadres"></b>documents cadres</span></div>
+      <div class="pts-leg">${com==='cvto'?'<span><b class="pt-essais"></b>essais</span><span><b class="pt-prix"></b>prix des graines</span>':com==='csan'?'<span><b class="pt-essais"></b>essais</span>':com==='cvfr'?'<span><b class="pt-essais"></b>évaluations</span>':''}<span><b class="pt-rdv"></b>rendez-vous</span><span><b class="pt-cadres"></b>documents cadres</span></div>
     </div>
     <span class="etat ${ici.length?'ok':''}">${ici.length ? h(ici.map(x=>x[1]).join(' · ')) : 'rien pour l\'instant'}</span>
   </div>`;
@@ -4614,24 +4724,32 @@ function barreAnCom(com){
 function vueCommissions(){
   const el = document.getElementById('v-commissions'); el.dataset.com = comActive;
   const c = COMMISSIONS.find(x=>x.id===comActive);
-  const parties = comActive==='cvto' ? PARTIES_CVTO : comActive==='csan' ? PARTIES_CSAN : [['commission','Calendrier & documents']];
+  const parties = comActive==='cvto' ? PARTIES_CVTO : comActive==='csan' ? PARTIES_CSAN : comActive==='cvfr' ? PARTIES_CVFR : PARTIES_CAGT;
   if(!parties.some(p=>p[0]===comPartie)) comPartie = parties[0][0];
   IDX = comActive==='cvto' ? indexGlobal() : {};
   if(ficheVar && !IDX[ficheVar]) ficheVar = '';
-  const corps = comActive==='csan' && comPartie==='essais' ? partieEssaisSan(anCom) : comPartie==='leviers' ? partieLeviers() : comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom);
+  if(ficheOutil && !(S.agrotech?.outils||[]).some(o=>o.id===ficheOutil)) ficheOutil = '';
+  const corps = comActive==='csan' ? (comPartie==='essais' ? partieEssaisSan(anCom) : comPartie==='leviers' ? partieLeviers() : partieCommission(c, anCom))
+    : comActive==='cvto' ? (comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom))
+    : comActive==='cvfr' ? (comPartie==='essais' ? partieFraiseEssais() : comPartie==='liste' ? partieFraiseListes() : partieCommission(c, anCom))
+    : (comPartie==='veille' ? partieVeille() : comPartie==='pilotes' ? partiePilotes() : comPartie==='methode' ? partieMethode() : partieCommission(c, anCom));
+  const avecAn = comActive==='cvto' || comActive==='csan' || comPartie==='commission';
   el.innerHTML = `
   <div class="entete"><div class="eyebrow">05 — Commissions</div>
     <h2>Espaces de commission</h2>
-    <p>Choisissez la commission et l'année, utilisez la recherche, puis consultez les résultats des essais, les solutions, le calendrier et les documents de la commission.</p></div>
+    <p>Choisissez la commission, tapez un mot pour voir directement les résultats des essais, ou parcourez les onglets (résultats, solutions, listes, calendrier et documents).</p></div>
   <div class="onglets-com">${COMMISSIONS.map(x=>`<button class="chip" data-com="${x.id}" aria-pressed="${x.id===comActive}">${x.nom}</button>`).join('')}</div>
-  ${barreAnCom(comActive)}
-  ${comActive==='cvto' ? rechercheVarietes() : comActive==='csan' ? rechercheSan() : ''}
+  ${rechercheCom(comActive)}
+  <div class="com-corps"${comRecherche.length>=2?' hidden':''}>
+  ${avecAn ? barreAnCom(comActive) : ''}
   ${rappelCalendrier(comActive, anCom)}
   ${parties.length>1 ? `<div class="com-parties segment">${parties.map(([k,l])=>`<button data-com-partie="${k}" aria-pressed="${k===comPartie}">${l}</button>`).join('')}</div>` : ''}
   ${corps}
+  </div>
   ${ficheVar ? vueFicheVar(ficheVar) : ''}
-  ${!ficheVar && ficheSan && comActive==='csan' ? vueFicheSan(ficheSan) : ''}`;
-  document.body.classList.toggle('fiche-ouverte', !!ficheVar || (!!ficheSan && comActive==='csan'));
+  ${!ficheVar && ficheSan && comActive==='csan' ? vueFicheSan(ficheSan) : ''}
+  ${!ficheVar && !ficheSan && ficheOutil && comActive==='cagt' ? vueFicheOutil(ficheOutil) : ''}`;
+  document.body.classList.toggle('fiche-ouverte', !!ficheVar || (!!ficheSan && comActive==='csan') || (!!ficheOutil && comActive==='cagt'));
 }
 
 /* ================= Partie « Essais & résultats » ================= */
@@ -4643,7 +4761,7 @@ function partieEssais(an){
     return `<button class="es-src${s===sourceEssai?' on':''}${d?'':' vide'}" data-es-src="${s}">
       <b>${h(I.nom)}</b><span>${h(I.lieu || I.desc)}</span>
       <em>${d ? h(resumeSource(s, d)) : `pas de données en ${an}${autres.length ? ' · voir '+autres.join(', ') : ''}`}</em></button>`; }).join('');
-  return `<div class="carte es-accueil"><h3>Carte des essais ${an} — choisissez un site ou une source</h3>
+  return resumeCvto(an) + `<div class="carte es-accueil"><h3>Carte des essais ${an} — choisissez un site ou une source</h3>
     <div class="es-accueil-grille"><div class="es-carte-fr">${carteEssais(an)}</div><div class="es-srcs">${cartes}</div></div></div>
   <div class="carte es-panneau">${panneauSource(sourceEssai, an)}</div>
   ${estAdmin() ? importEssais(an) : ''}`;
@@ -5034,7 +5152,7 @@ function partieCommission(c, an){
       ${x.par?`<small class="cal-par">Ajouté par ${h(x.par.split('@')[0])}</small>`:''}</div>
     ${adm ? `<button class="btn-icone suppr-icone no-print" data-cal-rm="${h(x.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}</article>`;
   const calendrier = `<div class="carte"><h3>Calendrier de la commission — ${an}</h3>
-    <p class="aide">Réunions, rallyes et rendez-vous de l'année, avec leurs supports (${c.id==='csan' ? 'dossier « 1 - Commission Sanitaire »' : 'dossier « RDV COMMISSIONS »'} sur SharePoint).</p>
+    <p class="aide">Réunions, rallyes et rendez-vous de l'année, avec leurs supports (${c.id==='csan' ? 'dossier « 1 - Commission Sanitaire »' : c.id==='cagt' ? 'dossier « 02 - Commission AgroTech Innovation »' : c.id==='cvfr' ? 'dossier « RDV COMMISSION »' : 'dossier « RDV COMMISSIONS »'} sur SharePoint).</p>
     ${evs.length ? `<div class="cal-l">${evs.map(evt).join('')}</div>` : `<p class="aide">Aucun rendez-vous enregistré pour ${an}.</p>`}
     ${autresAns.length ? `<p class="cal-autres">Autres années : ${autresAns.map(a=>`<button class="chip" data-an-com="${a}">${a} <small>(${E.calendrier.filter(x=>+x.an===a).length})</small></button>`).join(' ')}</p>` : ''}
     ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un rendez-vous</div>
@@ -5049,7 +5167,7 @@ function partieCommission(c, an){
     <div class="com-membres">${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}</div>
     ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}</div>`;
   return `${calendrier}<div class="deux com-bas">${membresB}${vueCadres(c, an)}</div>
-    ${c.id==='cvto' ? docsEssaisAn(an) : c.id==='csan' ? docsSanAn(an) : ''}
+    ${c.id==='cvto' ? docsEssaisAn(an) : c.id==='csan' ? docsSanAn(an) : c.id==='cvfr' ? docsFraise(an) : ''}
     ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3><p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
       ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
     <div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`;
@@ -5225,7 +5343,7 @@ function rappelCalendrier(com, an){
   const anL = l.filter(e=>+e.an===+an), prochain = l.find(e=>e.date>=auj), dernier = [...(anL.length?anL:l)].reverse().find(e=>e.date<auj) || anL[anL.length-1];
   const ev = e => `<b>${h(dateCourte(e.date))}</b> ${h(e.titre)}`;
   return `<div class="cal-rappel no-print"><span class="cal-rappel-t">Calendrier de la commission</span>
-    ${prochain && +an>=+auj.slice(0,4) ? `<span>Prochain : ${ev(prochain)}</span>` : ''}${dernier ? `<span>${prochain && +an>=+auj.slice(0,4)?'Dernier':'Dernier en '+an} : ${ev(dernier)}</span>` : ''}
+    ${prochain && +an>=+auj.slice(0,4) ? `<span>Prochain : ${ev(prochain)}</span>` : ''}${dernier ? `<span>Dernier : ${ev(dernier)}</span>` : ''}
     <span>${anL.length} rendez-vous en ${an}</span>
     <button class="chip" data-com-partie="commission">Voir le calendrier</button></div>`;
 }
@@ -5404,65 +5522,59 @@ function carteSan(l){
     <div class="san-lieux">${[...l2].sort((a,b)=>b.n-a.n).map(p=>`<button class="${p.ext?'ext':''}${p.cle===sel?' on':''}" data-san-f="lieu|${p.cle===sel?'':h(p.cle)}"><i></i><b>${h(p.nom.length>34?p.nom.slice(0,32)+'…':p.nom)}</b> ${h(p.lieu)} · ${p.n} essai${p.n>1?'s':''}</button>`).join('')}</div>`;
 }
 
-/* --- Partie « Essais & résultats » --- */
+/* --- Partie « Essais & résultats » : résultat en un coup d'œil, un sujet à choisir, la carte, puis les essais avec « à retenir » --- */
 function partieEssaisSan(an){
   const E = S.sanitaire?.essais;
   if(!E) return `<div class="carte"><h3>Essais sanitaires</h3><p class="aide">Aucun bilan d'essais importé pour l'instant.</p>${estAdmin()?importSan():''}</div>`;
   const tous = essaisSan(), ans = [...new Set(tous.map(e=>e.an).filter(Boolean))].sort();
-  const portee = sanTous ? tous : tous.filter(e=>e.an===+an), f = sanFiltre;
-  const lCarte = portee.filter(e=>(!f.culture || e.cultureN===f.culture) && (!f.res || e.resN===f.res) && (!f.perim || (f.perim==='Externe')===e.externe) && (!f.cible || e.cibleN===f.cible));
+  const portee = sanTous ? tous : tous.filter(e=>e.an===+an), f = sanFiltre, NC = ['À conclure','ND','Voir commentaire'];
+  const okRes = e => !f.res || (f.res==='_nc' ? NC.includes(e.resN) : e.resN===f.res);
+  const autres = e => (!f.culture || e.cultureN===f.culture) && (!f.perim || (f.perim==='Externe')===e.externe) && (!f.cible || e.cibleN===f.cible);
+  const lCarte = portee.filter(e=>autres(e) && okRes(e));
   if(f.lieu && !lCarte.some(e=>lieuSan(e)?.cle===f.lieu)) f.lieu = '';
   const l = lCarte.filter(e=>!f.lieu || lieuSan(e)?.cle===f.lieu);
+  const base = portee.filter(e=>autres(e) && (!f.lieu || lieuSan(e)?.cle===f.lieu));   // compteurs du bandeau : tous les filtres sauf le résultat
+  const nb = r => base.filter(e=>r==='_nc' ? NC.includes(e.resN) : e.resN===r).length;
   const lieuChoisi = f.lieu ? lieuSan(l[0]||{})?.nom : '';
-  const n = r => l.filter(e=>e.resN===r).length, conclus = l.filter(e=>['Efficace','Partielle','Inefficace'].includes(e.resN)).length;
-  const pc = x => conclus ? Math.round(100*x/conclus)+' % des essais conclus' : '';
-  const kpis = kpiSegment([{l:'Essais', v:l.length, s:`${new Set(l.map(e=>e.cibleN)).size} cibles · ${new Set(l.map(e=>e.op)).size} OP et partenaires`},
-    {l:'Efficaces', v:n('Efficace'), s:pc(n('Efficace')), c:'ok'}, {l:'Partiellement efficaces', v:n('Partielle'), s:pc(n('Partielle')), c:'part'},
-    {l:'Inefficaces', v:n('Inefficace'), s:pc(n('Inefficace')), c:'non'}, {l:'À conclure', v:n('À conclure')+n('ND')+n('Voir commentaire'), s:'sans évaluation, non déterminé ou à lire en commentaire'},
-    {l:'Externes', v:l.filter(e=>e.externe).length, s:`${l.filter(e=>/non diff/i.test(e.conf)).length} non diffusables`}]);
-  const puces = (cle, valeurs, lib) => `<div class="san-filtre"><span>${lib}</span><button class="chip" data-san-f="${cle}|" aria-pressed="${!f[cle]}">Tous</button>${valeurs.map(v=>`<button class="chip" data-san-f="${cle}|${h(v)}" aria-pressed="${f[cle]===v}">${h(v)} <small>${portee.filter(e=>(cle==='perim' ? (v==='Externe')===e.externe : e[cle+'N']===v)).length}</small></button>`).join('')}</div>`;
+  const stats = [['','Tous les essais',base.length,'tous'], ['Efficace','Efficaces',nb('Efficace'),'ok'], ['Partielle','Partiellement efficaces',nb('Partielle'),'part'], ['Inefficace','Inefficaces',nb('Inefficace'),'non'], ['_nc','À conclure',nb('_nc'),'nd']];
+  const puces = (cle, valeurs, lib) => `<div class="san-filtre"><span>${lib}</span><button class="chip" data-san-f="${cle}|" aria-pressed="${!f[cle]}">Tous</button>${valeurs.map(v=>`<button class="chip" data-san-f="${cle}|${f[cle]===v?'':h(v)}" aria-pressed="${f[cle]===v}">${h(v)} <small>${portee.filter(e=>(cle==='perim' ? (v==='Externe')===e.externe : e[cle+'N']===v)).length}</small></button>`).join('')}</div>`;
   const cultures = [...new Set(portee.map(e=>e.cultureN))].sort((a,b)=>portee.filter(e=>e.cultureN===b).length-portee.filter(e=>e.cultureN===a).length);
   const cibles = [...new Set(l.map(e=>e.cibleN))].sort((a,b)=>l.filter(e=>e.cibleN===b).length-l.filter(e=>e.cibleN===a).length || a.localeCompare(b,'fr'));
   const barre = g => `<span class="san-barre">${RES_SAN.map(r=>{ const x = g.filter(e=>e.resN===r).length; return x ? `<i class="${clsRes(r)}" style="flex:${x}" title="${r} : ${x}"></i>` : ''; }).join('')}</span>`;
-  const carteE = e => `<article class="san-e r-${clsRes(e.resN)}" data-san-essai="${h(e.id)}" tabindex="0" title="Ouvrir la fiche de l'essai" data-san-nom="${h(normTexte([e.objectif, e.cible, e.cibleN, e.op, e.site, e.prod, e.referent, e.culture, e.com, e.an, e.fiche?.contexte, e.fiche?.methode].join(' ')))}">
-      <header><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span>${/non diff/i.test(e.conf)?'<span class="san-conf">Non diffusable</span>':''}<span class="san-an">${e.an||''}</span></header>
-      <h5>${h(e.objectif)}</h5>
-      ${e.fiche && !e.fiche.manque ? `<p class="san-apercu">${h((e.fiche.contexte || e.fiche.objectif || '').slice(0,150))}${(e.fiche.contexte || e.fiche.objectif || '').length>150?'…':''}</p>` : ''}
-      <p class="san-meta">${[e.cultureN, e.op, e.site, e.prod].filter(x=>x && x!=='Non précisée').map(h).join(' · ')}</p>
-      ${e.eval && e.eval!==e.resN ? `<p class="san-eval">${h(e.eval)}</p>` : ''}
-      ${e.com ? `<p class="san-com">${h(e.com)}</p>` : ''}
-      <footer><span>${[e.cat, e.externe?'Externe':'Interne', e.referent?'Référent : '+e.referent:''].filter(Boolean).map(h).join(' · ')}</span>
-        <span class="san-e-act">${urlSure(e.crLien) ? `<a class="btn-ouvrir" href="${h(liensDoc(e.crLien).ouvrir||e.crLien)}" target="_blank" rel="noopener" title="${h(e.cr)}">Compte rendu</a>` : e.cr ? `<span class="sans-lien" title="${h(e.cr)}">CR : ${h(e.cr.slice(0,40))}</span>` : ''}
-        <button class="chip san-fiche-btn" data-san-essai="${h(e.id)}">${e.fiche && !e.fiche.manque ? 'Contexte, objectif, résultats ›' : 'Fiche de l\'essai ›'}</button></span></footer>
-    </article>`;
-  const prev = (S.sanitaire.essais.prev||[]);
-  return `<div class="carte">
-    <h3>Essais sanitaires — ${sanTous ? `toutes les années (${ans.join(', ')})` : an}</h3>
-    <div class="sx-tete"><span class="sx-resume">Bilan des essais tenu par la commission (${h(E.fichier)}${estAdmin() && E.importe?`, importé le ${h(E.importe)}`:''}).</span>
-      <span class="sx-sp">${liensDoc(E.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(E.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le bilan Excel</a>`:''}</span></div>
+  const ligne = e => { const r = resumeEssaiRech(e);
+    return `<article class="san-l1 r-${clsRes(e.resN)}" data-san-essai="${h(e.id)}" tabindex="0"><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span>
+      <div class="san-l1-c"><h5>${h(e.objectif)}</h5>${r?`<p class="san-l1-r"><b>À retenir :</b> ${h(r)}</p>`:''}
+        <small>${[e.cultureN, e.op, e.site, e.prod, e.an, e.externe?'externe':''].filter(x=>x && x!=='Non précisée').map(h).join(' · ')}${/non diff/i.test(e.conf)?' · <b class="san-conf">Non diffusable</b>':''}</small></div>
+      <button class="chip san-fiche-btn" data-san-essai="${h(e.id)}">Fiche ›</button></article>`; };
+  const prev = (E.prev||[]);
+  const filtres = [f.cible ? `Sujet : <b>${h(f.cible)}</b> <button class="chip" data-san-f="cible|">✕</button>` : '', f.lieu ? `Lieu : <b>${h(lieuChoisi||'')}</b> <button class="chip" data-san-f="lieu|">✕</button>` : ''].filter(Boolean);
+  return `<div class="carte san-haut"><div class="san-haut-t"><div><h3>Essais sanitaires — ${sanTous ? `toutes les années (${ans.join(', ')})` : an}</h3>
+      <p class="aide">Cliquez sur un résultat, un sujet ou la carte pour affiner ; cliquez sur un essai pour lire sa fiche (contexte, objectif, résultats, sources).</p></div>
+      ${liensDoc(E.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(E.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le bilan Excel</a>`:''}</div>
     <div class="segment san-portee no-print"><button data-san-tous="1" aria-pressed="${sanTous}">Toutes les années</button>${ans.map(a=>`<button data-san-an="${a}" aria-pressed="${!sanTous && +an===a}">${a} <small>${tous.filter(e=>e.an===a).length}</small></button>`).join('')}</div>
-    ${kpis}
-    ${puces('culture', cultures, 'Culture')}${puces('res', RES_SAN.filter(r=>portee.some(e=>e.resN===r)), 'Résultat')}${puces('perim', ['Interne','Externe'], 'Essais')}
-    ${f.cible ? `<p class="es-filtre">Cible : <b>${h(f.cible)}</b> <button class="chip" data-san-f="cible|">Toutes les cibles ✕</button></p>` : ''}
-    ${f.lieu ? `<p class="es-filtre">Lieu : <b>${h(lieuChoisi||'')}</b> <button class="chip" data-san-f="lieu|">Tous les lieux ✕</button></p>` : ''}
-  </div>
+    <div class="san-stats">${stats.map(([v,lib,n,c])=>`<button class="san-stat ${c}${(f.res||'')===v?' on':''}" data-san-f="res|${(f.res||'')===v?'':v}" aria-pressed="${(f.res||'')===v}"><b>${n}</b><span>${lib}</span></button>`).join('')}</div>
+    ${puces('culture', cultures, 'Culture')}
+    <details class="san-plus"><summary>Interne ou externe</summary>${puces('perim', ['Interne','Externe'], 'Essais')}</details>
+    ${filtres.length ? `<p class="es-filtre">${filtres.join(' · ')}</p>` : ''}
+    <p class="san-bref"><b>${l.length}</b> essai${l.length>1?'s':''} affiché${l.length>1?'s':''}${sanTous?'':` en ${an}`} · ${new Set(l.map(e=>e.cibleN)).size} sujet${new Set(l.map(e=>e.cibleN)).size>1?'s':''} · ${new Set(l.map(e=>e.op)).size} OP et partenaires · ${l.filter(e=>/non diff/i.test(e.conf)).length} non diffusable${l.filter(e=>/non diff/i.test(e.conf)).length>1?'s':''}</p></div>
   <div class="san-duo">
-    <div class="carte"><h3>Résultats par cible</h3>
-      <p class="aide">Une ligne par bioagresseur : nombre d'essais et répartition des résultats (vert efficace, orange partiel, rouge inefficace, gris à conclure). Cliquez pour voir les essais de la cible.</p>
+    <div class="carte"><h3>Choisir un sujet</h3>
+      <p class="aide">Un bioagresseur par ligne : nombre d'essais et résultats (vert efficace, orange partiel, rouge inefficace, gris à conclure).</p>
       <div class="san-cibles">${cibles.map(c=>{ const g = l.filter(e=>e.cibleN===c);
-        return `<button class="san-cible${f.cible===c?' on':''}" data-san-f="cible|${f.cible===c?'':h(c)}" data-san-nom="${h(normTexte(c+' '+g.map(e=>e.objectif+' '+e.cible).join(' ')))}"><b>${h(c)}</b><em>${g.length}</em>${barre(g)}<small>${h([...new Set(g.map(e=>e.cultureN))].join(', '))}</small></button>`; }).join('') || '<p class="aide">Aucun essai pour ces filtres.</p>'}</div>
+        return `<button class="san-cible${f.cible===c?' on':''}" data-san-f="cible|${f.cible===c?'':h(c)}"><b>${h(c)}</b><em>${g.length}</em>${barre(g)}<small>${h([...new Set(g.map(e=>e.cultureN))].join(', '))}</small></button>`; }).join('') || '<p class="aide">Aucun essai pour ces filtres.</p>'}</div>
       <div class="san-leg">${RES_SAN.map(r=>`<span><i class="${clsRes(r)}"></i>${r}</span>`).join('')}</div></div>
     <div class="carte"><h3>Où ont lieu les essais</h3><div class="es-carte-fr">${carteSan(lCarte)}</div></div>
   </div>
-  <div class="carte san-liste"><h3>Les essais ${[f.cible, lieuChoisi].filter(Boolean).length ? '— '+[f.cible, lieuChoisi].filter(Boolean).map(h).join(' · ') : 'par cible'} <span class="zrp-compte">${l.length}</span></h3>
-    ${cibles.map(c=>`<section class="san-groupe" data-san-groupe><h4>${h(c)} <span>${l.filter(e=>e.cibleN===c).length} essai${l.filter(e=>e.cibleN===c).length>1?'s':''}</span></h4>
-      <div class="san-l">${l.filter(e=>e.cibleN===c).sort((a,b)=>RES_SAN.indexOf(a.resN)-RES_SAN.indexOf(b.resN) || (b.an||0)-(a.an||0)).map(carteE).join('')}</div></section>`).join('')}
+  <div class="carte san-liste"><h3>Les essais ${[f.cible, lieuChoisi].filter(Boolean).length ? '— '+[f.cible, lieuChoisi].filter(Boolean).map(h).join(' · ') : 'par sujet'} <span class="zrp-compte">${l.length}</span></h3>
+    ${cibles.map((c,i)=>{ const g = l.filter(e=>e.cibleN===c).sort((a,b)=>RES_SAN.indexOf(a.resN)-RES_SAN.indexOf(b.resN) || (b.an||0)-(a.an||0));
+      return `<details class="san-groupe" data-san-groupe${f.cible||f.lieu||i<2||l.length<=14?' open':''}><summary><b>${h(c)}</b><em>${g.length} essai${g.length>1?'s':''}</em>${barre(g)}</summary><div class="san-lignes">${g.map(ligne).join('')}</div></details>`; }).join('') || '<p class="aide">Aucun essai pour ces filtres.</p>'}
   </div>
-  ${prev.length ? `<div class="carte"><h3>Essais en cours — prévisionnel ${prev[0].an||''}</h3>
-    <div class="san-l">${prev.map(e=>carteE({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:'À conclure', externe:/ext/i.test(e.perim)})).join('')}</div></div>` : ''}
+  ${prev.length ? `<div class="carte"><h3>Essais en cours — prévisionnel ${prev[0].an||''} <span class="zrp-compte">${prev.length}</span></h3>
+    <div class="san-lignes">${prev.map(e=>ligne({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:'À conclure', externe:/ext/i.test(e.perim)})).join('')}</div></div>` : ''}
   ${(E.catalogue||[]).length ? `<div class="carte"><h3>Catalogues sanitaires</h3><div class="es-docs-l">${E.catalogue.map(d=>ligneDoc({...d, f:'PDF', dossier:'Support technique'})).join('')}</div></div>` : ''}
   ${estAdmin() ? importSan() : ''}`;
 }
+
 /* Fiche détaillée d'un essai (panneau latéral) : contexte, objectif, méthode, résultats, conclusion, sources.
    Le contenu vient des documents de la commission (champ « fiche » de chaque essai) ; rien n'est déduit ici. */
 function vueFicheSan(id){
@@ -5565,6 +5677,246 @@ function docsSanAn(an){
     ${[['cr','Comptes rendus d\'essais'],['protocole','Protocoles et suivis']].map(([k,lib])=>{ const g = l.filter(d=>d.cat===k); return g.length ? `<details class="es-docs" open><summary>${lib} <span class="zrp-compte">${g.length}</span></summary><div class="es-docs-l">${g.map(ligneDoc).join('')}</div></details>` : ''; }).join('')}</div>`;
 }
 
+/* ================= Commissions : recherche à résultats directs, Variétale Fraises, Agro-Tech Innovation =================
+   Données lues dans les dossiers de la commission (CVFH, « 03- SERRE DU FUTUR ») : rubriques « fraise » et « agrotech » de app_state. */
+let fraiseOuvert = {}, comRecherche = '', fraiseProfil = '', fraiseListe = 'lp', propFiltre = {stade:'', prio:''}, veilleFiltre = {statut:'', cat:''}, ficheOutil = '';
+const PARTIES_CVFR = [['essais','Résultats des essais'],['liste','Listes et propositions'],['commission','Calendrier & documents']];
+const PARTIES_CAGT = [['veille','Veille technologique'],['pilotes','Projets pilotes'],['methode','Méthode & décisions'],['commission','Calendrier & documents']];
+const aucunImport = titre => `<div class="carte"><h3>${h(titre)}</h3><p class="aide">Aucune donnée importée pour l'instant.</p></div>`;
+const coupeTxt = (s, n) => { s = String(s||'').replace(/\s+/g,' ').trim(); if(s.length<=n) return s; const k = s.lastIndexOf(' ', n); return s.slice(0, k>n*0.6 ? k : n).replace(/[ ,;:.]+$/,'')+'…'; };
+const motsRech = q => normTexte(q).split(/[^a-z0-9]+/).filter(m=>m.length>1);
+const trouveMots = (mots, ...txt) => { const x = ' '+normTexte(txt.flat().join(' ')).replace(/[^a-z0-9]+/g,' ')+' ';
+  return mots.every(m=>x.includes(' '+m) || (m.length>4 && x.includes(' '+m.replace(/(es|s|x)$/,'')))); };
+const listeDocs = (docs, titreVide) => !docs.length ? `<p class="aide">${titreVide||'Aucun document.'}</p>` : `<div class="es-docs-l">${docs.map(d=>ligneDoc({t:d.t+(d.conf && !/confiden/i.test(d.t)?' (confidentiel)':''), f:d.f, url:d.url, dossier:d.cat||''})).join('')}</div>`;
+const docsParCat = docs => { const cats = [...new Set(docs.map(d=>d.cat||'Documents'))]; return cats.map((c,i)=>`<details class="es-docs"${cats.length===1||i===0?' open':''}><summary>${h(c)} <span class="zrp-compte">${docs.filter(d=>(d.cat||'Documents')===c).length}</span></summary>${listeDocs(docs.filter(d=>(d.cat||'Documents')===c))}</details>`).join(''); };
+
+/* ---------------- Agro-Tech Innovation : veille technologique ---------------- */
+const STATUT_AT = {actif:['Projet actif','ok'], essai:['Essai en cours','part'], contacte:['Contacté','info'], repere:['Fiche seule','info'], acontacter:['À contacter','nd'], abandon:['Pas d\'intérêt','non']};
+const ORDRE_AT = ['actif','essai','contacte','repere','acontacter','abandon'];
+const RETOUR_AT = {'Positive':'ok', 'En attente':'part', 'Négatif':'non'};
+const badgeAt = s => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>`;
+const badgeDvAt = dv => dv ? `<span class="sx-dv ${dv==='DV3'?'d3':dv==='DV2'?'d2':'d1'}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
+const carteOutil = o => `<article class="at-c st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button" aria-label="Fiche de ${h(o.nom)}">
+  <header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
+  <p class="at-meta">${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
+  <p class="at-desc">${h(coupeTxt(o.desc || o.detail || 'Pas encore de fiche pour cet outil.', 160))}</p>
+  <footer>${o.retour?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
+function partieVeille(){
+  const A = S.agrotech; if(!A?.outils?.length) return aucunImport('Veille technologique');
+  const f = veilleFiltre, all = A.outils, cpt = k => all.reduce((o,x)=>(o[x[k]]=(o[x[k]]||0)+1,o),{}), cs = cpt('statut'), cc = cpt('cat');
+  const l = all.filter(o=>(!f.statut || o.statut===f.statut) && (!f.cat || o.cat===f.cat));
+  const expl = Object.fromEntries((A.legende?.statuts||[]).map(x=>[x[0], x[2]]));
+  const groupes = f.statut ? [[f.statut, l]] : ORDRE_AT.map(s=>[s, l.filter(o=>o.statut===s)]).filter(g=>g[1].length);
+  return `<div class="carte at-haut"><h3>Veille technologique — ${all.length} outils et entreprises</h3>
+    <div class="sx-tete"><span class="sx-resume">Suivi tenu par la commission, mis à jour en ${h(A.majVeille||'—')} (${h(A.fichier||'')}).</span>
+      <span class="sx-sp">${liensDoc(A.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(A.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le tableau Excel</a>`:''}</span></div>
+    <p class="aide">Cliquez sur un statut pour filtrer, ou sur un outil pour ouvrir sa fiche : description, maturité, sites pilotes, retour des producteurs, limites, contact et documents. Les tarifs des fournisseurs ne sont pas repris ici.</p>
+    <div class="at-stats">${ORDRE_AT.filter(s=>cs[s]).map(s=>`<button class="at-stat st-${s}${f.statut===s?' on':''}" data-at-f="statut|${f.statut===s?'':s}" aria-pressed="${f.statut===s}"><b>${cs[s]}</b><span>${h(STATUT_AT[s][0])}</span></button>`).join('')}</div>
+    <div class="san-filtre"><span>Catégorie</span><button class="chip" data-at-f="cat|" aria-pressed="${!f.cat}">Toutes</button>${Object.keys(cc).sort((a,b)=>cc[b]-cc[a]).map(c=>`<button class="chip" data-at-f="cat|${f.cat===c?'':h(c)}" aria-pressed="${f.cat===c}">${h(c)} <small>${cc[c]}</small></button>`).join('')}</div></div>
+    ${groupes.map(([s, g])=>`<section class="carte at-groupe"><h4 class="at-gt st-${s}">${h(STATUT_AT[s][0])} <span>${g.length}</span><small>${h(expl[s]||'')}</small></h4>
+      <div class="at-grille">${g.slice().sort((a,b)=>a.nom.localeCompare(b.nom,'fr')).map(carteOutil).join('')}</div></section>`).join('') || '<div class="carte"><p class="aide">Aucun outil pour ce filtre.</p></div>'}
+    <details class="carte at-legende"><summary>Légende : maturité (DV) et catégories</summary>
+      <p><b>DV3</b> essais en production possible · <b>DV2</b> recherche et développement · <b>DV1</b> stade expérimental.</p>
+      <ul>${(A.legende?.categories||[]).map(c=>`<li><b>${h(c[0])}</b> — ${h(c[1])}</li>`).join('')}</ul></details>`;
+}
+function vueFicheOutil(id){
+  const A = S.agrotech, o = (A?.outils||[]).find(x=>x.id===id); if(!o) return '';
+  const sec = (titre, corps) => corps ? `<section class="fv-sec"><h5>${titre}</h5>${corps}</section>` : '';
+  const lignes = [['Catégorie', o.cat], ['Pays', o.pays], ['Culture', o.espece], ['Type d\'outil', o.type], ['Maturité', o.dv ? o.dv+' — '+({DV3:'essais en production possible', DV2:'recherche et développement', DV1:'stade expérimental'})[o.dv] : ''], ['Type de projet', o.projet], ['Retour des producteurs', o.retour], ['Nombre d\'unités', o.nb], ['Bon potentiel à suivre', o.potentiel]].filter(x=>x[1]);
+  const web = urlSure(o.web);
+  return `<div class="fv-voile" data-fiche-fermer></div>
+  <aside class="fv-panneau sf-panneau" role="dialog" aria-modal="true" aria-label="Fiche de ${h(o.nom)}" tabindex="-1">
+    <header class="fv-tete"><div><div class="eyebrow">Fiche de l'outil · veille technologique</div><h3>${h(o.nom)}</h3><p>${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
+      <div class="sx-fiche-badges">${badgeAt(o.statut)}${badgeDvAt(o.dv)}${o.retour?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
+      <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
+    ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
+    ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
+    ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${h(v)}</dd>`).join('')}</dl>` : ''))}
+    ${sec('Limites et points de vigilance', o.limites ? `<p class="sf-txt">${h(o.limites)}</p>` : '')}
+    ${sec('Contact', (o.contact ? `<p>${o.contact.split(' ; ').filter(Boolean).map(m=>/@/.test(m) ? `<a href="mailto:${h(m.trim())}">${h(m.trim())}</a>` : h(m)).join(' · ')}</p>` : '') + (web ? `<p><a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : ''))}
+    ${sec(`Documents <span class="chip">${o.docs.length}</span>`, o.docs.length ? listeDocs(o.docs.map(d=>({...d, cat:''}))) + (o.dossier && liensDoc(o.dossier).ouvrir ? `<p><a class="btn-ouvrir" href="${h(liensDoc(o.dossier).ouvrir)}" target="_blank" rel="noopener">Ouvrir le dossier SharePoint</a></p>` : '') : '')}
+    ${!o.desc && !o.detail && !o.docs.length ? '<p class="sf-manque">Aucun document ni description pour cet outil : à compléter par la commission.</p>' : ''}
+    <p class="aide sf-note">Données du tableau de veille de la commission et des fiches innovations. Les montants et conditions commerciales des fournisseurs ne sont pas repris dans l'app ; les documents commerciaux sont signalés « confidentiel ».</p>
+  </aside>`;
+}
+/* ---------------- Agro-Tech : projets pilotes ---------------- */
+function partiePilotes(){
+  const A = S.agrotech; if(!A?.outils?.length) return aucunImport('Projets pilotes');
+  const pil = A.outils.filter(o=>['actif','essai'].includes(o.statut)).sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut) || a.nom.localeCompare(b.nom,'fr'));
+  const nbSites = new Set(pil.flatMap(o=>o.sites.map(s=>s.replace(/\s*\(.*$/,'').toLowerCase()))).size;
+  const th = [...new Set((A.projets||[]).map(p=>p.theme))];
+  return `<div class="carte"><h3>Projets pilotes en cours — ${pil.length} outils</h3>
+    ${kpiSegment([{l:'Projets actifs', v:pil.filter(o=>o.statut==='actif').length, c:'ok'}, {l:'Essais en cours', v:pil.filter(o=>o.statut==='essai').length, c:'part'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>o.retour==='Positive').length, s:`${pil.filter(o=>o.retour==='En attente').length} en attente`, c:'ok'}])}
+    <p class="aide">Les outils lancés sur un site pilote ou en phase d'essai. Chaque pilote suit le protocole de la commission (voir « Méthode & décisions »).</p>
+    <div class="at-pil">${pil.map(o=>`<article class="at-p st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button"><header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}<h5>${h(o.nom)}</h5></header>
+      <p class="at-meta">${[o.type||o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p><p class="at-desc">${h(coupeTxt(o.desc, 210))}</p>
+      <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Retour producteurs</dt><dd><span class="at-ret ${RETOUR_AT[o.retour]||''}">${h(o.retour||'non renseigné')}</span></dd>${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
+      <span class="at-plus">Ouvrir la fiche ›</span></article>`).join('')}</div></div>
+  <div class="carte"><h3>Projets et études du dossier « Serre du futur » <span class="zrp-compte">${(A.projets||[]).length}</span></h3>
+    <p class="aide">Essais, projets des OP, Ecoserre, études internes et projets de filière. Les documents restent sur SharePoint.</p>
+    ${th.map(t=>`<div class="sous">${h(t)}</div>${(A.projets||[]).filter(p=>p.theme===t).map(p=>`<details class="es-docs at-proj"><summary>${h(p.titre)} <span class="zrp-compte">${p.docs.length}</span></summary>
+      <p class="aide">${h(p.desc)}</p>${listeDocs(p.docs.map(d=>({...d, cat:''})))}${liensDoc(p.lien).ouvrir?`<p><a class="btn-ouvrir" href="${h(liensDoc(p.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le dossier SharePoint</a></p>`:''}</details>`).join('')}`).join('')}</div>`;
+}
+/* ---------------- Agro-Tech : méthode, critères et décisions ---------------- */
+function partieMethode(){
+  const A = S.agrotech, P = A?.processus; if(!P) return aucunImport('Méthode & décisions');
+  const L = u => liensDoc(u).ouvrir;
+  return `<div class="carte"><h3>Comment la commission choisit et teste les outils</h3><p class="aide">${h(P.objectif)}</p>
+    <div class="at-etapes">${P.etapes.map((e,i)=>`<div class="at-e"><b>${i+1}</b><h5>${h(e[0])}</h5><p>${h(e[1])}</p></div>`).join('')}</div></div>
+  <div class="deux">
+    <div class="carte"><h3>Maturité des outils (DV)</h3>${P.dv.map(d=>`<div class="at-dv"><span class="sx-dv ${d[0]==='DV3'?'d3':d[0]==='DV2'?'d2':'d1'}">${h(d[0])}</span><div><b>${h(d[1])}</b><p>${h(d[2])}</p></div></div>`).join('')}</div>
+    <div class="carte"><h3>Grille d'évaluation — 5 critères</h3><ul class="at-grille5">${P.grille.map(g=>`<li>${h(g)}</li>`).join('')}</ul>
+      <div class="sous">Ce que cherche la commission</div>${P.categories.map(c=>`<p class="at-cat"><b>${h(c[0])}</b> — ${h(c[1])}</p>`).join('')}</div></div>
+  <div class="carte"><h3>Profils d'outils recherchés (exemples)</h3>
+    <div class="at-prof"><div><h5>Robot de récolte</h5><p>${h(P.recherche.robot_recolte)}</p></div><div><h5>Robot d'effeuillage</h5><p>${h(P.recherche.robot_effeuillage)}</p></div><div><h5>Robot de descente et de transport</h5><p>${h(P.recherche.robot_transport)}</p></div></div></div>
+  <div class="carte"><h3>Le pilote en trois étapes, puis la décision</h3>
+    <div class="at-etapes">${P.pilote.map(e=>`<div class="at-e"><h5>${h(e[0])}</h5><p>${h(e[1])}</p><p class="at-liv"><b>Livrable :</b> ${h(e[2])}</p></div>`).join('')}</div>
+    <div class="sous">Après l'essai</div><div class="at-apres">${P.apres.map(a=>`<div class="at-a ${/succ/i.test(a[0])?'ok':/partiel/i.test(a[0])?'part':'non'}"><b>${h(a[0])}</b><p>${h(a[1])}</p></div>`).join('')}</div>
+    <p class="aide">${h(P.reunions)}</p></div>
+  <div class="carte"><h3>Décisions de la commission du ${h(P.decisions.date)}</h3><ul>${P.decisions.textes.map(x=>`<li>${h(x)}</li>`).join('')}</ul></div>
+  <div class="carte"><h3>Binômes référents des OP — qui contacter</h3><p class="aide">Un technicien et un producteur par OP : ils relaient les travaux de la commission dans leur OP.</p>
+    <div class="tableau"><table class="data"><thead><tr><th>OP</th><th>Technicien(ne)</th><th>Producteur(s)</th></tr></thead><tbody>${(A.binomes||[]).map(b=>`<tr><td><b>${h(b.op)}</b></td><td>${h(b.tech||'—')}</td><td>${h(b.prod||'—')}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="carte"><h3>Pour aller plus loin</h3><div class="es-docs-l">${[[A.syntheseFiches?.fichier, A.syntheseFiches?.lien], ...(A.webinaires||[])].filter(x=>x[0] && x[1]).map(x=>ligneDoc({t:x[0].replace(/\.pdf$/,''), f:/\.pptx/i.test(x[1])?'PPT':'PDF', url:x[1], dossier:'Veille technologique'})).join('')}</div></div>`;
+}
+
+/* ---------------- Variétale Fraises : résultats des essais ---------------- */
+const STATUT_FR = {LP:['Liste positive','ok'], DV3:['Poursuivie en DV3','ok'], DV2:['Poursuivie en DV2','part'], DV1:['Poursuivie en DV1','part'], ABANDON:['Abandon','non'], OUT:['Sortie des essais','non']};
+const badgeFr = s => { const x = STATUT_FR[String(s||'').toUpperCase()]; return x ? `<span class="fr-st ${x[1]}">${h(x[0])}</span>` : '<span class="fr-st nd">Décision à venir</span>'; };
+function partieFraiseEssais(){
+  const F = S.fraise?.synthese; if(!F?.varietes?.length) return aucunImport('Résultats des essais — Variétale Fraises');
+  const v = F.varietes, st = k => v.filter(x=>String(x.statut||'').toUpperCase()===k).length, profils = [...new Set(v.map(x=>x.profil))].sort();
+  const vis = v.filter(x=>!fraiseProfil || x.profil===fraiseProfil);
+  const lien = liensDoc(F.lien).ouvrir, sup = liensDoc(F.support?.lien).ouvrir;
+  const carte = x => { const ans = Object.keys(x.evals).sort().reverse(), ouvert = !!fraiseOuvert[x.nom];
+    return `<article class="fr-v st-${String(x.statut||'nd').toLowerCase()}" data-fr-nom="${h(x.nom)}">
+    <header><div><h5>${h(x.nom)}</h5><p class="at-meta">Profil ${h(x.profil.replace('P',''))} · témoin ${h(x.temoin)}</p></div>${badgeFr(x.statut)}</header>
+    <div class="fr-fd"><div><span>Points forts</span>${x.forts.length?x.forts.map(a=>`<i class="fort">${h(a)}</i>`).join(''):'<em>—</em>'}</div><div><span>Points faibles</span>${x.faibles.length?x.faibles.map(a=>`<i class="faible">${h(a)}</i>`).join(''):'<em>—</em>'}</div></div>
+    ${x.desc.length?`<p class="fr-desc">${h(x.desc.slice(0,3).join(' '))}</p>`:''}
+    ${x.commentaire?`<p class="fr-com"><b>Décision de la commission :</b> ${h(x.commentaire)}</p>`:''}
+    <details class="fr-ev"${ouvert?' open':''}><summary data-fr-ouv="${h(x.nom)}">Ce que disent les évaluations (${ans.map(h).join(', ')})</summary>${ans.map(a=>`<div class="fr-an"><b>${h(a)}</b><ul>${x.evals[a].map(l=>`<li>${h(l)}</li>`).join('')}</ul></div>`).join('')}${x.notes.length?`<div class="fr-an"><b>Remarques</b><ul>${x.notes.map(l=>`<li>${h(l)}</li>`).join('')}</ul></div>`:''}</details></article>`; };
+  return `<div class="carte fr-haut"><h3>Résultats des essais variétaux fraises — choix du ${h(F.date)}</h3>
+    <div class="sx-tete"><span class="sx-resume">Synthèse présentée à la Commission Variétale Fraises : points forts, points faibles, évaluations de chaque année et décision pour la campagne suivante.</span>
+      <span class="sx-sp">${sup?`<a class="btn-ouvrir" href="${h(sup)}" target="_blank" rel="noopener">Support du 05/06/2026</a>`:''} ${lien?`<a class="btn-ouvrir" href="${h(lien)}" target="_blank" rel="noopener">Synthèse des choix</a>`:''}</span></div>
+    ${kpiSegment([{l:'Variétés évaluées', v:v.length, s:`${profils.length} profils produits`}, {l:'En liste positive', v:st('LP'), c:'ok'}, {l:'Poursuivies', v:st('DV3')+st('DV2')+st('DV1'), s:`${st('DV3')} en DV3 · ${st('DV2')} en DV2 · ${st('DV1')} en DV1`, c:'part'}, {l:'Abandonnées ou sorties', v:st('ABANDON')+st('OUT'), c:'non'}])}
+    <div class="san-filtre"><span>Profil produit</span><button class="chip" data-fr-profil="" aria-pressed="${!fraiseProfil}">Tous <small>${v.length}</small></button>${profils.map(p=>`<button class="chip" data-fr-profil="${h(p)}" aria-pressed="${fraiseProfil===p}">Profil ${h(p.replace('P',''))} <small>${v.filter(x=>x.profil===p).length}</small></button>`).join('')}</div>
+    <p class="aide">Chaque variété est comparée au témoin de son profil (Gariguette pour le profil 1, Cléry ou Lycia pour le profil 3, Murano pour le profil 5). Les évaluations sont repliées : cliquez pour les lire.</p></div>
+    ${profils.filter(p=>!fraiseProfil || p===fraiseProfil).map(p=>`<section class="carte"><h4 class="at-gt">Profil ${h(p.replace('P',''))} — témoin ${h(v.find(x=>x.profil===p)?.temoin||'')} <span>${vis.filter(x=>x.profil===p).length}</span></h4><div class="fr-grille">${vis.filter(x=>x.profil===p).map(carte).join('')}</div></section>`).join('')}`;
+}
+/* ---------------- Variétale Fraises : listes et propositions ---------------- */
+function partieFraiseListes(){
+  const F = S.fraise; if(!F?.listes) return aucunImport('Listes et propositions — Variétale Fraises');
+  const L = F.listes, P = F.propositions, lp = L.lp.lignes, dv = L.dv.lignes, pr = P?.lignes||[];
+  const lien = x => liensDoc(x).ouvrir;
+  const onglets = [['lp',`Liste positive ${L.campagne} (${lp.length})`],['dv',`En développement (${dv.length})`],['prop',`Propositions 2027 (${pr.length})`]];
+  let corps = '';
+  if(fraiseListe==='lp') corps = `<div class="carte"><h3>${h(L.lp.titre)}</h3><div class="sx-tete"><span class="sx-resume">Variétés autorisées en production — référence ${h(L.lp.ref)}, mise à jour du ${h(dateCourte(L.lp.maj))}. L'obtenteur de chaque variété figure dans le document.</span><span class="sx-sp">${lien(L.lp.lien)?`<a class="btn-ouvrir" href="${h(lien(L.lp.lien))}" target="_blank" rel="noopener">Ouvrir le PDF</a>`:''}</span></div>
+    ${['Gustatives','Standard « plus »','Standard','Anciennes'].filter(s=>lp.some(x=>x.seg===s)).map(s=>`<div class="sous">${h(s)}</div><div class="tableau"><table class="data"><thead><tr><th>Variété</th><th>Calendrier de production</th><th>Modes de production autorisés</th></tr></thead><tbody>${lp.filter(x=>x.seg===s).map(x=>`<tr data-fr-nom="${h(x.nom)}"><td><b>${h(x.nom)}</b></td><td>${h(x.profil?`P${x.profil.replace('P','')} — ${(L.profils.find(p=>p[0]===x.profil)||[,''])[1]}`:'Printemps (JC)')}</td><td>${h(x.modes)}</td></tr>`).join('')}</tbody></table></div>`).join('')}</div>`;
+  else if(fraiseListe==='dv') corps = `<div class="carte"><h3>${h(L.dv.titre)}</h3><div class="sx-tete"><span class="sx-resume">Variétés en essai — référence ${h(L.dv.ref)}, mise à jour du ${h(dateCourte(L.dv.maj))}.</span><span class="sx-sp">${lien(L.dv.lien)?`<a class="btn-ouvrir" href="${h(lien(L.dv.lien))}" target="_blank" rel="noopener">Ouvrir le PDF</a>`:''}</span></div>
+    <div class="tableau"><table class="data"><thead><tr><th>Variété</th><th>Stade</th><th>Profil</th><th>Segmentation</th><th>Type</th><th>Obtenteur</th><th>Commentaires et préconisations</th></tr></thead><tbody>${dv.map(x=>`<tr data-fr-nom="${h(x.nom)}"><td><b>${h(x.nom)}</b></td><td>${badgeDv(x.stade)}</td><td>${h(x.profil.replace('P','Profil '))}</td><td>${h(x.seg)}</td><td>${h(x.type==='R'?'Remontante':'Non remontante')}</td><td>${h(x.obtenteur)}</td><td class="txt">${h(x.com||'—')}</td></tr>`).join('')}</tbody></table></div></div>`;
+  else { const stades = [...new Set(pr.map(x=>x.stade))].sort(), prios = [...new Set(pr.map(x=>x.priorite))].sort(), f = propFiltre;
+    const vis = pr.filter(x=>(!f.stade || x.stade===f.stade) && (!f.prio || String(x.priorite)===f.prio)), obts = [...new Set(vis.map(x=>x.obtenteur))];
+    corps = `<div class="carte"><h3>${h(P.titre)}</h3><div class="sx-tete"><span class="sx-resume">Variétés proposées à l'essai par les obtenteurs pour 2027, avec leur stade et leur priorité. ${h(P.aide||'')}</span><span class="sx-sp">${lien(P.lien)?`<a class="btn-ouvrir" href="${h(lien(P.lien))}" target="_blank" rel="noopener">Ouvrir le PDF</a>`:''}</span></div>
+      <div class="san-filtre"><span>Stade</span><button class="chip" data-prop-f="stade|" aria-pressed="${!f.stade}">Tous</button>${stades.map(s=>`<button class="chip" data-prop-f="stade|${f.stade===s?'':h(s)}" aria-pressed="${f.stade===s}">${h(s)} <small>${pr.filter(x=>x.stade===s).length}</small></button>`).join('')}</div>
+      <div class="san-filtre"><span>Priorité</span><button class="chip" data-prop-f="prio|" aria-pressed="${!f.prio}">Toutes</button>${prios.map(s=>`<button class="chip" data-prop-f="prio|${f.prio===String(s)?'':s}" aria-pressed="${f.prio===String(s)}">${s}${s===1?' (la plus forte)':''} <small>${pr.filter(x=>x.priorite===s).length}</small></button>`).join('')}</div></div>
+      ${obts.map(o=>`<section class="carte"><h4 class="at-gt">${h(o)} <span>${vis.filter(x=>x.obtenteur===o).length}</span></h4><div class="fr-grille">${vis.filter(x=>x.obtenteur===o).sort((a,b)=>a.priorite-b.priorite).map(x=>`<article class="fr-v" data-fr-nom="${h(x.nom)}"><header><div><h5>${h(x.nom)}</h5><p class="at-meta">${[x.segmentation, x.profil, x.type].filter(Boolean).map(h).join(' · ')}</p></div><span><span class="fr-prio p${x.priorite}">Priorité ${x.priorite}</span> ${badgeDv(x.stade)}</span></header><ul class="fr-inf">${x.infos.map(i=>`<li>${h(i)}</li>`).join('')}</ul></article>`).join('')}</div></section>`).join('') || '<div class="carte"><p class="aide">Aucune variété pour ce filtre.</p></div>'}`; }
+  return `<div class="segment san-portee no-print">${onglets.map(([k,l])=>`<button data-fr-liste="${k}" aria-pressed="${fraiseListe===k}">${h(l)}</button>`).join('')}</div>${corps}`;
+}
+function docsFraise(an){
+  const l = S.fraise?.docs?.[an]||[]; if(!l.length) return '';
+  return `<div class="carte"><h3>Évaluations, protocoles et comptes rendus ${an} <span class="zrp-compte">${l.length}</span></h3>
+    <p class="aide">Bases d'évaluation, fiches de dégustation et de qualité des plantes, comptes rendus de visites. Les fichiers restent sur SharePoint ; les documents confidentiels sont signalés.</p>${docsParCat(l)}</div>`;
+}
+
+/* ---------------- Recherche : résultats des essais sous la barre ---------------- */
+const RECH = {
+  cvto:{ph:'Chercher une variété, un semencier ou un segment : résultats des essais, prix des graines, liste positive…', sug:['Climundo','cerise','Syngenta','résistante ToBRFV']},
+  csan:{ph:'Chercher un bioagresseur, un produit, une OP, un site : résultats des essais, solutions, documents…', sug:['oïdium','pucerons','nématodes','Macrolophus']},
+  cvfr:{ph:'Chercher une variété de fraise, un obtenteur, un profil, un statut (liste positive, DV3, abandon)…', sug:['Gariguette','22L01','abandon','Flevo Berry']},
+  cagt:{ph:'Chercher un outil, un fournisseur, une catégorie (robot, capteur…), un site pilote, une OP…', sug:['robot de récolte','capteurs','IUNU','prévision de rendement']}};
+function rechercheCom(com){
+  const R = RECH[com];
+  return `<div class="rech-com no-print"><label class="rech-champ"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.3 4.3-1.4 1.4-4.3-4.3A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z" fill="currentColor"/></svg>
+    <input type="search" data-rech-com value="${h(comRecherche)}" placeholder="${h(R.ph)}" aria-label="Chercher dans la commission" autocomplete="off"></label>
+    <div class="rech-sug"><span>Par exemple :</span>${R.sug.map(s=>`<button class="chip" data-rech-sug="${h(s)}">${h(s)}</button>`).join('')}</div></div>
+    <div class="rech-res" id="rechRes"${comRecherche.length<2?' hidden':''}>${comRecherche.length>=2 ? resultatsRecherche(com, comRecherche) : ''}</div>`;
+}
+const refCommission = com => { const c = COMMISSIONS.find(x=>x.id===com), e = D.enjeux.find(x=>x.nom===c?.enjeu); if(!e) return '';
+  const l = OPS.flatMap(s=>(e.structures.find(x=>x.s===s)?.e||[]).map(n=>({n, s})));
+  return l.length ? `<p class="rech-contact"><b>Un interlocuteur ?</b> Référents de la commission : ${l.slice(0,8).map(x=>`${h(x.n)} <small>(${h(x.s)})</small>`).join(' · ')}${l.length>8?'…':''}</p>` : ''; };
+const resumeEssaiRech = e => { const f = e.fiche||{}; return coupeTxt((f.conclusion && f.conclusion.length>=120 ? f.conclusion : [f.resultats, f.conclusion].filter(Boolean).join(' ')) || e.com || f.contexte || '', 230); };
+function lignesResVar(k, max){
+  const out = [];
+  Object.keys(SITES_EXPE).forEach(s=>anneesSource(s).slice().reverse().forEach(a=>{ const c = donneesEssai(s,a); if(!c || !c.vars[k]) return;
+    if(c.liste){ out.push(`${SOURCES_ESSAIS[s].nom} ${a} : variété implantée, résultats à venir`); return; }
+    const r = resumeVar(c,k), rs = Object.keys(c.vars).map(x=>resumeVar(c,x)).filter(x=>x.seg===r.seg);
+    const rang = ch => { const l = rs.filter(x=>x[ch]!==null).sort((a,b)=>b[ch]-a[ch]), i = l.findIndex(x=>x.k===k); return i<0 ? '' : `${i+1}${i?'e':'re'} sur ${l.length}`; };
+    const bits = [r.rdt!==null ? 'rendement '+rang('rdt') : '', r.pref!==null ? 'dégustation '+rang('pref') : '', r.brix!==null ? 'brix '+fmt1(r.brix) : ''].filter(Boolean);
+    out.push(`${SOURCES_ESSAIS[s].nom} ${a} (${r.seg})${bits.length ? ' : '+bits.join(', ') : ''}`); }));
+  return out.slice(0, max);
+}
+function resultatsRecherche(com, q){
+  const mots = motsRech(q); if(!mots.length) return '';
+  const groupes = []; const g = (titre, n, html, vide) => { if(n) groupes.push(`<section class="rech-g"><h4>${titre} <span>${n}</span></h4>${html}</section>`); };
+  const docsHits = docs => docs.filter(d=>trouveMots(mots, d.t, d.cat, d.dossier));
+  if(com==='csan'){
+    const E = S.sanitaire?.essais, tous = [...essaisSan(), ...(E?.prev||[]).map(e=>({...e, cibleN:cibleSan(e.cible), cultureN:cultureSan(e.culture), resN:'À conclure'}))];
+    const es = tous.filter(e=>trouveMots(mots, e.objectif, e.cible, e.cibleN, e.culture, e.op, e.site, e.prod, e.referent, e.eval, e.com, e.cat, e.an, e.fiche?.contexte, e.fiche?.methode, e.fiche?.resultats, e.fiche?.conclusion))
+      .sort((a,b)=>RES_SAN.indexOf(a.resN)-RES_SAN.indexOf(b.resN) || (b.an||0)-(a.an||0));
+    const n = r => es.filter(e=>e.resN===r).length;
+    g('Résultats des essais', es.length, `<p class="rech-bilan">${[[n('Efficace'),'efficace','ok'],[n('Partielle'),'partiellement efficace','part'],[n('Inefficace'),'inefficace','non'],[es.length-n('Efficace')-n('Partielle')-n('Inefficace'),'à conclure','nd']].filter(x=>x[0]).map(x=>`<span class="rb ${x[2]}"><b>${x[0]}</b> ${x[1]}${x[0]>1&&x[1]!=='à conclure'?'s':''}</span>`).join('')}</p>
+      <div class="rech-l">${es.slice(0,12).map(e=>`<article class="rech-e r-${clsRes(e.resN)}" data-san-essai="${h(e.id)}" tabindex="0"><span class="san-res ${clsRes(e.resN)}">${h(e.resN)}</span><div><h5>${h(e.objectif)}</h5>${resumeEssaiRech(e)?`<p><b>À retenir :</b> ${h(resumeEssaiRech(e))}</p>`:''}<small>${[e.cultureN, e.op, e.site, e.an, e.referent?'référent : '+e.referent:''].filter(x=>x&&x!=='Non précisée').map(h).join(' · ')}</small></div><button class="chip san-fiche-btn" data-san-essai="${h(e.id)}">Fiche ›</button></article>`).join('')}</div>${es.length>12?`<p class="aide">… et ${es.length-12} autres essais : affinez la recherche ou parcourez l'onglet « Essais & résultats ».</p>`:''}`);
+    const lv = [...(S.sanitaire?.leviers?.lignes||[]), ...(S.sanitaire?.leviers?.equip||[])].filter(x=>trouveMots(mots, x.nom, x.fourn, x.levier, x.type, x.cibles, x.cultures, x.subst, x.effCom, x.com));
+    g('Solutions et leviers', lv.length, `<div class="rech-l">${lv.slice(0,6).map(x=>`<article class="rech-e" data-com-partie="leviers" tabindex="0"><span class="san-res ${/^efficace/i.test(x.eff||'')?'ok':/interm|partiel/i.test(x.eff||'')?'part':''}">${h(x.eff||'ND')}</span><div><h5>${h(x.nom)}</h5><p>${h(coupeTxt([x.cibles?'Cibles : '+x.cibles:'', x.effCom||x.com||''].filter(Boolean).join('. '), 180))}</p><small>${[x.fourn, x.levier||x.type, x.dispo].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-com-partie="leviers">Voir ›</button></article>`).join('')}</div>`);
+    const docs = docsHits([...Object.values(S.sanitaire?.docs||{}).flat(), ...(E?.catalogue||[]), ...(S.sanitaire?.leviers?.coop||[]), ...Object.values(S.espaces?.coms?.csan?.cadres||{}).flat()]);
+    g('Documents', docs.length, listeDocs(docs.slice(0,6)));
+  }
+  else if(com==='cvto'){
+    const vs = Object.values(IDX).filter(v=>trouveMots(mots, v.nom, v.sem, v.seg, Object.values(v.dv).join(' '))).sort((a,b)=>a.nom.localeCompare(b.nom,'fr')), ac = anCatalogue(anCom);
+    g('Variétés et résultats des essais', vs.length, `<div class="rech-l">${vs.slice(0,10).map(v=>{ const p = ac ? prixVariete(ac, v.k) : null, st = statutListe(anCom, v.k), res = lignesResVar(v.k, 3);
+      return `<article class="rech-e" data-fiche="${h(v.k)}" tabindex="0">${badgeDv(dvDe(v, anCom)||'—')}<div><h5>${h(v.nom)}</h5><p class="rech-res-l">${res.length?res.map(h).join('<br>'):`<i>Présente dans : ${h([...v.ou].filter(o=>!['prix','lp','dev'].includes(o.src)).sort((a,b)=>b.an-a.an).slice(0,5).map(o=>libSrc(o.src)+' '+o.an).join(', ') || 'les listes et le catalogue de prix')}. Ouvrez la fiche pour les résultats.</i>`}</p>
+        <small>${[v.seg, v.sem, st?(st.type==='lp'?'liste positive':'en '+st.dv):'', p&&prixM2(p.prix)!==null?fmtPrix(prixM2(p.prix))+' €/m² (graines '+ac+')':''].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-fiche="${h(v.k)}">Fiche ›</button></article>`; }).join('')}</div>${vs.length>10?`<p class="aide">… et ${vs.length-10} autres variétés : affinez la recherche.</p>`:''}`);
+    const docs = docsHits([...Object.values(S.essais?.docs||{}).flat().map(d=>({...d, cat:SOURCES_ESSAIS[d.source]?.nom||d.cat})), ...Object.values(S.espaces?.coms?.cvto?.cadres||{}).flat()]);
+    g('Rapports et documents', docs.length, listeDocs(docs.slice(0,6)));
+  }
+  else if(com==='cvfr'){
+    const F = S.fraise, vv = (F?.synthese?.varietes||[]).filter(v=>trouveMots(mots, v.nom, v.profil, v.temoin, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.statut, v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire));
+    g('Résultats des essais 2026', vv.length, `<div class="rech-l">${vv.map(v=>`<article class="rech-e" data-fr-voir="${h(v.nom)}" tabindex="0">${badgeFr(v.statut)}<div><h5>${h(v.nom)}</h5><p><b>Points forts :</b> ${h(v.forts.join(', ')||'—')}<br><b>Points faibles :</b> ${h(v.faibles.join(', ')||'—')}</p>${v.commentaire?`<p><b>Décision :</b> ${h(v.commentaire)}</p>`:''}<small>Profil ${h(v.profil.replace('P',''))} · témoin ${h(v.temoin)}</small></div><button class="chip" data-fr-voir="${h(v.nom)}">Voir ›</button></article>`).join('')}</div>`);
+    const pr = (F?.propositions?.lignes||[]).filter(p=>trouveMots(mots, p.nom, p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos));
+    g('Propositions variétales 2027', pr.length, `<div class="rech-l">${pr.slice(0,8).map(p=>`<article class="rech-e" data-fr-liste="prop" tabindex="0">${badgeDv(p.stade)}<div><h5>${h(p.nom)} <small>— ${h(p.obtenteur)}</small></h5><p>${h(coupeTxt(p.infos.join(' '), 200))}</p><small>Priorité ${p.priorite} · ${[p.segmentation, p.profil].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-fr-liste="prop">Voir ›</button></article>`).join('')}</div>`);
+    const ls = [...(F?.listes?.lp?.lignes||[]).map(x=>({...x, l:'lp'})), ...(F?.listes?.dv?.lignes||[]).map(x=>({...x, l:'dv'}))].filter(x=>trouveMots(mots, x.nom, x.profil, x.seg, x.obtenteur, x.stade, x.com, x.modes));
+    g('Listes positives 2025 2026', ls.length, `<div class="rech-l">${ls.slice(0,8).map(x=>`<article class="rech-e" data-fr-liste="${x.l}" tabindex="0">${x.l==='dv'?badgeDv(x.stade):'<span class="fr-st ok">Production</span>'}<div><h5>${h(x.nom)}</h5><small>${[x.profil?'Profil '+x.profil.replace('P',''):'', x.seg, x.obtenteur, x.modes, x.com].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-fr-liste="${x.l}">Voir ›</button></article>`).join('')}</div>`);
+    const docs = docsHits([...Object.values(F?.docs||{}).flat(), ...Object.values(S.espaces?.coms?.cvfr?.cadres||{}).flat()]);
+    g('Documents', docs.length, listeDocs(docs.slice(0,6)));
+  }
+  else if(com==='cagt'){
+    const A = S.agrotech, os = (A?.outils||[]).filter(o=>trouveMots(mots, o.nom, o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet))
+      .sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut));
+    g('Outils de la veille technologique', os.length, `<div class="rech-l">${os.slice(0,10).map(o=>`<article class="rech-e" data-outil="${h(o.id)}" tabindex="0">${badgeAt(o.statut)}<div><h5>${h(o.nom)} <small>${badgeDvAt(o.dv)}</small></h5><p>${h(coupeTxt(o.desc||o.detail||'', 200))}</p>${o.limites?`<p><b>Limites :</b> ${h(coupeTxt(o.limites, 120))}</p>`:''}<small>${[o.cat, o.pays, o.sites.length?'sites : '+o.sites.join(', '):'', o.retour?'producteurs : '+o.retour.toLowerCase():'', o.contact?'contact : '+o.contact.split(' ; ')[0]:''].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-outil="${h(o.id)}">Fiche ›</button></article>`).join('')}</div>${os.length>10?`<p class="aide">… et ${os.length-10} autres : affinez la recherche.</p>`:''}`);
+    const pj = (A?.projets||[]).filter(p=>trouveMots(mots, p.titre, p.desc, p.theme));
+    g('Projets et études', pj.length, `<div class="rech-l">${pj.map(p=>`<article class="rech-e" data-com-partie="pilotes" tabindex="0"><span class="san-res">${h(p.theme)}</span><div><h5>${h(p.titre)}</h5><p>${h(coupeTxt(p.desc, 200))}</p><small>${p.docs.length} documents</small></div><button class="chip" data-com-partie="pilotes">Voir ›</button></article>`).join('')}</div>`);
+    const bn = (A?.binomes||[]).filter(b=>trouveMots(mots, b.op, b.tech, b.prod));
+    g('Binômes référents (à contacter)', bn.length, `<ul>${bn.map(b=>`<li><b>${h(b.op)}</b> — ${h(b.tech||'—')} · ${h(b.prod||'—')}</li>`).join('')}</ul>`);
+    const docs = docsHits([...(A?.outils||[]).flatMap(o=>o.docs.map(d=>({...d, cat:o.nom}))), ...(A?.projets||[]).flatMap(p=>p.docs.map(d=>({...d, cat:p.titre}))), ...Object.values(S.espaces?.coms?.cagt?.cadres||{}).flat()]);
+    g('Documents', docs.length, listeDocs(docs.slice(0,8)));
+  }
+  const total = groupes.length;
+  return `<div class="rech-tete"><b>${total ? 'Résultats pour « '+h(q)+' »' : 'Aucun résultat pour « '+h(q)+' »'}</b><button class="chip" data-rech-effacer>Effacer la recherche ✕</button></div>
+    ${total ? groupes.join('') : `<p class="aide">Essayez un autre mot (un nom de produit, de variété, de bioagresseur, d'outil…) ou parcourez les onglets ci-dessous.</p>`}${refCommission(com)}`;
+}
+
+/* Campagne en un coup d'œil (Variétale Tomates) */
+function resumeCvto(an){
+  const vs = Object.values(IDX), dansAn = vs.filter(v=>v.ou.some(o=>+o.an===+an && !['prix','lp','dev'].includes(o.src))).length;
+  const nSrc = sourcesAn(an).length, nLp = vs.filter(v=>statutListe(an, v.k)?.type==='lp').length, nDev = vs.filter(v=>statutListe(an, v.k)?.type==='dev').length;
+  return `<div class="carte es-bref"><h3 class="bref-t">Campagne ${an-2001} ${an-2000} en un coup d'œil</h3>
+    <div><b>${nSrc}</b><span>site${nSrc>1?'s':''} ou source${nSrc>1?'s':''} d'essais</span></div><div><b>${dansAn}</b><span>variétés suivies dans les essais</span></div><div><b>${nLp}</b><span>en liste positive de production</span></div><div><b>${nDev}</b><span>en développement</span></div>
+    <p class="es-etapes"><span><i>1</i> Cliquez un site sur la carte</span><span><i>2</i> Choisissez un segment</span><span><i>3</i> Comparez les variétés ou ouvrez une fiche</span><span>Ou tapez un nom dans la recherche ci-dessus</span></p></div>`;
+}
+function majRecherche(){
+  const el = document.getElementById('v-commissions'), res = el.querySelector('#rechRes'), corps = el.querySelector('.com-corps'); if(!res) return;
+  const actif = comRecherche.length>=2; res.hidden = !actif; if(corps) corps.hidden = actif; res.innerHTML = actif ? resultatsRecherche(comActive, comRecherche) : '';
+}
+
 /* ================= Écouteurs (une seule fois) ================= */
 (function brancherCommissions(){
   const el = document.getElementById('v-commissions');
@@ -5572,13 +5924,21 @@ function docsSanAn(an){
   const rendre = () => vueCommissions();
   el.addEventListener('click', e=>{
     if(e.target.closest('a')) return;   // liens (compte rendu, sources) : laisser le navigateur ouvrir
-    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-san-f],[data-san-essai],[data-fiche-fermer]'); if(!t || !el.contains(t)) return;
+    const t = e.target.closest('button,[data-es-src],[data-es-op],[data-san-f],[data-san-essai],[data-fiche-fermer],[data-outil],[data-fiche],[data-com-partie],[data-fr-voir],[data-fr-liste]'); if(!t || !el.contains(t)) return;
     const ds = t.dataset;
-    if(ds.com){ comActive = ds.com; ficheVar = ''; ficheSan = ''; rendre(); return; }
-    if(ds.ficheFermer!==undefined){ ficheVar = ''; ficheSan = ''; rendre(); return; }
+    if(ds.com){ comActive = ds.com; ficheVar = ''; ficheSan = ''; ficheOutil = ''; comRecherche = ''; rendre(); return; }
+    if(ds.ficheFermer!==undefined){ ficheVar = ''; ficheSan = ''; ficheOutil = ''; rendre(); return; }
+    if(ds.outil){ ficheOutil = ds.outil; rendre(); el.querySelector('.sf-panneau')?.focus?.(); return; }
+    if(ds.rechSug!==undefined){ comRecherche = ds.rechSug; rendre(); el.querySelector('[data-rech-com]')?.focus(); return; }
+    if(ds.rechEffacer!==undefined){ comRecherche = ''; rendre(); window.scrollTo({top:0, behavior:'smooth'}); return; }
+    if(ds.atF!==undefined){ const i = ds.atF.indexOf('|'); veilleFiltre[ds.atF.slice(0,i)] = ds.atF.slice(i+1); rendre(); return; }
+    if(ds.frProfil!==undefined){ fraiseProfil = ds.frProfil; rendre(); return; }
+    if(ds.frListe){ fraiseListe = ds.frListe; comPartie = 'liste'; comRecherche = ''; rendre(); window.scrollTo({top:0, behavior:'smooth'}); return; }
+    if(ds.propF!==undefined){ const i = ds.propF.indexOf('|'); propFiltre[ds.propF.slice(0,i)] = ds.propF.slice(i+1); rendre(); return; }
+    if(ds.frVoir){ comPartie = 'essais'; fraiseProfil = ''; fraiseOuvert[ds.frVoir] = true; comRecherche = ''; rendre(); setTimeout(()=>{ const x = [...el.querySelectorAll('[data-fr-nom]')].find(n=>n.dataset.frNom===ds.frVoir); x?.querySelector('details')?.setAttribute('open',''); x?.scrollIntoView({block:'center', behavior:'smooth'}); }, 60); return; }
     if(ds.sanEssai){ ficheSan = ds.sanEssai; rendre(); el.querySelector('.sf-panneau')?.focus?.(); return; }
     if(ds.anCom){ anCom = +ds.anCom; essaiSeg = ''; essaiSegChoisi = false; if(ds.esSrc){ comPartie = 'essais'; sourceEssai = ds.esSrc; segEssai = ds.sxSeg || ''; essaiSeg = ''; essaiSegChoisi = false; ficheVar = ''; } rendre(); return; }
-    if(ds.comPartie){ comPartie = ds.comPartie; rendre(); return; }
+    if(ds.comPartie){ comPartie = ds.comPartie; if(t.closest('.rech-res')) comRecherche = ''; rendre(); window.scrollTo({top:0, behavior:'smooth'}); return; }
     if(ds.esSrc){ sourceEssai = ds.esSrc; segEssai = ''; essaiSeg = ''; essaiSegChoisi = false; opFiltre = ''; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if(ds.esOp){ sourceEssai = donneesEssai('dv3', anCom) ? 'dv3' : sourceEssai; essaiVue = 'pos'; opFiltre = ds.esOp; rendre(); el.querySelector('.es-panneau')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if(ds.dv3Seg!==undefined){ essaiSeg = ds.dv3Seg; essaiSegChoisi = true; rendre(); return; }
@@ -5623,11 +5983,13 @@ function docsSanAn(an){
     else if(ds.cadreRm && estAdmin()){ if(!confirm('Supprimer ce document cadre ?')) return; const E = espaceCom(comActive); E.cadres[anCom] = (E.cadres[anCom]||[]).filter(d=>d.id!==ds.cadreRm); sauver('espaces'); rendre(); }
   });
   // la carte se pilote aussi au clavier
-  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op],g[data-san-f],article[data-san-essai]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && (ficheVar || ficheSan)){ ficheVar = ''; ficheSan = ''; vueCommissions(); } });
+  el.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches('g[data-es-src],g[data-es-op],g[data-san-f],article[tabindex="0"]')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', {bubbles:true})); } });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && (ficheVar || ficheSan || ficheOutil)){ ficheVar = ''; ficheSan = ''; ficheOutil = ''; vueCommissions(); }
+    else if(e.key==='Escape' && e.target.matches?.('[data-rech-com]') && comRecherche){ comRecherche = ''; e.target.value = ''; majRecherche(); } });
   // recherches immédiates (sans redessiner la page)
   el.addEventListener('input', e=>{
     const t = e.target;
+    if(t.matches('[data-rech-com]')){ comRecherche = t.value.trim(); majRecherche(); return; }
     if(t.matches('[data-san-rech]')){ const q = normTexte(t.value.trim()); let n = 0;
       el.querySelectorAll('[data-san-nom]').forEach(x=>{ const ok = !q || x.dataset.sanNom.includes(q); x.hidden = !ok; if(ok && x.matches('.san-e,.lev,tr')) n++; });
       el.querySelectorAll('[data-san-groupe]').forEach(g=>{ g.hidden = !!q && !g.querySelector('[data-san-nom]:not([hidden])'); });
@@ -5870,6 +6232,9 @@ function indexAssistant(){
   (S.sanitaire?.leviers?.equip||[]).forEach(x=>aj('levier', x.nom, [x.fourn, x.type, x.levier, x.cibles, x.cultures, x.refs, x.com], {x, equip:true}));
   // variétés (commission variétale tomates)
   try{ Object.entries(indexGlobal()).forEach(([k,v])=>aj('variete', v.nom, [v.seg, v.sem], {k, v})); }catch(_){}
+  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom, [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet], {o}));
+  (S.fraise?.synthese?.varietes||[]).forEach(v=>aj('fvar', v.nom, [v.profil, v.temoin, v.statut, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire], {v}));
+  (S.fraise?.propositions?.lignes||[]).forEach(p=>aj('fprop', p.nom, [p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos], {p}));
   // prix des graines (catalogue le plus récent d'abord) : une ligne par variété et une par segment
   anneesPrix().slice().reverse().forEach((an,i)=>{ const C = S.essais.prix[an]; (C.segments||[]).forEach(s=>{
     if(!i) aj('segprix', s.nom, ['prix', an], {seg:s, an});
@@ -6012,8 +6377,12 @@ function reponseAssistant(q){
     <button class="chip" data-as-ouvrir="hebdo|">Ouvrir la réunion hebdo ›</button>`);
   const ct = de('contact');
   if(ct.length) blocs.push(`<h6>Contacts externes <span>${ct.length}</span></h6><ul>${ct.slice(0,5).map(({c})=>`<li><b>${h(c.nom)}</b> ${h([c.org, c.fonction, c.cat].filter(Boolean).join(' · '))}${c.email?` — <a href="mailto:${h(c.email)}">${h(c.email)}</a>`:''}${c.tel?' — '+h(c.tel):''}</li>`).join('')}</ul>`);
+  const ou = de('outil'), fv = de('fvar'), fp = de('fprop');
+  if(ou.length) blocs.push(`<h6>Veille technologique (Agro-Tech) <span>${ou.length}</span></h6>${ou.slice(0,4).map(({o})=>`<div class="as-item"><b>${h(o.nom)}</b><small>${[o.cat, o.pays, o.statutLib, o.dv].filter(Boolean).map(h).join(' · ')}</small><p>${h(coupe(o.desc||o.detail||'', 260))}</p>${o.limites?`<small>Limites : ${h(coupe(o.limites,140))}</small>`:''}${o.contact?`<small>Contact : ${h(o.contact.split(' ; ')[0])}</small>`:''}<button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche ›</button></div>`).join('')}`);
+  if(fv.length) blocs.push(`<h6>Fraises — résultats des essais <span>${fv.length}</span></h6>${fv.slice(0,4).map(({v})=>`<div class="as-item"><b>${h(v.nom)}</b><small>Profil ${h(v.profil.replace('P',''))} · témoin ${h(v.temoin)} · ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}</small><p><b>Points forts :</b> ${h(v.forts.join(', ')||'—')}. <b>Points faibles :</b> ${h(v.faibles.join(', ')||'—')}.</p><button class="chip" data-as-ouvrir="fraise|${h(v.nom)}">Voir la synthèse ›</button></div>`).join('')}`);
+  if(fp.length) blocs.push(`<h6>Fraises — propositions 2027 <span>${fp.length}</span></h6><ul>${fp.slice(0,6).map(({p})=>`<li><b>${h(p.nom)}</b> (${h(p.obtenteur)}) — ${h(p.stade)}, priorité ${p.priorite}</li>`).join('')}</ul>`);
   // personnes à contacter : référents des essais trouvés et des enjeux trouvés ; sinon enjeu le plus proche de la question
-  if(!personnes.size){ const dom = /variet|semenc|graine|porte greffe/.test(normTexte(q)) ? (/frais/.test(normTexte(q)) ? 'VARIETAL FRAISE' : 'VARIETAL TOMATE')
+  if(!personnes.size){ const dom = ou.length ? 'IA ET SERRE DU FUTUR' : (fv.length || fp.length) ? 'VARIETAL FRAISE' : /variet|semenc|graine|porte greffe/.test(normTexte(q)) ? (/frais/.test(normTexte(q)) ? 'VARIETAL FRAISE' : 'VARIETAL TOMATE')
       : (es.length || lv.length || dt.length || /maladie|ravageur|traitement|sanitaire|phyto|biocontrole|pbi/.test(normTexte(q))) ? 'SANITAIRE' : '';
     const e = D.enjeux.find(x=>x.nom===dom);
     if(e) e.structures.filter(s=>s.e.length && s.s!=='EXTERNE').forEach(s=>s.e.forEach(p=>noter(p, 'référent '+libEnjeu(e.nom)+' ('+s.s+')'))); }
@@ -6033,7 +6402,8 @@ function reponseAssistant(q){
   else if(montrePrix && px.length){ const l = px.slice().sort(tri ? parPrix : (a,b)=>b.score-a.score); court.push(l.slice(0,3).map(x=>`<b>${h(x.p.nom)}</b> : <b>${h(P(x))}</b> <small>(${h(x.seg)})</small>`).join('<br>')); }
   if(!court.length && va.length && va[0].enTitre){ const {k, v} = va[0], st = statutListe(anCom, k), p = anneesPrix().map(a=>prixVariete(a,k)).filter(Boolean).pop();
     court.push(`<b>${h(v.nom)}</b>${v.seg||v.sem?' ('+h([v.seg, v.sem].filter(Boolean).join(', '))+')':''} : ${st ? (st.type==='lp' ? 'en <b>liste positive de production</b>' : 'en <b>développement '+h(st.dv||'')+'</b>')+' '+h(anListe(anCom)-1+'-'+anListe(anCom)) : 'pas dans les listes positives en cours'}${p?`. Graines : <b>${h(P({p}))}</b>`:''}.`); }
-  if(es.length && !montrePrix){ const n = r => es.filter(x=>x.e.resN===r).length, parts = [[n('Efficace'),'efficace'],[n('Partielle'),'partiellement efficace'],[n('Inefficace'),'inefficace']].filter(x=>x[0]).map(x=>`${x[0]} ${x[1]}${x[0]>1?'s':''}`);
+  if(!montrePrix && fv.length && fv[0].enTitre){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (fraise, profil ${h(v.profil.replace('P',''))}, témoin ${h(v.temoin)}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.${v.commentaire?' Décision : '+h(v.commentaire):''}`); }
+  if(es.length && !montrePrix && !(fv.length && fv[0].enTitre)){ const n = r => es.filter(x=>x.e.resN===r).length, parts = [[n('Efficace'),'efficace'],[n('Partielle'),'partiellement efficace'],[n('Inefficace'),'inefficace']].filter(x=>x[0]).map(x=>`${x[0]} ${x[1]}${x[0]>1?'s':''}`);
     const reste = es.length-n('Efficace')-n('Partielle')-n('Inefficace'); if(reste && parts.length) parts.push(reste+' à conclure');
     court.push(`<b>${es.length} essai${es.length>1?'s':''} sanitaire${es.length>1?'s':''}</b> sur ce sujet${parts.length?' : '+parts.join(', '):' (résultats à conclure)'}.`);
     const txt = x => { const fi = x.e.fiche||{}; return fi.conclusion && fi.conclusion.length>=120 ? fi.conclusion : [fi.resultats, fi.conclusion].filter(Boolean).join(' ') || x.e.com || ''; };
@@ -6042,6 +6412,8 @@ function reponseAssistant(q){
     else if(ko) court.push(`<b>À retenir</b> : ${h(coupe(txt(ko), 240))} <small>(${h([ko.e.op, ko.e.an].filter(Boolean).join(', '))})</small>`); }
   if(lv.length && !montrePrix) court.push(`<b>${lv.length} solution${lv.length>1?'s':''}</b> dans la base Coop Protect : ${lv.slice(0,3).map(x=>h(x.x.nom)).join(', ')}${lv.length>3?' et '+(lv.length-3)+' autre'+(lv.length>4?'s':''):''}.`);
   if(li.length && !montrePrix){ const a = li.filter(x=>x.lp).length, b = li.length-a; court.push(`Liste positive ${h(li[0].aL-1+'-'+li[0].aL)} : ${[a?`<b>${a}</b> variété${a>1?'s':''} en production`:'', b?`<b>${b}</b> en développement`:''].filter(Boolean).join(' et ')}${li.length<=4?' ('+li.map(x=>h(x.x.nom)).join(', ')+')':''}.`); }
+  if(!montrePrix && ou.length){ const o = ou[0].o; court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+h(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 220))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}`); }
+  if(!montrePrix && !court.length && fv.length){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (profil ${h(v.profil.replace('P',''))}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.`); }
   if(en.length && (contact || !court.length)){ const e = en[0].enjeu, r = e.structures.filter(s=>s.e.length && s.s!=='EXTERNE'); court.push(`Enjeu <b>${h(libEnjeu(e.nom))}</b> — référents : ${r.slice(0,4).map(s=>h(s.s)+' : '+h(s.e.slice(0,2).join(', '))).join(' ; ') || 'aucun dans la cartographie'}${r.length>4?'…':''}.`); }
   if(!court.length && dt.length) court.push(`<b>${dt.length} détection${dt.length>1?'s':''}</b> en réunion hebdo sur ce sujet.`);
   if(!court.length && rd.length) court.push(`<b>${rd.length} rendez-vous</b> de commission : ${h(dateCourte(rd[0].r.date))} — ${h(rd[0].r.titre)}.`);
@@ -6093,10 +6465,13 @@ function demanderAssistant(question, parVoix){
     if(type==='essai'){ comActive = 'csan'; comPartie = 'essais'; sanTous = true; ficheVar = ''; ficheSan = id; aller('commissions'); vueCommissions(); }
     else if(type==='leviers'){ comActive = 'csan'; comPartie = 'leviers'; ficheVar = ''; ficheSan = ''; aller('commissions'); vueCommissions(); }
     else if(type==='prix' || type==='lp'){ comActive = 'cvto'; comPartie = type; ficheVar = ''; ficheSan = ''; aller('commissions'); vueCommissions(); }
-    else if(type==='variete'){ comActive = 'cvto'; ficheSan = ''; ficheVar = id; aller('commissions'); vueCommissions(); }
+    else if(type==='variete'){ comActive = 'cvto'; ficheSan = ''; ficheOutil = ''; ficheVar = id; comRecherche = ''; aller('commissions'); vueCommissions(); }
+    else if(type==='outil'){ comActive = 'cagt'; comPartie = 'veille'; ficheVar = ''; ficheSan = ''; ficheOutil = id; comRecherche = ''; aller('commissions'); vueCommissions(); }
+    else if(type==='fraise'){ comActive = 'cvfr'; comPartie = 'essais'; fraiseProfil = ''; fraiseOuvert[id] = true; ficheVar = ''; ficheSan = ''; ficheOutil = ''; comRecherche = ''; aller('commissions'); vueCommissions();
+      setTimeout(()=>{ const x = [...document.querySelectorAll('#v-commissions [data-fr-nom]')].find(n=>n.dataset.frNom===id); x?.querySelector('details')?.setAttribute('open',''); x?.scrollIntoView({block:'center'}); }, 80); }
     else if(type==='enjeu'){ enjeuActif = id; aller('cartographie'); vueCartographie(); }
     else if(type==='hebdo'){ aller('hebdo'); }
-    if(innerWidth < 900 || type==='essai' || type==='variete') basculer(false);
+    if(innerWidth < 900 || type==='essai' || type==='variete' || type==='outil' || type==='fraise') basculer(false);
   };
   document.getElementById('formAssistant').onsubmit = e => { e.preventDefault(); const q = champ.value; champ.value = ''; demanderAssistant(q); };
   champ.onkeydown = e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); document.getElementById('formAssistant').requestSubmit(); } };
@@ -6109,7 +6484,7 @@ function demanderAssistant(question, parVoix){
 const connusNotif = {};
 function elementsNotif(cle, v){
   const out = new Map(), titre = o => String(o.titre||o.t||o.nom||o.defaut||o.objectif||'').trim();
-  const parId = ['hebdo','zrp','documents','espaces'].includes(cle), parImport = ['essais','sanitaire','indicateurs'].includes(cle);
+  const parId = ['hebdo','zrp','documents','espaces'].includes(cle), parImport = ['essais','sanitaire','indicateurs','agrotech','fraise'].includes(cle);
   if(!parId && !parImport) return out;
   (function marche(o, chemin){
     if(!o || typeof o!=='object') return;
@@ -6134,6 +6509,8 @@ function libelleNotif(cle, x){
     if(/^fiches\/.*\/coms$/.test(c)) return {lib:'Variété — nouveau commentaire', titre:x.titre.slice(0,120), vue:'commissions', com:'cvto'};
     return null; }
   if(cle==='essais') return {lib:'Commission variétale — résultats importés', titre:[c.replace(/\/campagnes\//,' ').replace(/\//g,' '), x.titre].filter(Boolean).join(' · '), vue:'commissions', com:'cvto'};
+  if(cle==='agrotech') return {lib:'Agro-Tech Innovation — veille technologique mise à jour', titre:x.titre, vue:'commissions', com:'cagt'};
+  if(cle==='fraise') return {lib:'Variétale Fraises — données mises à jour', titre:x.titre, vue:'commissions', com:'cvfr'};
   if(cle==='sanitaire') return {lib:'Commission sanitaire — '+(c==='essais' ? 'bilan des essais mis à jour' : 'données mises à jour'), titre:x.titre, vue:'commissions', com:'csan'};
   if(cle==='indicateurs') return {lib:'Indicateurs importés', titre:x.titre, vue:'indicateurs', admin:true};
   return null;
