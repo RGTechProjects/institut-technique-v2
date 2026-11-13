@@ -5714,8 +5714,13 @@ const okRet = o => o.retour && o.retour!=="Pas d'essai";
 const RES_ESSAI = {'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'Pas concluant':'non', 'Négatif':'non', 'En cours':'info'};
 /* L'essai de l'année correspondant à un outil (nom de l'entreprise : premier mot, « Airsprid » = « Aisprid ») */
 const premierMot = s => normTexte(s).replace(/^airsprid/,'aisprid').split(/[^a-z0-9]+/)[0];
-const essaiDe = o => (S.agrotech?.essais?.lignes||[]).find(l=>premierMot(l.entreprise)===premierMot(o.nom));
-const outilDeEssai = l => (S.agrotech?.outils||[]).find(o=>premierMot(o.nom)===premierMot(l.entreprise));
+/* Une entreprise peut avoir plusieurs produits (Fravebot : robot Scouting et pièges FravEye) : la ligne d'essai va au produit dont le nom figure dans « entreprise » ou « technologie » */
+const motsProduit = o => normTexte(o.nom).split(/[^a-z0-9]+/).filter(w=>w.length>=5).slice(1);
+const essaiVise = (o, l) => { if(premierMot(l.entreprise)!==premierMot(o.nom)) return false;
+  const freres = (S.agrotech?.outils||[]).filter(x=>premierMot(x.nom)===premierMot(o.nom)); if(freres.length<2) return true;
+  const txt = normTexte(l.entreprise+' '+l.tech), mp = motsProduit(o); return mp.some(w=>txt.includes(w)); };
+const essaiDe = o => (S.agrotech?.essais?.lignes||[]).find(l=>essaiVise(o, l));
+const outilDeEssai = l => (S.agrotech?.outils||[]).find(o=>essaiVise(o, l));
 function suiviEssais(A){
   const E = A.essais; if(!E?.lignes?.length) return '';
   return `<div class="carte"><h3>Suivi des essais ${h(E.annee)} — résultats des tests terrain</h3>
@@ -6243,6 +6248,8 @@ const SYNONYMES = {cyrto:['cyrtopeltis','nesidiocoris','tenuis'], cyrtopeltis:['
 const MOTS_PRIX = new Set('prix tarif tarifs cout couts coute coutent couter combien cher chers chere cheres euro euros graine graines'.split(' '));
 const racineMot = m => m.length>4 ? m.replace(/(es|s|x)$/,'') : m;
 /* Tout ce que l'app sait, mis à plat : {type, titre, texte, ...}. Reconstruit à chaque question (données en mémoire). */
+/* Un même nom s'écrit de plusieurs façons (« Eva Scout », « EVAScout », « Viscon Group ») : on ajoute les mots collés deux à deux et en entier */
+const aliasNom = nom => { const w = normTexte(nom).split(/[^a-z0-9]+/).filter(Boolean), l = []; for(let i=0;i<w.length-1;i++) l.push(w[i]+w[i+1]); if(w.length>2 && w.length<=4) l.push(w.join('')); return l.join(' '); };
 function indexAssistant(){
   const l = [], N = x => ' '+normTexte(Array.isArray(x) ? x.filter(Boolean).join(' ') : x).replace(/[^a-z0-9]+/g,' ')+' ';
   const aj = (type, titre, texte, o) => { if(titre) l.push({type, titre, nt:N(titre), nx:N(texte), ...o}); };
@@ -6255,7 +6262,7 @@ function indexAssistant(){
   (S.sanitaire?.leviers?.equip||[]).forEach(x=>aj('levier', x.nom, [x.fourn, x.type, x.levier, x.cibles, x.cultures, x.refs, x.com], {x, equip:true}));
   // variétés (commission variétale tomates)
   try{ Object.entries(indexGlobal()).forEach(([k,v])=>aj('variete', v.nom, [v.seg, v.sem], {k, v})); }catch(_){}
-  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom, [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet, essaiDe(o) ? [essaiDe(o).tech, essaiDe(o).resultat, essaiDe(o).conclusion] : '', (S.agrotextes?.[o.id]||[]).slice(0,2).map(d=>d.tx.slice(0,2500))], {o, nt2:N([o.type, o.cat, (o.desc||'').slice(0,110)])}));
+  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom+' '+aliasNom(o.nom), [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet, essaiDe(o) ? [essaiDe(o).tech, essaiDe(o).resultat, essaiDe(o).conclusion] : '', (S.agrotextes?.[o.id]||[]).slice(0,2).map(d=>d.tx.slice(0,2500))], {o, nt2:N([o.type, o.cat, (o.desc||'').slice(0,110)])}));
   (S.agrotech?.projets||[]).forEach(p=>aj('projet', p.titre, [p.theme, p.desc, p.docs.map(d=>d.t)], {p, nt2:N([p.theme, 'projet etude'])}));
   (S.fraise?.synthese?.varietes||[]).forEach(v=>aj('fvar', v.nom, ['fraise fraises variete', v.profil, v.temoin, v.statut, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire], {v}));
   (S.fraise?.propositions?.lignes||[]).forEach(p=>aj('fprop', p.nom, ['fraise fraises variete proposition', p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos], {p}));
@@ -6470,7 +6477,7 @@ function passagesOutil(o, mots, prix){
       const n = ' '+normTexte(b).replace(/[^a-z0-9]+/g,' ')+' '; let s = 0;
       mots.forEach(m=>{ if(m.variantes.some(v=>n.includes(' '+v))) s += 1; });
       if(prix){ const c = (b.match(/€|\$/g)||[]).length; if(c){ const bl = b.split('\n'), k = bl.findIndex(x=>/€|\$/.test(x)); s += 2+Math.min(c,6)*0.5 - 0.35*k + (/^(prix|pric|tarif|mod[eè]le commercial|cost|co[uû]t)/i.test(bl[0]) ? 1.5 : 0); } else if(PRIX_RE.test(b)) s += 0.8; }
-      if(s>=(prix?2:1)) res.push({s: s - di*0.05, b, d, i}); } });
+      if(s>=(prix?2:1)) res.push({s: s - di*0.05 + (prix && /^Synth.se des fiches/i.test(d.t) ? 1.5 : 0), b, d, i}); } });
   res.sort((a,b)=>b.s-a.s); const pris = [];
   res.forEach(r=>{ if(pris.length<(prix?1:2) && !pris.some(p=>p.d===r.d && Math.abs(p.i-r.i)<6)) pris.push(r); });
   return pris;
@@ -6483,21 +6490,27 @@ function contactsOutil(o){
   return {mails, tech:[...tech]};
 }
 function reponseTechno(texte, Qo){
-  const Q = chercherAssistant(texte), ou = Q.res.filter(r=>r.type==='outil'); if(!ou.length) return '';
+  const Q = chercherAssistant(texte); let ou = Q.res.filter(r=>r.type==='outil'); if(!ou.length) return '';
+  // un nom écrit exactement (sans faute corrigée) dans le titre désigne le produit ; plusieurs produits d'une même entreprise : on les présente ensemble
+  const exact = ou.filter(r=>Q.mots.some(m=>m.connu && !m.corrige && r.nt.includes(' '+m.m) && !STOP_AG.has(m.m) && !SYN_AG.has(m.m)));
+  let forceUnique = false; if(exact.length===1){ ou = exact; forceUnique = true; } else if(exact.length>1 && exact.every(x=>premierMot(x.o.nom)===premierMot(exact[0].o.nom))) ou = exact;
   const top = ou[0], autres = Q.res.filter(r=>!['outil','doc','rdv','enjeu','contact'].includes(r.type));
   if(autres.length && autres[0].score > top.score*1.15) return '';
-  const unique = top.enTitre>=1 && (ou.length===1 || ou[1].enTitre===0 || top.score>=1.25*ou[1].score);
+  const unique = forceUnique || top.enTitre>=1 && (ou.length===1 || ou[1].enTitre===0 || top.score>=1.25*ou[1].score);
   const prix = !!Qo.prix, A = S.agrotech, an = A?.essais?.annee||'';
   if(unique){
     const o = top.o, e = essaiDe(o), nomN = normTexte(o.nom), mq = Q.mots.filter(m=>m.connu && !nomN.includes(m.m)), textes = S.agrotextes?.[o.id]||[], p = [];
     const court = prix || Qo.contact;
-    p.push(`<b>${h(o.nom)}</b> est ${o.cat?'un outil de la catégorie « '+h(o.cat)+' »':'un outil'}${o.pays?' ('+h(o.pays)+')':''}${o.espece?', pour la culture '+h(o.espece.toLowerCase()):''}. ${h(phrase1(o.desc||o.detail||'', court?170:340))}`);
-    if(e && court) p.push(`Il est en essai en ${h(an)} (${h(e.resultat.toLowerCase())}).`);
-    else if(e) p.push(`Côté essais, il a été testé en ${h(an)} sur ${h(coupe(e.sites||'les sites pilotes',110))} : résultat <b>${h(e.resultat.toLowerCase())}</b>. ${h(phrase1(e.conclusion, 330))}`);
-    else if(!court) p.push(`Pour l'instant il est suivi par la commission (statut : ${h(o.statutLib.toLowerCase())}${o.dv?', maturité '+h(o.dv):''}), sans essai sur un site pilote${okRet(o)?' ; retour des producteurs : '+h(o.retour.toLowerCase()):''}.`);
-    if(!court && o.limites && o.limites.length>25 && !/^[àa] compl[ée]ter/i.test(o.limites)) p.push(`À savoir : ${h(phrase1(o.limites, 280))}`);
+    // on ne dit que ce qui est écrit : fiche innovation, tableau de veille, suivi des essais ; chaque phrase dit d'où elle vient
+    const ident = [o.cat, o.pays, o.espece && 'culture : '+o.espece.toLowerCase()].filter(Boolean).join(', ');
+    p.push(`<b>${h(o.nom)}</b>${ident?' ('+h(ident)+')':''}.${o.detail ? ` D'après la fiche innovation : ${h(phrase1(o.detail, court?200:420))}` : o.desc ? ` D'après le tableau de veille : ${h(phrase1(o.desc, court?200:420))}` : ''}`);
+    if(o.detail && o.desc && !court) p.push(`Le tableau de veille indique : ${h(phrase1(o.desc, 360))}`);
+    if(e) p.push(`Suivi des essais ${h(an)} : ${court?'':`testé sur ${h(coupe(e.sites||'les sites pilotes',110))}, `}résultat <b>${h(e.resultat.toLowerCase())}</b>.${court?'':' '+h(phrase1(e.conclusion, 330))}`);
+    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+h(o.dv):''}${okRet(o)?', retour des producteurs : '+h(o.retour.toLowerCase()):''}.`);
+    if(!court && o.limites && o.limites.length>25 && !/^[àa] compl[ée]ter/i.test(o.limites)) p.push(`Limites et points bloquants notés dans le tableau de veille : ${h(phrase1(o.limites, 320))}`);
     const ps = (prix || mq.length) ? passagesOutil(o, mq, prix) : [];
-    if(prix && !ps.length) p.push(`Je n'ai pas trouvé de tarif dans les documents de cet outil.`);
+    if(prix){ const dp = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$/.test(x)); if(dp.length) p.push(`Le tableau de veille indique : ${h(dp.join(' '))}`); }
+    if(prix && !ps.length && !(o.desc||'').match(/€|\$/)) p.push(`Je n'ai pas trouvé de tarif dans les documents de cet outil.`);
     ps.forEach(x=>p.push(`${prix?'Côté tarif':'Dans le document'}, d'après « ${h(coupe(x.d.t,60))} » :</p><p class="as-cite">${h(x.b)}`));
     if(prix && ps.length) p.push('<small class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</small>');
     const c = contactsOutil(o), qui = [];
@@ -6508,11 +6521,11 @@ function reponseTechno(texte, Qo){
     return `<div class="as-chat">${p.map(x=>x.startsWith('<small')?x:`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.map(lienDoc).join('')}</div>`:''}<div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche complète ›</button></div></div>`;
   }
   if(ou.length>=2 && (Qo.types?.includes('outil') || top.enTitre>=1 || prix)){
-    const l = ou.slice(0,4), p = [`J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>4?' (les 4 plus proches)':''} :`], docs = [];
+    const l = ou.slice(0,4), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom)), p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>4?' (les 4 plus proches)':''} :`], docs = [];
     l.forEach(({o})=>{ const e = essaiDe(o); let tarif = '';
       if(prix){ const ps = passagesOutil(o, [], true); if(ps.length){ tarif = ' <i>Tarif cité dans la fiche : '+h(coupe(ps[0].b.replace(/\n/g,' · '),170))+'</i>'; docs.push(ps[0].d); } }
       p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?', résultat '+h(e.resultat.toLowerCase()):''}) : ${h(phrase1(o.desc||o.detail||'', 200))}${tarif}`); });
-    p.push('Dites-moi lequel vous intéresse et je vous le détaille (fonctionnement, résultats, tarif, contact).');
+    p.push(meme ? 'Dites-moi lequel des deux vous intéresse (fonctionnement, résultats, tarif, contact).' : 'Dites-moi lequel vous intéresse et je vous le détaille (fonctionnement, résultats, tarif, contact).');
     return `<div class="as-chat">${p.map(x=>`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.slice(0,4).map(lienDoc).join('')}</div>`:''}<div class="as-suite">${l.map(({o})=>`<button class="chip" data-suggestion="${h(o.nom)}">${h(o.nom)}</button>`).join('')}</div></div>`;
   }
   return '';
