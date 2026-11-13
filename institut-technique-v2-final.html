@@ -6282,7 +6282,7 @@ function indexAssistant(){
 let FLAGS_FORCE = null, NOTE_AG = '';
 const STOP_AG = new Set([...MOTS_VIDES_AS, ...('bonjour bonsoir salut hello coucou hey svp stp merci plait plais pouvez pouvons peux pouvoir voudrais voulais souhaite souhaiterais aimerais aimerai savoir connaitre connais dis dites donnes donnez montres montrez affiches trouves trouvez cherches cherchez recherche parles parlez expliques expliquez raconte racontes indique indiquez ci voila voici aide aider besoin question questions reponse repondre repondez jai ai as avons avez ont suis es sommes etes etait serait sera faut faudrait fais fait faites peut peuvent doit doivent aussi encore deja toujours jamais rien tres trop peu assez plutot environ vraiment exactement notamment surtout ca cela ceci celui celle ceux celles eux elles ton ta tes votre vos leurs si alors donc car comme puis ensuite enfin ainsi autre autres meme chaque plusieurs certain certains certaine certaines quelque quelques aucun aucune cest sest nest nai ya yatil existent exister idee idees truc trucs chose choses genre type sorte sortes parler concernant sujet info infos kel kels quelle quel koi quoi ou comment pourquoi quand combien lequel laquelle lesquels vs versus ainsi voir regarde regardez veut veux voulez souhaitez besoin souvent parfois peutetre vois sait sais savez trouver recommandes recommande conseille conseilles conseil recommandation propose proposes proposer faire fais faut dois doit devrais beaucoup bien bon bonne ok okay oui non infiniment mille parfait genial super nickel top bravo excellent'
 ).split(' ')]);
-const ABREV_AG = [[/\btt\b/g,'tout'], [/\bbcp\b/g,'beaucoup'], [/\bpk\b|\bpq\b/g,'pourquoi'], [/\bqd\b/g,'quand'], [/\bkoi\b/g,'quoi'], [/\bcmt\b/g,'comment'], [/\bslt\b/g,'salut'], [/\bbjr\b/g,'bonjour'], [/\bds\b/g,'dans'], [/\bpr\b/g,'pour'], [/\bc quoi\b|\bcest quoi\b/g,'quoi'], [/\bfrais\b(?=\s+(?:rouge|gariguette|variete|essai))/g,'fraise'], [/\b(en|sur|pour|chez) frais\b/g,'$1 fraise'], [/\bfrais$/,'fraise']];
+const ABREV_AG = [[/\btt\b/g,'tout'], [/\bbcp\b/g,'beaucoup'], [/\bpk\b|\bpq\b/g,'pourquoi'], [/\bqd\b/g,'quand'], [/\bkoi\b/g,'quoi'], [/\bcmt\b/g,'comment'], [/\bslt\b/g,'salut'], [/\bbjr\b/g,'bonjour'], [/\bds\b/g,'dans'], [/\bpr\b/g,'pour'], [/\bc quoi\b|\bcest quoi\b/g,'quoi'], [/\bkand\b|\bkan\b/g,'quand'], [/\bkel\b|\bkelle\b|\bkele\b/g,'quelle'], [/\bke\b|\bk\b/g,'que'], [/\bfo\b/g,'faut'], [/\bya\b/g,'il y a'], [/\bfrais\b(?=\s+(?:rouge|gariguette|variete|essai))/g,'fraise'], [/\b(en|sur|pour|chez) frais\b/g,'$1 fraise'], [/\bfrais$/,'fraise']];
 const GROUPES_AG = [
   ['cyrto','cyrtopeltis','nesidiocoris','tenuis','miride','mirides'], ['aleurode','aleurodes','bemisia','trialeurodes','mouche blanche','mouches blanches'], ['puceron','pucerons','aphidius','macrosiphum','aphid'],
   ['oidium','oidiums','erysiphe'], ['botrytis','pourriture grise','botrytis cinerea'], ['clado','cladosporiose','fulvia','cladosporium'],
@@ -6307,7 +6307,9 @@ function distAg(a, b){ const la = a.length, lb = b.length; if(Math.abs(la-lb)>3)
   for(let i=0;i<=la;i++) d[i] = [i]; for(let j=1;j<=lb;j++) d[0][j] = j;
   for(let i=1;i<=la;i++) for(let j=1;j<=lb;j++){ d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); if(i>1 && j>1 && a[i-1]===b[j-2] && a[i-2]===b[j-1]) d[i][j] = Math.min(d[i][j], d[i-2][j-2]+1); }
   return d[la][lb]; }
-const normPhrase = q => { let n = normTexte(q).replace(/['’]/g,' ').replace(/[^a-z0-9€]+/g,' ').replace(/\s+/g,' ').trim(); ABREV_AG.forEach(([re,r])=>{ n = n.replace(re, r); }); return n; };
+const INTENT_AG = ['compare','comparer','comparaison','difference','differences','prochaine','prochain','calendrier','contacter','meilleur','meilleure','meilleurs','recommande','solution','solutions','efficace','versus','combien','quelle','quelles','traitement','resultat','resultats','commission','commissions','reunion','reunions','sanitaire','variete','varietes'];
+const corrigerIntention = m => { if(m.length<5 || INTENT_AG.includes(m)) return m; const maxD = m.length>=9 ? 2 : 1; let best = maxD+1, r = m; const pm = phonAg(m); INTENT_AG.forEach(w=>{ if(Math.abs(w.length-m.length)>maxD+1) return; if(w[0]===m[0] || phonAg(w)[0]===pm[0]){ const d = distAg(m,w), dp = phonAg(w)===pm ? 0 : 9; const dd = Math.min(d, dp); if(dd<best){ best = dd; r = w; } } }); return r; };
+const normPhrase = q => { let n = normTexte(q).replace(/['’]/g,' ').replace(/[^a-z0-9€]+/g,' ').replace(/\s+/g,' ').trim(); ABREV_AG.forEach(([re,r])=>{ n = n.replace(re, r); }); return n.split(' ').map(corrigerIntention).join(' '); };
 /* Ce que veut la phrase : intentions repérées dans les mots (avant de retirer les mots courants) */
 function motsQuestion(q){
   const n = normPhrase(q), jetons = n.split(' ').filter(Boolean), bruts = jetons.filter(m=>m.length>1 && !STOP_AG.has(m));
@@ -6329,13 +6331,13 @@ function motsQuestion(q){
   if(a(/\b(outil|outils|robot|robots|capteur|capteurs|logiciel|appli|application|drone|camera|cameras|innovation|innovations)\b/)) types.push('outil');
   if(a(/\b(produit|produits|solution|solutions|traitement|traitements|levier|leviers|molecule|soigne|soigner|traiter)\b/)) types.push('levier','essai');
   if(a(/\b(document|documents|rapport|rapports|fichier|fichiers|pdf|compte rendu)\b/)) types.push('doc');
-  const mots = [...new Set(bruts.filter(m=>!MOTS_CONTACT.has(m) && !MOTS_PRIX.has(m)))].map(m=>({m, variantes:[racineMot(m)]}));
+  const GEN_PRIX = new Set(['graine','graines','semence','semences','semance','semances','semense','semenses','grenes']), mots = [...new Set(bruts.filter(m=>!MOTS_CONTACT.has(m) && !MOTS_PRIX.has(m) && !(flags.prix && GEN_PRIX.has(m))))].map(m=>({m, variantes:[racineMot(m)]}));
   return {mots, types, ...flags};
 }
 /* Associe chaque mot de la phrase aux mots réellement présents dans l'Institut : tel quel, début de mot, faute de frappe, synonymes */
 function resoudreMots(mots, index){
   const df = new Map(), dft = new Map(); index.forEach(it=>{ const s = new Set(((it.nt||'')+(it.nx||'')).split(' ')); s.forEach(w=>{ if(w.length>=3){ df.set(w, (df.get(w)||0)+1); let d = dft.get(w); if(!d) dft.set(w, d = {}); d[it.type] = (d[it.type]||0)+1; } }); });
-  const vocab = [...df.keys()], parDf = a => a.sort((x,y)=>df.get(y)-df.get(x)); let phonMap = null;
+  const lex = GROUPES_AG.flat().filter(w=>w.length>=4 && !w.includes(' ')), vocab = [...new Set([...df.keys(), ...lex])], dfx = w => df.get(w) ?? 12, parDf = a => a.sort((x,y)=>dfx(y)-dfx(x)); let phonMap = null;
   mots.forEach(o=>{
     const m = o.m; let v = [];
     if(df.has(m)) v.push(m);
@@ -6343,17 +6345,18 @@ function resoudreMots(mots, index){
     if(m.length>=4) vocab.forEach(w=>{ if(w!==m && (w.startsWith(m) || (w.length>=5 && m.startsWith(w) && m.length-w.length<=3))) v.push(w); });
     v = [...new Set(v)]; if(v.length>8) v = parDf(v).slice(0,8);
     if(v.length===1 && df.get(v[0])<=2 && m.length>=5 && !/\d/.test(m) && !SYN_AG.has(m)){ const maxD = m.length<=7 ? 1 : 2; let best = maxD+1, c2 = [];
-      vocab.forEach(w=>{ if(w===m || df.get(w)<5 || Math.abs(w.length-m.length)>maxD || w[0]!==m[0]) return; const d = distAg(m,w); if(d<best){ best = d; c2 = [w]; } else if(d===best) c2.push(w); });
+      vocab.forEach(w=>{ if(w===m || dfx(w)<5 || Math.abs(w.length-m.length)>maxD || w[0]!==m[0]) return; const d = distAg(m,w); if(d<best){ best = d; c2 = [w]; } else if(d===best) c2.push(w); });
       if(c2.length){ const bons = parDf(c2); v = [...v, ...bons.slice(0,2)]; o.corrige = bons[0]; } }
     if(!v.length && m.length>=4 && !/\d/.test(m) && !SYN_AG.has(m)){            // faute de frappe ou d'orthographe
       phonMap ||= (()=>{ const p = new Map(); vocab.forEach(w=>{ if(w.length>=4){ const k = phonAg(w); (p.get(k) || p.set(k, []).get(k)).push(w); } }); return p; })();
-      let cands = (phonMap.get(phonAg(m))||[]).filter(w=>w[0]===m[0] || distAg(m,w)<=2);
-      if(!cands.length){ const maxD = m.length<=7 ? 1 : m.length<=10 ? 2 : 3; let best = maxD+1;
-        vocab.forEach(w=>{ if(Math.abs(w.length-m.length)>maxD || (m.length<=5 && w[0]!==m[0])) return; const d = distAg(m,w); if(d<best){ best = d; cands = [w]; } else if(d===best) cands.push(w); });
-        if(best>maxD) cands = []; }
+      const maxD = m.length<=5 ? 1 : m.length<=10 ? 2 : 3; let best = 9, cands = [];
+      const ajoute = w => { if(w===m) return; const d = distAg(m,w); if(d<best){ best = d; cands = [w]; } else if(d===best) cands.push(w); };
+      (phonMap.get(phonAg(m))||[]).filter(w=>w[0]===m[0] || distAg(m,w)<=2).forEach(ajoute);
+      vocab.forEach(w=>{ if(Math.abs(w.length-m.length)>maxD || (m.length<=5 && w[0]!==m[0])) return; const d = distAg(m,w); if(d<=maxD && (d<=1 || m.length>=8 || w.slice(0,2)===m.slice(0,2))) ajoute(w); });
+      if(best>3) cands = [];
       if(cands.length){ v = parDf(cands).slice(0,3); o.corrige = v[0]; } }
     const syn = new Set(); [m, r, ...v].forEach(x=>{ (SYN_AG.get(x)||[]).forEach(s=>syn.add(s)); });
-    o.variantes = [...new Set([...v, ...syn])]; o.df = v.length ? Math.max(...v.map(w=>df.get(w))) : 0; o.connu = v.length>0 || syn.size>0; });
+    o.variantes = [...new Set([...v, ...syn])]; o.df = v.length ? Math.max(...v.map(w=>df.get(w)||0)) : 0; o.connu = v.length>0 || syn.size>0; });
   return {df, dft, vocab};
 }
 /* Recherche pondérée : un mot rare (« nématodes ») pèse plus qu'un mot courant (« fraise »), un mot du titre plus que du texte */
@@ -6593,7 +6596,9 @@ function reponseAssistantBase(q){
     else if(part.length) court.push(`<b>Rien n'est encore établi comme efficace</b> sur ce sujet. Pistes partiellement efficaces :<br>• ${part.slice(0,2).map(ligne).join('<br>• ')}`);
     if(eff.length) court.push(`<b>Solutions jugées efficaces</b> dans la base Coop Protect : ${eff.slice(0,4).map(x=>h(x.x.nom)).join(', ')}.`);
     if(nons.length) court.push(`<b>À éviter ou sans effet</b> : ${nons.slice(0,2).map(x=>h(coupe(x.e.objectif,60))+(x.e.fiche?.conclusion?' ('+h(coupe(x.e.fiche.conclusion,90))+')':'')).join(' ; ')}.`); }
-  const montrePrix = veutPrix && (pxDirects.length || sg.length || px.length);
+  const apercuPrix = veutPrix && !(pxDirects.length || sg.length || px.length) && !mots.some(o=>o.connu), anC = anneesPrix().slice().pop(), segsC = apercuPrix && anC ? (S.essais.prix[anC].segments||[]).filter(s=>s.prixMoy) : [];
+  const montrePrix = veutPrix && (pxDirects.length || sg.length || px.length || segsC.length);
+  if(segsC.length) court.push(`Catalogue ${h(anC)} des graines de tomate : ${segsC.length} segments. Prix moyen par segment : ${segsC.slice(0,6).map(s=>'<b>'+h(s.nom)+'</b> '+h(s.prixMoy)+' €/m²').join(' ; ')}${segsC.length>6?' …':''}. Demandez-moi une variété ou un segment pour le détail.`);
   if(veutPrix && !montrePrix) court.push("Je n'ai pas de prix pour cela (le catalogue ne couvre que les graines de tomate). Voici ce que j'ai trouvé :");
   if(montrePrix && pxDirects.length){ const l = pxDirects.slice().sort(tri ? parPrix : (a,b)=>b.enTitre-a.enTitre || b.score-a.score);
     if(tri) court.push(`${tri>0?'La moins chère':'La plus chère'} : <b>${h(l[0].p.nom)}</b>, <b>${h(P(l[0]))}</b> de graines (${h(l[0].seg)})${l.length>1?`. Ensuite : ${l.slice(1,3).map(x=>h(x.p.nom)+' '+h(P(x))).join(', ')}`:''}.`);
@@ -6630,7 +6635,7 @@ function reponseAssistantBase(q){
   const notes = (NOTE_AG ? `<p class="as-note">${NOTE_AG}</p>` : '') + (corriges.length ? `<p class="as-note">J'ai compris ${corriges.map(([a,b])=>`« ${h(b)} » pour « ${h(a)} »`).join(', ')}.</p>` : '')
     + (absents.length ? `<p class="as-alerte">Rien dans l'app sur « ${h(absents.join(' », « '))} » : la réponse porte sur le reste de la question.</p>`
       : partiel ? `<p class="as-alerte">Aucun élément ne réunit tous les mots de la question : voici le plus proche.</p>` : '');
-  return `<div class="as-court">${court.map(c=>`<p>${c}</p>`).join('')}${montrePrix && (pxDirects.length || sg.length || px.length) ? confid : ''}</div>${notes}
+  return `<div class="as-court">${court.map(c=>`<p>${c}</p>`).join('')}${montrePrix && (pxDirects.length || sg.length || px.length || segsC.length) ? confid : ''}</div>${notes}
     <details class="as-plus"${detail?' open':''}><summary><span>Pour plus d'infos</span><small>${res.length} élément${res.length>1?'s':''} : détails, sources, documents, contacts</small></summary>${blocs.join('')}${blocPers}</details>`;
 }
 function afficherConversation(){
