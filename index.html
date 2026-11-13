@@ -2184,7 +2184,12 @@ function seedAnnee(src, fige){
     espace:{notes:'', liens:[], jalons:[]}
   }]))};
 }
+/* Agro-Tech : « Projet actif » et « Essai en cours » désignent la même chose (outil testé sur un site pilote) : un seul statut, le résultat de l'essai dit où l'on en est */
+function unifierStatutsAgro(){ const A = S.agrotech; if(!A) return;
+  (A.outils||[]).forEach(o=>{ const e = o.statut==='contacte' || o.statut==='acontacter' ? essaiDe(o) : null; if(o.statut==='actif' || (e && outilDeEssai(e)===o)){ o.statut = 'essai'; o.statutLib = 'Essai en cours'; } });
+  if(A.legende?.statuts){ A.legende.statuts = A.legende.statuts.filter(x=>x[0]!=='actif').map(x=>x[0]==='essai' ? ['essai','Essai en cours','Outil testé sur un site pilote : le résultat (positif, moyen, pas concluant…) dit où l\'on en est'] : x); } }
 function initialiserDonnees(){
+  unifierStatutsAgro();
   if(!S.cartographie) S.cartographie = {'2025':seedAnnee('a25',true), '2026':seedAnnee('a26',false)};
   if(!S.indicateurs || ![2,3].includes(S.indicateurs.version)) S.indicateurs = {version:3, annees:{}};
   S.indicateurs.annees ||= {};
@@ -4728,6 +4733,7 @@ function barreAnCom(com){
 
 /* --- page --- */
 function vueCommissions(){
+  unifierStatutsAgro();
   const el = document.getElementById('v-commissions'); el.dataset.com = comActive;
   const c = COMMISSIONS.find(x=>x.id===comActive);
   const parties = comActive==='cvto' ? PARTIES_CVTO : comActive==='csan' ? PARTIES_CSAN : comActive==='cvfr' ? PARTIES_CVFR : PARTIES_CAGT;
@@ -5697,8 +5703,8 @@ const listeDocs = (docs, titreVide) => !docs.length ? `<p class="aide">${titreVi
 const docsParCat = docs => { const cats = [...new Set(docs.map(d=>d.cat||'Documents'))]; return cats.map((c,i)=>`<details class="es-docs"${cats.length===1||i===0?' open':''}><summary>${h(c)} <span class="zrp-compte">${docs.filter(d=>(d.cat||'Documents')===c).length}</span></summary>${listeDocs(docs.filter(d=>(d.cat||'Documents')===c))}</details>`).join(''); };
 
 /* ---------------- Agro-Tech Innovation : veille technologique ---------------- */
-const STATUT_AT = {actif:['Projet actif','ok'], essai:['Essai en cours','part'], contacte:['Contacté','info'], repere:['Fiche seule','info'], acontacter:['À contacter','nd'], abandon:['Pas d\'intérêt','non']};
-const ORDRE_AT = ['actif','essai','contacte','repere','acontacter','abandon'];
+const STATUT_AT = {essai:['Essai en cours','info'], contacte:['Contacté','info'], repere:['Fiche seule','info'], acontacter:['À contacter','nd'], abandon:['Pas d\'intérêt','non']};
+const ORDRE_AT = ['essai','contacte','repere','acontacter','abandon'];
 const RETOUR_AT = {'Positive':'ok', 'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'En attente':'part', 'En cours':'info', 'Pas concluant':'non', 'Négatif':'non'};
 const okRet = o => o.retour && o.retour!=="Pas d'essai";
 const RES_ESSAI = {'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'Pas concluant':'non', 'Négatif':'non', 'En cours':'info'};
@@ -5717,10 +5723,10 @@ function suiviEssais(A){
         <p class="at-desc">${h(l.conclusion)}</p>${o?'<span class="at-plus">Fiche de l\'outil ›</span>':''}</article>`; }).join('')}</div>
     ${(E.legende||[]).length?`<p class="aide">${E.legende.map(x=>`<b>${h(x[0])}</b> : ${h(x[1])}`).join(' · ')}</p>`:''}</div>`;
 }
-const badgeAt = s => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>`;
+const badgeAt = (s, o) => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>${o && essaiDe(o) ? `<span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}" title="Résultat de l'essai ${h(S.agrotech.essais.annee||'')}">${h(essaiDe(o).resultat)}</span>` : ''}`;
 const badgeDvAt = dv => dv ? `<span class="sx-dv ${dv==='DV3'?'d3':dv==='DV2'?'d2':'d1'}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
 const carteOutil = o => `<article class="at-c st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button" aria-label="Fiche de ${h(o.nom)}">
-  <header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
+  <header>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
   <p class="at-meta">${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
   <p class="at-desc">${h(coupeTxt(o.desc || o.detail || 'Pas encore de fiche pour cet outil.', 160))}</p>
   <footer>${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
@@ -5750,7 +5756,7 @@ function vueFicheOutil(id){
   return `<div class="fv-voile" data-fiche-fermer></div>
   <aside class="fv-panneau sf-panneau" role="dialog" aria-modal="true" aria-label="Fiche de ${h(o.nom)}" tabindex="-1">
     <header class="fv-tete"><div><div class="eyebrow">Fiche de l'outil · veille technologique</div><h3>${h(o.nom)}</h3><p>${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
-      <div class="sx-fiche-badges">${badgeAt(o.statut)}${badgeDvAt(o.dv)}${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
+      <div class="sx-fiche-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
     ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
     ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
@@ -5766,13 +5772,13 @@ function vueFicheOutil(id){
 /* ---------------- Agro-Tech : projets pilotes ---------------- */
 function partiePilotes(){
   const A = S.agrotech; if(!A?.outils?.length) return aucunImport('Projets pilotes');
-  const pil = A.outils.filter(o=>['actif','essai'].includes(o.statut)).sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut) || a.nom.localeCompare(b.nom,'fr'));
+  const pil = A.outils.filter(o=>o.statut==='essai').sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut) || a.nom.localeCompare(b.nom,'fr'));
   const nbSites = new Set(pil.flatMap(o=>o.sites.map(s=>s.replace(/\s*\(.*$/,'').toLowerCase()))).size;
   const th = [...new Set((A.projets||[]).map(p=>p.theme))];
-  return suiviEssais(A) + `<div class="carte"><h3>Projets pilotes en cours — ${pil.length} outils</h3>
-    ${kpiSegment([{l:'Projets actifs', v:pil.filter(o=>o.statut==='actif').length, c:'ok'}, {l:'Essais en cours', v:pil.filter(o=>o.statut==='essai').length, c:'part'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>/^positi/i.test(o.retour)).length, s:`${pil.filter(o=>o.retour==='En cours').length} en cours · ${pil.filter(o=>o.retour==='Moyen').length} moyens`, c:'ok'}])}
+  return suiviEssais(A) + `<div class="carte"><h3>Outils en essai sur les sites pilotes — ${pil.length} outils</h3>
+    ${kpiSegment([{l:'Outils en essai', v:pil.length, c:'info'}, {l:'Résultat positif', v:pil.filter(o=>essaiDe(o)?.resultat==='Positif').length, c:'ok'}, {l:'Moyen ou à surveiller', v:pil.filter(o=>['Moyen','À surveiller'].includes(essaiDe(o)?.resultat)).length, c:'part'}, {l:'Pas concluant', v:pil.filter(o=>['Pas concluant','Négatif'].includes(essaiDe(o)?.resultat)).length, c:'non'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>/^positi/i.test(o.retour)).length, s:`${pil.filter(o=>o.retour==='En cours').length} en cours · ${pil.filter(o=>o.retour==='Moyen').length} moyens`, c:'ok'}])}
     <p class="aide">Les outils lancés sur un site pilote ou en phase d'essai. Chaque pilote suit le protocole de la commission (voir « Méthode & décisions »).</p>
-    <div class="at-pil">${pil.map(o=>`<article class="at-p st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button"><header>${badgeAt(o.statut)}${badgeDvAt(o.dv)}<h5>${h(o.nom)}</h5></header>
+    <div class="at-pil">${pil.map(o=>`<article class="at-p st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button"><header>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}<h5>${h(o.nom)}</h5></header>
       <p class="at-meta">${[o.type||o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p><p class="at-desc">${h(coupeTxt(o.desc, 210))}</p>
       <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Retour producteurs</dt><dd><span class="at-ret ${RETOUR_AT[o.retour]||''}">${h(o.retour||'non renseigné')}</span></dd>${essaiDe(o)?`<dt>Essai ${h(S.agrotech.essais.annee)}</dt><dd>${h(coupeTxt(essaiDe(o).conclusion, 150))}</dd>`:''}${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
       <span class="at-plus">Ouvrir la fiche ›</span></article>`).join('')}</div></div>
