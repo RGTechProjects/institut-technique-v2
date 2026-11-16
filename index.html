@@ -1159,6 +1159,28 @@ details.san-plus[open] > summary{margin-bottom:8px}
 .hb-nav button{border:1.5px solid var(--marque); background:var(--marque-clair); color:var(--marque); font-weight:700; font-size:13px; border-radius:99px; padding:6px 14px; cursor:pointer; font-family:inherit}
 .hb-nav button b{background:var(--marque); color:#fff; border-radius:50%; display:inline-block; min-width:20px; height:20px; line-height:20px; text-align:center; font-size:11px; margin-right:6px}
 .hb-nav button:hover{background:var(--marque); color:#fff} .hb-nav button:hover b{background:#fff; color:var(--marque)}
+/* Agro-Tech : calendrier en frise verticale (mois à gauche, ligne du temps au centre, texte à droite) */
+.tl-v{position:relative; margin:16px 0 6px; padding:4px 4px 0}
+.tl-debut,.tl-fin{display:grid; grid-template-columns:120px 48px minmax(0,1fr)}
+.tl-debut span{grid-column:2; justify-self:center; position:relative; z-index:2; background:var(--marque); color:#fff; font-weight:700; font-size:13px; letter-spacing:.08em; padding:5px 16px; border-radius:99px; margin-bottom:8px; box-shadow:0 4px 12px color-mix(in srgb, var(--marque) 28%, transparent)}
+.tl-fin{height:18px} .tl-fin i{grid-column:2; justify-self:center; width:14px; height:14px; border-radius:50%; background:color-mix(in srgb, var(--marque) 45%, white); margin-top:-2px; position:relative; z-index:1}
+.tl-e{display:grid; grid-template-columns:120px 48px minmax(0,1fr); align-items:start; min-height:72px}
+.tl-q{justify-self:end; margin-right:12px; padding-top:1px}
+.tl-q span{display:inline-block; background:color-mix(in srgb, var(--marque) 11%, white); color:var(--marque); font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.05em; padding:5px 12px; border-radius:99px; white-space:nowrap; transition:.15s}
+.tl-e:hover .tl-q span{background:var(--marque); color:#fff}
+.tl-axe{position:relative; display:flex; justify-content:center; padding-top:2px; align-self:stretch}
+.tl-axe::before{content:''; position:absolute; left:50%; top:0; bottom:0; width:4px; margin-left:-2px; border-radius:2px; background:color-mix(in srgb, var(--marque) 45%, white)}
+.tl-point{position:relative; z-index:1; width:20px; height:20px; margin-top:3px; border-radius:50%; background:var(--marque); border:4px solid #fff; box-shadow:0 0 0 3px color-mix(in srgb, var(--marque) 38%, white)}
+.tl-pt{position:relative; z-index:1; width:38px; height:38px; border-radius:50%; background:var(--marque); color:#fff; font-weight:700; font-size:17px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px #fff, 0 0 0 7px color-mix(in srgb, var(--marque) 40%, white)}
+.k-liste .tl-pt{background:#fff; color:var(--marque); border:3px solid var(--marque)}
+.tl-txt{padding:3px 0 24px 10px; display:flex; flex-direction:column; gap:4px}
+.tl-txt b{font-size:16px; color:var(--encre,#222); line-height:1.25} .k-rdv .tl-txt b,.k-liste .tl-txt b{color:var(--marque)}
+.tl-txt small{font-size:13.5px; color:var(--ardoise); line-height:1.5; max-width:660px}
+.tl-duree{display:inline-block; width:fit-content; font-size:11px; font-weight:700; color:var(--marque); background:color-mix(in srgb, var(--marque) 10%, white); border-radius:99px; padding:2px 10px}
+.tl-pied{margin:6px 0 0}
+.tl-outils{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+@media(max-width:640px){ .tl-debut,.tl-fin,.tl-e{grid-template-columns:84px 38px minmax(0,1fr)} .tl-q{margin-right:6px} .tl-q span{font-size:10.5px; padding:4px 8px} .tl-pt{width:32px; height:32px; font-size:15px} }
+@media(max-width:640px){ .tl-e{grid-template-columns:78px 36px minmax(0,1fr)} .tl-q{font-size:11px; padding-right:6px} }
 .imp-plage{display:flex; align-items:center; gap:4px; white-space:nowrap} .imp-plage input{width:54px}
 .zrp-sem{display:flex; align-items:center; gap:4px} .zrp-sem input{border:1px solid var(--trait); padding:3px 5px; font-size:12px; border-radius:6px} .zrp-sem-n{width:54px} .zrp-sem-a{width:70px}
 .aut-grille{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; margin:10px 0} .aut-carte{border:1px solid var(--ligne); border-radius:12px; padding:10px 12px; background:#fff}
@@ -5340,6 +5362,86 @@ function lireCatalogue(wb){
   return {titre:v_(syn,'Titre'), methode:v_(syn,'Méthode'), totalActuel:v_(syn,'Montant total estimé'), totalResistant:v_(syn,'Montant si 100 % résistantes'), segments:ordre.map(s=>segs[s])};
 }
 
+/* ================= Agro-Tech : calendrier en frise (diapo « 7. Planning de la Commission » de la présentation de lancement du 26/11/2025) ================= */
+const MOIS_COURTS = ['Janv.','Févr.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'];
+const TIMELINE_CAGT = {an:2026, source:'Présentation du lancement du 26/11/2025, diapo « 7. Planning de la Commission »',
+  etapes:[{d:1, f:2, k:'phase', t:'Lancement des projets dans les sites pilotes', s:''},
+    {d:3, f:4, k:'phase', t:'Mise en place des sites pilotes', s:'Installation chez les OP volontaires'},
+    {d:5, f:5, k:'phase', t:'Suivi terrain', s:'Premiers retours des sites pilotes'},
+    {d:6, f:6, k:'rdv', n:'1', t:'1er RDV de la commission', s:'Point d\'avancement des projets et suivi des actions'},
+    {d:6, f:10, k:'phase', t:'Veille et RDV fournisseurs', s:'Tests, démos, négociations, observation des évolutions'},
+    {d:9, f:9, k:'phase', t:'Analyse intermédiaire', s:'Analyse des pilotes en cours'},
+    {d:10, f:10, k:'rdv', n:'2', t:'2ème RDV de la commission', s:'Présentation de l\'ensemble des outils recensés'},
+    {d:11, f:11, k:'rdv', n:'3', t:'3ème RDV : comité décisionnel', s:'Succès / échec / à surveiller, et planification pour l\'année suivante'},
+    {d:12, f:12, k:'liste', n:'★', t:'Liste positive', s:'Diffusion de la liste positive des innovations à mettre en place dans des sites pilotes'}],
+  note:'Un voyage annuel lié à ces thématiques est également prévu.'};
+/* Le calendrier mis à jour depuis une diapo (S.espaces.coms.cagt.timelines[année]) prend le pas sur celui de la présentation de lancement */
+const timelineDe = an => (espaceCom('cagt').timelines||{})[an] || (+an===TIMELINE_CAGT.an ? TIMELINE_CAGT : null);
+function timelineCagt(an){
+  const adm = estAdmin(), T = timelineDe(an), perso = !!(espaceCom('cagt').timelines||{})[an];
+  const outils = adm ? `<div class="tl-outils no-print"><label class="btn sec" title="Choisissez le PDF d'une présentation : le calendrier est lu sur la diapo « Planning » et remplace celui-ci">＋ Ajouter une diapo (PDF) pour mettre à jour<input type="file" accept=".pdf,application/pdf" data-tl-pdf hidden></label>${perso ? '<button class="btn sec" data-tl="reset" title="Revenir au calendrier de la réunion de lancement">Revenir au calendrier du lancement</button>' : ''}</div>` : '';
+  if(!T) return `<div class="carte tl-carte"><h3>Calendrier de la commission — ${an}</h3><p class="aide">Pas de planning enregistré pour cette campagne.${adm ? ' Ajoutez une diapo PDF pour le remplir.' : ''}</p>${outils}</div>`;
+  const quand = e => e.d===e.f ? MOIS_COURTS[e.d-1] : MOIS_COURTS[e.d-1]+' → '+MOIS_COURTS[e.f-1];
+  const duree = e => { const n = e.f-e.d+1; return n>1 ? `<span class="tl-duree">${n} mois</span>` : ''; };
+  const ligne = e => `<div class="tl-e k-${h(e.k)}"><div class="tl-q"><span>${quand(e)}</span></div>
+      <div class="tl-axe">${e.k==='phase' ? '<i class="tl-point"></i>' : `<span class="tl-pt">${h(e.n||'•')}</span>`}</div>
+      <div class="tl-txt"><b>${h(e.t)}</b>${duree(e)}${e.s?`<small>${h(e.s)}</small>`:''}</div></div>`;
+  return `<div class="carte tl-carte"><h3>Calendrier de la commission — ${an}</h3>
+    <p class="aide">Le planning de l'année. Les ronds numérotés sont les rendez-vous de la commission.</p>
+    <div class="tl-v"><div class="tl-debut"><span>${an}</span></div>${T.etapes.map(ligne).join('')}<div class="tl-fin"><i></i></div></div>
+    <p class="aide tl-pied">${T.note ? h(T.note)+' ' : ''}${T.source ? 'Source : '+h(T.source)+'.' : ''}${T.maj ? ' Mis à jour le '+h(T.maj)+'.' : ''}</p>${outils}</div>`;
+}
+/* @@lireFrise : lit le calendrier sur une diapo PDF (texte positionné). Pur : items = [{s, x, y, w}] (y vers le bas), H = hauteur de la page.
+   Les mois sont en légende (« Janvier – Février », « Mars – Avril », « Mai »…) ; chaque bloc de texte est associé à la légende qui lui correspond dans l'ordre de lecture. */
+function lireFrisePdf(items, H){
+  const nm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(), NOMS = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
+  const moisDe = s => NOMS.map((m,i)=>nm(s).includes(m) ? i+1 : 0).filter(Boolean);
+  const its = items.map(i=>({...i, cx:i.x+i.w/2, m:moisDe(i.s)}));
+  const noms = its.filter(i=>i.m.length && i.s.length<26); if(noms.length<3) return null;
+  const ys = noms.map(i=>i.y).sort((a,b)=>a-b), y0 = ys[Math.floor(ys.length/2)], ligne = noms.filter(i=>Math.abs(i.y-y0)<=45).sort((a,b)=>a.cx-b.cx);
+  // légendes : « Janvier – » et « Février » l'un sous l'autre ne font qu'une légende
+  const legendes = []; ligne.forEach(i=>{ const l = legendes[legendes.length-1]; if(l && Math.abs(l.cx-i.cx)<=30){ l.m.push(...i.m); l.cx = (l.cx+i.cx)/2; } else legendes.push({cx:i.cx, m:[...i.m]}); });
+  legendes.forEach(l=>{ l.d = Math.min(...l.m); l.f = Math.max(...l.m); });
+  if(legendes.length<2) return null;
+  // blocs de texte : lignes voisines (centres proches, peu d'écart vertical), hors titre en haut de page
+  const ids = new Set(ligne), cont = its.filter(i=>!ids.has(i) && i.y>H*0.17), blocs = [];
+  cont.sort((a,b)=>a.y-b.y).forEach(i=>{ const b = blocs.find(b=>b.l.some(j=>Math.abs(j.cx-i.cx)<=70 && Math.abs(j.y-i.y)<=30)); b ? b.l.push(i) : blocs.push({l:[i]}); });
+  // deux blocs qui se sont touchés par une ligne intermédiaire : on les fusionne
+  for(let a=0;a<blocs.length;a++) for(let b=a+1;b<blocs.length;b++) if(blocs[a].l.some(i=>blocs[b].l.some(j=>Math.abs(j.cx-i.cx)<=70 && Math.abs(j.y-i.y)<=30))){ blocs[a].l.push(...blocs[b].l); blocs.splice(b,1); b = a; }
+  blocs.forEach(b=>{ b.l.sort((p,q)=>p.y-q.y); b.cx = b.l.reduce((s,i)=>s+i.cx,0)/b.l.length; b.texte = b.l.map(i=>i.s).join(' ').replace(/\s+/g,' ').trim(); });
+  let note = ''; const utiles = blocs.filter(b=>{ if(/voyage/i.test(b.texte)){ note = b.texte; return false; } return b.texte.length>3; }).sort((a,b)=>a.cx-b.cx);
+  const corrige = s => s.replace(/plannification/gi,'planification').replace(/projtes/gi,'projets');
+  const etape = (b, lg) => { const x = corrige(b.texte); let k = 'phase', n = '', t = x, s = '', m;
+    if((m = x.match(/^(\d+)\s*(?:er|ère|e|ème|eme)?\s*RDV\s*:?\s*(.*)$/i))){ k = 'rdv'; n = m[1]; t = m[1]+(m[1]==='1' ? 'er' : 'ème')+' RDV'; s = m[2]; if(/d[ée]cisionnel/i.test(s)){ t += ' : comité décisionnel'; s = s.replace(/^comit[ée] d[ée]cisionnel\s*/i,''); } else if(/pr[ée]sentation/i.test(s)){ t += ' de la commission'; } }
+    else if(/liste positive/i.test(x)){ k = 'liste'; n = '★'; t = 'Liste positive'; s = x.replace(/^diffusion de la liste positive\s*/i,'Diffusion de la liste positive '); }
+    else if((m = x.match(/^(.*?)\s*\((.*)\)\s*$/))){ t = m[1]; s = m[2]; }
+    return {k, n, d:lg.d, f:lg.f, t:t.trim(), s:s.replace(/^[:\s]+/,'').trim()}; };
+  const etapes = utiles.map((b,i)=>etape(b, utiles.length===legendes.length ? legendes[i] : legendes.reduce((p,l)=>Math.abs(l.cx-b.cx)<Math.abs(p.cx-b.cx)?l:p)));
+  etapes.sort((a,b)=>a.d-b.d || (b.k==='rdv')-(a.k==='rdv') || a.f-b.f);
+  return {etapes, note, exact:utiles.length===legendes.length};
+}
+/* @@fin */
+async function chargerPdfJs(){
+  if(window.pdfjsLib) return window.pdfjsLib;
+  await new Promise((ok, ko)=>{ const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js'; s.onload = ok; s.onerror = ()=>ko(new Error('pdf.js indisponible')); document.head.appendChild(s); });
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; return window.pdfjsLib;
+}
+/* Ajout d'une diapo : le calendrier est lu et remplace directement le précédent (l'ancienne version reste dans l'historique de la base) */
+async function tlLirePdf(fichier, an){
+  toast('Lecture de la diapo…');
+  try{
+    const lib = await chargerPdfJs(), doc = await lib.getDocument({data:new Uint8Array(await fichier.arrayBuffer())}).promise; let trouve = null;
+    for(let p=1; p<=Math.min(doc.numPages, 80) && !trouve; p++){
+      const page = await doc.getPage(p), vp = page.getViewport({scale:1}), tc = await page.getTextContent();
+      const items = tc.items.filter(i=>i.str.trim()).map(i=>({s:i.str.trim(), x:i.transform[4], y:vp.height-i.transform[5], w:i.width}));
+      if(!/planning|calendrier/i.test(items.map(i=>i.s).join(' '))) continue;
+      const r = lireFrisePdf(items, vp.height); if(r && r.etapes.length>=3) trouve = r; }
+    if(!trouve){ toast('Je n\'ai pas reconnu de calendrier dans ce PDF (il faut une diapo « Planning » avec les mois en légende)'); return; }
+    (espaceCom('cagt').timelines ||= {})[an] = {an:+an, source:'PDF « '+fichier.name+' »', note:trouve.note, etapes:trouve.etapes.map(e=>({...e, id:uid()})), maj:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''};
+    sauver('espaces'); vueCommissions(); toast('Calendrier mis à jour depuis « '+fichier.name+' »');
+  }catch(err){ console.error(err); toast('Lecture du PDF impossible (connexion ou fichier)'); }
+}
+function tlReset(an){ if(!confirm('Revenir au calendrier de la réunion de lancement ?')) return; const E = espaceCom('cagt'); if(E.timelines) delete E.timelines[an]; sauver('espaces'); vueCommissions(); }
 /* ================= Partie « La commission » : calendrier, membres, documents cadres ================= */
 const TYPES_RDV = {commission:'Commission', visite:'Visite / rallye', semenciers:'Semenciers', hiver:'Tomates hiver', autre:'Autre'};
 function partieCommission(c, an){
@@ -5373,11 +5475,10 @@ function partieCommission(c, an){
     <p class="aide">Référents de l'enjeu ${h(e.nom)} dans le fichier Excel de la cartographie.</p>
     <div class="com-membres">${membres.map(m=>`<div class="membre"><span>${h(m.n)}</span><span class="st">${m.s}</span></div>`).join('')}</div>
     ${externes.length?`<div class="sous">Externes</div>${externes.map(x=>`<div class="membre"><span>${h(x)}</span><span class="st">Externe</span></div>`).join('')}`:''}</div>`;
+  if(c.id==='cagt') return `${timelineCagt(an)}${vueCadres(c, an)}<div class="deux com-bas">${membresB}</div>`;   // frise du calendrier, puis les documents de la commission
   return `${calendrier}<div class="deux com-bas">${membresB}${vueCadres(c, an)}</div>
     ${c.id==='cvto' ? docsEssaisAn(an) : c.id==='csan' ? docsSanAn(an) : c.id==='cvfr' ? docsFraise(an) : ''}
-    ${c.id==='cagt' ? `<div class="carte"><h3>Sujets disruptifs</h3><p class="aide">Suivis en parallèle des enjeux, avec le même cadre : veille → position UDC → expérimentation → diffusion.</p>
-      ${D.disruptifs.map(x=>`<div class="membre"><span>${h(x.t)}</span><span class="st">${h(x.p)}</span></div>`).join('')}</div>` : ''}
-    <div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`;
+    ${c.id==='cagt' ? '' : `<div class="carte"><h3>Ressources communes</h3><p class="aide">Arborescence SharePoint de l'Institut, commune à toutes les commissions.</p>${blocDocs('sharepoint', !peutEditer())}</div>`}`;
 }
 /* Documents cadres de la campagne (an-1 / an) : listes, règles, profils produits… La version la plus récente de chaque document est mise en avant. */
 function vueCadres(c, an){
@@ -5392,8 +5493,10 @@ function vueCadres(c, an){
       <span class="es-doc-act">${L.telecharger?`<a class="btn-icone" href="${h(L.telecharger)}" target="_blank" rel="noopener" title="Télécharger" aria-label="Télécharger">${ICO_TELECHARGER}</a>`:''}
         ${adm && !d.ancien ? `<button class="btn-icone suppr-icone no-print" data-cadre-rm="${h(d.id)}" title="Supprimer" aria-label="Supprimer">${ICO_SUPPR}</button>` : ''}
         ${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir</a>`:'<span class="sans-lien">Lien à ajouter</span>'}</span></div>`; };
-  return `<div class="carte"><h3>Documents cadres — campagne ${an-2001} ${an-2000}</h3>
-    <p class="aide">${c.id==='cvto' ? 'Listes des variétés, règles de développement et de mélange, profils produits…' : c.id==='csan' ? 'Fiches et plans d\'actions de la commission, planification des essais, synthèses, positionnement des solutions…' : 'Documents de référence de la commission.'} Les documents restent sur SharePoint.</p>
+  // Agro-Tech : les « ressources communes » sont les documents partagés à la commission (réunion de lancement du 26/11/2025 pour la campagne 25 26)
+  const agt = c.id==='cagt', titreCadres = agt ? `Documents de la commission — campagne ${an-2001} ${an-2000}` : `Documents cadres — campagne ${an-2001} ${an-2000}`;
+  return `<div class="carte"><h3>${titreCadres}</h3>
+    <p class="aide">${c.id==='cvto' ? 'Listes des variétés, règles de développement et de mélange, profils produits…' : c.id==='csan' ? 'Fiches et plans d\'actions de la commission, planification des essais, synthèses, positionnement des solutions…' : agt ? (an===2026 ? 'Les documents liés à la réunion de lancement et aux décisions du 26/11/2025 : présentation, décisions prises, fiche de la commission, processus et protocole des essais, positionnement des binômes, document cadre de la veille.' : 'Les documents de la commission pour cette campagne.') : 'Documents de référence de la commission.'} Les documents restent sur SharePoint.</p>
     ${l.length ? cats.map(k=>`<div class="sous">${h(k)}</div>${l.filter(d=>(d.cat||'Documentation')===k).map(carte).join('')}`).join('') : `<p class="aide">Aucun document cadre pour la campagne ${an-2001} ${an-2000}.</p>`}
     ${ed ? `<div class="form-saisie no-print"><div class="sous">Ajouter un document cadre</div>
       <div class="form-grille"><label class="large">Titre <input data-cadre="t" placeholder="ex. Liste des variétés en développement 26 27"></label>
@@ -6191,6 +6294,8 @@ function majRecherche(){
     if(ds.levF!==undefined){ levFiltre = ds.levF; rendre(); return; }
     if(ds.liFiltre){ filtreListe = ds.liFiltre; rendre(); return; }
     if(ds.prixModele!==undefined && estAdmin()){ if(!window.XLSX){ toast('Module Excel non chargé'); return; } modeleCatalogue(anneesPrix().pop() || String(anCom)); return; }
+    // calendrier Agro-Tech en frise : modifier, ajouter, retirer, enregistrer (administratrice)
+    if(ds.tl==='reset' && estAdmin()){ tlReset(anCom); return; }
     if(!peutEditer()) return;
     // fiche variété : documents et commentaires (éditeurs), suppression (admin)
     if(ds.fvDocAdd!==undefined){ const z = t.closest('.sx-fiche-form'), g = k => z.querySelector(`[data-fd="${k}"]`).value.trim();
@@ -6246,6 +6351,7 @@ function majRecherche(){
     if(t.matches('[data-sx-seg-choix]')){ segEssai = t.value; rendre(); return; }
     if(t.matches('[data-evar]')){ essaiVar = t.value; rendre(); return; }
     if(!estAdmin()) return;
+    if(t.matches('[data-tl-pdf]') && t.files[0]){ const f = t.files[0]; t.value = ''; tlLirePdf(f, anCom); return; }
     if(t.matches('[data-sx-lien]')){ const [src, an] = t.dataset.sxLien.split('|'), o = donneesEssai(src, an); if(!o) return;
       (o.liens ||= {})[t.dataset.sxFichier] = t.value.trim(); if(!o.liens[t.dataset.sxFichier]) delete o.liens[t.dataset.sxFichier];
       sauver('essais'); rendre(); return; }
