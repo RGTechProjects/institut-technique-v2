@@ -1366,6 +1366,12 @@ details.multi > summary.choisis{color:var(--marque); font-weight:700; background
 .sx-com summary{cursor:pointer; font-size:11.5px; color:var(--marque); font-weight:600} .sx-com p{margin:5px 0 0; font-size:11.5px; color:var(--encre-2); line-height:1.45}
 .sx-dv{flex:none; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:99px; background:#EEE9DF; color:var(--encre-2); white-space:nowrap}
 .sx-dv.d1{background:#F6E7C8; color:#7A5A12} .sx-dv.d2{background:#E8C9A6; color:#6B3A12} .sx-dv.d3{background:var(--marque); color:#fff} .sx-dv.t{background:#68746D; color:#fff}
+/* Agro-Tech : niveau de maturité en feu tricolore */
+.sx-dv.f1,.sx-dv.f2,.sx-dv.f3{display:inline-flex; align-items:center; gap:5px; border:1px solid transparent}
+.sx-dv.f1::before,.sx-dv.f2::before,.sx-dv.f3::before{content:''; width:8px; height:8px; border-radius:50%; flex:none}
+.sx-dv.f1{background:#FBE4E2; color:#9B2C22; border-color:#EFB3AE} .sx-dv.f1::before{background:#D64545}
+.sx-dv.f2{background:#FDEBD3; color:#8A4B0B; border-color:#F2C58D} .sx-dv.f2::before{background:#EE8B1F}
+.sx-dv.f3{background:#E1F3E6; color:#1D6B3A; border-color:#A8D8B6} .sx-dv.f3::before{background:#2E9E57}
 .sx-graphes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px}
 .sx-graphe{border:1px solid var(--ligne); border-radius:10px; padding:10px 12px; background:#fff; min-width:0}
 .sx-graphe h5{margin:0 0 4px; font-family:'Archivo'; font-size:13px; color:var(--marque)}
@@ -1859,14 +1865,14 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 .at-p{display:flex; flex-direction:column; gap:6px; border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:12px; padding:12px 14px; background:#fff; cursor:pointer}
 .at-p header h5{margin:0; flex:1 1 100%; font-size:16px; color:var(--encre)} .at-p dl{display:grid; grid-template-columns:120px 1fr; gap:3px 10px; margin:0; font-size:12.5px} .at-p dt{font-weight:700; color:var(--marque)} .at-p dd{margin:0}
 .at-etapes{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
-.at-e{border:1px solid var(--ligne); border-radius:12px; padding:12px 14px; background:var(--titre-fond,#EEF3F9)} .at-e b{display:inline-flex; width:26px; height:26px; border-radius:50%; background:var(--marque); color:#fff; align-items:center; justify-content:center; font-family:'Archivo'}
+.at-e{border:1px solid var(--ligne); border-radius:12px; padding:12px 14px; background:var(--titre-fond,#EEF3F9)} .at-e > b{display:inline-flex; width:26px; height:26px; border-radius:50%; background:var(--marque); color:#fff; align-items:center; justify-content:center; font-family:'Archivo'}
 .at-e h5{margin:6px 0 4px; font-size:15px; color:var(--marque)} .at-e p{margin:0 0 4px; font-size:12.5px; line-height:1.45}
 .at-dv{display:flex; gap:10px; align-items:flex-start; margin:0 0 8px} .at-dv p{margin:0; font-size:12.5px}
 .at-grille5{display:flex; flex-wrap:wrap; gap:6px; padding:0; list-style:none; margin:0 0 8px} .at-grille5 li{background:var(--titre-fond,#EEF3F9); border:1px solid var(--ligne); border-radius:99px; padding:4px 12px; font-size:12.5px; font-weight:600; color:var(--marque)}
 .at-cat{margin:0 0 4px; font-size:12.5px}
 .at-prof{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px} .at-prof h5{margin:0 0 4px; color:var(--marque)} .at-prof p{margin:0; font-size:12.5px; line-height:1.5}
 .at-apres{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px} .at-a{border:1px solid var(--ligne); border-left:5px solid #D9D2C3; border-radius:10px; padding:10px 12px; background:#fff} .at-a.ok{border-left-color:#2E7D4F} .at-a.part{border-left-color:#D08A12} .at-a.non{border-left-color:#C4453C} .at-a p{margin:4px 0 0; font-size:12.5px}
-.at-liv{color:var(--ardoise)}
+.at-liv{color:var(--ardoise)} .at-liv b{color:var(--marque); font-weight:700}
 /* Variétale Fraises */
 .fr-st{display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px; background:#EEE9DF; color:var(--encre-2); white-space:nowrap}
 .fr-st.ok{background:#E3F1E8; color:#22663F} .fr-st.part{background:#FBF0D9; color:#8A6A12} .fr-st.non{background:#FBE3E1; color:#9B2C22} .fr-st.nd{background:#F1EEE6; color:#6B655A}
@@ -6027,7 +6033,8 @@ function suiviEssais(A){
     ${(E.legende||[]).length?`<p class="aide">${E.legende.map(x=>`<b>${h(x[0])}</b> : ${h(x[1])}`).join(' · ')}</p>`:''}</div>`;
 }
 const badgeAt = (s, o) => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>${o && essaiDe(o) ? `<span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}" title="Résultat de l'essai ${h(S.agrotech.essais.annee||'')}">${h(essaiDe(o).resultat)}</span>` : ''}`;
-const badgeDvAt = dv => dv ? `<span class="sx-dv ${dv==='DV3'?'d3':dv==='DV2'?'d2':'d1'}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
+const classeDvAt = dv => 'sx-dv f'+((String(dv).match(/\d/)||['1'])[0]);   // feu : 1 rouge, 2 orange, 3 vert
+const badgeDvAt = dv => dv ? `<span class="${classeDvAt(dv)}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
 const carteOutil = o => `<article class="at-c st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button" aria-label="Fiche de ${h(o.nom)}">
   <header>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
   <p class="at-meta">${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
@@ -6048,7 +6055,7 @@ function partieVeille(){
     ${groupes.map(([s, g])=>`<section class="carte at-groupe"><h4 class="at-gt st-${s}">${h(STATUT_AT[s][0])} <span>${g.length}</span><small>${h(expl[s]||'')}</small></h4>
       <div class="at-grille">${g.slice().sort((a,b)=>a.nom.localeCompare(b.nom,'fr')).map(carteOutil).join('')}</div></section>`).join('') || '<div class="carte"><p class="aide">Aucun outil pour ce filtre.</p></div>'}
     <details class="carte at-legende"><summary>Légende : maturité (DV) et catégories</summary>
-      <p><b>DV3</b> essais en production possible · <b>DV2</b> recherche et développement · <b>DV1</b> stade expérimental.</p>
+      <p>${badgeDvAt('DV3')} essais en production possible · ${badgeDvAt('DV2')} recherche et développement · ${badgeDvAt('DV1')} stade expérimental.</p>
       <ul>${(A.legende?.categories||[]).map(c=>`<li><b>${h(c[0])}</b> — ${h(c[1])}</li>`).join('')}</ul></details>`;
 }
 function vueFicheOutil(id){
@@ -6063,7 +6070,7 @@ function vueFicheOutil(id){
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
     ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
     ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
-    ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${h(v)}</dd>`).join('')}</dl>` : ''))}
+    ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${k==='Maturité' && o.dv ? badgeDvAt(o.dv)+' '+h(v.replace(/^DV\d\s—\s/,'')) : h(v)}</dd>`).join('')}</dl>` : ''))}
     ${essaiDe(o) ? sec('Résultat de l\'essai '+h(S.agrotech.essais.annee), `<p><span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}">${h(essaiDe(o).resultat)}</span> ${h([essaiDe(o).tech, essaiDe(o).sites, essaiDe(o).debut?essaiDe(o).debut+(essaiDe(o).fin?' → '+essaiDe(o).fin:' → en cours'):''].filter(Boolean).join(' · '))}</p><p class="sf-txt">${h(essaiDe(o).conclusion)}</p>`) : ''}
     ${sec('Limites et points de vigilance', o.limites ? `<p class="sf-txt">${h(o.limites)}</p>` : '')}
     ${sec('Contact', (o.contact ? `<p>${o.contact.split(' ; ').filter(Boolean).map(m=>/@/.test(m) ? `<a href="mailto:${h(m.trim())}">${h(m.trim())}</a>` : h(m)).join(' · ')}</p>` : '') + (web ? `<p><a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : ''))}
@@ -6097,7 +6104,7 @@ function partieMethode(){
   return `<div class="carte"><h3>Comment la commission choisit et teste les outils</h3><p class="aide">${h(P.objectif)}</p>
     <div class="at-etapes">${P.etapes.map((e,i)=>`<div class="at-e"><b>${i+1}</b><h5>${h(e[0])}</h5><p>${h(e[1])}</p></div>`).join('')}</div></div>
   <div class="deux">
-    <div class="carte"><h3>Maturité des outils (DV)</h3>${P.dv.map(d=>`<div class="at-dv"><span class="sx-dv ${d[0]==='DV3'?'d3':d[0]==='DV2'?'d2':'d1'}">${h(d[0])}</span><div><b>${h(d[1])}</b><p>${h(d[2])}</p></div></div>`).join('')}</div>
+    <div class="carte"><h3>Maturité des outils (DV)</h3>${P.dv.map(d=>`<div class="at-dv"><span class="${classeDvAt(d[0])}">${h(d[0])}</span><div><b>${h(d[1])}</b><p>${h(d[2])}</p></div></div>`).join('')}</div>
     <div class="carte"><h3>Grille d'évaluation — 5 critères</h3><ul class="at-grille5">${P.grille.map(g=>`<li>${h(g)}</li>`).join('')}</ul>
       <div class="sous">Ce que cherche la commission</div>${P.categories.map(c=>`<p class="at-cat"><b>${h(c[0])}</b> — ${h(c[1])}</p>`).join('')}</div></div>
   <div class="carte"><h3>Profils d'outils recherchés (exemples)</h3>
@@ -6803,7 +6810,7 @@ function reponseTechno(texte, Qo){
     p.push(`<b>${h(o.nom)}</b>${ident?' ('+h(ident)+')':''}.${o.detail ? ` D'après la fiche innovation : ${h(phrase1(o.detail, court?200:420))}` : o.desc ? ` D'après le tableau de veille : ${h(phrase1(o.desc, court?200:420))}` : ''}`);
     if(o.detail && o.desc && !court) p.push(`Le tableau de veille indique : ${h(phrase1(o.desc, 360))}`);
     if(e) p.push(`Suivi des essais ${h(an)} : ${court?'':`testé sur ${h(coupe(e.sites||'les sites pilotes',110))}, `}résultat <b>${h(e.resultat.toLowerCase())}</b>.${court?'':' '+h(phrase1(e.conclusion, 330))}`);
-    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+h(o.dv):''}${okRet(o)?', retour des producteurs : '+h(o.retour.toLowerCase()):''}.`);
+    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+badgeDvAt(o.dv):''}${okRet(o)?', retour des producteurs : '+h(o.retour.toLowerCase()):''}.`);
     if(!court && o.limites && o.limites.length>25 && !/^[àa] compl[ée]ter/i.test(o.limites)) p.push(`Limites et points bloquants notés dans le tableau de veille : ${h(phrase1(o.limites, 320))}`);
     const ps = (prix || mq.length) ? passagesOutil(o, mq, prix) : [];
     if(prix){ const dp = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$/.test(x)); if(dp.length) p.push(`Le tableau de veille indique : ${h(dp.join(' '))}`); }
@@ -7004,7 +7011,7 @@ function reponseAssistantBase(q){
   if(!montrePrix && pj.length && fort('projet')){ const p = pj[0].p; court.push(`<b>${h(p.titre)}</b> (${h(p.theme)}) : ${h(coupe(p.desc, 280))} ${p.docs.length} document${p.docs.length>1?'s':''} dans le dossier.`); }
   if(!montrePrix && ou.length && fort('outil')){ const o = ou[0].o, e = essaiDe(o);
     if(ou.length>1) court.push(`<b>${ou.length} outils</b> de la veille correspondent : ${ou.slice(0,4).map(x=>h(x.o.nom)+' ('+h(x.o.statutLib.toLowerCase())+')').join(', ')}${ou.length>4?'…':''}. Le plus proche :`);
-    court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+h(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 200))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}${e?` <b>Essai ${h(S.agrotech.essais.annee)} : ${h(e.resultat)}</b> — ${h(coupe(e.conclusion, 170))}`:''}`); }
+    court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+badgeDvAt(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 200))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}${e?` <b>Essai ${h(S.agrotech.essais.annee)} : ${h(e.resultat)}</b> — ${h(coupe(e.conclusion, 170))}`:''}`); }
   if(!montrePrix && !court.length && fv.length){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (profil ${h(v.profil.replace('P',''))}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.`); }
   if(en.length && (contact || !court.length)){ const e = en[0].enjeu, nq = normPhrase(q), opC = OPS.find(o=>o!=='UDC' && nq.includes(normTexte(o))), r0 = e.structures.filter(s=>s.e.length && s.s!=='EXTERNE'), r = opC && r0.some(s=>s.s===opC) ? r0.filter(s=>s.s===opC) : r0; court.push(`Enjeu <b>${h(libEnjeu(e.nom))}</b> — référents : ${r.slice(0,4).map(s=>h(s.s)+' : '+h(s.e.slice(0,2).join(', '))).join(' ; ') || 'aucun dans la cartographie'}${r.length>4?'…':''}.`); }
   if(!court.length && dt.length) court.push(`<b>${dt.length} détection${dt.length>1?'s':''}</b> en réunion hebdo sur ce sujet.`);
