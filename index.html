@@ -2263,9 +2263,10 @@ function seedAnnee(src, fige){
   }]))};
 }
 /* Agro-Tech : « Projet actif » et « Essai en cours » désignent la même chose (outil testé sur un site pilote) : un seul statut, le résultat de l'essai dit où l'on en est */
+/* Un outil qui a eu un essai n'est pas « sans intérêt » : Aisprid (essai non concluant, à surveiller) passe de « Pas d'intérêt » à « Essai ». */
 function unifierStatutsAgro(){ const A = S.agrotech; if(!A) return;
-  (A.outils||[]).forEach(o=>{ const e = o.statut==='contacte' || o.statut==='acontacter' ? essaiDe(o) : null; if(o.statut==='actif' || (e && outilDeEssai(e)===o)){ o.statut = 'essai'; o.statutLib = 'Essai en cours'; } });
-  if(A.legende?.statuts){ A.legende.statuts = A.legende.statuts.filter(x=>x[0]!=='actif').map(x=>x[0]==='essai' ? ['essai','Essai en cours','Outil testé sur un site pilote : le résultat (positif, moyen, pas concluant…) dit où l\'on en est'] : x); } }
+  (A.outils||[]).forEach(o=>{ const e = ['contacte','acontacter','abandon'].includes(o.statut) ? essaiDe(o) : null; if(o.statut==='actif' || (e && outilDeEssai(e)===o)){ o.statut = 'essai'; o.statutLib = 'Essai en cours'; } });
+  if(A.legende?.statuts){ A.legende.statuts = A.legende.statuts.filter(x=>x[0]!=='actif').map(x=>x[0]==='essai' ? ['essai','Essai en cours','Outil testé sur un site pilote : le résultat (positif, moyen, pas concluant…) est communiqué à la clôture de l\'année'] : x); } }
 function initialiserDonnees(){
   unifierStatutsAgro();
   if(!S.cartographie) S.cartographie = {'2025':seedAnnee('a25',true), '2026':seedAnnee('a26',false)};
@@ -6012,6 +6013,16 @@ const ORDRE_AT = ['essai','contacte','repere','acontacter','abandon'];
 const RETOUR_AT = {'Positive':'ok', 'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'En attente':'part', 'En cours':'info', 'Pas concluant':'non', 'Négatif':'non'};
 const okRet = o => o.retour && o.retour!=="Pas d'essai";
 const RES_ESSAI = {'Positif':'ok', 'Moyen':'part', 'À surveiller':'part', 'Pas concluant':'non', 'Négatif':'non', 'En cours':'info'};
+/* Résultat d'un essai : tant que l'année suivie n'est pas terminée (et que l'essai n'a pas de date de fin passée), l'essai est « En cours » ;
+   à la clôture on lit le résultat saisi dans le fichier Excel (feuille « Essais »). « À surveiller » = essai non concluant, mais outil gardé à l'œil. */
+const MOIS_EN = {jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11};
+const finEssai = l => { const m = String(l?.fin||'').trim().match(/^([A-Za-z]{3})\w*\s+(\d{4})$/); return m && MOIS_EN[m[1].toLowerCase()]!==undefined ? new Date(+m[2], MOIS_EN[m[1].toLowerCase()]+1, 1) : null; };   // 1er jour du mois suivant la fin
+const anneeEssaiTerminee = () => { const an = +(S.agrotech?.essais?.annee||0); return !!an && new Date() >= new Date(an+1, 0, 1); };
+function resEssai(l){ if(!l) return null; const f = finEssai(l), final = anneeEssaiTerminee() || (f && new Date()>=f), r = String(l.resultat||'').trim();
+  if(!final || !r) return {lib:'En cours', libs:['En cours'], final:false};
+  return {lib:r, libs: r==='À surveiller' ? ['Pas concluant','À surveiller'] : [r], final:true}; }
+const badgesRes = (l, titre) => { const x = resEssai(l); return x ? x.libs.map(s=>`<span class="at-st ${RES_ESSAI[s]||'nd'}"${titre?` title="${h(titre)}"`:''}>${h(s)}</span>`).join('') : ''; };
+const clsResAt = l => { const x = resEssai(l); return x ? (RES_ESSAI[x.libs[x.libs.length-1]]||'nd') : 'nd'; };
 /* L'essai de l'année correspondant à un outil (nom de l'entreprise : premier mot, « Airsprid » = « Aisprid ») */
 const premierMot = s => normTexte(s).replace(/^airsprid/,'aisprid').split(/[^a-z0-9]+/)[0];
 /* Une entreprise peut avoir plusieurs produits (Fravebot : robot Scouting et pièges FravEye) : la ligne d'essai va au produit dont le nom figure dans « entreprise » ou « technologie » */
@@ -6023,23 +6034,25 @@ const essaiDe = o => (S.agrotech?.essais?.lignes||[]).find(l=>essaiVise(o, l));
 const outilDeEssai = l => (S.agrotech?.outils||[]).find(o=>essaiVise(o, l));
 function suiviEssais(A){
   const E = A.essais; if(!E?.lignes?.length) return '';
+  const cpt = {}; E.lignes.forEach(l=>{ const x = resEssai(l); x.libs.forEach(s=>{ cpt[s] = (cpt[s]||0)+1; }); });
   return `<div class="carte"><h3>Suivi des essais ${h(E.annee)} — résultats des tests terrain</h3>
-    <p class="aide">Ce que les sites pilotes ont mesuré. Cliquez sur un essai pour ouvrir la fiche de l'outil. Les tarifs ne sont pas repris.</p>
-    <div class="at-stats">${E.bilan.filter(x=>x[1]).map(([l,n])=>`<div class="at-stat bil-${RES_ESSAI[l]||'nd'}"><b>${n}</b><span>${h(l)}</span></div>`).join('')}</div>
-    <div class="at-essais">${E.lignes.map(l=>{ const o = outilDeEssai(l), c = RES_ESSAI[l.resultat]||'nd';
-      return `<article class="at-es r-${c}"${o?` data-outil="${h(o.id)}" tabindex="0" role="button"`:''}><header><b>${h(l.entreprise)}</b><span class="at-st ${c}">${h(l.resultat)}</span></header>
+    <p class="aide">Ce que les sites pilotes ont mesuré. Cliquez sur un essai pour ouvrir la fiche de l'outil. ${anneeEssaiTerminee() ? 'Les résultats sont ceux saisis dans le fichier Excel de suivi.' : `Les essais ${h(E.annee)} sont en cours : leur résultat (positif, moyen, pas concluant…) sera affiché à la clôture de l'année, d'après le fichier Excel de suivi.`}</p>
+    <div class="at-stats">${Object.entries(cpt).map(([l,n])=>`<div class="at-stat bil-${RES_ESSAI[l]||'nd'}"><b>${n}</b><span>${h(l)}</span></div>`).join('')}</div>
+    <div class="at-essais">${E.lignes.map(l=>{ const o = outilDeEssai(l), c = clsResAt(l);
+      return `<article class="at-es r-${c}"${o?` data-outil="${h(o.id)}" tabindex="0" role="button"`:''}><header><b>${h(l.entreprise)}</b>${badgesRes(l)}</header>
         <p class="at-meta">${[l.tech, l.sites, l.nb?l.nb+' unité'+(+l.nb>1?'s':''):'', l.debut?l.debut+(l.fin?' → '+l.fin:' → en cours'):''].filter(Boolean).map(h).join(' · ')}</p>
         <p class="at-desc">${h(l.conclusion)}</p>${o?'<span class="at-plus">Fiche de l\'outil ›</span>':''}</article>`; }).join('')}</div>
     ${(E.legende||[]).length?`<p class="aide">${E.legende.map(x=>`<b>${h(x[0])}</b> : ${h(x[1])}`).join(' · ')}</p>`:''}</div>`;
 }
-const badgeAt = (s, o) => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(STATUT_AT[s]?.[0]||s)}</span>${o && essaiDe(o) ? `<span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}" title="Résultat de l'essai ${h(S.agrotech.essais.annee||'')}">${h(essaiDe(o).resultat)}</span>` : ''}`;
+const essaiTermine = o => { const l = o && essaiDe(o), f = l && finEssai(l); return !!f && new Date()>=f; };   // l'essai lui-même a une date de fin passée
+const badgeAt = (s, o) => `<span class="at-st ${STATUT_AT[s]?.[1]||'nd'}">${h(s==='essai' && essaiTermine(o) ? 'Essai terminé' : (STATUT_AT[s]?.[0]||s))}</span>${o && essaiDe(o) && resEssai(essaiDe(o)).final ? badgesRes(essaiDe(o), 'Résultat de l\'essai '+(S.agrotech.essais.annee||'')) : ''}`;
 const classeDvAt = dv => 'sx-dv f'+((String(dv).match(/\d/)||['1'])[0]);   // feu : 1 rouge, 2 orange, 3 vert
 const badgeDvAt = dv => dv ? `<span class="${classeDvAt(dv)}" title="${h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[dv]||'')}">${h(dv)}</span>` : '';
 const carteOutil = o => `<article class="at-c st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button" aria-label="Fiche de ${h(o.nom)}">
   <header>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</header><h5>${h(o.nom)}</h5>
   <p class="at-meta">${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
   <p class="at-desc">${h(coupeTxt(o.desc || o.detail || 'Pas encore de fiche pour cet outil.', 160))}</p>
-  <footer>${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
+  <footer>${o.sites.length?`<span>${o.sites.length} site${o.sites.length>1?'s':''}</span>`:''}<span class="at-plus">Fiche ›</span></footer></article>`;
 function partieVeille(){
   const A = S.agrotech; if(!A?.outils?.length) return aucunImport('Veille technologique');
   const f = veilleFiltre, all = A.outils, cpt = k => all.reduce((o,x)=>(o[x[k]]=(o[x[k]]||0)+1,o),{}), cs = cpt('statut'), cc = cpt('cat');
@@ -6049,7 +6062,7 @@ function partieVeille(){
   return `<div class="carte at-haut"><h3>Veille technologique — ${all.length} outils et entreprises</h3>
     <div class="sx-tete"><span class="sx-resume">Suivi tenu par la commission, mis à jour en ${h(A.majVeille||'—')} (${h(A.fichier||'')}).</span>
       <span class="sx-sp">${liensDoc(A.lien).ouvrir?`<a class="btn-ouvrir" href="${h(liensDoc(A.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir le tableau Excel</a>`:''}</span></div>
-    <p class="aide">Cliquez sur un statut pour filtrer, ou sur un outil pour ouvrir sa fiche : description, maturité, sites pilotes, retour des producteurs, limites, contact et documents. Les tarifs des fournisseurs ne sont pas repris ici.</p>
+    <p class="aide">Cliquez sur un statut pour filtrer, ou sur un outil pour ouvrir sa fiche : description, maturité, sites pilotes, résultat de l'essai, limites, contact et documents. Les tarifs des fournisseurs ne sont pas repris ici.</p>
     <div class="at-stats">${ORDRE_AT.filter(s=>cs[s]).map(s=>`<button class="at-stat st-${s}${f.statut===s?' on':''}" data-at-f="statut|${f.statut===s?'':s}" aria-pressed="${f.statut===s}"><b>${cs[s]}</b><span>${h(STATUT_AT[s][0])}</span></button>`).join('')}</div>
     <div class="san-filtre"><span>Catégorie</span><button class="chip" data-at-f="cat|" aria-pressed="${!f.cat}">Toutes</button>${Object.keys(cc).sort((a,b)=>cc[b]-cc[a]).map(c=>`<button class="chip" data-at-f="cat|${f.cat===c?'':h(c)}" aria-pressed="${f.cat===c}">${h(c)} <small>${cc[c]}</small></button>`).join('')}</div></div>
     ${groupes.map(([s, g])=>`<section class="carte at-groupe"><h4 class="at-gt st-${s}">${h(STATUT_AT[s][0])} <span>${g.length}</span><small>${h(expl[s]||'')}</small></h4>
@@ -6061,17 +6074,17 @@ function partieVeille(){
 function vueFicheOutil(id){
   const A = S.agrotech, o = (A?.outils||[]).find(x=>x.id===id); if(!o) return '';
   const sec = (titre, corps) => corps ? `<section class="fv-sec"><h5>${titre}</h5>${corps}</section>` : '';
-  const lignes = [['Catégorie', o.cat], ['Pays', o.pays], ['Culture', o.espece], ['Type d\'outil', o.type], ['Maturité', o.dv ? o.dv+' — '+({DV3:'essais en production possible', DV2:'recherche et développement', DV1:'stade expérimental'})[o.dv] : ''], ['Type de projet', o.projet], ['Retour des producteurs', o.retour], ['Nombre d\'unités', o.nb], ['Bon potentiel à suivre', o.potentiel]].filter(x=>x[1]);
+  const lignes = [['Catégorie', o.cat], ['Pays', o.pays], ['Culture', o.espece], ['Type d\'outil', o.type], ['Maturité', o.dv ? o.dv+' — '+({DV3:'essais en production possible', DV2:'recherche et développement', DV1:'stade expérimental'})[o.dv] : ''], ['Type de projet', o.projet], ['Nombre d\'unités', o.nb], ['Bon potentiel à suivre', o.potentiel]].filter(x=>x[1]);
   const web = urlSure(o.web);
   return `<div class="fv-voile" data-fiche-fermer></div>
   <aside class="fv-panneau sf-panneau" role="dialog" aria-modal="true" aria-label="Fiche de ${h(o.nom)}" tabindex="-1">
     <header class="fv-tete"><div><div class="eyebrow">Fiche de l'outil · veille technologique</div><h3>${h(o.nom)}</h3><p>${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
-      <div class="sx-fiche-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}${okRet(o)?`<span class="at-ret ${RETOUR_AT[o.retour]||''}">Producteurs : ${h(o.retour.toLowerCase())}</span>`:''}</div></div>
+      <div class="sx-fiche-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div>
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
     ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
     ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
     ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${k==='Maturité' && o.dv ? badgeDvAt(o.dv)+' '+h(v.replace(/^DV\d\s—\s/,'')) : h(v)}</dd>`).join('')}</dl>` : ''))}
-    ${essaiDe(o) ? sec('Résultat de l\'essai '+h(S.agrotech.essais.annee), `<p><span class="at-st ${RES_ESSAI[essaiDe(o).resultat]||'nd'}">${h(essaiDe(o).resultat)}</span> ${h([essaiDe(o).tech, essaiDe(o).sites, essaiDe(o).debut?essaiDe(o).debut+(essaiDe(o).fin?' → '+essaiDe(o).fin:' → en cours'):''].filter(Boolean).join(' · '))}</p><p class="sf-txt">${h(essaiDe(o).conclusion)}</p>`) : ''}
+    ${essaiDe(o) ? sec('Résultat de l\'essai '+h(S.agrotech.essais.annee), `<p>${badgesRes(essaiDe(o))} ${h([essaiDe(o).tech, essaiDe(o).sites, essaiDe(o).debut?essaiDe(o).debut+(essaiDe(o).fin?' → '+essaiDe(o).fin:' → en cours'):''].filter(Boolean).join(' · '))}</p><p class="sf-txt">${h(essaiDe(o).conclusion)}</p>`) : ''}
     ${sec('Limites et points de vigilance', o.limites ? `<p class="sf-txt">${h(o.limites)}</p>` : '')}
     ${sec('Contact', (o.contact ? `<p>${o.contact.split(' ; ').filter(Boolean).map(m=>/@/.test(m) ? `<a href="mailto:${h(m.trim())}">${h(m.trim())}</a>` : h(m)).join(' · ')}</p>` : '') + (web ? `<p><a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : ''))}
     ${sec(`Documents <span class="chip">${o.docs.length}</span>`, o.docs.length ? listeDocs(o.docs.map(d=>({...d, cat:''}))) + (o.dossier && liensDoc(o.dossier).ouvrir ? `<p><a class="btn-ouvrir" href="${h(liensDoc(o.dossier).ouvrir)}" target="_blank" rel="noopener">Ouvrir le dossier SharePoint</a></p>` : '') : '')}
@@ -6086,11 +6099,12 @@ function partiePilotes(){
   const nbSites = new Set(pil.flatMap(o=>o.sites.map(s=>s.replace(/\s*\(.*$/,'').toLowerCase()))).size;
   const th = [...new Set((A.projets||[]).map(p=>p.theme))];
   return suiviEssais(A) + `<div class="carte"><h3>Outils en essai sur les sites pilotes — ${pil.length} outils</h3>
-    ${kpiSegment([{l:'Outils en essai', v:pil.length, c:'info'}, {l:'Résultat positif', v:pil.filter(o=>essaiDe(o)?.resultat==='Positif').length, c:'ok'}, {l:'Moyen ou à surveiller', v:pil.filter(o=>['Moyen','À surveiller'].includes(essaiDe(o)?.resultat)).length, c:'part'}, {l:'Pas concluant', v:pil.filter(o=>['Pas concluant','Négatif'].includes(essaiDe(o)?.resultat)).length, c:'non'}, {l:'Sites pilotes cités', v:nbSites}, {l:'Retours positifs', v:pil.filter(o=>/^positi/i.test(o.retour)).length, s:`${pil.filter(o=>o.retour==='En cours').length} en cours · ${pil.filter(o=>o.retour==='Moyen').length} moyens`, c:'ok'}])}
+    ${(() => { const lib = o => resEssai(essaiDe(o))?.libs||[], n = s => pil.filter(o=>lib(o).includes(s)).length;
+      return kpiSegment([{l:'Outils en essai', v:pil.length, c:'info'}, ...(anneeEssaiTerminee() ? [{l:'Résultat positif', v:n('Positif'), c:'ok'}, {l:'Moyen', v:n('Moyen'), c:'part'}, {l:'Pas concluant', v:n('Pas concluant')+n('Négatif'), c:'non'}, {l:'À surveiller', v:n('À surveiller'), c:'part'}] : [{l:'En cours', v:n('En cours'), c:'info'}]), {l:'Sites pilotes cités', v:nbSites}]); })()}
     <p class="aide">Les outils lancés sur un site pilote ou en phase d'essai. Chaque pilote suit le protocole de la commission (voir « Méthode & décisions »).</p>
     <div class="at-pil">${pil.map(o=>`<article class="at-p st-${o.statut}" data-outil="${h(o.id)}" tabindex="0" role="button"><header>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}<h5>${h(o.nom)}</h5></header>
       <p class="at-meta">${[o.type||o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p><p class="at-desc">${h(coupeTxt(o.desc, 210))}</p>
-      <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Retour producteurs</dt><dd><span class="at-ret ${RETOUR_AT[o.retour]||''}">${h(o.retour||'non renseigné')}</span></dd>${essaiDe(o)?`<dt>Essai ${h(S.agrotech.essais.annee)}</dt><dd>${h(coupeTxt(essaiDe(o).conclusion, 150))}</dd>`:''}${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
+      <dl><dt>Sites pilotes</dt><dd>${o.sites.length ? o.sites.map(h).join(' · ') : 'à définir'}</dd>${o.nb?`<dt>Unités</dt><dd>${h(o.nb)}</dd>`:''}<dt>Résultat de l'essai</dt><dd>${essaiDe(o) ? badgesRes(essaiDe(o)) : '<span class="cible">pas d\'essai</span>'}</dd>${essaiDe(o)?`<dt>Essai ${h(S.agrotech.essais.annee)}</dt><dd>${h(coupeTxt(essaiDe(o).conclusion, 150))}</dd>`:''}${o.projet?`<dt>Type de projet</dt><dd>${h(o.projet)}</dd>`:''}</dl>
       <span class="at-plus">Ouvrir la fiche ›</span></article>`).join('')}</div></div>
   <div class="carte"><h3>Projets et études du dossier « Serre du futur » <span class="zrp-compte">${(A.projets||[]).length}</span></h3>
     <p class="aide">Essais, projets des OP, Ecoserre, études internes et projets de filière. Les documents restent sur SharePoint.</p>
@@ -6229,11 +6243,11 @@ function resultatsRecherche(com, q){
     g('Documents', docs.length, listeDocs(docs.slice(0,6)));
   }
   else if(com==='cagt'){
-    const A = S.agrotech, os = (A?.outils||[]).filter(o=>trouveMots(mots, o.nom, o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet))
+    const A = S.agrotech, os = (A?.outils||[]).filter(o=>trouveMots(mots, o.nom, o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.projet))
       .sort((a,b)=>ORDRE_AT.indexOf(a.statut)-ORDRE_AT.indexOf(b.statut));
     g('Outils de la veille technologique', os.length, `<div class="rech-l">${os.slice(0,10).map(o=>`<article class="rech-e" data-outil="${h(o.id)}" tabindex="0">${badgeAt(o.statut)}<div><h5>${h(o.nom)} <small>${badgeDvAt(o.dv)}</small></h5><p>${h(coupeTxt(o.desc||o.detail||'', 200))}</p>${o.limites?`<p><b>Limites :</b> ${h(coupeTxt(o.limites, 120))}</p>`:''}<small>${[o.cat, o.pays, o.sites.length?'sites : '+o.sites.join(', '):'', o.retour?'producteurs : '+o.retour.toLowerCase():'', o.contact?'contact : '+o.contact.split(' ; ')[0]:''].filter(Boolean).map(h).join(' · ')}</small></div><button class="chip" data-outil="${h(o.id)}">Fiche ›</button></article>`).join('')}</div>${os.length>10?`<p class="aide">… et ${os.length-10} autres : affinez la recherche.</p>`:''}`);
-    const es = (A?.essais?.lignes||[]).filter(l=>trouveMots(mots, l.entreprise, l.cat, l.tech, l.sites, l.resultat, l.conclusion));
-    g('Résultats des essais '+(A?.essais?.annee||''), es.length, `<div class="rech-l">${es.map(l=>{ const o = outilDeEssai(l); return `<article class="rech-e r-${RES_ESSAI[l.resultat]||'nd'}"${o?` data-outil="${h(o.id)}"`:''} tabindex="0"><span class="at-st ${RES_ESSAI[l.resultat]||'nd'}">${h(l.resultat)}</span><div><h5>${h(l.entreprise)} <small>— ${h(l.tech)}</small></h5><p>${h(coupeTxt(l.conclusion, 240))}</p><small>${[l.sites, l.nb?l.nb+' unité(s)':'', l.debut].filter(Boolean).map(h).join(' · ')}</small></div>${o?`<button class="chip" data-outil="${h(o.id)}">Fiche ›</button>`:''}</article>`; }).join('')}</div>`);
+    const es = (A?.essais?.lignes||[]).filter(l=>trouveMots(mots, l.entreprise, l.cat, l.tech, l.sites, resEssai(l).libs.join(' '), l.conclusion));
+    g('Résultats des essais '+(A?.essais?.annee||''), es.length, `<div class="rech-l">${es.map(l=>{ const o = outilDeEssai(l); return `<article class="rech-e r-${clsResAt(l)}"${o?` data-outil="${h(o.id)}"`:''} tabindex="0">${badgesRes(l)}<div><h5>${h(l.entreprise)} <small>— ${h(l.tech)}</small></h5><p>${h(coupeTxt(l.conclusion, 240))}</p><small>${[l.sites, l.nb?l.nb+' unité(s)':'', l.debut].filter(Boolean).map(h).join(' · ')}</small></div>${o?`<button class="chip" data-outil="${h(o.id)}">Fiche ›</button>`:''}</article>`; }).join('')}</div>`);
     const pj = (A?.projets||[]).filter(p=>trouveMots(mots, p.titre, p.desc, p.theme));
     g('Projets et études', pj.length, `<div class="rech-l">${pj.map(p=>`<article class="rech-e" data-com-partie="pilotes" tabindex="0"><span class="san-res">${h(p.theme)}</span><div><h5>${h(p.titre)}</h5><p>${h(coupeTxt(p.desc, 200))}</p><small>${p.docs.length} documents</small></div><button class="chip" data-com-partie="pilotes">Voir ›</button></article>`).join('')}</div>`);
     const bn = (A?.binomes||[]).filter(b=>trouveMots(mots, b.op, b.tech, b.prod));
@@ -6566,7 +6580,7 @@ function indexAssistant(){
   (S.sanitaire?.leviers?.equip||[]).forEach(x=>aj('levier', x.nom, [x.fourn, x.type, x.levier, x.cibles, x.cultures, x.refs, x.com], {x, equip:true}));
   // variétés (commission variétale tomates)
   try{ Object.entries(indexGlobal()).forEach(([k,v])=>aj('variete', v.nom, [v.seg, v.sem], {k, v})); }catch(_){}
-  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom+' '+aliasNom(o.nom), [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.retour, o.projet, essaiDe(o) ? [essaiDe(o).tech, essaiDe(o).resultat, essaiDe(o).conclusion] : '', (S.agrotextes?.[o.id]||[]).slice(0,2).map(d=>d.tx.slice(0,2500))], {o, nt2:N([o.type, o.cat, (o.desc||'').slice(0,110)])}));
+  (S.agrotech?.outils||[]).forEach(o=>aj('outil', o.nom+' '+aliasNom(o.nom), [o.cat, o.pays, o.espece, o.type, o.desc, o.detail, o.statutLib, o.limites, o.sites, o.projet, essaiDe(o) ? [essaiDe(o).tech, resEssai(essaiDe(o)).libs.join(' '), essaiDe(o).conclusion] : '', (S.agrotextes?.[o.id]||[]).slice(0,2).map(d=>d.tx.slice(0,2500))], {o, nt2:N([o.type, o.cat, (o.desc||'').slice(0,110)])}));
   (S.agrotech?.projets||[]).forEach(p=>aj('projet', p.titre, [p.theme, p.desc, p.docs.map(d=>d.t)], {p, nt2:N([p.theme, 'projet etude'])}));
   (S.fraise?.synthese?.varietes||[]).forEach(v=>aj('fvar', v.nom, ['fraise fraises variete', v.profil, v.temoin, v.statut, STATUT_FR[String(v.statut||'').toUpperCase()]?.[0], v.forts, v.faibles, v.desc, Object.values(v.evals).flat(), v.commentaire], {v}));
   (S.fraise?.propositions?.lignes||[]).forEach(p=>aj('fprop', p.nom, ['fraise fraises variete proposition', p.obtenteur, p.stade, p.segmentation, p.profil, p.type, p.infos], {p}));
@@ -6749,7 +6763,7 @@ function reponseQuand(texte, Q){
       ${ids.map(id=>`<button class="chip" data-as-ouvrir="commission|${id}">Calendrier — ${h(nom(id))} ›</button>`).join(' ')}</details>`;
 }
 const champsComp = it => {
-  if(it.type==='outil'){ const o = it.o, e = essaiDe(o); return {nom:o.nom, ouvrir:'outil|'+o.id, c:[['Catégorie', [o.cat, o.pays].filter(Boolean).join(' · ')], ['Statut', o.statutLib], ['Maturité', o.dv], ['Retour des producteurs', okRet(o)?o.retour:''], ['Sites pilotes', o.sites.join(', ')], ['Essai '+(S.agrotech?.essais?.annee||''), e?e.resultat+' — '+coupe(e.conclusion,170):''], ['Limites', coupe(o.limites,140)], ['Description', coupe(o.desc,170)]]}; }
+  if(it.type==='outil'){ const o = it.o, e = essaiDe(o); return {nom:o.nom, ouvrir:'outil|'+o.id, c:[['Catégorie', [o.cat, o.pays].filter(Boolean).join(' · ')], ['Statut', o.statutLib], ['Maturité', o.dv], ['Sites pilotes', o.sites.join(', ')], ['Résultat de l\'essai '+(S.agrotech?.essais?.annee||''), e?resEssai(e).libs.join(' · ')+' — '+coupe(e.conclusion,170):''], ['Limites', coupe(o.limites,140)], ['Description', coupe(o.desc,170)]]}; }
   if(it.type==='fvar'){ const v = it.v; return {nom:v.nom, ouvrir:'fraise|'+v.nom, c:[['Culture','Fraise — profil '+v.profil.replace('P','')+', témoin '+v.temoin], ['Décision', STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||''], ['Points forts', v.forts.join(', ')], ['Points faibles', v.faibles.join(', ')], ['Commentaire', v.commentaire]]}; }
   if(it.type==='variete'){ const v = it.v, st = statutListe(anCom, it.k), ac = anCatalogue(anCom), p = ac ? prixVariete(ac, it.k) : null; return {nom:v.nom, ouvrir:'variete|'+it.k, c:[['Segment', v.seg], ['Semencier', v.sem], ['Statut', st ? (st.type==='lp' ? 'liste positive' : 'en développement '+(st.dv||'')) : ''], ['Prix des graines', p && prixM2(p.prix)!==null ? fmtPrix(prixM2(p.prix))+' €/m² ('+ac+')' : ''], ['Essais', lignesResVar(it.k, 2).join(' ; ')]]}; }
   if(it.type==='levier'){ const x = it.x; return {nom:x.nom, ouvrir:'leviers|', c:[['Famille', x.levier||x.type], ['Efficacité', x.eff], ['Cibles', x.cibles], ['Cultures', x.cultures], ['Disponibilité', x.dispo], ['Commentaire', coupe(x.effCom||x.com||'',170)]]}; }
@@ -6809,8 +6823,8 @@ function reponseTechno(texte, Qo){
     const ident = [o.cat, o.pays, o.espece && 'culture : '+o.espece.toLowerCase()].filter(Boolean).join(', ');
     p.push(`<b>${h(o.nom)}</b>${ident?' ('+h(ident)+')':''}.${o.detail ? ` D'après la fiche innovation : ${h(phrase1(o.detail, court?200:420))}` : o.desc ? ` D'après le tableau de veille : ${h(phrase1(o.desc, court?200:420))}` : ''}`);
     if(o.detail && o.desc && !court) p.push(`Le tableau de veille indique : ${h(phrase1(o.desc, 360))}`);
-    if(e) p.push(`Suivi des essais ${h(an)} : ${court?'':`testé sur ${h(coupe(e.sites||'les sites pilotes',110))}, `}résultat <b>${h(e.resultat.toLowerCase())}</b>.${court?'':' '+h(phrase1(e.conclusion, 330))}`);
-    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+badgeDvAt(o.dv):''}${okRet(o)?', retour des producteurs : '+h(o.retour.toLowerCase()):''}.`);
+    if(e) p.push(`Suivi des essais ${h(an)} : ${court?'':`testé sur ${h(coupe(e.sites||'les sites pilotes',110))}, `}${resEssai(e).final ? 'résultat' : 'essai'} <b>${h(resEssai(e).libs.join(' · ').toLowerCase())}</b>.${court?'':' '+h(phrase1(e.conclusion, 330))}`);
+    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+badgeDvAt(o.dv):''}.`);
     if(!court && o.limites && o.limites.length>25 && !/^[àa] compl[ée]ter/i.test(o.limites)) p.push(`Limites et points bloquants notés dans le tableau de veille : ${h(phrase1(o.limites, 320))}`);
     const ps = (prix || mq.length) ? passagesOutil(o, mq, prix) : [];
     if(prix){ const dp = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$/.test(x)); if(dp.length) p.push(`Le tableau de veille indique : ${h(dp.join(' '))}`); }
@@ -6828,7 +6842,7 @@ function reponseTechno(texte, Qo){
     const l = ou.slice(0,4), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom)), p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>4?' (les 4 plus proches)':''} :`], docs = [];
     l.forEach(({o})=>{ const e = essaiDe(o); let tarif = '';
       if(prix){ const ps = passagesOutil(o, [], true); if(ps.length){ tarif = ' <i>Tarif cité dans la fiche : '+h(coupe(ps[0].b.replace(/\n/g,' · '),170))+'</i>'; docs.push(ps[0].d); } }
-      p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?', résultat '+h(e.resultat.toLowerCase()):''}) : ${h(phrase1(o.desc||o.detail||'', 200))}${tarif}`); });
+      p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?(resEssai(e).final?', résultat ':', essai ')+h(resEssai(e).libs.join(' · ').toLowerCase()):''}) : ${h(phrase1(o.desc||o.detail||'', 200))}${tarif}`); });
     p.push(meme ? 'Dites-moi lequel des deux vous intéresse (fonctionnement, résultats, tarif, contact).' : 'Dites-moi lequel vous intéresse et je vous le détaille (fonctionnement, résultats, tarif, contact).');
     return `<div class="as-chat">${p.map(x=>`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.slice(0,4).map(lienDoc).join('')}</div>`:''}<div class="as-suite">${l.map(({o})=>`<button class="chip" data-suggestion="${h(o.nom)}">${h(o.nom)}</button>`).join('')}</div></div>`;
   }
@@ -7011,7 +7025,7 @@ function reponseAssistantBase(q){
   if(!montrePrix && pj.length && fort('projet')){ const p = pj[0].p; court.push(`<b>${h(p.titre)}</b> (${h(p.theme)}) : ${h(coupe(p.desc, 280))} ${p.docs.length} document${p.docs.length>1?'s':''} dans le dossier.`); }
   if(!montrePrix && ou.length && fort('outil')){ const o = ou[0].o, e = essaiDe(o);
     if(ou.length>1) court.push(`<b>${ou.length} outils</b> de la veille correspondent : ${ou.slice(0,4).map(x=>h(x.o.nom)+' ('+h(x.o.statutLib.toLowerCase())+')').join(', ')}${ou.length>4?'…':''}. Le plus proche :`);
-    court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+badgeDvAt(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 200))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}${e?` <b>Essai ${h(S.agrotech.essais.annee)} : ${h(e.resultat)}</b> — ${h(coupe(e.conclusion, 170))}`:''}`); }
+    court.push(`<b>${h(o.nom)}</b> (${h([o.cat, o.pays].filter(Boolean).join(', '))}) : ${h(o.statutLib)}${o.dv?', maturité '+badgeDvAt(o.dv):''}. ${h(coupe(o.desc||o.detail||'', 200))}${o.sites.length?` Sites pilotes : ${h(o.sites.join(', '))}.`:''}${e?` <b>Essai ${h(S.agrotech.essais.annee)} : ${h(resEssai(e).libs.join(' · '))}</b> — ${h(coupe(e.conclusion, 170))}`:''}`); }
   if(!montrePrix && !court.length && fv.length){ const v = fv[0].v; court.push(`<b>${h(v.nom)}</b> (profil ${h(v.profil.replace('P',''))}) : ${h(STATUT_FR[String(v.statut||'').toUpperCase()]?.[0]||'décision à venir')}. Points forts : ${h(v.forts.join(', ')||'—')}. Points faibles : ${h(v.faibles.join(', ')||'—')}.`); }
   if(en.length && (contact || !court.length)){ const e = en[0].enjeu, nq = normPhrase(q), opC = OPS.find(o=>o!=='UDC' && nq.includes(normTexte(o))), r0 = e.structures.filter(s=>s.e.length && s.s!=='EXTERNE'), r = opC && r0.some(s=>s.s===opC) ? r0.filter(s=>s.s===opC) : r0; court.push(`Enjeu <b>${h(libEnjeu(e.nom))}</b> — référents : ${r.slice(0,4).map(s=>h(s.s)+' : '+h(s.e.slice(0,2).join(', '))).join(' ; ') || 'aucun dans la cartographie'}${r.length>4?'…':''}.`); }
   if(!court.length && dt.length) court.push(`<b>${dt.length} détection${dt.length>1?'s':''}</b> en réunion hebdo sur ce sujet.`);
