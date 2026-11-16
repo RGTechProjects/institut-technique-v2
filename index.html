@@ -1117,6 +1117,26 @@ details.san-plus > summary{cursor:pointer; font-family:'Archivo'; font-weight:70
 details.san-plus[open] > summary{margin-bottom:8px}
 .imp-barre{display:inline-block; width:70px; height:7px; border-radius:99px; background:#EEEBE4; overflow:hidden; vertical-align:middle}
 .imp-barre i{display:block; height:100%; background:linear-gradient(90deg,var(--or),var(--marque)); border-radius:99px}
+/* Réunion hebdo : une couleur par bloc, pour les repérer d'un coup d'œil (demande du 16/11). On redéfinit --marque : titres, intitulés, en-têtes et boutons suivent. */
+#v-hebdo .carte[data-bloc="1"], .hb-nav [data-hb="1"]{--marque:#2C5F94; --marque-clair:#E8F0F8; --rouge:#2C5F94}
+#v-hebdo .carte[data-bloc="2"], .hb-nav [data-hb="2"]{--marque:#12767F; --marque-clair:#E3F3F4; --rouge:#12767F}
+#v-hebdo .carte[data-bloc="3"], .hb-nav [data-hb="3"]{--marque:#6B4FA0; --marque-clair:#EFEAF7; --rouge:#6B4FA0}
+#v-hebdo .carte[data-bloc="4"], .hb-nav [data-hb="4"]{--marque:#B0436F; --marque-clair:#F9E9EF; --rouge:#B0436F}
+#v-hebdo .carte[data-bloc="5"], .hb-nav [data-hb="5"]{--marque:#7A5A3A; --marque-clair:#F3ECE4; --rouge:#7A5A3A}
+#v-hebdo .carte[data-bloc="6"], .hb-nav [data-hb="6"]{--marque:#4F6A73; --marque-clair:#E9EFF1; --rouge:#4F6A73}
+#v-hebdo .carte[data-bloc]{border-top:6px solid var(--marque); scroll-margin-top:12px}
+#v-hebdo .carte[data-bloc] > h3{background:var(--marque-clair); color:var(--marque); border-left:6px solid var(--marque); padding:8px 12px; border-radius:8px}
+#v-hebdo .carte[data-bloc] > h3::before{display:none}
+#v-hebdo .carte[data-bloc] .sous{color:var(--marque); background:var(--marque-clair); border-left-color:var(--marque)}
+#v-hebdo .carte[data-bloc] .bloc-num{background:var(--marque); color:#fff; border-radius:6px; padding:1px 9px; margin-right:8px}
+.hb-nav{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px}
+.hb-nav button{border:2px solid var(--marque); background:var(--marque-clair); color:var(--marque); font-weight:700; font-size:13px; border-radius:99px; padding:6px 14px; cursor:pointer; font-family:inherit}
+.hb-nav button b{background:var(--marque); color:#fff; border-radius:50%; display:inline-block; min-width:20px; height:20px; line-height:20px; text-align:center; font-size:11px; margin-right:6px}
+.hb-nav button:hover{background:var(--marque); color:#fff} .hb-nav button:hover b{background:#fff; color:var(--marque)}
+.imp-plage{display:flex; align-items:center; gap:4px; white-space:nowrap} .imp-plage input{width:54px}
+.zrp-sem{display:flex; align-items:center; gap:4px} .zrp-sem input{border:1px solid var(--trait); padding:3px 5px; font-size:12px; border-radius:6px} .zrp-sem-n{width:54px} .zrp-sem-a{width:70px}
+.aut-grille{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; margin:10px 0} .aut-carte{border:1px solid var(--ligne); border-radius:12px; padding:10px 12px; background:#fff}
+.aut-carte h4{margin:0 0 8px; color:#7A1F2B; font-size:14px; font-weight:700; background:#F6EDEE; padding:5px 9px; border-radius:6px} .aut-carte textarea{width:100%; box-sizing:border-box} .aut-carte p{white-space:pre-line; margin:0}
 .imp-surf{display:flex; align-items:center; gap:6px; white-space:nowrap} .imp-surf input{width:58px}
 .imp-tab td{white-space:nowrap} .imp-tab td:last-child,.imp-tab td:nth-child(6){white-space:normal} .imp-tab input[type=number]{border:1px solid var(--trait); padding:3px 5px; font-size:12px}
 .imp-niv{display:inline-flex; border:1px solid var(--ligne); border-radius:7px; overflow:hidden}
@@ -1148,8 +1168,8 @@ select.zrp-vide{background:#fff}
 .liste-saisie{display:flex; flex-direction:column; gap:6px}
 .ligne-saisie{display:grid; gap:10px 14px; align-items:start; padding:10px 12px; border:1px solid var(--ligne); border-radius:10px; background:#fff}
 .ligne-saisie.zrp-l{grid-template-columns:minmax(200px,1.5fr) 140px 140px 170px 140px minmax(200px,2fr) 110px}
-.ligne-saisie.imp-l{grid-template-columns:minmax(180px,1.2fr) 200px 170px 150px minmax(220px,2fr)}
-.liste-saisie.avec-action .ligne-saisie.imp-l{grid-template-columns:minmax(180px,1.2fr) 200px 170px 150px minmax(220px,2fr) 96px}
+.ligne-saisie.imp-l{grid-template-columns:minmax(180px,1.2fr) 200px 170px 200px minmax(220px,2fr)}
+.liste-saisie.avec-action .ligne-saisie.imp-l{grid-template-columns:minmax(180px,1.2fr) 200px 170px 200px minmax(220px,2fr) 96px}
 .ligne-saisie.finie{background:#FBFAF7; color:var(--ardoise)}
 .ls-tete{background:var(--marque-clair); border-color:#E6D3D7; padding:8px 12px; font-family:'Archivo'; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--marque)}
 .ls-groupe{margin-top:8px; padding:6px 4px 2px; font-family:'Archivo'; font-weight:700; font-size:13px; color:var(--marque); border-bottom:2px solid var(--marque)}
@@ -2199,6 +2219,9 @@ function initialiserDonnees(){
   S.indicateurs.annees ||= {};
   if(!S.hebdo) S.hebdo = {especes:[...ESPECES_DEF], volumes:{}, detections:[]};
   if(S.hebdo.version !== VERSION_ESPECES){ S.hebdo.especes = [...ESPECES_DEF]; S.hebdo.version = VERSION_ESPECES; }
+  // segment ajouté le 16/11 (impact qualité) : on l'ajoute sans remettre à zéro la liste déjà saisie
+  if(!S.hebdo.especes.includes('Tomate cerise grappe')){ const i = S.hebdo.especes.indexOf('Tomate cerise'); S.hebdo.especes.splice(i<0 ? S.hebdo.especes.length : i+1, 0, 'Tomate cerise grappe'); }
+  S.hebdo.autres ||= [];
   if(!Array.isArray(S.zrp)) S.zrp = [];
   if(!S.commissions) S.commissions = {'2026':seedCommissions()};
   if(!Array.isArray(S.documents)) S.documents = seedDocuments();
@@ -3198,7 +3221,7 @@ function appliquerRecherche(){
 
 /* ============ 04 · Réunion hebdo ============ */
 /* Espèces et segments suivis (le 1er mot sert à regrouper ; l'admin peut en ajouter) */
-const ESPECES_DEF = ['Tomate ronde','Tomate grappe','Tomate cocktail','Tomate cerise','Tomate cœur','Tomate allongée',
+const ESPECES_DEF = ['Tomate ronde','Tomate grappe','Tomate cocktail','Tomate cerise','Tomate cerise grappe','Tomate cœur','Tomate allongée',
   'Tomate variétés anciennes','Tomate noire','Fraise Gariguette','Fraise Ciflorette','Fraise Favori','Fraise remontante',
   'Concombre','Concombre bio'];
 const VERSION_ESPECES = 2;
@@ -3401,6 +3424,8 @@ const BIOAGRESSEURS = {
 const LIGNES_SAN = [['Tomate','Valprim + Cadralbret'],['Tomate','Agrisud'],['Tomate','Pardi + La Crau'],
   ['Fraise','Valprim + Cadralbret'],['Concombre','Agrisud'],['Concombre','Valprim + Cadralbret'],['Poivron',''],['Aubergine','']];
 const NIVEAUX_IMPACT = ['Volume','Qualité','Les 2'];
+/* Période estimée d'un impact : plage de semaines (« Semaine 46 à Semaine 49 ») ; les anciennes saisies en durée restent lisibles */
+const libPlage = i => i.sd ? (i.sf && +i.sf!==+i.sd ? `Semaine ${i.sd} à Semaine ${i.sf}` : `Semaine ${i.sd}`) : (+i.duree ? `${i.duree} sem. (ancienne saisie)` : '—');
 const ESPECES_ZRP = {TO:'Tomate', FH:'Fraise', CC:'Concombre'};
 const STATUTS_ZRP = [['','À renseigner'], ...ZRP_STATUTS];
 let zrpFiltre = {op:'', espece:'', type:'', statut:null, prod:''};
@@ -3506,7 +3531,6 @@ function blocImpacts(W, ed){
   const tous = S.hebdo.impacts || [];
   const enCours = tous.filter(i=>i.w<=W && (!i.fin || i.fin>=W));
   const finis = tous.filter(i=>i.fin && i.fin<W && Math.floor(i.fin/100)===anReu);
-  const finEst = i => +i.duree ? libSeq(seqSem(i.w) + (+i.duree)) : '';
   const ligne = (i, actif) => { const modif = ed && actif; return `<div class="ligne-saisie imp-l${actif?'':' finie'}">
     <div class="ls-id"><b>${h(i.site)}</b><span>${h(i.segment)}</span><span class="cible">depuis ${libIdx(i.w)}${i.fin?' · terminé '+libIdx(i.fin):''}</span></div>
     <div class="ls-c"><span class="ls-lib">Niveau d'impact</span>${modif
@@ -3514,12 +3538,11 @@ function blocImpacts(W, ed){
       : `<span class="imp-tag">${h(i.niveau||'—')}</span>`}</div>
     <div class="ls-c"><span class="ls-lib">Surfaces touchées</span><div class="imp-surf"><span class="imp-barre"><i style="width:${Math.min(100,+i.surface||0)}%"></i></span>
       ${modif ? `<input type="number" min="0" max="100" data-imp="${i.id}" data-f="surface" value="${h(i.surface||'')}"> %` : `${h(i.surface||'—')} %`}</div></div>
-    <div class="ls-c"><span class="ls-lib">Durée estimée</span><div>${modif ? `<input type="number" min="0" data-imp="${i.id}" data-f="duree" value="${h(i.duree||'')}"> sem.` : `${h(i.duree||'—')} sem.`}
-      ${finEst(i) ? `<span class="cible ls-sous">fin estimée ${finEst(i)}</span>` : ''}</div></div>
+    <div class="ls-c"><span class="ls-lib">Période estimée</span><div>${modif ? `<span class="imp-plage no-print">de S <input type="number" min="1" max="53" data-imp="${i.id}" data-f="sd" value="${h(i.sd||'')}" aria-label="Semaine de début"> à S <input type="number" min="1" max="53" data-imp="${i.id}" data-f="sf" value="${h(i.sf||'')}" aria-label="Semaine de fin"></span><span class="print-only">${h(libPlage(i))}</span>` : h(libPlage(i))}</div></div>
     <div class="ls-c ls-texte"><span class="ls-lib">Détail</span>${modif ? `<textarea rows="2" data-imp="${i.id}" data-f="detail" placeholder="Détail de l'impact…">${h(i.detail||'')}</textarea>` : `<p>${h(i.detail||'—')}</p>`}</div>
     ${ed ? `<div class="ls-c ls-action no-print">${!actif ? '' : i.fin===W ? `<button class="suppr" data-imp-fin="${i.id}">annuler</button>` : `<button class="btn sec" data-imp-fin="${i.id}">Terminé</button>`}</div>` : ''}
   </div>`; };
-  const tete = `<div class="ligne-saisie ls-tete imp-l"><div>Site · segment</div><div>Niveau d'impact</div><div>Surfaces touchées</div><div>Durée estimée</div><div>Détail</div>${ed?'<div></div>':''}</div>`;
+  const tete = `<div class="ligne-saisie ls-tete imp-l"><div>Site · segment</div><div>Niveau d'impact</div><div>Surfaces touchées</div><div>Période estimée (semaines)</div><div>Détail</div>${ed?'<div></div>':''}</div>`;
   return `<div class="carte">
     ${outilsBloc('imp')}<h3><span class="bloc-num">4</span>Impact qualité produit</h3>
     <p class="aide">Un impact se saisit une fois, puis il reste affiché chaque semaine jusqu'à ce qu'on le déclare terminé.</p>
@@ -3534,7 +3557,8 @@ function blocImpacts(W, ed){
         <label>Segment <select data-k="segment"><option value="">Choisir…</option>${S.hebdo.especes.map(s=>`<option>${h(s)}</option>`).join('')}</select></label>
         <label>Niveau d'impact <select data-k="niveau">${NIVEAUX_IMPACT.map(x=>`<option>${x}</option>`).join('')}</select></label>
         <label>Surfaces touchées (%) <input data-k="surface" type="number" min="0" max="100"></label>
-        <label>Durée estimée (semaines) <input data-k="duree" type="number" min="0"></label>
+        <label>Du (semaine) <input data-k="sd" type="number" min="1" max="53" placeholder="ex. 46"></label>
+        <label>Au (semaine) <input data-k="sf" type="number" min="1" max="53" placeholder="ex. 49"></label>
         <label class="large">Détail <textarea data-k="detail" rows="2" placeholder="Ce qui est observé, sur quelles serres…"></textarea></label>
       </div>
       <button class="btn" data-add-imp>Ajouter l'impact</button></div>` : ''}
@@ -3545,6 +3569,14 @@ function blocImpacts(W, ed){
 /* Dates ZRP : AAAA-MM-JJ ; une ancienne valeur en texte (ex. « S12 ») reste affichée telle quelle */
 const estIso = v => /^\d{4}-\d{2}-\d{2}$/.test(v||'');
 const dateFr = v => estIso(v) ? new Date(v+'T12:00').toLocaleDateString('fr-FR') : (v||'');
+/* Entrées ZRP en semaines : stockées « AAAA-Sss » (comme cleSem). Une ancienne date (AAAA-MM-JJ) ou « S12 » est reconnue et convertie à l'affichage. */
+const anSemDe = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7)); return {an:t.getUTCFullYear(), s:numSemaine(d)}; };
+const semZrp = v => { v = String(v||'').trim(); if(!v) return null; let m = v.match(/^(\d{4})-S(\d{1,2})$/i); if(m) return {an:+m[1], s:+m[2]};
+  if(estIso(v)) return anSemDe(new Date(v+'T12:00')); m = v.match(/^S?\s*(\d{1,2})$/i); return m ? {an:anReu, s:+m[1]} : null; };
+const libSemZrp = v => { const x = semZrp(v); return x ? 'S'+String(x.s).padStart(2,'0')+(x.an!==anReu ? ' '+x.an : '') : (v||''); };
+const champSemZrp = (p, f, ed, vide) => { const x = semZrp(p[f]);
+  return ed ? `<div class="zrp-sem"><span>S</span><input type="number" min="1" max="53" class="zrp-sem-n" data-zrps="${p.id}" data-f="${f}" value="${x?x.s:''}" placeholder="—" aria-label="Semaine"><input type="number" min="2020" max="2040" class="zrp-sem-a" data-zrps="${p.id}" data-f="${f}" value="${x?x.an:''}" placeholder="${anReu}" aria-label="Année"></div>${p[f] && !x ? `<span class="cible">saisi : ${h(p[f])}</span>` : ''}`
+    : (p[f] ? h(libSemZrp(p[f])) : vide); };
 const champDateZrp = (p, f, ed, vide) => ed
   ? `<input type="date" class="zrp-date" data-zrp="${p.id}" data-f="${f}" value="${estIso(p[f])?p[f]:''}">${p[f]&&!estIso(p[f])?`<br><span class="cible">annoncé : ${h(p[f])}</span>`:''}`
   : (p[f] ? h(dateFr(p[f])) : vide);
@@ -3559,7 +3591,7 @@ function blocZrp(ed, adm){
   const kpi = (s, lib, cl) => `<button class="zrp-kpi ${cl}" data-zstatut="${s}" aria-pressed="${f.statut===s}"><b>${cpt(s)}</b><span>${lib}</span></button>`;
   const optStatut = p => STATUTS_ZRP.map(([v,l])=>`<option value="${v}" ${v===(p.statut||'')?'selected':''}>${l}</option>`).join('');
   const cl = histo ? 'zrp-l' : 'zrp-l sans-histo';
-  const tete = `<div class="ligne-saisie ls-tete ${cl}"><div>Bloc de production</div><div>Entrée annoncée</div><div>Entrée réelle</div><div>Statut</div><div>Date de rentrée</div><div>Commentaire</div>${histo?'<div>Historique</div>':''}</div>`;
+  const tete = `<div class="ligne-saisie ls-tete ${cl}"><div>Bloc de production</div><div>Entrée annoncée (semaine)</div><div>Entrée réelle (semaine)</div><div>Statut</div><div>Date de rentrée</div><div>Commentaire</div>${histo?'<div>Historique</div>':''}</div>`;
   const lignes = [...new Set(vis.map(p=>p.op||'Autres'))].sort((a,b)=>a.localeCompare(b,'fr')).map(op=>{
     const ps = vis.filter(p=>(p.op||'Autres')===op);   // ordre du fichier
     const pts = ZRP_STATUTS.map(([v])=>{ const n=ps.filter(p=>p.statut===v).length; return n?`<span class="zrp-mini"><span class="pastille-zrp ${v}"></span>${n}</span>`:''; }).join('');
@@ -3570,11 +3602,11 @@ function blocZrp(ed, adm){
         <span>${h(p.opNom||op)}${p.campagne?' · campagne '+h(p.campagne):''}</span>
         <span class="zrp-tags"><i>${h(ESPECES_ZRP[p.espece] ? `${p.espece} · ${ESPECES_ZRP[p.espece]}` : p.espece||'—')}</i><i>${h(p.type||'—')}</i><i>bloc ${h(p.bloc||'—')}</i>${p.certificat?`<i>${h(p.certificat)}</i>`:''}</span>
         ${p.horsExport?'<span class="zrp-alerte">absent du dernier export</span>':''}${p.archive?`<span class="zrp-alerte">archivé</span>${ed?` <button class="suppr no-print" data-arch-zrp="${p.id}">réactiver</button>`:''}`:''}</div>
-      <div class="ls-c"><span class="ls-lib">Entrée annoncée</span>${champDateZrp(p, 'semPrev', ed, '—')}</div>
-      <div class="ls-c"><span class="ls-lib">Entrée réelle</span>${champDateZrp(p, 'semReelle', ed, '<span class="cible">pas encore</span>')}</div>
+      <div class="ls-c"><span class="ls-lib">Entrée annoncée (semaine)</span>${champSemZrp(p, 'semPrev', ed, '—')}</div>
+      <div class="ls-c"><span class="ls-lib">Entrée réelle (semaine)</span>${champSemZrp(p, 'semReelle', ed, '<span class="cible">pas encore</span>')}</div>
       <div class="ls-c"><span class="ls-lib">Statut</span>${ed?`<select data-zrp="${p.id}" data-f="statut" class="zrp-${p.statut||'vide'}">${optStatut(p)}</select>`
           : p.statut ? `<span><span class="pastille-zrp ${p.statut}"></span>${(ZRP_STATUTS.find(z=>z[0]===p.statut)||[,''])[1]}</span>` : '<span class="cible">À renseigner</span>'}
-        ${p.statut==='vert' && !p.semReelle ? '<span class="zrp-alerte">date d’entrée réelle à saisir</span>' : ''}</div>
+        ${p.statut==='vert' && !p.semReelle ? '<span class="zrp-alerte">semaine d’entrée réelle à saisir</span>' : ''}</div>
       <div class="ls-c"><span class="ls-lib">Date de rentrée</span>${p.statut==='orange' || p.statut==='rouge' || p.dateRentree ? champDateZrp(p, 'dateRentree', ed, '—') : '<span class="cible" title="Seulement en cas de risque de sortie ou de sortie">—</span>'}</div>
       <div class="ls-c ls-texte"><span class="ls-lib">Commentaire</span>${ed?`<textarea data-zrp="${p.id}" data-f="commentaire" rows="2" placeholder="Commentaire…">${h(p.commentaire||'')}</textarea>`:`<p>${h(p.commentaire||'—')}</p>`}</div>
       ${histo ? `<div class="ls-c"><span class="ls-lib">Historique</span><details class="histo"><summary>${p.historique.length} changement${p.historique.length>1?'s':''}</summary><ul>
@@ -3611,10 +3643,55 @@ function blocZrp(ed, adm){
         <label>Espèce <select data-k="espece">${Object.entries(ESPECES_ZRP).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select></label>
         <label>Type <input data-k="type" placeholder="ex. CAZ"></label>
         <label>N° bloc <input data-k="bloc"></label>
+        <label>Entrée annoncée (semaine) <input data-k="semPrev" type="number" min="1" max="53" placeholder="ex. 12"></label>
+        <label>Entrée réelle (semaine) <input data-k="semReelle" type="number" min="1" max="53" placeholder="ex. 14"></label>
         <label>Statut <select data-k="statut">${STATUTS_ZRP.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></label>
       </div>
       <button class="btn" data-add-zrp>Ajouter le bloc</button></div>` : ''}
   </div>`;
+}
+
+/* Bloc 6 : autres sujets de la semaine (projet construction, planning de la semaine…), un texte par thème et par semaine.
+   S.hebdo.autres = [{id, w, theme, texte, par}] */
+const THEMES_AUTRES = ['Projet Construction', 'Planning de la semaine'];
+const autresSem = W => (S.hebdo.autres||[]).filter(a=>a.w===W);
+const dernierAutre = (theme, W) => (S.hebdo.autres||[]).filter(a=>a.theme===theme && a.w<W && a.texte).sort((a,b)=>b.w-a.w)[0];
+function blocAutres(W, ed){
+  const ds = autresSem(W), libres = ds.filter(x=>!THEMES_AUTRES.includes(x.theme));
+  const rappel = (theme, a) => { const der = !a?.texte ? dernierAutre(theme, W) : null; return der ? `<small class="cible">Dernière saisie ${libIdx(der.w)} : ${h(coupe(der.texte, 160))}</small>` : ''; };
+  const fixe = t => { const a = ds.find(x=>x.theme===t);
+    return `<div class="aut-carte"><h4>${h(t)}</h4>${ed ? `<textarea rows="3" data-aut="${h(t)}" placeholder="Points à partager sur ce thème…">${h(a?.texte||'')}</textarea>`
+      : `<p>${a?.texte ? h(a.texte) : '<span class="cible">Rien de noté cette semaine</span>'}</p>`}${rappel(t, a)}</div>`; };
+  const libre = a => `<div class="aut-carte"><h4>${h(a.theme)}${ed ? ` <button class="suppr no-print" data-rm-aut="${a.id}" title="Supprimer (erreur de saisie)">supprimer</button>` : ''}</h4>${ed
+    ? `<textarea rows="3" data-aut="" data-aut-id="${a.id}">${h(a.texte||'')}</textarea>` : `<p>${h(a.texte||'—')}</p>`}</div>`;
+  return `<div class="carte">
+    ${outilsBloc('aut')}<h3><span class="bloc-num">6</span>Autres sujets</h3>
+    <p class="aide">Les sujets de la semaine qui n'entrent pas dans les blocs précédents. Un texte par thème et par semaine${ed ? ' ; ajoutez un autre sujet si besoin' : ''}.</p>
+    <div class="aut-grille">${THEMES_AUTRES.map(fixe).join('')}${libres.map(libre).join('')}</div>
+    ${ed ? `<div class="form-saisie no-print" id="formAut">
+      <div class="sous">Ajouter un autre sujet</div>
+      <div class="form-grille">
+        <label>Thème <input data-k="theme" placeholder="ex. Main-d'œuvre, Énergie, Visite…"></label>
+        <label class="large">Texte <textarea data-k="texte" rows="2" placeholder="Ce qu'il faut retenir pour la semaine…"></textarea></label>
+      </div>
+      <button class="btn" data-add-aut>Ajouter le sujet</button></div>` : ''}
+  </div>`;
+}
+function rapportAutresR(W){
+  const ds = autresSem(W).filter(x=>x.texte), ordre = [...new Set([...THEMES_AUTRES, ...ds.map(x=>x.theme)])];
+  const lignes = ordre.map(t=>[t, ds.filter(x=>x.theme===t).map(x=>x.texte)]).filter(x=>x[1].length);
+  return `<h2><span>6</span>Autres sujets</h2>
+    ${lignes.length ? `<table><colgroup><col style="width:28%"><col style="width:72%"></colgroup><thead><tr><th>Thème</th><th>Point de la semaine</th></tr></thead>
+      <tbody>${lignes.map(([t,l])=>`<tr><td><b>${h(t)}</b></td><td style="white-space:pre-line">${l.map(h).join('\n')}</td></tr>`).join('')}</tbody></table>`
+      : rVide('Aucun autre sujet cette semaine.')}`;
+}
+function autreSaisir(t){
+  const W = idxSem(anReu, semaine), l = (S.hebdo.autres ||= []), texte = t.value.trim();
+  let a = t.dataset.autId ? l.find(x=>x.id===t.dataset.autId) : l.find(x=>x.w===W && x.theme===t.dataset.aut);
+  if(!a){ if(!texte) return; a = {id:uid(), w:W, theme:t.dataset.aut, texte:'', par:currentUser?.email||''}; l.push(a); }
+  a.texte = texte;
+  if(!texte && THEMES_AUTRES.includes(a.theme)) S.hebdo.autres = l.filter(x=>x!==a);
+  sauver('hebdo');
 }
 
 /* Import de l'export ZRP : un bloc par ligne. On ne supprime rien et on garde le statut déjà suivi. */
@@ -3628,13 +3705,15 @@ function importerZrp(lignes, fichier){
     if(!t || /^non$/i.test(t)) return '';
     return m ? (m[3].length===2?'20'+m[3]:m[3])+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0') : t;
   };
+  // les entrées ZRP se suivent en semaines : une date du fichier devient « AAAA-Sss »
+  const semImport = (l, nom) => { const d = dateDe(l, nom), x = semZrp(d); return x ? cleSem(x.an, x.s) : d; };
   const statutDe = t => ({'dans la démarche':'vert', 'risque de sortie':'orange', 'sortie':'rouge'})[t.toLowerCase()] || '';
   const cle = p => [p.op, p.nom, p.espece, p.type, p.bloc, p.campagne].join('|').toLowerCase();
   const connus = new Map(S.zrp.filter(p=>p.bloc).map(p=>[cle(p), p]));
   const vus = new Set(); let nv = 0, maj = 0;
   lignes.forEach(l=>{
     const b = {opNom:val(l,'OP'), campagne:val(l,'Campagne'), nom:val(l,'Société'), op:val(l,'OP de rattachement'), espece:val(l,'Espèce'),
-      type:val(l,'Type'), bloc:val(l,'N° Bloc'), certificat:val(l,'Certificat'), semPrev:dateDe(l,'Semaine Entrée ZRP Prévisionnel'), semReelle:dateDe(l,'Semaine Entrée ZRP Réelle')};
+      type:val(l,'Type'), bloc:val(l,'N° Bloc'), certificat:val(l,'Certificat'), semPrev:semImport(l,'Semaine Entrée ZRP Prévisionnel'), semReelle:semImport(l,'Semaine Entrée ZRP Réelle')};
     if(!b.nom) return;
     const k = cle(b); if(vus.has(k)) return; vus.add(k);
     const p = connus.get(k);
@@ -3676,9 +3755,9 @@ function rapportImpactsR(W){
   const imps = (S.hebdo.impacts||[]).filter(i=>i.w<=W && (!i.fin || i.fin>=W));
   return `<h2><span>4</span>Impact qualité produit</h2>
     ${imps.length ? `<table><colgroup><col style="width:22%"><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:24%"></colgroup>
-      <thead><tr><th>Site</th><th>Segment</th><th>Impact</th><th>Surfaces</th><th>Durée</th><th>Détail</th></tr></thead>
+      <thead><tr><th>Site</th><th>Segment</th><th>Impact</th><th>Surfaces</th><th>Période</th><th>Détail</th></tr></thead>
       <tbody>${imps.map(i=>`<tr><td><b>${h(i.site)}</b><br><span class="r-gris">depuis ${libIdx(i.w)}</span></td><td>${h(i.segment)}</td><td>${h(i.niveau)}</td>
-        <td>${h(i.surface||'—')} %</td><td>${h(i.duree||'—')} sem.</td><td>${h(i.detail||'')}</td></tr>`).join('')}</tbody></table>`
+        <td>${h(i.surface||'—')} %</td><td>${h(libPlage(i))}</td><td>${h(i.detail||'')}</td></tr>`).join('')}</tbody></table>`
       : rVide('Aucun impact qualité en cours.')}`;
 }
 /* ZRP : synthèse par OP puis la liste complète des blocs affichés (filtres de l'écran) */
@@ -3694,10 +3773,10 @@ function rapportZrpR(){
         <thead><tr><th>Producteur</th><th>OP</th><th>Espèce · type · bloc</th><th>Entrée annoncée</th><th>Entrée réelle</th><th>Statut</th><th>Rentrée</th><th>Commentaire</th></tr></thead>
         <tbody>${ops.map(o=>`<tr class="r-groupe"><td colspan="8">${h(o)}</td></tr>` + vis.filter(p=>(p.op||'Autres')===o).map(p=>`<tr>
           <td><b>${h(p.nom)}</b></td><td>${h(p.opNom||'')}</td><td>${h(p.espece||'')} ${h(p.type||'')} · ${h(p.bloc||'')}</td>
-          <td class="r-date">${h(dateFr(p.semPrev)||'—')}</td><td class="r-date">${h(dateFr(p.semReelle)||'—')}</td><td>${libStatut(p)}</td><td class="r-date">${h(dateFr(p.dateRentree)||'—')}</td><td>${h(p.commentaire||'')}</td></tr>`).join('')).join('')}</tbody></table>`
+          <td class="r-date">${h(libSemZrp(p.semPrev)||'—')}</td><td class="r-date">${h(libSemZrp(p.semReelle)||'—')}</td><td>${libStatut(p)}</td><td class="r-date">${h(dateFr(p.dateRentree)||'—')}</td><td>${h(p.commentaire||'')}</td></tr>`).join('')).join('')}</tbody></table>`
       : rVide('Aucun bloc suivi.')}`;
 }
-const rapportSanitaire = W => rapportPressionsR(W) + rapportSuiviR(W) + rapportImpactsR(W) + rapportZrpR();
+const rapportSanitaire = W => rapportPressionsR(W) + rapportSuiviR(W) + rapportImpactsR(W) + rapportZrpR() + rapportAutresR(W);
 
 /* Blocs ZRP retenus par les filtres de l'écran */
 function zrpVisibles(){
@@ -3713,8 +3792,8 @@ const outilsBloc = q => `<div class="bloc-outils no-print"><button class="btn se
 async function pdfBloc(q, bouton){
   const W = idxSem(anReu,semaine);
   const contenu = {tend:()=>`<h2><span>1</span>Tendances prévision vs réalisé</h2>${rapportTendances()}`, pres:()=>rapportPressionsR(W),
-    suivi:()=>rapportSuiviR(W), imp:()=>rapportImpactsR(W), zrp:()=>rapportZrpR()}[q];
-  const noms = {tend:'Tendances', pres:'Pression_sanitaire', suivi:'Suivi_dynamique', imp:'Impacts_qualite', zrp:'ZRP'};
+    suivi:()=>rapportSuiviR(W), imp:()=>rapportImpactsR(W), zrp:()=>rapportZrpR(), aut:()=>rapportAutresR(W)}[q];
+  const noms = {tend:'Tendances', pres:'Pression_sanitaire', suivi:'Suivi_dynamique', imp:'Impacts_qualite', zrp:'ZRP', aut:'Autres_sujets'};
   if(!contenu) return;
   if(!window.html2pdf){ toast('Module PDF non chargé — utilisez Imprimer › Enregistrer en PDF'); return; }
   const lib = bouton.textContent; bouton.disabled = true; bouton.textContent = '…';
@@ -3752,14 +3831,16 @@ function exporterHebdoExcel(q){
       ['Niveau S'+sP]:libNiv(niveauSem(d,anP,sP)), ['Niveau S'+semaine]:libNiv(niveauSem(d,anReu,semaine)),
       Relevés:Object.entries(d.suivi).sort().map(([k,v])=>k+' : '+(v.present?(v.risque||d.risque):'disparu')).join(' | '), Clôturée:lib(d.cloture)}));
   if(tout || q==='imp') f['Impacts qualité'] = (S.hebdo.impacts||[]).map(i=>({Depuis:lib(i.w), Site:i.site, Segment:i.segment, Impact:i.niveau,
-    'Surfaces touchées (%)':i.surface, 'Durée estimée (sem.)':i.duree, Détail:i.detail, Terminé:lib(i.fin)}));
+    'Surfaces touchées (%)':i.surface, 'Semaine de début':i.sd||'', 'Semaine de fin':i.sf||'', 'Ancienne durée (sem.)':i.duree||'', Détail:i.detail, Terminé:lib(i.fin)}));
   if(tout || q==='zrp') f['ZRP'] = zrpVisibles().vis.map(p=>({OP:p.opNom||'', 'OP de rattachement':p.op||'', Campagne:p.campagne||'', Société:p.nom, Espèce:p.espece||'', Type:p.type||'',
-    'N° bloc':p.bloc||'', Certificat:p.certificat||'', "Date d'entrée annoncée":dateFr(p.semPrev), "Date d'entrée réelle":dateFr(p.semReelle),
+    'N° bloc':p.bloc||'', Certificat:p.certificat||'', "Semaine d'entrée annoncée":libSemZrp(p.semPrev), "Semaine d'entrée réelle":libSemZrp(p.semReelle),
     Statut:(STATUTS_ZRP.find(z=>z[0]===(p.statut||''))||[,''])[1], 'Date de rentrée':dateFr(p.dateRentree), Commentaire:p.commentaire||'',
     ...(estAdmin() ? {Historique:p.historique.map(x=>`${x.quand} S${x.sem} ${(ZRP_STATUTS.find(z=>z[0]===x.statut)||[,''])[1]} ${x.commentaire||''}`.trim()).join(' | ')} : {})}));
+  if(tout || q==='aut') f['Autres sujets'] = (S.hebdo.autres||[]).filter(a=>Math.floor(a.w/100)===anReu).sort((a,b)=>a.w-b.w)
+    .map(a=>({Semaine:lib(a.w), Thème:a.theme, Texte:a.texte, Par:a.par||''}));
   const wb = XLSX.utils.book_new();
   Object.entries(f).forEach(([n,l])=>XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(l.length?l:[{'(vide)':''}]), n.slice(0,31)));
-  const noms = {tout:'complet', tend:'Tendances', pres:'Pression_sanitaire', suivi:'Suivi_dynamique', imp:'Impacts_qualite', zrp:'ZRP'};
+  const noms = {tout:'complet', tend:'Tendances', pres:'Pression_sanitaire', suivi:'Suivi_dynamique', imp:'Impacts_qualite', zrp:'ZRP', aut:'Autres_sujets'};
   XLSX.writeFile(wb, `Reunion_hebdo_${anReu}_S${String(semaine).padStart(2,'0')}_${noms[q]||q}.xlsx`);
 }
 
@@ -3781,7 +3862,7 @@ function vueHebdo(){
   <div class="entete">
     <div class="eyebrow">04 — Réunion hebdo</div>
     <h2>Réunion hebdo technique — Semaine ${semaine}</h2>
-    <p>${datesSemaine(semaine,anReu)} · ${anReu}. Tendances prévision vs réalisé, pression sanitaire, impact qualité produit et démarche ZRP.</p>
+    <p>${datesSemaine(semaine,anReu)} · ${anReu}. Tendances prévision vs réalisé, pression sanitaire, impact qualité produit, démarche ZRP et autres sujets.</p>
   </div>
   ${adm ? '' : '<p class="lecture-seule no-print">Consultation : la saisie de la réunion hebdo est réservée aux administrateurs.</p>'}
   <div class="semainier no-print">
@@ -3797,13 +3878,18 @@ function vueHebdo(){
     <button class="btn" onclick="telechargerPdfHebdo(this)">Toute la page en PDF</button>
   </div>
 
+  <nav class="hb-nav no-print" aria-label="Parties de la réunion">${[['1','Tendances'],['2','Pression sanitaire'],['3','Suivi de dynamique'],['4','Impact qualité'],['5','ZRP'],['6','Autres sujets']].map(([n,l])=>`<button data-hb="${n}" data-hbgo="${n}"><b>${n}</b>${l}</button>`).join('')}</nav>
+
   ${blocTendances()}
 
   ${blocPressions(W, ed)}
   ${blocSuivi(W, ed)}
   ${blocImpacts(W, ed)}
   ${blocZrp(ed, adm)}
+  ${blocAutres(W, ed)}
   </div><div class="rapport-hebdo">${rapportHebdo()}</div>`;
+  // chaque bloc porte son numéro : la couleur du bloc en dépend (CSS « #v-hebdo .carte[data-bloc] »)
+  el.querySelectorAll('.hebdo-ecran .bloc-num').forEach(n=>{ const c = n.closest('.carte'); if(c) c.dataset.bloc = n.textContent.trim(); });
 }
 
 /* Historique par site : tout ce qui a été détecté jusqu'à la semaine W (en cours et clôturé).
@@ -3924,6 +4010,7 @@ async function telechargerPdfHebdo(bouton){
     // filtres ZRP : pour tous
     if(ds.zop!==undefined){ zrpFiltre.op=ds.zop; zrpFiltre.prod=''; vueHebdo(); return; }
     if(ds.zstatut!==undefined){ zrpFiltre.statut = zrpFiltre.statut===ds.zstatut ? null : ds.zstatut; vueHebdo(); return; }
+    if(ds.hbgo){ el.querySelector(`.carte[data-bloc="${ds.hbgo}"]`)?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if(ds.zreset!==undefined){ zrpFiltre={op:'', espece:'', type:'', statut:null, prod:''}; vueHebdo(); return; }
     if(!estAdmin()) return;
     const imp = id => (S.hebdo.impacts||[]).find(i=>i.id===id);
@@ -3947,9 +4034,12 @@ async function telechargerPdfHebdo(bouton){
     }
     if(ds.addImp!==undefined){ const f=lireForm('formImp'), site = f.site==='__autre' ? f.siteAutre : f.site;
       if(!site || !f.segment){ toast('Site et segment obligatoires'); return; }
-      (S.hebdo.impacts ||= []).push({id:uid(), site, segment:f.segment, niveau:f.niveau, surface:f.surface, duree:f.duree, detail:f.detail, w:W(), fin:null, par:currentUser?.email||''});
+      (S.hebdo.impacts ||= []).push({id:uid(), site, segment:f.segment, niveau:f.niveau, surface:f.surface, sd:f.sd, sf:f.sf, detail:f.detail, w:W(), fin:null, par:currentUser?.email||''});
       maj('hebdo'); return;
     }
+    if(ds.addAut!==undefined){ const f=lireForm('formAut'); if(!f.theme || !f.texte){ toast('Thème et texte obligatoires'); return; }
+      (S.hebdo.autres ||= []).push({id:uid(), w:W(), theme:f.theme, texte:f.texte, par:currentUser?.email||''}); maj('hebdo'); return; }
+    if(ds.rmAut){ if(confirm('Supprimer ce sujet (erreur de saisie) ?')){ S.hebdo.autres = (S.hebdo.autres||[]).filter(x=>x.id!==ds.rmAut); maj('hebdo'); } return; }
     if(ds.impNiv){ const [id,x]=ds.impNiv.split('|'); imp(id).niveau=x; maj('hebdo'); return; }
     if(ds.impFin){ const i=imp(ds.impFin); i.fin = i.fin===W() ? null : W(); maj('hebdo'); return; }
     if(ds.addDet!==undefined){
@@ -3965,7 +4055,7 @@ async function telechargerPdfHebdo(bouton){
     else if(ds.addZrp!==undefined){
       const f = lireForm('formZrp'), nom = f.nom==='__autre' ? f.nomAutre : f.nom;
       if(!nom){ toast('Producteur obligatoire'); return; }
-      const p = {id:uid(), nom, op:f.op, espece:f.espece, type:f.type, bloc:f.bloc, campagne:'', statut:f.statut, commentaire:'', dateRentree:'', archive:false, historique:[]};
+      const p = {id:uid(), nom, op:f.op, espece:f.espece, type:f.type, bloc:f.bloc, campagne:'', semPrev:+f.semPrev ? cleSem(anReu, +f.semPrev) : '', semReelle:+f.semReelle ? cleSem(anReu, +f.semReelle) : '', statut:f.statut, commentaire:'', dateRentree:'', archive:false, historique:[]};
       tracerZrp(p, 'Bloc ajouté'); S.zrp.push(p); maj('zrp');
     }
     else if(ds.archZrp){ const p=zrp(ds.archZrp); p.archive=!p.archive; maj('zrp'); }
@@ -4017,6 +4107,10 @@ async function telechargerPdfHebdo(bouton){
       sauver('hebdo'); return;
     }
     if(!estAdmin()) return;
+    if(t.dataset.zrps){ const p=zrp(t.dataset.zrps), f=t.dataset.f, z=t.closest('.zrp-sem'), s=+z.querySelector('.zrp-sem-n').value, an=+z.querySelector('.zrp-sem-a').value || anReu;
+      if(s && (s<1 || s>53)){ toast('Semaine entre 1 et 53'); return; }
+      p[f] = s ? cleSem(an, s) : ''; tracerZrp(p, (f==='semPrev' ? 'Entrée annoncée : ' : 'Entrée réelle : ') + (s ? 'S'+String(s).padStart(2,'0')+' '+an : 'effacée')); sauver('zrp'); return; }
+    if(t.dataset.aut!==undefined){ autreSaisir(t); return; }
     if(t.dataset.det){ const d=det(t.dataset.det); d[t.dataset.f]=t.value; t.className='r'+RISQUES.indexOf(t.value); sauver('hebdo'); vueHebdo(); }
     else if(t.dataset.suivi){ det(t.dataset.suivi).suivi[K()].risque=t.value; sauver('hebdo'); vueHebdo(); }
     else if(t.dataset.imp){ const i=(S.hebdo.impacts||[]).find(x=>x.id===t.dataset.imp); i[t.dataset.f]=t.value.trim(); sauver('hebdo'); if(t.type==='number') vueHebdo(); }
@@ -6892,9 +6986,10 @@ function exporterExcel(){
     Risque:d.risque, Commentaire:d.commentaire, Suivi:Object.entries(d.suivi).map(([k,v])=>k+':'+(v.present?'présent':'absent')).join(' | '),
     Clôturée:d.cloture?cleSem(Math.floor(d.cloture/100),d.cloture%100):''})));
   feuille('Impacts qualité', (S.hebdo.impacts||[]).map(i=>({Depuis:cleSem(Math.floor(i.w/100),i.w%100), Site:i.site, Segment:i.segment, Impact:i.niveau,
-    'Surfaces touchées (%)':i.surface, 'Durée estimée (sem.)':i.duree, Détail:i.detail, Terminé:i.fin?cleSem(Math.floor(i.fin/100),i.fin%100):''})));
+    'Surfaces touchées (%)':i.surface, 'Semaine de début':i.sd||'', 'Semaine de fin':i.sf||'', 'Ancienne durée (sem.)':i.duree||'', Détail:i.detail, Terminé:i.fin?cleSem(Math.floor(i.fin/100),i.fin%100):''})));
   feuille('ZRP', S.zrp.map(p=>({OP:p.opNom||'', 'OP de rattachement':p.op, Producteur:p.nom, Campagne:p.campagne||'', Espèce:p.espece||'', Type:p.type||'', 'N° bloc':p.bloc||'',
-    "Date d'entrée annoncée":dateFr(p.semPrev), "Date d'entrée réelle":dateFr(p.semReelle), Statut:(STATUTS_ZRP.find(z=>z[0]===(p.statut||''))||[,''])[1], Commentaire:p.commentaire||'', 'Date de rentrée':dateFr(p.dateRentree), Archivé:p.archive?'Oui':'Non'})));
+    "Semaine d'entrée annoncée":libSemZrp(p.semPrev), "Semaine d'entrée réelle":libSemZrp(p.semReelle), Statut:(STATUTS_ZRP.find(z=>z[0]===(p.statut||''))||[,''])[1], Commentaire:p.commentaire||'', 'Date de rentrée':dateFr(p.dateRentree), Archivé:p.archive?'Oui':'Non'})));
+  feuille('Autres sujets', (S.hebdo.autres||[]).slice().sort((a,b)=>a.w-b.w).map(a=>({Semaine:cleSem(Math.floor(a.w/100),a.w%100), Thème:a.theme, Texte:a.texte, Par:a.par||''})));
   feuille('ZRP historique', S.zrp.flatMap(p=>p.historique.map(x=>({Producteur:p.nom, Date:x.quand, Semaine:x.an+'-S'+x.sem, Statut:x.statut, Commentaire:x.commentaire, 'Date rentrée':x.dateRentree, Par:x.par}))));
   const coms = Object.keys(S.commissions).sort();
   const nomCom = id => COMMISSIONS.find(c=>c.id===id).nom;
