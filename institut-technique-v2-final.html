@@ -1141,10 +1141,14 @@ details.san-plus[open] > summary{margin-bottom:8px}
 .ag-ajout input{min-width:0; border:1px solid var(--trait); border-radius:6px; padding:4px 6px; font-size:12px} .ag-ajout input[type=time]{width:78px; flex:none} .ag-ajout [data-agk=texte]{flex:1}
 .ag-plus{border:0; background:var(--marque); color:#fff; border-radius:6px; width:28px; cursor:pointer; font-weight:700; font-size:16px; flex:none}
 .ag-semaine{margin-bottom:12px}
-.dl-bloc{margin-top:6px} .dl-bloc h4{margin:0 0 8px; color:var(--marque); background:var(--marque-clair); font-size:14px; font-weight:700; padding:5px 9px; border-radius:6px}
+/* Deadlines en rouge : c'est ce qu'il ne faut pas rater (le rouge sert ici à signaler) */
+.dl-bloc{--marque:hsl(4 62% 42%); --marque-clair:hsl(4 75% 96%); margin-top:14px; padding:12px; border:2px solid var(--marque); border-radius:14px; background:var(--marque-clair)}
+.dl-bloc h4{margin:0 0 10px; color:#fff; background:var(--marque); font-size:15px; font-weight:700; padding:7px 12px; border-radius:8px; letter-spacing:.02em}
+.dl-bloc .dl-l{background:#fff; border:1px solid hsl(4 50% 88%); border-radius:10px; margin-bottom:6px; padding:8px 10px}
+.dl-bloc .san-plus summary{color:var(--marque)}
 .dl-l{display:flex; align-items:center; gap:12px; padding:8px 4px; border-bottom:1px solid var(--ligne)} .dl-l.passee{opacity:.6}
 .dl-cal{width:46px; flex:none; text-align:center; border:2px solid var(--marque); border-radius:10px; overflow:hidden; background:#fff} .dl-cal b{display:block; font-size:19px; line-height:1.15; color:var(--marque)} .dl-cal span{display:block; background:var(--marque); color:#fff; font-size:10px; text-transform:uppercase; letter-spacing:.05em; padding:1px 0}
-.dl-txt{flex:1; min-width:0; font-size:14px} .dl-etat{font-size:11px; font-weight:700; border-radius:99px; padding:3px 10px; background:#EEF2DF; color:#4E6118; white-space:nowrap} .dl-etat.urgent{background:#FBE3E3; color:#9B2C22} .dl-etat.proche{background:#FBF0D9; color:#8A6A12} .dl-etat.passee{background:#EEE9DF; color:#6B655A}
+.dl-txt{flex:1; min-width:0; font-size:14px} .dl-etat{font-size:11px; font-weight:700; border-radius:99px; padding:3px 10px; background:#F3E6E4; color:#8A3A33; white-space:nowrap} .dl-etat.urgent{background:var(--marque,#B3261E); color:#fff} .dl-etat.proche{background:#FBF0D9; color:#8A6A12} .dl-etat.passee{background:#EEE9DF; color:#6B655A}
 @media(max-width:1150px){ .ag-grille{grid-template-columns:repeat(2,minmax(0,1fr))} } @media(max-width:640px){ .ag-grille{grid-template-columns:1fr} }
 #v-hebdo .carte[data-bloc]{border-top:4px solid var(--marque); scroll-margin-top:12px}
 #v-hebdo .carte[data-bloc] > h3{background:var(--marque-clair); color:var(--marque); border-left:4px solid var(--marque); padding:8px 12px; border-radius:8px}
@@ -3680,7 +3684,7 @@ function blocZrp(ed, adm){
 
 /* Bloc 6 : autres sujets de la semaine (projet construction, planning de la semaine…), un texte par thème et par semaine.
    S.hebdo.autres = [{id, w, theme, texte, par}] */
-const THEMES_AUTRES = ['Projet Construction'];
+const THEMES_AUTRES = [];   // aucun thème imposé : on ajoute librement les sujets annexes
 /* Bloc 7 « Agenda » : le planning de la semaine, jour par jour (S.hebdo.agenda["AAAA-Sss"] = [{id, j, h, texte}] ; j = 1 (lundi) à 5 (vendredi), 0 = « dans la semaine »)
    et les deadlines (S.hebdo.deadlines = [{id, date, texte}]) : une deadline reste affichée jusqu'à sa date, sans rien à cocher. */
 const JOURS_AGENDA = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi'];
@@ -3728,7 +3732,7 @@ function rapportAgendaR(){
   return `<h2><span>7</span>Agenda de la semaine</h2>
     ${l.length ? `<table><colgroup><col style="width:24%"><col style="width:76%"></colgroup><thead><tr><th>Jour</th><th>Au programme</th></tr></thead>
       <tbody>${l.map(([j,t])=>`<tr><td><b>${h(j)}</b></td><td>${t.map(h).join('<br>')}</td></tr>`).join('')}</tbody></table>` : rVide('Rien de noté pour cette semaine.')}
-    ${dl.length ? `<table style="margin-top:6px"><colgroup><col style="width:24%"><col style="width:76%"></colgroup><thead><tr><th>Deadline</th><th>À faire avant cette date</th></tr></thead>
+    ${dl.length ? `<table style="margin-top:6px"><colgroup><col style="width:24%"><col style="width:76%"></colgroup><thead><tr><th style="background:#FCEBEA;color:#B3261E">Deadline</th><th style="background:#FCEBEA;color:#B3261E">À faire avant cette date</th></tr></thead>
       <tbody>${dl.map(d=>`<tr><td><b>${h(dateFr(d.date))}</b></td><td>${h(d.texte)}</td></tr>`).join('')}</tbody></table>` : ''}`;
 }
 function agendaAjouter(bouton){
@@ -3749,22 +3753,22 @@ function blocAutres(W, ed){
     ? `<textarea rows="3" data-aut="" data-aut-id="${a.id}">${h(a.texte||'')}</textarea>` : `<p>${h(a.texte||'—')}</p>`}</div>`;
   return `<div class="carte">
     ${outilsBloc('aut')}<h3><span class="bloc-num">6</span>Sujets annexes</h3>
-    <p class="aide">Les sujets de la semaine qui n'entrent pas dans les blocs précédents (le planning est dans l'agenda, juste dessous). Un texte par thème et par semaine${ed ? ' ; ajoutez un sujet si besoin' : ''}.</p>
-    <div class="aut-grille">${THEMES_AUTRES.map(fixe).join('')}${libres.map(libre).join('')}</div>
+    <p class="aide">Les sujets de la semaine qui n'entrent pas dans les blocs précédents (le planning est dans l'agenda, juste dessous)${ed ? ' : ajoutez un sujet annexe ci-dessous' : ''}.</p>
+    ${libres.length ? `<div class="aut-grille">${libres.map(libre).join('')}</div>` : '<p class="aide" style="margin:0 0 8px">Aucun sujet annexe cette semaine.</p>'}
     ${ed ? `<div class="form-saisie no-print" id="formAut">
       <div class="sous">Ajouter un sujet annexe</div>
       <div class="form-grille">
-        <label>Thème <input data-k="theme" placeholder="ex. Main-d'œuvre, Énergie, Visite…"></label>
-        <label class="large">Texte <textarea data-k="texte" rows="2" placeholder="Ce qu'il faut retenir pour la semaine…"></textarea></label>
+        <label>Sujet <input data-k="theme" placeholder="Titre du sujet"></label>
+        <label class="large">Détail <textarea data-k="texte" rows="2" placeholder="Ce qu'il faut retenir pour la semaine…"></textarea></label>
       </div>
-      <button class="btn" data-add-aut>Ajouter le sujet</button></div>` : ''}
+      <button class="btn" data-add-aut>Ajouter le sujet annexe</button></div>` : ''}
   </div>`;
 }
 function rapportAutresR(W){
   const ds = autresSem(W).filter(x=>x.texte), ordre = [...new Set([...THEMES_AUTRES, ...ds.map(x=>x.theme)])];
   const lignes = ordre.map(t=>[t, ds.filter(x=>x.theme===t).map(x=>x.texte)]).filter(x=>x[1].length);
   return `<h2><span>6</span>Sujets annexes</h2>
-    ${lignes.length ? `<table><colgroup><col style="width:28%"><col style="width:72%"></colgroup><thead><tr><th>Thème</th><th>Point de la semaine</th></tr></thead>
+    ${lignes.length ? `<table><colgroup><col style="width:28%"><col style="width:72%"></colgroup><thead><tr><th>Sujet</th><th>Point de la semaine</th></tr></thead>
       <tbody>${lignes.map(([t,l])=>`<tr><td><b>${h(t)}</b></td><td style="white-space:pre-line">${l.map(h).join('\n')}</td></tr>`).join('')}</tbody></table>`
       : rVide('Aucun sujet annexe cette semaine.')}`;
 }
