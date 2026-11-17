@@ -524,6 +524,7 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .as-item small{font-size:11px; color:var(--ardoise)} .as-item p{font-size:12.5px} .as-item .chip{align-self:flex-start; margin-top:2px}
 .as-rep .chip{font-size:11.5px; border-color:#7A1F2B; color:#7A1F2B; background:#fff; cursor:pointer} .as-rep .chip small{color:var(--ardoise); font-weight:500}
 .as-suite{display:flex; flex-wrap:wrap; gap:5px; margin:4px 0} .as-bilan{font-weight:600} .as-note{font-size:11px; color:var(--ardoise)}
+.as-plus-loin{margin-top:10px; padding-top:8px; border-top:1px solid #E6CCD0} .as-plus-loin > span{display:block; font-family:'Archivo'; font-size:12px; font-weight:700; color:#7A1F2B; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px}
 .as-pers{list-style:none; padding:0 !important} .as-pers li{padding:4px 8px; border:1px solid var(--trait); border-radius:8px; background:#fff; margin:3px 0 !important}
 .as-table{overflow-x:auto; margin:0 0 6px} .as-table table{width:100%; border-collapse:collapse; font-size:12px; background:#fff}
 .as-table th{text-align:left; background:#F6EDEE; color:#7A1F2B; font-weight:700; padding:5px 7px; border-bottom:2px solid #7A1F2B} .as-table td{padding:5px 7px; border-bottom:1px solid var(--trait); vertical-align:top}
@@ -6991,6 +6992,88 @@ function listeFiltree(l, C){
   const essai = l.filter(o=>o.statut==='essai').length;
   return `<div class="as-chat"><p class="as-intro">Dans la veille technologique, il y a <b>${quoiOutils(C, l.length)}</b>${essai ? ', dont '+essai+' en essai sur un site pilote' : ''} :</p><div class="as-cartes">${l.map(carteOutilRobot).join('')}</div><p class="as-note">Cliquez sur « Voir la fiche complète » pour tout lire (présentation, prix, résultats, contact), ou demandez-moi de comparer deux outils.</p></div>`;
 }
+/* ---- Réponse exacte sur un outil : on cherche dans ses fiches (synthèse, présentations, notes du tableau de veille) les phrases qui répondent à la question, on les cite avec leur source, puis on propose d'aller plus loin ---- */
+const GEN_Q = new Set(['robot','robots','outil','outils','technologie','technologies','solution','systeme','fiche','fiches','info','infos','information','informations','dis','dit','moi','donne','donnez','sur','pour','parle','parles','savoir','veux','voudrais','peux','peut','explique','expliquer','presente','presentation','complet','complete','tout','toute','toutes','tous','quel','quelle','quels','quelles','combien','comment','pourquoi','cette','cet','celui','celle','dans','avec','sans','les','des','une','est','sont','que','qui','quoi','fait','faire','entreprise','societe','produit','produits']);
+const THEMES_Q = [
+  ['prix', /prix|cout|tarif|budget|combien (coute|vaut|faut)|abonnement|licence|investissement|payback|roi\b|retour sur invest|business|financ|payer|louer|location|achat|acheter/, ['prix','€','$','tarif','abonnement','licence','investissement','cout','dollars','euros','budget','business','mensualite','location','achat','fob'], 'Prix et modèle économique'],
+  ['autonomie', /autonomie|batterie|recharge|energie|electri|alimentation|24h|jour et nuit|nuit/, ['autonomie','batterie','recharge','charge','heures','induction','energie','nuit','24h','alimente'], 'Autonomie et énergie'],
+  ['performance', /precision|performance|vitesse|cadence|rendement|capacite|debit|rapide|taux|fiabilite|fiable|efficacite/, ['precision','vitesse','kg','heure','hectare','ha','rapide','performance','capacite','taux','fiabilite','cadence','km'], 'Performances'],
+  ['livraison', /delai|livraison|livre|garantie|installation|installer|mise en place|deploiement|deployer|disponib|formation|support|maintenance|sav\b/, ['delai','livraison','garantie','installation','mois','formation','support','maintenance','deploiement','disponible','semaines'], 'Livraison, installation et support'],
+  ['technique', /camera|capteur|vision|lidar|\bia\b|intelligence|technolog|fonctionnement|comment (ca )?(marche|fonctionne)|equipe|composant|materiel|logiciel|donnees|cloud|wifi|connect/, ['camera','cameras','capteur','vision','lidar','ia','intelligence','donnees','cloud','logiciel','materiel','embarque','technologie','algorithme','reseau','wifi','rfid'], 'Technologie et fonctionnement'],
+  ['compat', /compatib|ordinateur|climatique|integr|interface|\bapi\b|chariot|rail|infrastructure|s adapte|adapter/, ['compatible','compatibilite','ordinateur','ordinateurs','climatique','integration','chariot','chariots','rail','infrastructure','ridder','priva','hoogendorn'], 'Compatibilité et intégration'],
+  ['detection', /detecte|detection|identifie|maladie|ravageur|cible|reconnait|insecte|oidium|botrytis|acarien|mouche/, ['detecte','detection','maladies','ravageurs','insectes','oidium','botrytis','acariens','mouches','identification','piege','pieges'], 'Ce que l\'outil détecte'],
+  ['sites', /\bsites?\b|pilote|teste|essai|ou (est|a|sera|sont)|deploye|producteur|\bop\b|installe|lapouyade|camargue|cadralbret/, ['site','sites','pilote','pilotes','essai','essais','producteur','producteurs','deploye','deployes','installe','camargue','lapouyade'], 'Sites pilotes et essais'],
+  ['resultat', /resultat|conclu|concluant|bilan|retour d|efficace|fonctionne bien|marche bien|avis/, ['resultat','resultats','conclusion','concluant','bilan','retour','efficace','avis','validation','validee'], 'Résultats'],
+  ['limites', /limite|inconvenient|point faible|probleme|contrainte|risque|defaut|faiblesse|reserve|attention/, ['limite','limites','inconvenient','contrainte','contraintes','risque','probleme','faiblesse','manque'], 'Limites et points de vigilance'],
+  ['contact', /contact|joindre|appeler|mail|email|telephone|site web|\bweb\b|referent|interlocuteur/, ['contact','mail','email','telephone','www','http','referent'], 'Contact'],
+  ['objectif', /objectif|pourquoi|a quoi (ca )?sert|utilite|interet|avantage|benefice|apport|plus value/, ['objectif','objectifs','avantage','avantages','benefice','benefices','interet','permet','utilite'], 'Objectifs et intérêt'],
+  ['culture', /culture|tomate|fraise|concombre|variete|type de|espece|grappe/, ['tomate','tomates','fraise','fraises','concombre','concombres','grappe','grappes','culture','cultures','variete','varietes'], 'Cultures concernées'],
+  ['societe', /entreprise|societe|qui (est|a cree|fabrique|developpe)|pays|origine|fondee|creee|fabricant|fournisseur|base a/, ['entreprise','societe','fondee','creee','pays','fournisseur','fabricant','basee','siege'], 'L\'entreprise']];
+const normPass = s => ' ' + normTexte(s).replace(/[^a-z0-9€$]+/g, ' ') + ' ';
+const memeMotQ = (n, w) => n.includes(' ' + w) || (w.length > 4 && n.includes(' ' + w.replace(/(es|s|x)$/, '')));
+/* mots utiles de la question (hors nom de l'outil et mots creux) et thèmes détectés */
+function analyseQuestionOutil(texte, o){
+  const n = normPhrase(texte), nom = normPass(o.nom + ' ' + (o.societe||'')), ts = THEMES_Q.filter(([, re])=>re.test(n));
+  const kw = [...new Set(n.split(' ').filter(m=>m.length>2 && !STOP_AG.has(m) && !GEN_Q.has(m) && !nom.includes(' '+m+' ') && !nom.includes(' '+m)))];
+  const lexTheme = new Set(ts.flatMap(t=>t[2]));
+  return {n, ts, kw: kw.filter(m=>!ts.some(t=>t[1].test(m) && false)), lexTheme};
+}
+/* phrases d'un texte : on recolle les lignes d'un même bloc, puis on coupe aux fins de phrase */
+const phrasesDe = txt => String(txt||'').replace(/\r/g,'').split(/\n\s*\n/).flatMap(bloc=>bloc.replace(/\s+/g,' ').trim().split(/(?<=[.!?;])\s+(?=[A-ZÀ-ÝÉ0-9«"“(•\-])/)).map(x=>x.replace(/^[•\-]\s*/,'').trim()).filter(x=>x.length>=15 && !BRUIT_DOC.test(x) && !/\bIBAN\b|\bBIC\b|SIREN|\bTVA\b|\bBanque\b|POINTS GPS|\d{2}\.\d{5,}|immatricul|\bRCS\b|si[eè]ge social|capital de|Page:? ?\d+ ?\/ ?\d+/i.test(x));
+const finPropre = (t, n) => { t = String(t||''); if(t.length<=n) return t; const c = t.slice(0, n), i = Math.max(c.lastIndexOf('. '), c.lastIndexOf('; ')); return i > n*0.5 ? c.slice(0, i+1) : c.slice(0, c.lastIndexOf(' ')) + '…'; };
+/* phrases candidates : fiche synthèse (par rubrique), tableau de veille, puis les autres documents (lecture dans l'ordre, sinon texte brut) */
+function phrasesOutil(o){
+  const u = [], syn = syntheseDe(o), vu = new Set(), add = (src, txt, w, titre) => phrasesDe(txt).forEach(p=>{ const k = normPass(p).slice(0, 60); if(vu.has(k)) return; vu.add(k); u.push({src, p, w, titre: titre||''}); });
+  if(syn){ if(syn.accroche) add('Fiche synthèse', syn.accroche, 1.4, ''); (syn.sections||[]).forEach(s=>add('Fiche synthèse — ' + s.titre, (s.t||[]).join('\n\n'), 1.4, s.titre)); }
+  [['Tableau de veille', o.desc], ['Fiche innovation', o.detail], ['Tableau de veille — limites', o.limites], ['Tableau de veille — retour', o.retour]].forEach(([s, t])=>{ if(t && !/^[àa] compl[ée]ter/i.test(t)) add(s, t, 1.1, ''); });
+  (S.agrotextes?.[o.id]||[]).forEach(d=>{ if(syn && /^Synth.se des fiches/i.test(d.t)) return; add(d.t, d.tr || d.tx, 1, ''); });
+  return u;
+}
+function passagesQuestion(o, A){
+  const res = [];
+  phrasesOutil(o).forEach((x, i)=>{
+    const nb = normPass(x.titre + ' ' + x.p); let sk = 0, st = 0;
+    A.kw.forEach(m=>{ if(memeMotQ(nb, m)) sk++; }); A.lexTheme.forEach(w=>{ if(memeMotQ(nb, w)) st++; });
+    if(!sk && st<2) return;
+    const nombre = /\d/.test(x.p) && /combien|quel|quelle|taux|prix|duree|delai|vitesse|precision|autonomie|garantie/.test(A.n) ? 0.8 : 0;
+    const s = (sk*2 + Math.min(st,4)*0.7 + nombre) * x.w - (x.p.length>380 ? 0.8 : 0) - i*0.002;
+    res.push({s, x}); });
+  res.sort((a,b)=>b.s-a.s); return res.filter(r=>r.s >= (res[0]?.s||0)*0.55).slice(0, 3);
+}
+/* réponse « exacte » : ce que disent les fiches, cité tel quel, avec la source, puis des pistes pour approfondir */
+function reponseFaits(texte, o, Qo){
+  const A = analyseQuestionOutil(texte, o), nom = h(o.nom), themes = A.ts.map(t=>t[0]), e = essaiDe(o), parties = [], docsSrc = [];
+  const cite = (src, txt) => `<p class="as-src">${h(src)}</p><p class="as-cite">${h(txt)}</p>`;
+  // champs structurés de la veille, quand le thème s'y prête
+  if(themes.includes('prix') || Qo.prix){ const P = prixOutil(o, syntheseDe(o)); if(P.phr.length) parties.push(cite('Tableau de veille', P.phr.join(' '))); P.sec.forEach(s=>parties.push(cite('Fiche synthèse — ' + s.titre, (s.t||[]).join(' ')))); P.ps.slice(0,2).forEach(p=>{ parties.push(cite(p.d.t, p.b)); docsSrc.push(p.d); }); if(parties.length) parties.push('<p class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</p>'); }
+  if(themes.includes('contact') || Qo.contact){ const c = [o.contact, o.web].filter(Boolean).join(' · '); if(c) parties.push(cite('Tableau de veille — contact', c)); }
+  if(themes.includes('limites') && o.limites) parties.push(cite('Tableau de veille — limites', o.limites));
+  if((themes.includes('sites') || themes.includes('resultat')) && (e || (o.sites||[]).length)){
+    const l = []; if(e){ l.push(`Essai ${S.agrotech?.essais?.annee||''} : ${resEssai(e).libs.join(' · ')}${e.sites ? ' — ' + e.sites : ''}`); if(e.conclusion) l.push('Conclusion : ' + e.conclusion); }
+    if((o.sites||[]).length) l.push('Sites pilotes : ' + o.sites.map(s=>s.nom||s.site||s).join(', '));
+    if(o.retour) l.push('Retour : ' + o.retour);
+    parties.push(cite('Tableau de veille et suivi des essais', l.join('\n'))); }
+  // quand le tableau de veille répond déjà (limites, contact, sites, résultat, prix), on n'y ajoute pas de phrases au hasard
+  const deja = parties.length, seulChamps = deja && A.ts.length && A.ts.every(t=>['limites','contact','sites','resultat','prix'].includes(t[0])), ps = (themes.includes('prix') || Qo.prix || seulChamps) ? [] : passagesQuestion(o, A);
+  ps.forEach(p=>{ parties.push(cite(p.x.src, finPropre(p.x.p, 420))); });
+  const titre = A.ts.length ? A.ts.map(t=>t[3]).slice(0,2).join(' · ') : 'Ce que disent les fiches';
+  const aucun = !parties.length;
+  const autre = (S.agrotech?.outils||[]).filter(x=>x.id!==o.id && fonctionsOutil(x).some(f=>fonctionsOutil(o).includes(f)) && estRobotOutil(x)===estRobotOutil(o))[0];
+  const chips = [[`Fiche complète de ${o.nom}`, 'Fiche complète'], [`Prix de ${o.nom}`, 'Prix et modèle'], [`Limites de ${o.nom}`, 'Limites'], [`Sites pilotes et résultats de ${o.nom}`, 'Sites pilotes et résultats'], [`Contact ${o.nom}`, 'Contact'], ...(autre ? [[`Compare ${o.nom} et ${autre.nom}`, 'Comparer avec ' + autre.nom]] : [])]
+    .filter(c=>!(themes.includes('prix') && /^Prix/.test(c[0])) && !(themes.includes('limites') && /^Limites/.test(c[0])) && !(themes.includes('contact') && /^Contact/.test(c[0])));
+  const docs = [...new Set(docsSrc)].map(lienDoc).filter(Boolean).slice(0,3);
+  return `<div class="as-chat"><p class="as-intro">${aucun ? `Je ne trouve pas cette information précise dans les fiches de <b>${nom}</b>.` : `D'après les fiches de <b>${nom}</b> — <b>${h(titre)}</b> :`}</p>${parties.join('')}
+    ${aucun ? `<p>Je ne l'invente pas : ouvrez la fiche complète pour tout lire, ou posez la question autrement (autonomie, prix, délai, sites pilotes…).</p>` : `<p class="as-note">Passages cités tels quels, sans rien ajouter.</p>`}
+    ${docs.length ? `<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.join('')}</div>` : ''}
+    <div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${chips.map(([q, l])=>`<button class="chip" data-suggestion="${h(q)}">${h(l)}</button>`).join('')}</div></div></div>`;
+}
+/* la question demande-t-elle une information précise, ou toute la fiche ? */
+function questionPrecise(texte, o){
+  const n = normPhrase(texte);
+  if(/\b(fiche complete|fiche|complete|complet|tout savoir|presente|presentation|decris|description|en savoir plus|plus de details|detail|details|tout sur|toutes les infos)\b/.test(n) && !/\bprix de\b|\blimites? de\b|\bcontact\b|\bsites? pilotes?\b/.test(n)) return false;
+  const A = analyseQuestionOutil(texte, o); return A.ts.length > 0 || A.kw.length > 0;
+}
+
 function reponseTechno(texte, Qo){
   // « va scout » est la même chose qu'« Eva Scout » (le e initial se perd à l'oral)
   texte = String(texte).replace(/\b(?:e|é)?va\s*scout/gi, 'eva scout');
@@ -7004,17 +7087,20 @@ function reponseTechno(texte, Qo){
   if(!ou.length) return '';
   let forceUnique = false; if(exact.length===1){ ou = exact; forceUnique = true; } else if(exact.length>1 && exact.every(x=>premierMot(x.o.nom)===premierMot(exact[0].o.nom))) ou = exact;
   const top = ou[0], autres = Q.res.filter(r=>!['outil','doc','rdv','enjeu','contact'].includes(r.type));
-  if(autres.length && autres[0].score > top.score*1.15) return '';
+  if(!forceUnique && autres.length && autres[0].score > top.score*1.15) return '';
   const unique = forceUnique || top.enTitre>=1 && (ou.length===1 || ou[1].enTitre===0 || top.score>=1.25*ou[1].score);
   const prix = !!Qo.prix, A = S.agrotech, an = A?.essais?.annee||'';
   if(unique){
     const o = top.o, nomN = normTexte(o.nom), mq = Q.mots.filter(m=>m.connu && !nomN.includes(m.m)), prio = prix ? 'prix' : Qo.contact ? 'contact' : '';
+    // question précise (« quelle autonomie ? », « combien ça coûte ? ») : la réponse exacte tirée des fiches, avec de quoi aller plus loin ; sinon la fiche complète
+    if(questionPrecise(texte, o)) return reponseFaits(texte, o, Qo);
     const ps = mq.length && !prix ? passagesOutil(o, mq, false) : [];
     const intro = prix ? `Voici tout ce que contiennent les documents sur <b>${h(o.nom)}</b>, en commençant par le prix et le modèle économique :` : Qo.contact ? `Voici la fiche de <b>${h(o.nom)}</b>, en commençant par les contacts :` : `Voici la fiche complète de <b>${h(o.nom)}</b>, d'après les documents de l'Institut :`;
     return `<div class="as-chat"><p class="as-intro">${intro}</p>${ficheOutilRobot(o, prio)}${ps.length ? `<section class="as-rub"><h6>Passages des documents liés à votre question</h6>${ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('')}</section>` : ''}</div>`;
   }
   if(ou.length>=2 && (Qo.types?.includes('outil') || top.enTitre>=1 || prix)){
     const l = ou.slice(0,8), reste = ou.slice(8), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom));
+    if(meme && questionPrecise(texte, l[0].o)) return l.map(({o})=>reponseFaits(texte, o, Qo)).join('');
     if(meme) return `<div class="as-chat"><p class="as-intro"><b>${h(l[0].o.societe||l[0].o.nom)}</b> est une même entreprise qui propose ${l.length} produits différents : voici la fiche complète de chacun.</p>${l.map(({o})=>ficheOutilRobot(o)).join('')}</div>`;
     const p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>8?' (les 8 plus proches ci-dessous, les autres en bas)':''} :`], docs = [];
     l.forEach(({o})=>{ const e = essaiDe(o); let tarif = '';
