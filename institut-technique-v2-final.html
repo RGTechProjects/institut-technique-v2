@@ -450,6 +450,26 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .assistant-panneau{position:fixed;right:18px;bottom:18px;z-index:90;width:400px;max-width:calc(100vw - 32px);height:min(640px,calc(100vh - 110px));
   background:var(--carte);border:1px solid var(--trait);box-shadow:0 12px 40px -8px rgba(22,33,29,.35);display:flex;flex-direction:column}
 .assistant-panneau[hidden]{display:none}
+.assistant-panneau.grand{width:min(900px,calc(100vw - 32px)); height:calc(100vh - 36px); bottom:18px}
+/* fiche complète d'un outil dans le robot : rubriques claires, texte entier */
+.as-fiche{background:#fff; border-radius:12px; padding:12px 14px; box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.as-intro{margin:0 0 10px !important; font-size:14px; line-height:1.5}
+.as-fiche-tete{display:flex; align-items:center; gap:12px; margin-bottom:6px} .as-fiche-tete h5,.cmp2-nom h5{margin:0 0 4px; font-size:17px; color:#1F5F4A}
+.as-badges{display:flex; flex-wrap:wrap; gap:5px}
+.as-img.sf-img{max-width:100%; max-height:240px; margin:8px 0 4px; display:block}
+.as-img{max-width:150px; max-height:110px; border-radius:10px; object-fit:cover; border:1px solid var(--trait); background:#fff}
+.as-rub{margin:12px 0 0; border-top:1px solid #E5ECE7; padding-top:8px}
+.as-fiche .as-rub h6{margin:0 0 6px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#fff; background:#1F5F4A; display:inline-block; padding:3px 12px; border-radius:99px; border:0}
+.as-rub .as-h{font-weight:700; color:#1F5F4A; margin-top:8px !important; font-size:12.5px !important; letter-spacing:.03em}
+.as-rub p{margin:0 0 6px !important; font-size:13.5px; line-height:1.55}
+.as-rub .as-src{font-size:11px !important; font-weight:700; color:#1F5F4A; text-transform:uppercase; letter-spacing:.05em; margin:8px 0 2px !important}
+.as-rub .as-ident{font-weight:600; color:var(--ardoise)}
+.as-cite{border-left:3px solid #BFD3C8; padding:4px 0 4px 10px; background:#F6FAF7; border-radius:0 8px 8px 0; white-space:pre-line}
+.as-fiche .rub-prix h6{background:#8A6A12}
+.cmp2-ligne{display:grid; grid-template-columns:1fr 1fr; gap:14px} .cmp2-c{min-width:0; padding:0 0 0 10px; border-left:3px solid #D5E4DA} .cmp2-c:first-child{border-left-color:#1F5F4A}
+.cmp2-entete{margin:6px 0 4px} .cmp2-nom{display:flex; flex-direction:column; gap:5px; align-items:flex-start}
+.as-fiche .as-docs{margin:0; padding:0; border:0}
+@media(max-width:640px){ .cmp2-ligne{grid-template-columns:1fr} }
 .assistant-tete{display:flex;align-items:center;gap:6px;padding:11px 12px;background:var(--encre);color:#fff}
 .assistant-tete > div{flex:1}
 .assistant-tete b{font-family:'Archivo';font-size:14px;display:block}
@@ -1971,6 +1991,7 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
     <span class="robot petit"><svg class="robot-svg" viewBox="0 0 80 96" aria-hidden="true"><ellipse class="robot-ombre" cx="40" cy="92" rx="20" ry="3.5" fill="#16211D" opacity=".16"/><line x1="40" y1="14" x2="40" y2="6" stroke="#1F6F52" stroke-width="3" stroke-linecap="round"/><circle class="robot-antenne" cx="40" cy="5" r="4.5" fill="#F2B33D"/><g class="robot-bras-g"><rect x="9" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="13.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><g class="robot-bras"><rect x="62" y="58" width="9" height="22" rx="4.5" fill="#2E8B6A"/><circle cx="66.5" cy="81" r="5" fill="#FFFFFF" stroke="#1F6F52" stroke-width="2"/></g><rect x="20" y="54" width="40" height="34" rx="12" fill="#2E8B6A"/><rect x="27" y="61" width="26" height="14" rx="7" fill="#EAF6EF"/><circle class="robot-coeur" cx="40" cy="68" r="3.6" fill="#F2B33D"/><rect x="7" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="66" y="27" width="7" height="14" rx="3.5" fill="#2E8B6A"/><rect x="12" y="13" width="56" height="42" rx="16" fill="#FFFFFF" stroke="#1F6F52" stroke-width="3"/><rect x="19" y="21" width="42" height="21" rx="10.5" fill="#143E31"/><g class="robot-yeux"><ellipse class="robot-oeil" cx="31" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/><ellipse class="robot-oeil" cx="49" cy="31.5" rx="4.6" ry="5.6" fill="#8EF0C0"/></g><path d="M33 47 Q40 52 47 47" fill="none" stroke="#1F6F52" stroke-width="2.6" stroke-linecap="round"/><circle cx="20.5" cy="46" r="2.6" fill="#F7C9A8"/><circle cx="59.5" cy="46" r="2.6" fill="#F7C9A8"/></svg></span><div><b>Le robot de l'Institut</b><small>Je comprends vos phrases, je cherche et je résume, avec les sources</small></div>
     <button data-voix aria-pressed="false" title="Lire les réponses à voix haute" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5zM15 8.2a1 1 0 0 1 1.4.1 5.6 5.6 0 0 1 0 7.4 1 1 0 1 1-1.5-1.3 3.6 3.6 0 0 0 0-4.8 1 1 0 0 1 .1-1.4z" fill="currentColor"/></svg></button>
     <button data-vider title="Nouvelle conversation">↺</button>
+    <button data-agrandir title="Agrandir ou réduire la fenêtre" aria-label="Agrandir" aria-pressed="false">⤢</button>
     <button data-fermer aria-label="Fermer">×</button>
   </div>
   <div class="assistant-fil" id="filAssistant" aria-live="polite"></div>
@@ -2231,8 +2252,8 @@ const libEnjeu = n => (ENJEU_LIB[n]||[n])[0];
 const icoEnjeu = n => (ENJEU_LIB[n]||[,'•'])[1];
 
 /* ============ Persistance (Supabase, table app_state) ============ */
-const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal','agrotech','fraise','agrotextes'];
-let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null, agrotech:null, fraise:null, agrotextes:null};
+const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal','agrotech','fraise','agrotextes','agroimages'];
+let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null, agrotech:null, fraise:null, agrotextes:null, agroimages:null};
 let modeLocal = false;
 async function charger(){
   try{
@@ -6093,6 +6114,7 @@ function vueFicheOutil(id){
     <header class="fv-tete"><div><div class="eyebrow">Fiche de l'outil · veille technologique</div><h3>${h(o.nom)}</h3><p>${[o.cat, o.pays, o.espece].filter(Boolean).map(h).join(' · ')}</p>
       <div class="sx-fiche-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div>
       <button class="btn sec" data-fiche-fermer>Fermer ✕</button></header>
+    ${imageOutil(o) ? `<img class="as-img sf-img" src="${imageOutil(o)}" alt="${h(o.nom)}">` : ''}
     ${sec('À quoi ça sert', o.desc ? `<p class="sf-txt">${h(o.desc)}</p>` : '')}
     ${sec('Ce que dit la fiche innovation', o.detail ? `<p class="sf-txt">${h(o.detail)}</p>${o.ficheNum?.length?`<p class="aide">Synthèse des fiches innovations, page${o.ficheNum.length>1?'s':''} ${o.ficheNum.join(', ')}. ${liensDoc(A.syntheseFiches?.lien).ouvrir?`<a href="${h(liensDoc(A.syntheseFiches.lien).ouvrir)}" target="_blank" rel="noopener">Ouvrir la synthèse</a>`:''}</p>`:''}` : '')}
     ${sec('Où en est-on', (o.sites.length ? `<p><b>Sites pilotes :</b> ${o.sites.map(h).join(' · ')}</p>` : '') + (lignes.length ? `<dl class="sf-dl">${lignes.map(([k,v])=>`<dt>${h(k)}</dt><dd>${k==='Maturité' && o.dv ? badgeDvAt(o.dv)+' '+h(v.replace(/^DV\d\s—\s/,'')) : h(v)}</dd>`).join('')}</dl>` : ''))}
@@ -6787,6 +6809,7 @@ function reponseComparaison(q, Qo){
   if(!m) return '';
   const TYPES = ['outil','fvar','variete','levier','essai'], trouve = txt => { const r = chercherAssistant(txt); return r.res.filter(x=>TYPES.includes(x.type)).sort((a,b)=>b.enTitre-a.enTitre || b.score-a.score)[0]; };
   const A = trouve(m[1]), B = trouve(m[2]); if(!A || !B) return '';
+  if(A.type==='outil' && B.type==='outil' && A.o.id!==B.o.id) return comparaisonOutils(A.o, B.o);
   const a = champsComp(A), b = champsComp(B); if(!a || !b || (A.type===B.type && a.nom===b.nom)) return '';
   const labels = [...new Set([...a.c.map(x=>x[0]), ...b.c.map(x=>x[0])])].filter(l=>(a.c.find(x=>x[0]===l)?.[1]) || (b.c.find(x=>x[0]===l)?.[1]));
   const val = (f, l) => h(f.c.find(x=>x[0]===l)?.[1] || '—');
@@ -6796,7 +6819,7 @@ function reponseComparaison(q, Qo){
     <div class="as-suite"><button class="chip" data-as-ouvrir="${h(a.ouvrir)}">Ouvrir ${h(coupe(a.nom,30))} ›</button><button class="chip" data-as-ouvrir="${h(b.ouvrir)}">Ouvrir ${h(coupe(b.nom,30))} ›</button></div>`;
 }
 /* ---- Question sur une technologie : une réponse rédigée comme dans une discussion, puis les documents à ouvrir ou télécharger ---- */
-const PRIX_RE = /€|\$|\beuros?\b|\busd\b|\bprix\b|tarif|abonnement|licen[cs]e|\bco[uû]t|\bpric(e|ing)\b|\bcost\b|budget|\/ha\b/i;
+const PRIX_RE = /€|\$|\beuros?\b|\busd\b|\bprix\b|tarif|abonnement|licen[cs]e|\bco[uû]t|\bpric(e|ing)\b|\bcost\b|budget|\/ha\b|business (plan|model|mod[eè]le)|mod[eè]le (commercial|[ée]conomique)|leasing|payback/i;
 const BRUIT_DOC = /confidential|©|^\d{1,3}$|^niveau \d|essais en production possible|outil op[ée]rationnel|^(segment|culture) cibl/i;
 /* meilleurs passages d'un outil pour la question (ou son tarif) : fenêtres de lignes notées par les mots de la question */
 function passagesOutil(o, mots, prix){
@@ -6806,10 +6829,10 @@ function passagesOutil(o, mots, prix){
     for(let i=0;i<L.length;i+=(prix?1:2)){ let b = '', j = i; while(j<L.length && b.length<(prix?800:300) && j-i<(prix?14:7)){ b += (b?'\n':'')+L[j]; j++; }
       const n = ' '+normTexte(b).replace(/[^a-z0-9]+/g,' ')+' '; let s = 0;
       mots.forEach(m=>{ if(m.variantes.some(v=>n.includes(' '+v))) s += 1; });
-      if(prix){ const c = (b.match(/€|\$/g)||[]).length; if(c){ const bl = b.split('\n'), k = bl.findIndex(x=>/€|\$/.test(x)); s += 2+Math.min(c,6)*0.5 - 0.35*k + (/^(prix|pric|tarif|mod[eè]le commercial|cost|co[uû]t)/i.test(bl[0]) ? 1.5 : 0); } else if(PRIX_RE.test(b)) s += 0.8; }
+      if(prix){ const c = (b.match(/€|\$/g)||[]).length; if(c){ const bl = b.split('\n'), k = bl.findIndex(x=>/€|\$/.test(x)); s += 2+Math.min(c,6)*0.5 - 0.35*k + (/^(prix|pric|tarif|mod[eè]le commercial|business|cost|co[uû]t)/i.test(bl[0]) ? 1.5 : 0); } else if(PRIX_RE.test(b)) s += 0.8; }
       if(s>=(prix?2:1)) res.push({s: s - di*0.05 + (prix && /^Synth.se des fiches/i.test(d.t) ? 1.5 : 0), b, d, i}); } });
   res.sort((a,b)=>b.s-a.s); const pris = [];
-  res.forEach(r=>{ if(pris.length<(prix?1:2) && !pris.some(p=>p.d===r.d && Math.abs(p.i-r.i)<6)) pris.push(r); });
+  res.forEach(r=>{ if(pris.length<2 && !pris.some(p=>p.d===r.d && Math.abs(p.i-r.i)<(prix?14:6))) pris.push(r); });
   return pris;
 }
 const phrase1 = (txt, n) => { txt = String(txt||'').replace(/\s+/g,' ').trim(); if(txt.length<=n) return txt; const m = txt.slice(0,n).match(/^(.*[.!?])\s/); return m && m[1].length>n*0.45 ? m[1] : coupe(txt, n); };
@@ -6818,6 +6841,50 @@ function contactsOutil(o){
   const mails = String(o.contact||'').split(/[\s;]+/).filter(x=>/@/.test(x)), A = S.agrotech, tech = new Set();
   (o.sites||[]).forEach(s=>(A?.binomes||[]).forEach(b=>{ if(b.tech && normTexte(s).includes(normTexte(b.op))) tech.add(b.tech.trim()+' ('+b.op+')'); }));
   return {mails, tech:[...tech]};
+}
+/* ---- Fiche complète d'un outil dans le robot : tout ce que l'Institut sait, sans coupure, en rubriques claires (présentation, prix et modèle économique, où en est-on, limites, sites, contact, documents) ---- */
+const imageSure = u => /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u||'') ? u : '';
+const imageOutil = o => imageSure((S.agroimages||{})[o.id]);
+/* Texte long d'une fiche : un paragraphe par ligne, et un intertitre en gras devant chaque suite de mots en majuscules (« MISSION PRINCIPALE », « ARCHITECTURE SYSTÈME »…) */
+const MAJ = '[A-ZÉÈÀÂÊÎÔÛÇ]';
+const parag = txt => String(txt||'').replace(new RegExp(`\\s+((?:${MAJ}{4,}[ ,’'/&-]+){1,5}${MAJ}{3,}(?:\\s*:)?)(?=\\s|$)`, 'g'), '\n$1\n').split(/\n+/).map(x=>x.trim()).filter(Boolean)
+  .map(x=>new RegExp(`^(?:${MAJ}{3,}[ ,’'/&:()-]*){1,7}$`).test(x) ? `<p class="as-h">${h(x.replace(/\s*:$/,''))}</p>` : `<p>${h(x)}</p>`).join('');
+function prixOutil(o){
+  const phr = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$|\bprix\b|tarif|abonnement|licen|achat|location|leasing|business|mod[eè]le/i.test(x));
+  const ps = passagesOutil(o, [], true);
+  return {phr, ps};
+}
+/* rubriques de la fiche : [clé, titre, html] (html vide = rien dans les documents) */
+function rubriquesOutil(o){
+  const e = essaiDe(o), an = S.agrotech?.essais?.annee||'', c = contactsOutil(o), web = urlSure(o.web), P = prixOutil(o), r = [];
+  const ident = [o.cat, o.pays, o.espece && 'culture : '+o.espece.toLowerCase(), o.type].filter(Boolean).join(' · ');
+  r.push(['pres', 'Présentation', (ident?`<p class="as-ident">${h(ident)}</p>`:'') + (o.detail ? `<p class="as-src">Fiche innovation</p>${parag(o.detail)}` : '') + (o.desc ? `<p class="as-src">Tableau de veille</p>${parag(o.desc)}` : '')]);
+  r.push(['prix', 'Prix et modèle économique', (P.phr.length ? `<p class="as-src">Tableau de veille</p><p>${h(P.phr.join(' '))}</p>` : '') + P.ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('') + ((P.phr.length||P.ps.length) ? '<p class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</p>' : '')]);
+  r.push(['etat', 'Où en est-on', `<p>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)} ${o.dv ? h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[o.dv]||'') : ''}</p>`
+    + (e ? `<p><b>Essai ${h(an)} :</b> ${badgesRes(e)} ${h([e.tech, e.sites, e.nb ? e.nb+' unité'+(+e.nb>1?'s':'') : '', e.debut ? e.debut+(e.fin?' → '+e.fin:' → en cours') : ''].filter(Boolean).join(' · '))}</p>${parag(e.conclusion)}` : '<p class="cible">Pas d\'essai sur un site pilote pour l\'instant.</p>')]);
+  r.push(['lim', 'Limites et points bloquants', o.limites && o.limites.length>3 && !/^[àa] compl[ée]ter/i.test(o.limites) ? parag(o.limites) : '']);
+  r.push(['sites', 'Sites pilotes', (o.sites||[]).length ? `<p>${o.sites.map(h).join(' · ')}</p>` : '']);
+  r.push(['contact', 'Contact', [c.mails.length ? `<p>Chez le fournisseur : ${c.mails.map(m=>`<a href="mailto:${h(m)}">${h(m)}</a>`).join(', ')}</p>` : '', web ? `<p>Site : <a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : '', c.tech.length ? `<p>Côté Rougeline, techniciens des sites pilotes : ${c.tech.map(h).join(', ')}</p>` : ''].join('')]);
+  const docs = [...new Map([...(o.docs||[]), ...(S.agrotextes?.[o.id]||[]).map(d=>({t:d.t, url:d.url}))].filter(d=>d.url).map(d=>[d.url, d])).values()].slice(0,8);
+  r.push(['docs', 'Documents à lire ou télécharger', docs.length ? `<div class="as-docs">${docs.map(lienDoc).join('')}</div>` : '']);
+  return r;
+}
+function ficheOutilRobot(o, priorite){
+  const img = imageOutil(o), rub = rubriquesOutil(o), ordre = priorite ? [priorite, ...rub.map(x=>x[0]).filter(k=>k!==priorite)] : rub.map(x=>x[0]);
+  return `<div class="as-fiche">
+    <div class="as-fiche-tete">${img ? `<img class="as-img" src="${img}" alt="${h(o.nom)}">` : ''}<div><h5>${h(o.nom)}</h5><div class="as-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div></div>
+    ${ordre.map(k=>{ const x = rub.find(y=>y[0]===k); return `<section class="as-rub rub-${k}"><h6>${x[1]}</h6>${x[2] || '<p class="cible">Rien dans les documents de l\'Institut.</p>'}</section>`; }).join('')}
+    <div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche dans l'app ›</button></div></div>`;
+}
+/* comparaison de deux outils : chaque rubrique en deux colonnes, complète */
+function comparaisonOutils(A, B){
+  const ra = rubriquesOutil(A), rb = rubriquesOutil(B), ia = imageOutil(A), ib = imageOutil(B);
+  const tete = (o, img) => `<div class="cmp2-nom">${img ? `<img class="as-img" src="${img}" alt="${h(o.nom)}">` : ''}<h5>${h(o.nom)}</h5><div class="as-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div>`;
+  return `<div class="as-fiche as-cmp2"><p class="as-intro">Comparaison de <b>${h(A.nom)}</b> et <b>${h(B.nom)}</b>, avec tout ce que contiennent les documents de l'Institut.</p>
+    <div class="cmp2-ligne cmp2-entete">${tete(A, ia)}${tete(B, ib)}</div>
+    ${ra.map(([k, titre, ha], i)=>{ const hb = rb[i][2]; if(!ha && !hb) return ''; const vide = k==='prix' ? '<p class="cible">Aucun prix ni modèle économique dans les documents.</p>' : '<p class="cible">—</p>';
+      return `<section class="as-rub rub-${k}"><h6>${titre}</h6><div class="cmp2-ligne"><div class="cmp2-c">${ha||vide}</div><div class="cmp2-c">${hb||vide}</div></div></section>`; }).join('')}
+    <div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(A.id)}">Ouvrir ${h(coupe(A.nom,28))} ›</button><button class="chip" data-as-ouvrir="outil|${h(B.id)}">Ouvrir ${h(coupe(B.nom,28))} ›</button></div></div>`;
 }
 function reponseTechno(texte, Qo){
   const Q = chercherAssistant(texte); let ou = Q.res.filter(r=>r.type==='outil'); if(!ou.length) return '';
@@ -6829,34 +6896,18 @@ function reponseTechno(texte, Qo){
   const unique = forceUnique || top.enTitre>=1 && (ou.length===1 || ou[1].enTitre===0 || top.score>=1.25*ou[1].score);
   const prix = !!Qo.prix, A = S.agrotech, an = A?.essais?.annee||'';
   if(unique){
-    const o = top.o, e = essaiDe(o), nomN = normTexte(o.nom), mq = Q.mots.filter(m=>m.connu && !nomN.includes(m.m)), textes = S.agrotextes?.[o.id]||[], p = [];
-    const court = prix || Qo.contact;
-    // on ne dit que ce qui est écrit : fiche innovation, tableau de veille, suivi des essais ; chaque phrase dit d'où elle vient
-    const ident = [o.cat, o.pays, o.espece && 'culture : '+o.espece.toLowerCase()].filter(Boolean).join(', ');
-    p.push(`<b>${h(o.nom)}</b>${ident?' ('+h(ident)+')':''}.${o.detail ? ` D'après la fiche innovation : ${h(phrase1(o.detail, court?200:420))}` : o.desc ? ` D'après le tableau de veille : ${h(phrase1(o.desc, court?200:420))}` : ''}`);
-    if(o.detail && o.desc && !court) p.push(`Le tableau de veille indique : ${h(phrase1(o.desc, 360))}`);
-    if(e) p.push(`Suivi des essais ${h(an)} : ${court?'':`testé sur ${h(coupe(e.sites||'les sites pilotes',110))}, `}${resEssai(e).final ? 'résultat' : 'essai'} <b>${h(resEssai(e).libs.join(' · ').toLowerCase())}</b>.${court?'':' '+h(phrase1(e.conclusion, 330))}`);
-    else if(!court) p.push(`Tableau de veille : statut « ${h(o.statutLib.toLowerCase())} »${o.dv?', maturité '+badgeDvAt(o.dv):''}.`);
-    if(!court && o.limites && o.limites.length>25 && !/^[àa] compl[ée]ter/i.test(o.limites)) p.push(`Limites et points bloquants notés dans le tableau de veille : ${h(phrase1(o.limites, 320))}`);
-    const ps = (prix || mq.length) ? passagesOutil(o, mq, prix) : [];
-    if(prix){ const dp = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$/.test(x)); if(dp.length) p.push(`Le tableau de veille indique : ${h(dp.join(' '))}`); }
-    if(prix && !ps.length && !(o.desc||'').match(/€|\$/)) p.push(`Je n'ai pas trouvé de tarif dans les documents de cet outil.`);
-    ps.forEach(x=>p.push(`${prix?'Côté tarif':'Dans le document'}, d'après « ${h(coupe(x.d.t,60))} » :</p><p class="as-cite">${h(x.b)}`));
-    if(prix && ps.length) p.push('<small class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</small>');
-    const c = contactsOutil(o), qui = [];
-    if(c.mails.length) qui.push('chez le fournisseur : '+c.mails.slice(0,2).map(m=>`<a href="mailto:${h(m)}">${h(m)}</a>`).join(', '));
-    if(c.tech.length) qui.push('côté Rougeline, les techniciens des sites pilotes : '+c.tech.map(h).join(', '));
-    if(qui.length){ const ph = 'Pour en parler : '+qui.join(' ; ')+'.'; Qo.contact ? p.splice(1, 0, ph.replace('Pour en parler','Pour en parler, voici qui contacter')) : p.push(ph); }
-    const docs = [...new Map([...(ps.map(x=>x.d)), ...textes.map(d=>({t:d.t, url:d.url})), ...(o.docs||[])].filter(d=>d.url).map(d=>[d.url, d])).values()].slice(0,4);
-    return `<div class="as-chat">${p.map(x=>x.startsWith('<small')?x:`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.map(lienDoc).join('')}</div>`:''}<div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche complète ›</button></div></div>`;
+    const o = top.o, nomN = normTexte(o.nom), mq = Q.mots.filter(m=>m.connu && !nomN.includes(m.m)), prio = prix ? 'prix' : Qo.contact ? 'contact' : '';
+    const ps = mq.length && !prix ? passagesOutil(o, mq, false) : [];
+    const intro = prix ? `Voici tout ce que contiennent les documents sur <b>${h(o.nom)}</b>, en commençant par le prix et le modèle économique :` : Qo.contact ? `Voici la fiche de <b>${h(o.nom)}</b>, en commençant par les contacts :` : `Voici la fiche complète de <b>${h(o.nom)}</b>, d'après les documents de l'Institut :`;
+    return `<div class="as-chat"><p class="as-intro">${intro}</p>${ficheOutilRobot(o, prio)}${ps.length ? `<section class="as-rub"><h6>Passages des documents liés à votre question</h6>${ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('')}</section>` : ''}</div>`;
   }
   if(ou.length>=2 && (Qo.types?.includes('outil') || top.enTitre>=1 || prix)){
-    const l = ou.slice(0,4), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom)), p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>4?' (les 4 plus proches)':''} :`], docs = [];
+    const l = ou.slice(0,8), reste = ou.slice(8), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom)), p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>8?' (les 8 plus proches ci-dessous, les autres en bas)':''} :`], docs = [];
     l.forEach(({o})=>{ const e = essaiDe(o); let tarif = '';
-      if(prix){ const ps = passagesOutil(o, [], true); if(ps.length){ tarif = ' <i>Tarif cité dans la fiche : '+h(coupe(ps[0].b.replace(/\n/g,' · '),170))+'</i>'; docs.push(ps[0].d); } }
-      p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?(resEssai(e).final?', résultat ':', essai ')+h(resEssai(e).libs.join(' · ').toLowerCase()):''}) : ${h(phrase1(o.desc||o.detail||'', 200))}${tarif}`); });
+      if(prix){ const ps = passagesOutil(o, [], true); if(ps.length){ tarif = ' <i>Tarif cité dans la fiche : '+h(ps[0].b.replace(/\n/g,' · '))+'</i>'; docs.push(ps[0].d); } }
+      p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?(resEssai(e).final?', résultat ':', essai ')+h(resEssai(e).libs.join(' · ').toLowerCase()):''}) : ${h(o.desc||o.detail||'')}${tarif}`); });
     p.push(meme ? 'Dites-moi lequel des deux vous intéresse (fonctionnement, résultats, tarif, contact).' : 'Dites-moi lequel vous intéresse et je vous le détaille (fonctionnement, résultats, tarif, contact).');
-    return `<div class="as-chat">${p.map(x=>`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.slice(0,4).map(lienDoc).join('')}</div>`:''}<div class="as-suite">${l.map(({o})=>`<button class="chip" data-suggestion="${h(o.nom)}">${h(o.nom)}</button>`).join('')}</div></div>`;
+    return `<div class="as-chat">${p.map(x=>`<p>${x}</p>`).join('')}${docs.length?`<div class="as-docs"><span>Pour lire ou télécharger :</span>${docs.slice(0,4).map(lienDoc).join('')}</div>`:''}<div class="as-suite">${[...l, ...reste].map(({o})=>`<button class="chip" data-suggestion="${h(o.nom)}">${h(o.nom)}</button>`).join('')}</div></div>`;
   }
   return '';
 }
@@ -6888,6 +6939,7 @@ function blocsConversation(){
 const coupe = (t, n) => { t = String(t||''); return t.length>n ? t.slice(0, t.lastIndexOf(' ', n) > n*0.6 ? t.lastIndexOf(' ', n) : n)+'…' : t; };
 /* Réponse (HTML sûr : tout texte passe par h()) */
 function reponseAssistantBase(q){
+  const coupe = t => String(t||'');   // le robot montre les textes en entier (demande du 18/11) : aucune coupure « … » dans ses réponses
   const {mots, contact, res, absents, partiel, prix:veutPrix, tri, corriges, reco, combien, detail, suggestions} = chercherAssistant(q);
   const sMax = (res.find(x=>!['doc','rdv','enjeu','contact'].includes(x.type))||res[0]||{score:1}).score, fort = ty => res.some(x=>x.type===ty && x.score>=0.62*sMax);
   const confid = '<p class="as-confid">Document confidentiel — prix des graines uniquement, hors marge du pépiniériste.</p>', btnPrix = '<button class="chip" data-as-ouvrir="prix|">Ouvrir les prix des graines ›</button>';
@@ -7064,6 +7116,9 @@ function afficherConversation(){
 }
 /* Le robot « réfléchit » quelques secondes (1,7 à 3,6 s selon la longueur de la question) : la réponse est prête tout de suite, mais arriver aussi vite qu'un clic passe inaperçu */
 let reflexion = null;
+/* Fenêtre du robot : agrandie automatiquement pour une fiche complète ou une comparaison, réductible d'un clic */
+function agrandirRobot(oui){ const p = document.getElementById('panneauAssistant'); if(!p) return; const v = oui===undefined ? !p.classList.contains('grand') : !!oui;
+  p.classList.toggle('grand', v); const b = p.querySelector('[data-agrandir]'); if(b){ b.setAttribute('aria-pressed', v); b.textContent = v ? '⤡' : '⤢'; } }
 const ETAPES_REFLEXION = ['Je réfléchis à votre question…', 'Je cherche dans les essais, les fiches et les documents…', 'Je recoupe les informations…', 'Je rédige la réponse…'];
 function demanderAssistant(question, parVoix){
   question = question.trim(); if(!question || reflexion) return;
@@ -7075,6 +7130,7 @@ function demanderAssistant(question, parVoix){
   setTimeout(()=>{ clearInterval(tic); if(reflexion!==moi) return;   // conversation vidée entre-temps
     reflexion = null; conversation.push({role:'assistant', content:question}); if(conversation.length>12) conversation = conversation.slice(-12);
     afficherConversation(); const rep = [...document.querySelectorAll('#filAssistant .bulle.as-rep')].pop(); rep?.classList.add('arrive');
+    if(rep?.querySelector('.as-fiche')) agrandirRobot(true);   // une fiche complète se lit mieux en grand
     if(parVoix || lireVoix) direReponse(); }, duree);
 }
 (function brancherAssistant(){
@@ -7089,6 +7145,7 @@ function demanderAssistant(question, parVoix){
     if(lireVoix) direReponse(); else speechSynthesis.cancel(); toast(lireVoix ? 'Réponses lues à voix haute' : 'Lecture à voix haute arrêtée'); }; }
   btn.onclick = () => basculer(true);
   panneau.querySelector('[data-fermer]').onclick = () => basculer(false);
+  panneau.querySelector('[data-agrandir]').onclick = () => agrandirRobot();
   panneau.querySelector('[data-vider]').onclick = () => { try{ window.speechSynthesis?.cancel(); }catch(_){} conversation = []; reflexion = null; afficherConversation(); champ.focus(); };
   document.getElementById('filAssistant').onclick = e => {
     if(e.target.closest('[data-micro]')){ basculerMicro(); return; }
