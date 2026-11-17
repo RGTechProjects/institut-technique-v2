@@ -466,6 +466,15 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .as-rub .as-ident{font-weight:600; color:var(--ardoise)}
 .as-cite{border-left:3px solid #BFD3C8; padding:4px 0 4px 10px; background:#F6FAF7; border-radius:0 8px 8px 0; white-space:pre-line}
 .as-fiche .rub-prix h6{background:#8A6A12}
+.as-accroche{font-weight:600; color:#1F5F4A; font-size:14px !important}
+.as-liste{margin:0 0 6px 18px; padding:0; font-size:13.5px; line-height:1.55} .as-liste li{margin:0 0 3px}
+.as-cartes{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; margin:8px 0}
+.as-carte-o{background:#fff; border-radius:12px; padding:10px 12px; box-shadow:0 1px 4px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:6px; min-width:0}
+.as-carte-o h5{margin:0; font-size:15px; color:#1F5F4A; display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.as-carte-o p{margin:0 0 4px; font-size:13px; line-height:1.5} .as-carte-corps{display:flex; flex-direction:column; gap:2px}
+.as-img.petit{max-height:90px; width:auto; max-width:100%; object-fit:contain; align-self:flex-start; border-radius:8px}
+.as-sous{color:var(--ardoise); font-size:12px !important} .as-prix-l{color:#8A6A12}
+.rub-sec h6{background:#1F5F4A}
 .cmp2-ligne{display:grid; grid-template-columns:1fr 1fr; gap:14px} .cmp2-c{min-width:0; padding:0 0 0 10px; border-left:3px solid #D5E4DA} .cmp2-c:first-child{border-left-color:#1F5F4A}
 .cmp2-entete{margin:6px 0 4px} .cmp2-nom{display:flex; flex-direction:column; gap:5px; align-items:flex-start}
 .as-fiche .as-docs{margin:0; padding:0; border:0}
@@ -6842,54 +6851,150 @@ function contactsOutil(o){
   (o.sites||[]).forEach(s=>(A?.binomes||[]).forEach(b=>{ if(b.tech && normTexte(s).includes(normTexte(b.op))) tech.add(b.tech.trim()+' ('+b.op+')'); }));
   return {mails, tech:[...tech]};
 }
-/* ---- Fiche complète d'un outil dans le robot : tout ce que l'Institut sait, sans coupure, en rubriques claires (présentation, prix et modèle économique, où en est-on, limites, sites, contact, documents) ---- */
+/* ---- Compréhension d'une demande sur les outils : type d'outil (robot, capteur, drone…) + fonction (récolte, effeuillage, détection…) + culture ----
+   « les robots de récolte » ne doit pas renvoyer tous les robots : on classe chaque outil par fonction d'après sa description, puis on ne garde que ceux qui répondent à la demande. */
+const nmAg = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function estRobotOutil(o){ const tx = nmAg([o.type, o.desc].join(' ')); return /robot/.test(tx) || (o.cat==='Robotique' && !/capteur|piege|surveillance/.test(nmAg(o.type)) && !/^(piege|panneau|reseau de capteurs|capteur)/.test(nmAg(o.desc))); }
+function fonctionsOutil(o){
+  const brut = nmAg([o.type, o.desc].join(' ')), tx = brut.replace(/harvest forecast|harvest ai/g,' ').replace(/previ\w*\s+(?:de\s+|d\s+|du\s+)?(?:la\s+)?(?:recolte|production|rendement)/g,' '), t = new Set();
+  if(estRobotOutil(o) && /recolt|harvest|cueill|ramass/.test(tx)) t.add('recolte');
+  if(/effeuill/.test(tx)) t.add('effeuillage'); if(/\bdescente\b/.test(tx)) t.add('descente'); if(/pollinis/.test(tx)) t.add('pollinisation');
+  if(/scout|ravageur|maladie|insecte|piege/.test(tx)) t.add('scouting');
+  if(/previ|forecast|predict/.test(brut)) t.add('prevision');
+  if(/irrigu|irrigation|fertirrigation|arrosage/.test(tx)) t.add('irrigation'); if(/climat/.test(tx)) t.add('climat');
+  if(/mesures? de plantes|croissance|phenotyp|biomasse|flux de seve|diametre de tige/.test(tx)) t.add('mesure');
+  if(/pulveris/.test(tx)) t.add('pulverisation'); if(/\bdrone/.test(tx)) t.add('drone'); if(/\bled\b|eclairage/.test(tx)) t.add('eclairage');
+  return [...t]; }
+const FONC_Q = [['recolte', /recolt|cueill|ramass|harvest/], ['effeuillage', /effeuill/], ['descente', /\bdescente|descend/], ['pollinisation', /pollinis|bourdon/],
+  ['scouting', /scout|detect|surveill|ravageur|maladie|insecte|piege|monitoring/], ['prevision', /prevision|previsionnel|estimation|rendement|forecast|predict/], ['irrigation', /irrigu|irrigation|arrosage|fertirrig/],
+  ['climat', /climat|temperature|chauffage/], ['mesure', /mesure|croissance|phenotyp/], ['pulverisation', /pulveris|traitement phyto/], ['eclairage', /eclairage|\bled\b|lumiere/]];
+const LIB_FONC = {recolte:'de récolte', effeuillage:'d\'effeuillage', descente:'de descente des plantes', pollinisation:'de pollinisation', scouting:'de détection des maladies et des ravageurs', prevision:'de prévision de récolte et de rendement', irrigation:'d\'irrigation', climat:'de pilotage du climat', mesure:'de mesure des plantes', pulverisation:'de pulvérisation', eclairage:'d\'éclairage'};
+const LIB_CAT = {robot:['robot','robots'], capteur:['capteur','capteurs'], drone:['drone','drones'], camera:['caméra','caméras'], logiciel:['outil numérique','outils numériques'], '':['outil','outils']};
+function contraintesOutil(texte, Q){
+  const n = ' '+normPhrase(texte)+' '+Q.mots.map(m=>m.corrige||'').join(' ')+' ';
+  const cat = /\b(robots?|robotique|robotises?)\b/.test(n) ? 'robot' : /\b(capteurs?|sondes?)\b/.test(n) ? 'capteur' : /\bdrones?\b/.test(n) ? 'drone' : /\bcameras?\b/.test(n) ? 'camera' : /\b(logiciels?|plateformes?|ia|intelligence artificielle)\b/.test(n) ? 'logiciel' : '';
+  let fonc = FONC_Q.filter(([, re])=>re.test(n)).map(([t])=>t);
+  // « prévision de récolte » ou « estimation du rendement » ne demande pas un robot qui récolte
+  if(fonc.includes('prevision')) fonc = fonc.filter(x=>x!=='recolte');
+  const culture = ['fraise','tomate','concombre'].find(c=>n.includes(c)) || '';
+  // « les outils en essai », « les robots actuellement en essai » : seuls ceux qui ont un essai sur un site pilote
+  const enEssai = /\b(en essais?|essais? en cours|en test)\b/.test(n) && /\b(outils?|technolog\w*|innovations?|veille|robots?|capteurs?|drones?|cameras?|solutions?)\b/.test(n);
+  return cat || fonc.length || enEssai ? {cat, fonc, culture, enEssai} : null; }
+function outilsFiltres(C){
+  const ok = o => { const f = fonctionsOutil(o), tx = nmAg([o.type, o.desc, o.espece].join(' '));
+    if(C.cat==='robot' && !estRobotOutil(o)) return false; if(C.cat==='capteur' && !(/capteur/.test(nmAg(o.type)) || /capteur|sonde/.test(nmAg(o.desc).slice(0,160)))) return false;
+    if(C.cat==='drone' && !f.includes('drone')) return false; if(C.cat==='camera' && !/camera/.test(tx)) return false; if(C.cat==='logiciel' && o.cat!=='DATA&IA') return false;
+    if(C.fonc.length && !C.fonc.some(x=>f.includes(x))) return false;
+    if(C.enEssai && o.statut!=='essai') return false;
+    if(C.culture && !tx.includes(C.culture) && !(C.culture==='tomate' && !/fraise|concombre/.test(tx))) return false; return true; };
+  const l = (S.agrotech?.outils||[]).filter(ok), force = o => C.fonc.some(x=>nmAg(o.type).includes(x.slice(0,5))) ? 0 : 1;
+  return l.sort((a, b)=>force(a)-force(b) || a.nom.localeCompare(b.nom, 'fr')); }
+const quoiOutils = (C, n) => { const [s, p] = LIB_CAT[C.cat||''], fo = C.fonc.map(x=>LIB_FONC[x]).filter(Boolean).join(' et '); return `${n>1 ? n+' '+p : '1 '+s}${fo ? ' '+fo : ''}${C.enEssai ? ' en essai' : ''}${C.culture ? ' ('+C.culture+')' : ''}`; };
+/* ---- Fiche d'un outil dans le robot : la présentation vient de sa fiche de la synthèse des fiches innovations (texte entier, par rubriques), puis le prix, l'essai, les limites, le contact et la fiche à lire ---- */
 const imageSure = u => /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u||'') ? u : '';
 const imageOutil = o => imageSure((S.agroimages||{})[o.id]);
-/* Texte long d'une fiche : un paragraphe par ligne, et un intertitre en gras devant chaque suite de mots en majuscules (« MISSION PRINCIPALE », « ARCHITECTURE SYSTÈME »…) */
+/* Texte long : un paragraphe par ligne, et un intertitre en gras devant chaque suite de mots en majuscules (« MISSION PRINCIPALE »…) */
 const MAJ = '[A-ZÉÈÀÂÊÎÔÛÇ]';
 const parag = txt => String(txt||'').replace(new RegExp(`\\s+((?:${MAJ}{4,}[ ,’'/&-]+){1,5}${MAJ}{3,}(?:\\s*:)?)(?=\\s|$)`, 'g'), '\n$1\n').split(/\n+/).map(x=>x.trim()).filter(Boolean)
   .map(x=>new RegExp(`^(?:${MAJ}{3,}[ ,’'/&:()-]*){1,7}$`).test(x) ? `<p class="as-h">${h(x.replace(/\s*:$/,''))}</p>` : `<p>${h(x)}</p>`).join('');
-function prixOutil(o){
+/* Un texte avec des « ; » devient une liste à puces (objectifs, points clés) */
+const parag2 = txt => { const t = String(txt||'').trim(); const parts = t.split(/;\s+/).map(x=>x.trim()).filter(Boolean); return parts.length>=3 ? `<ul class="as-liste">${parts.map(x=>`<li>${h(x.replace(/[;.]$/,''))}</li>`).join('')}</ul>` : parag(t); };
+/* Lecture de la fiche « Synthèse des fiches innovations » (texte dans l'ordre de lecture) : segment, accroche, description, puis une rubrique par intertitre */
+function lireSynthese(tx){
+  const blocs = String(tx||'').replace(/\f/g,'').split(/\n\s*\n/).map(b=>b.split('\n').map(l=>l.trim()).filter(Boolean)).filter(b=>b.length && !(b.length===1 && /^\d{1,3}$/.test(b[0])));
+  const r = {segment:'', accroche:'', sections:[]}; let i = 0;
+  const m = blocs[0] && blocs[0][0].match(/^(?:segment|culture) cibl[ée]e?\s*:\s*(.+)$/i); if(m){ r.segment = m[1].trim(); i = 1; }
+  if(blocs[i] && blocs[i].length===1 && blocs[i][0].length<=45 && !/[.:]$/.test(blocs[i][0])) i++;                  // nom de l'outil
+  const j = blocs.slice(i, i+4).findIndex(b=>/^niveau\s*\d/i.test(b[0]));
+  if(j>=0){ r.accroche = blocs.slice(i, i+j).map(b=>b.join(' ')).join(' '); i += j+1;                                  // accroche, puis niveau de maturité (déjà montré en pastille DV)
+    if(blocs[i] && /essais en production|outil op[ée]rationnel|recherche & d|fiabilit[ée] [àa] v|stade exp|en phase de recherche/i.test(blocs[i].join(' '))) i++; }
+  let cur = {titre:'Présentation', t:[]};
+  const titre = l => /:\s*$/.test(l) && l.length<=62 && /^[A-ZÉÈÀÂÊÎÔÛÇ]/.test(l);
+  blocs.slice(i).forEach(b=>{
+    if(titre(b[0])){ if(cur.t.length) r.sections.push(cur); cur = {titre:b[0].replace(/\s*:\s*$/,''), t:[]}; if(b.length>1) cur.t.push(b.slice(1).join(' ')); }
+    else if(b.length===1 && b[0].length<=60 && !/[.;,:]$/.test(b[0]) && /^[A-ZÉÈÀÂÊÎÔÛÇ]/.test(b[0]) && !/ (et|de|du|des|la|le|les|à|au|en|un|une) *$/i.test(b[0])){ if(cur.t.length) r.sections.push(cur); cur = {titre:b[0], t:[]}; }
+    else cur.t.push(b.join(' ')); });
+  if(cur.t.length) r.sections.push(cur);
+  return r;
+}
+const syntheseDe = o => { const d = (S.agrotextes?.[o.id]||[]).find(x=>/^Synth.se des fiches|^Fiche synth.se/i.test(x.t)); return d ? lireSynthese(d.tx) : null; };
+const estPrixTitre = t => /business|prix|tarif|co[uû]t|mod[eè]le|budget|financ|investissement|paiement/i.test(t);
+function prixOutil(o, syn){
   const phr = (o.desc||'').split(/(?<=[.!?])\s+/).filter(x=>/€|\$|\bprix\b|tarif|abonnement|licen|achat|location|leasing|business|mod[eè]le/i.test(x));
-  const ps = passagesOutil(o, [], true);
-  return {phr, ps};
+  const sec = (syn?.sections||[]).filter(s=>estPrixTitre(s.titre));
+  const ps = sec.length ? [] : passagesOutil(o, [], true);
+  return {phr, sec, ps};
 }
 /* rubriques de la fiche : [clé, titre, html] (html vide = rien dans les documents) */
 function rubriquesOutil(o){
-  const e = essaiDe(o), an = S.agrotech?.essais?.annee||'', c = contactsOutil(o), web = urlSure(o.web), P = prixOutil(o), r = [];
-  const ident = [o.cat, o.pays, o.espece && 'culture : '+o.espece.toLowerCase(), o.type].filter(Boolean).join(' · ');
-  r.push(['pres', 'Présentation', (ident?`<p class="as-ident">${h(ident)}</p>`:'') + (o.detail ? `<p class="as-src">Fiche innovation</p>${parag(o.detail)}` : '') + (o.desc ? `<p class="as-src">Tableau de veille</p>${parag(o.desc)}` : '')]);
-  r.push(['prix', 'Prix et modèle économique', (P.phr.length ? `<p class="as-src">Tableau de veille</p><p>${h(P.phr.join(' '))}</p>` : '') + P.ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('') + ((P.phr.length||P.ps.length) ? '<p class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</p>' : '')]);
+  const e = essaiDe(o), an = S.agrotech?.essais?.annee||'', c = contactsOutil(o), web = urlSure(o.web), syn = syntheseDe(o), P = prixOutil(o, syn), r = [];
+  const ident = [o.cat, o.pays, (syn?.segment || o.espece) && 'culture : '+String(syn?.segment || o.espece).toLowerCase(), o.type].filter(Boolean).join(' · ');
+  const desc = syn?.sections.find(s=>s.titre==='Présentation'), autres = (syn?.sections||[]).filter(s=>s.titre!=='Présentation' && !estPrixTitre(s.titre));
+  r.push(['bref', 'En bref', `${ident?`<p class="as-ident">${h(ident)}</p>`:''}${syn?.accroche ? `<p class="as-accroche">${h(syn.accroche)}</p>` : (!syn && o.desc ? `<p>${h(o.desc)}</p>` : '')}`]);
+  if(syn){ r.push(['pres', 'Présentation', (desc ? desc.t.map(x=>parag2(x)).join('') : '') + (!desc && !autres.length ? parag(o.detail||'') : '')]);
+    autres.forEach((s, i)=>r.push(['sec'+i, s.titre, s.t.map(x=>parag2(x)).join('')]));
+    if(o.desc) r.push(['veille', 'Notes du tableau de veille', parag(o.desc)]);
+  } else { r.push(['pres', 'Présentation', (o.detail ? `<p class="as-src">Fiche innovation</p>${parag(o.detail)}` : '')]); }
+  r.push(['prix', 'Prix et modèle économique', (P.phr.length ? `<p class="as-src">Tableau de veille</p><p>${h(P.phr.join(' '))}</p>` : '') + P.sec.map(s=>`<p class="as-src">${h(s.titre)}</p>${s.t.map(x=>parag2(x)).join('')}`).join('') + P.ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('') + ((P.phr.length||P.sec.length||P.ps.length) ? '<p class="as-confid">Tarifs du fournisseur : à traiter comme confidentiels.</p>' : '')]);
   r.push(['etat', 'Où en est-on', `<p>${badgeAt(o.statut, o)}${badgeDvAt(o.dv)} ${o.dv ? h(({DV3:'Essais en production possible', DV2:'Recherche et développement', DV1:'Stade expérimental'})[o.dv]||'') : ''}</p>`
     + (e ? `<p><b>Essai ${h(an)} :</b> ${badgesRes(e)} ${h([e.tech, e.sites, e.nb ? e.nb+' unité'+(+e.nb>1?'s':'') : '', e.debut ? e.debut+(e.fin?' → '+e.fin:' → en cours') : ''].filter(Boolean).join(' · '))}</p>${parag(e.conclusion)}` : '<p class="cible">Pas d\'essai sur un site pilote pour l\'instant.</p>')]);
   r.push(['lim', 'Limites et points bloquants', o.limites && o.limites.length>3 && !/^[àa] compl[ée]ter/i.test(o.limites) ? parag(o.limites) : '']);
   r.push(['sites', 'Sites pilotes', (o.sites||[]).length ? `<p>${o.sites.map(h).join(' · ')}</p>` : '']);
   r.push(['contact', 'Contact', [c.mails.length ? `<p>Chez le fournisseur : ${c.mails.map(m=>`<a href="mailto:${h(m)}">${h(m)}</a>`).join(', ')}</p>` : '', web ? `<p>Site : <a href="${h(web)}" target="_blank" rel="noopener">${h(web.replace(/^https?:\/\/(www\.)?/,''))}</a></p>` : '', c.tech.length ? `<p>Côté Rougeline, techniciens des sites pilotes : ${c.tech.map(h).join(', ')}</p>` : ''].join('')]);
-  const docs = [...new Map([...(o.docs||[]), ...(S.agrotextes?.[o.id]||[]).map(d=>({t:d.t, url:d.url}))].filter(d=>d.url).map(d=>[d.url, d])).values()].slice(0,8);
-  r.push(['docs', 'Documents à lire ou télécharger', docs.length ? `<div class="as-docs">${docs.map(lienDoc).join('')}</div>` : '']);
+  // documents : la fiche de synthèse et au plus une présentation ; le reste est dans le dossier de l'outil
+  const tous = (o.docs||[]).filter(d=>d.url), fiche = tous.find(d=>/^(fiche synth|synth)/i.test(d.t||'')) || (o.fichePdf ? {t:'Fiche synthèse — '+o.nom, url:o.fichePdf} : null);
+  const pres = tous.find(d=>d!==fiche && !d.conf && /pr[ée]sentation|presentation|product|intro|pitch|brochure|deck|overview|datasheet/i.test(d.t||'') && !/quote|devis|offre|confidential/i.test(d.t||''));
+  const liste = [fiche, pres].filter(Boolean), reste = tous.length - liste.length, dos = o.dossier && liensDoc(o.dossier).ouvrir;
+  r.push(['docs', 'À lire ou télécharger', liste.length || dos ? `<div class="as-docs">${liste.map(lienDoc).join('')}</div>${reste>0 && dos ? `<p class="cible">+ ${reste} autre${reste>1?'s':''} document${reste>1?'s':''} dans <a href="${h(dos)}" target="_blank" rel="noopener">le dossier de l'outil</a>.</p>` : ''}` : '']);
   return r;
 }
 function ficheOutilRobot(o, priorite){
-  const img = imageOutil(o), rub = rubriquesOutil(o), ordre = priorite ? [priorite, ...rub.map(x=>x[0]).filter(k=>k!==priorite)] : rub.map(x=>x[0]);
+  const img = imageOutil(o), rub = rubriquesOutil(o), cles = rub.map(x=>x[0]), ordre = priorite && cles.includes(priorite) ? [priorite, ...cles.filter(k=>k!==priorite)] : cles;
   return `<div class="as-fiche">
     <div class="as-fiche-tete">${img ? `<img class="as-img" src="${img}" alt="${h(o.nom)}">` : ''}<div><h5>${h(o.nom)}</h5><div class="as-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div></div>
-    ${ordre.map(k=>{ const x = rub.find(y=>y[0]===k); return `<section class="as-rub rub-${k}"><h6>${x[1]}</h6>${x[2] || '<p class="cible">Rien dans les documents de l\'Institut.</p>'}</section>`; }).join('')}
+    ${ordre.map(k=>{ const x = rub.find(y=>y[0]===k); return x[2] ? `<section class="as-rub rub-${/^sec/.test(k)?'sec':k}"><h6>${h(x[1])}</h6>${x[2]}</section>` : (['prix','lim'].includes(k) ? '' : ''); }).join('')}
+    ${rub.find(x=>x[0]==='prix')?.[2] ? '' : '<section class="as-rub rub-prix"><h6>Prix et modèle économique</h6><p class="cible">Aucun prix ni modèle économique dans les documents de l\'Institut.</p></section>'}
     <div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(o.id)}">Ouvrir la fiche dans l'app ›</button></div></div>`;
 }
 /* comparaison de deux outils : chaque rubrique en deux colonnes, complète */
 function comparaisonOutils(A, B){
-  const ra = rubriquesOutil(A), rb = rubriquesOutil(B), ia = imageOutil(A), ib = imageOutil(B);
+  const ra = rubriquesOutil(A), rb = rubriquesOutil(B), ia = imageOutil(A), ib = imageOutil(B), ordre = ['bref','pres','prix','etat','lim','sites','contact','docs'];
+  const get = (r, k) => r.find(x=>x[0]===k), secA = ra.filter(x=>/^sec/.test(x[0])), secB = rb.filter(x=>/^sec/.test(x[0]));
   const tete = (o, img) => `<div class="cmp2-nom">${img ? `<img class="as-img" src="${img}" alt="${h(o.nom)}">` : ''}<h5>${h(o.nom)}</h5><div class="as-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</div></div>`;
+  const ligne = (k, titre, ha, hb) => { if(!ha && !hb) return ''; const vide = k==='prix' ? '<p class="cible">Aucun prix ni modèle économique dans les documents.</p>' : '<p class="cible">—</p>';
+    return `<section class="as-rub rub-${k}"><h6>${h(titre)}</h6><div class="cmp2-ligne"><div class="cmp2-c">${ha||vide}</div><div class="cmp2-c">${hb||vide}</div></div></section>`; };
+  const autres = Math.max(secA.length, secB.length);
   return `<div class="as-fiche as-cmp2"><p class="as-intro">Comparaison de <b>${h(A.nom)}</b> et <b>${h(B.nom)}</b>, avec tout ce que contiennent les documents de l'Institut.</p>
     <div class="cmp2-ligne cmp2-entete">${tete(A, ia)}${tete(B, ib)}</div>
-    ${ra.map(([k, titre, ha], i)=>{ const hb = rb[i][2]; if(!ha && !hb) return ''; const vide = k==='prix' ? '<p class="cible">Aucun prix ni modèle économique dans les documents.</p>' : '<p class="cible">—</p>';
-      return `<section class="as-rub rub-${k}"><h6>${titre}</h6><div class="cmp2-ligne"><div class="cmp2-c">${ha||vide}</div><div class="cmp2-c">${hb||vide}</div></div></section>`; }).join('')}
+    ${ordre.map(k=>{ const a = get(ra, k), b = get(rb, k); const t = a?.[1] || b?.[1]; let html = ligne(k, t, a?.[2], b?.[2]); if(k==='pres') for(let i=0;i<autres;i++) html += ligne('sec', secA[i]?.[1] || secB[i]?.[1], secA[i]?.[2], secB[i]?.[2]); return html; }).join('')}
     <div class="as-suite"><button class="chip" data-as-ouvrir="outil|${h(A.id)}">Ouvrir ${h(coupe(A.nom,28))} ›</button><button class="chip" data-as-ouvrir="outil|${h(B.id)}">Ouvrir ${h(coupe(B.nom,28))} ›</button></div></div>`;
 }
+/* liste d'outils qui répondent à la demande : une carte complète par outil (ce que c'est, statut, essai, prix) */
+function carteOutilRobot(o){
+  const img = imageOutil(o), e = essaiDe(o), syn = syntheseDe(o), P = prixOutil(o, syn), prix = P.phr[0] || (P.sec[0] ? P.sec[0].t.join(' ') : '') || (P.ps[0] ? P.ps[0].b.replace(/\n/g,' · ') : '');
+  return `<div class="as-carte-o">${img ? `<img class="as-img petit" src="${img}" alt="${h(o.nom)}">` : ''}<div class="as-carte-corps">
+    <h5>${h(o.nom)} <span class="as-badges">${badgeAt(o.statut, o)}${badgeDvAt(o.dv)}</span></h5>
+    <p>${h(coupe(syn?.accroche || o.desc || '', 200))}</p>${syn?.accroche && o.desc ? `<p class="as-sous">${h(coupe(o.desc, 160))}</p>` : ''}
+    ${e ? `<p><b>Essai ${h(S.agrotech?.essais?.annee||'')} :</b> ${badgesRes(e)} ${h(e.sites||'')}</p>` : ''}
+    ${prix ? `<p class="as-prix-l"><b>Prix :</b> ${h(coupe(prix.replace(/^\s*(prix|tarifs?)\s*:\s*/i,''), 150))}</p>` : ''}
+    <button class="chip" data-suggestion="${h(o.nom)}">Voir la fiche complète ›</button></div></div>`;
+}
+function listeFiltree(l, C){
+  if(l.length===1) return `<div class="as-chat"><p class="as-intro">Dans la veille technologique, il y a <b>${quoiOutils(C, 1)}</b> : voici sa fiche complète.</p>${ficheOutilRobot(l[0])}</div>`;
+  const essai = l.filter(o=>o.statut==='essai').length;
+  return `<div class="as-chat"><p class="as-intro">Dans la veille technologique, il y a <b>${quoiOutils(C, l.length)}</b>${essai ? ', dont '+essai+' en essai sur un site pilote' : ''} :</p><div class="as-cartes">${l.map(carteOutilRobot).join('')}</div><p class="as-note">Cliquez sur « Voir la fiche complète » pour tout lire (présentation, prix, résultats, contact), ou demandez-moi de comparer deux outils.</p></div>`;
+}
 function reponseTechno(texte, Qo){
-  const Q = chercherAssistant(texte); let ou = Q.res.filter(r=>r.type==='outil'); if(!ou.length) return '';
+  // « va scout » est la même chose qu'« Eva Scout » (le e initial se perd à l'oral)
+  texte = String(texte).replace(/\b(?:e|é)?va\s*scout/gi, 'eva scout');
+  const Q =chercherAssistant(texte); let ou = Q.res.filter(r=>r.type==='outil');
   // un nom écrit exactement (sans faute corrigée) dans le titre désigne le produit ; plusieurs produits d'une même entreprise : on les présente ensemble
   const exact = ou.filter(r=>Q.mots.some(m=>m.connu && !m.corrige && r.nt.includes(' '+m.m) && !STOP_AG.has(m.m) && !SYN_AG.has(m.m)));
+  // les prix de graines et les variétés relèvent des Commissions variétales, pas de la veille technologique
+  if(!exact.length && /\b(graines?|semences?|semenciers?|varietes?)\b/.test(normPhrase(texte))) return '';
+  // pas de nom d'outil : « les robots de récolte » = les outils qui sont des robots ET qui récoltent, pas tous les robots
+  { const C = contraintesOutil(texte, Q); if(C && !exact.length){ const l = outilsFiltres(C); if(l.length) return listeFiltree(l, C); } }
+  if(!ou.length) return '';
   let forceUnique = false; if(exact.length===1){ ou = exact; forceUnique = true; } else if(exact.length>1 && exact.every(x=>premierMot(x.o.nom)===premierMot(exact[0].o.nom))) ou = exact;
   const top = ou[0], autres = Q.res.filter(r=>!['outil','doc','rdv','enjeu','contact'].includes(r.type));
   if(autres.length && autres[0].score > top.score*1.15) return '';
@@ -6902,7 +7007,9 @@ function reponseTechno(texte, Qo){
     return `<div class="as-chat"><p class="as-intro">${intro}</p>${ficheOutilRobot(o, prio)}${ps.length ? `<section class="as-rub"><h6>Passages des documents liés à votre question</h6>${ps.map(x=>`<p class="as-src">${h(x.d.t)}</p><p class="as-cite">${h(x.b)}</p>`).join('')}</section>` : ''}</div>`;
   }
   if(ou.length>=2 && (Qo.types?.includes('outil') || top.enTitre>=1 || prix)){
-    const l = ou.slice(0,8), reste = ou.slice(8), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom)), p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>8?' (les 8 plus proches ci-dessous, les autres en bas)':''} :`], docs = [];
+    const l = ou.slice(0,8), reste = ou.slice(8), meme = l.length>1 && l.every(x=>premierMot(x.o.nom)===premierMot(l[0].o.nom));
+    if(meme) return `<div class="as-chat"><p class="as-intro"><b>${h(l[0].o.societe||l[0].o.nom)}</b> est une même entreprise qui propose ${l.length} produits différents : voici la fiche complète de chacun.</p>${l.map(({o})=>ficheOutilRobot(o)).join('')}</div>`;
+    const p = [meme ? `<b>${h(l[0].o.societe||l[0].o.nom)}</b> propose ${l.length} produits différents :` : `J'ai trouvé <b>${ou.length} outils</b> de la veille qui correspondent${ou.length>8?' (les 8 plus proches ci-dessous, les autres en bas)':''} :`], docs = [];
     l.forEach(({o})=>{ const e = essaiDe(o); let tarif = '';
       if(prix){ const ps = passagesOutil(o, [], true); if(ps.length){ tarif = ' <i>Tarif cité dans la fiche : '+h(ps[0].b.replace(/\n/g,' · '))+'</i>'; docs.push(ps[0].d); } }
       p.push(`<b>${h(o.nom)}</b> (${h(o.statutLib.toLowerCase())}${e?(resEssai(e).final?', résultat ':', essai ')+h(resEssai(e).libs.join(' · ').toLowerCase()):''}) : ${h(o.desc||o.detail||'')}${tarif}`); });
