@@ -524,8 +524,6 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .as-item small{font-size:11px; color:var(--ardoise)} .as-item p{font-size:12.5px} .as-item .chip{align-self:flex-start; margin-top:2px}
 .as-rep .chip{font-size:11.5px; border-color:#7A1F2B; color:#7A1F2B; background:#fff; cursor:pointer} .as-rep .chip small{color:var(--ardoise); font-weight:500}
 .as-suite{display:flex; flex-wrap:wrap; gap:5px; margin:4px 0} .as-bilan{font-weight:600} .as-note{font-size:11px; color:var(--ardoise)}
-.as-copilot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:7px 12px; background:#F6EDEE; border-top:1px solid #E6CCD0; font-size:12px; color:var(--encre-2)} .as-copilot[hidden]{display:none}
-.as-copilot button{border:1px solid #7A1F2B; background:#fff; color:#7A1F2B; border-radius:99px; padding:5px 12px; font-family:'Archivo'; font-weight:600; font-size:12px; cursor:pointer} .as-copilot button:hover{background:#7A1F2B; color:#fff}
 .as-plus-loin{margin-top:10px; padding-top:8px; border-top:1px solid #E6CCD0} .as-plus-loin > span{display:block; font-family:'Archivo'; font-size:12px; font-weight:700; color:#7A1F2B; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px}
 .as-pers{list-style:none; padding:0 !important} .as-pers li{padding:4px 8px; border:1px solid var(--trait); border-radius:8px; background:#fff; margin:3px 0 !important}
 .as-table{overflow-x:auto; margin:0 0 6px} .as-table table{width:100%; border-collapse:collapse; font-size:12px; background:#fff}
@@ -2008,7 +2006,6 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
     <button data-fermer aria-label="Fermer">×</button>
   </div>
   <div class="assistant-fil" id="filAssistant" aria-live="polite"></div>
-  <div class="as-copilot" id="asCopilot" hidden><span>Question plus libre ou plus complexe ?</span><button type="button" id="btnCopilot">Demander à l'agent Copilot ↗</button></div>
   <form class="assistant-saisie" id="formAssistant">
     <button type="button" class="as-micro" id="microAssistant" title="Poser la question à la voix" aria-label="Poser la question à la voix" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 0 0-7 0v5A3.5 3.5 0 0 0 12 15zm6-3.5a1 1 0 0 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-2 0 6 6 0 0 0 5 5.9V20H8.5a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H13v-2.6a6 6 0 0 0 5-5.9z" fill="currentColor"/></svg></button>
     <textarea id="questionAssistant" rows="2" placeholder="Posez votre question… (Entrée pour envoyer)"></textarea>
@@ -6591,13 +6588,6 @@ function direReponse(){
   try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texte); u.lang = 'fr-FR'; u.rate = 1.03; speechSynthesis.speak(u); }catch(_){}
 }
 /* Petit bonjour du robot à la connexion */
-/* Agent Microsoft 365 Copilot de l'Institut : lien de partage de l'agent (à renseigner une fois l'agent validé par le SI ; vide = bouton masqué).
-   La question en cours est copiée dans le presse-papiers puis l'agent s'ouvre dans un nouvel onglet : il suffit de coller. */
-const LIEN_AGENT_COPILOT = 'https://m365.cloud.microsoft/chat/?titleId=T_5e86e659-f28f-08b6-efaf-e290fe604837';
-(function(){ const bar = document.getElementById('asCopilot'), b = document.getElementById('btnCopilot'), u = urlSure(LIEN_AGENT_COPILOT); if(!bar || !b || !/^https:/i.test(u)) return; bar.hidden = false;
-  b.onclick = async () => { const saisie = (document.getElementById('questionAssistant')?.value||'').trim(), derniere = [...conversation].reverse().find(m=>m.role==='user')?.content || '', q = saisie || derniere; let copie = false;
-    try{ if(q){ await navigator.clipboard.writeText(q); copie = true; } }catch(_){}
-    window.open(u, '_blank', 'noopener'); toast(copie ? 'Question copiée : collez-la (Ctrl+V) dans l\'agent Copilot' : 'Agent Copilot ouvert dans un nouvel onglet'); }; })();
 const MESSAGES_ROBOT = [["Besoin d'aide ?", "Posez-moi vos questions."], ["Une question ?", "Essais, prix, outils, contacts : je cherche pour vous."], ["Vous cherchez une information ?", "Dites-moi laquelle, je retrouve les documents."],
   ["Besoin d'un renseignement ?", "Essayez « prix Climundo » ou « oïdium fraise »."], ["Des questions ?", "Je suis là pour y répondre."], ["Besoin d'un contact ?", "Je vous indique le bon référent."], ["Une question à la voix ?", "Cliquez, puis parlez : je vous écoute."]];
 let iMessageRobot = 0, minuteurRobot = null;
@@ -6877,14 +6867,14 @@ function estRobotOutil(o){ const tx = nmAg([o.type, o.desc].join(' ')); return /
 function fonctionsOutil(o){
   const brut = nmAg([o.type, o.desc].join(' ')), tx = brut.replace(/harvest forecast|harvest ai/g,' ').replace(/previ\w*\s+(?:de\s+|d\s+|du\s+)?(?:la\s+)?(?:recolte|production|rendement)/g,' '), t = new Set();
   if(estRobotOutil(o) && /recolt|harvest|cueill|ramass/.test(tx)) t.add('recolte');
-  if(/effeuill/.test(tx)) t.add('effeuillage'); if(/\bdescente\b/.test(tx)) t.add('descente'); if(/pollinis/.test(tx)) t.add('pollinisation');
+  if(/effeuill|(enlev|retir|coup|supprim)\w*.{0,14}feuill|deleaf/.test(tx)) t.add('effeuillage'); if(/\bdescente\b/.test(tx)) t.add('descente'); if(/pollinis/.test(tx)) t.add('pollinisation');
   if(/scout|ravageur|maladie|insecte|piege/.test(tx)) t.add('scouting');
   if(/previ|forecast|predict/.test(brut)) t.add('prevision');
   if(/irrigu|irrigation|fertirrigation|arrosage/.test(tx)) t.add('irrigation'); if(/climat/.test(tx)) t.add('climat');
   if(/mesures? de plantes|croissance|phenotyp|biomasse|flux de seve|diametre de tige/.test(tx)) t.add('mesure');
   if(/pulveris/.test(tx)) t.add('pulverisation'); if(/\bdrone/.test(tx)) t.add('drone'); if(/\bled\b|eclairage/.test(tx)) t.add('eclairage');
   return [...t]; }
-const FONC_Q = [['recolte', /recolt|cueill|ramass|harvest/], ['effeuillage', /effeuill/], ['descente', /\bdescente|descend/], ['pollinisation', /pollinis|bourdon/],
+const FONC_Q = [['recolte', /recolt|cueill|ramass|harvest/], ['effeuillage', /effeuill|(enlev|retir|coup|supprim)\w*.{0,14}feuill|deleaf/], ['descente', /\bdescente|descend/], ['pollinisation', /pollinis|bourdon/],
   ['scouting', /scout|detect|surveill|ravageur|maladie|insecte|piege|monitoring/], ['prevision', /prevision|previsionnel|estimation|rendement|forecast|predict/], ['irrigation', /irrigu|irrigation|arrosage|fertirrig/],
   ['climat', /climat|temperature|chauffage/], ['mesure', /mesure|croissance|phenotyp/], ['pulverisation', /pulveris|traitement phyto/], ['eclairage', /eclairage|\bled\b|lumiere/]];
 const LIB_FONC = {recolte:'de récolte', effeuillage:'d\'effeuillage', descente:'de descente des plantes', pollinisation:'de pollinisation', scouting:'de détection des maladies et des ravageurs', prevision:'de prévision de récolte et de rendement', irrigation:'d\'irrigation', climat:'de pilotage du climat', mesure:'de mesure des plantes', pulverisation:'de pulvérisation', eclairage:'d\'éclairage'};
@@ -7006,7 +6996,7 @@ function listeFiltree(l, C){
 /* ---- Réponse exacte sur un outil : on cherche dans ses fiches (synthèse, présentations, notes du tableau de veille) les phrases qui répondent à la question, on les cite avec leur source, puis on propose d'aller plus loin ---- */
 const GEN_Q = new Set(['robot','robots','outil','outils','technologie','technologies','solution','systeme','fiche','fiches','info','infos','information','informations','dis','dit','moi','donne','donnez','sur','pour','parle','parles','savoir','veux','voudrais','peux','peut','explique','expliquer','presente','presentation','complet','complete','tout','toute','toutes','tous','quel','quelle','quels','quelles','combien','comment','pourquoi','cette','cet','celui','celle','dans','avec','sans','les','des','une','est','sont','que','qui','quoi','fait','faire','entreprise','societe','produit','produits']);
 const THEMES_Q = [
-  ['prix', /prix|cout|tarif|budget|combien (coute|vaut|faut)|abonnement|licence|investissement|payback|roi\b|retour sur invest|business|financ|payer|louer|location|achat|acheter/, ['prix','€','$','tarif','abonnement','licence','investissement','cout','dollars','euros','budget','business','mensualite','location','achat','fob'], 'Prix et modèle économique'],
+  ['prix', /\bprix|\bcouts?\b|\bcoute|tarif|budget|c est combien|ca fait combien|a combien|combien ca|combien (coute|vaut|faut)|abonnement|licence|investissement|payback|roi\b|retour sur invest|business|financ|payer|louer|location|achat|acheter/, ['prix','€','$','tarif','abonnement','licence','investissement','cout','dollars','euros','budget','business','mensualite','location','achat','fob'], 'Prix et modèle économique'],
   ['autonomie', /autonomie|batterie|recharge|energie|electri|alimentation|24h|jour et nuit|nuit/, ['autonomie','batterie','recharge','charge','heures','induction','energie','nuit','24h','alimente'], 'Autonomie et énergie'],
   ['performance', /precision|performance|vitesse|cadence|rendement|capacite|debit|rapide|taux|fiabilite|fiable|efficacite/, ['precision','vitesse','kg','heure','hectare','ha','rapide','performance','capacite','taux','fiabilite','cadence','km'], 'Performances'],
   ['livraison', /delai|livraison|livre|garantie|installation|installer|mise en place|deploiement|deployer|disponib|formation|support|maintenance|sav\b/, ['delai','livraison','garantie','installation','mois','formation','support','maintenance','deploiement','disponible','semaines'], 'Livraison, installation et support'],
@@ -7066,7 +7056,9 @@ function reponseFaits(texte, o, Qo){
     parties.push(cite('Tableau de veille et suivi des essais', l.join('\n'))); }
   // quand le tableau de veille répond déjà (limites, contact, sites, résultat, prix), on n'y ajoute pas de phrases au hasard
   const deja = parties.length, seulChamps = deja && A.ts.length && A.ts.every(t=>['limites','contact','sites','resultat','prix'].includes(t[0])), ps = (themes.includes('prix') || Qo.prix || seulChamps) ? [] : passagesQuestion(o, A);
-  ps.forEach(p=>{ parties.push(cite(p.x.src, finPropre(p.x.p, 420))); });
+  { const vus = new Set(), pris = []; const ajout = (src, txt) => { const k = normPass(txt).slice(0, 60); if(!vus.has(k) && pris.length < 3){ vus.add(k); pris.push([src, txt]); } };
+    if(!seulChamps && !(themes.includes('prix') || Qo.prix)) gardeSem(simUnites(u=>u.k==='outil' && u.id===o.id), 0.8, 0.03, 3).forEach(x=>ajout(x.u.s, x.u.t));
+    ps.forEach(p=>ajout(p.x.src, p.x.p)); pris.forEach(([s, x])=>parties.push(cite(s, finPropre(x, 420)))); }
   const titre = A.ts.length ? A.ts.map(t=>t[3]).slice(0,2).join(' · ') : 'Ce que disent les fiches';
   const aucun = !parties.length;
   const autre = (S.agrotech?.outils||[]).filter(x=>x.id!==o.id && fonctionsOutil(x).some(f=>fonctionsOutil(o).includes(f)) && estRobotOutil(x)===estRobotOutil(o))[0];
@@ -7195,6 +7187,61 @@ function reponseListePositive(texte){
     + (fraise ? '<button class="chip" data-suggestion="Variétés de fraise : la précocité">Les plus précoces</button><button class="chip" data-suggestion="Propositions 2027 des obtenteurs en fraise">Propositions 2027</button>' : '<button class="chip" data-suggestion="Variétés de tomate : la résistance au ToBRFV">Résistantes ToBRFV</button><button class="chip" data-suggestion="Prix des graines de tomate">Prix des graines</button>')
     + '</div></div></div>';
 }
+/* ---- Compréhension par le sens : un petit modèle (multilingual-e5-small, ~120 Mo, chargé une fois puis gardé en cache par le navigateur) transforme la question en vecteur ;
+   on la compare aux phrases des fiches (index assistant_index.json, calculé à l'avance avec le même modèle). Rien ne sort de l'ordinateur et rien n'est rédigé par une IA :
+   les phrases retrouvées sont citées telles quelles, avec leur source. Si le modèle ou l'index est indisponible, l'assistant fonctionne comme avant. ---- */
+const SEM = {etat:'', promesse:null, idx:null, moteur:null, vec:null, vecs:new Map()};
+function chargerSemantique(){
+  if(SEM.promesse) return SEM.promesse; SEM.etat = 'charge';
+  SEM.promesse = (async()=>{ try{
+    const [rep, lib] = await Promise.all([fetch('assistant_index.json'), import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/+esm')]);
+    if(!rep.ok) throw new Error('index absent');
+    const I = await rep.json(), bin = atob(I.v), V = new Int8Array(bin.length); for(let i=0;i<bin.length;i++) V[i] = bin.charCodeAt(i);
+    lib.env.allowLocalModels = false;
+    SEM.moteur = await lib.pipeline('feature-extraction', I.modele, {dtype:'q8'});
+    const noms = new Set(); I.u.forEach(u=>normPhrase(u.e).split(' ').forEach(m=>{ if(m.length>=3) noms.add(m); }));
+    SEM.idx = {n:I.n, u:I.u, V, noms}; SEM.etat = 'pret';
+  }catch(e){ SEM.etat = 'erreur'; console.warn('Compréhension avancée indisponible (l\'assistant utilise la recherche par mots) :', e); } })();
+  return SEM.promesse; }
+async function vecteurQuestion(q){ if(SEM.etat!=='pret') return null; try{ const o = await SEM.moteur('query: ' + String(q).slice(0, 300), {pooling:'mean', normalize:true}); return Float32Array.from(o.data); }catch(_){ return null; } }
+/* phrases de l'index classées par ressemblance avec la question en cours (filtre = quelles phrases regarder) */
+function simUnites(filtre){
+  const I = SEM.idx, q = SEM.vec; if(!I || !q) return []; const r = [];
+  for(let i=0;i<I.n;i++){ const u = I.u[i]; if(filtre && !filtre(u)) continue; let s = 0; const o = i*384; for(let d=0;d<384;d++) s += I.V[o+d]*q[d]; r.push({s:s/127, u}); }
+  return r.sort((a, b)=>b.s-a.s); }
+const gardeSem = (l, seuil, marge, n) => l.length && l[0].s >= seuil ? l.filter(x=>x.s >= l[0].s - marge).slice(0, n) : [];
+/* la question avec le sujet de la conversation (comme à l'affichage), pour calculer son vecteur */
+function fusionDerniere(question){ let sujet = ''; conversation.forEach(m=>{ if(m.role==='assistant'){ const f = fusionContexte(m.content, sujet), Qf = motsQuestion(f.texte); if(Qf.mots.length) sujet = Qf.mots.map(o=>o.m).join(' '); } }); return fusionContexte(question, sujet); }
+async function preparerSemantique(question){
+  try{ const f = fusionDerniere(question); if(SEM.vecs.has(f.texte)) return;
+    await Promise.race([chargerSemantique(), new Promise(r=>setTimeout(r, 2500))]);
+    const v = await vecteurQuestion(f.texte); if(v) SEM.vecs.set(f.texte, v); }catch(_){} }
+const citeSem = (src, txt) => `<p class="as-src">${h(src)}</p><p class="as-cite">${h(finPropre(txt, 420))}</p>`;
+/* questions libres sur les variétés de fraise (« quelle fraise démarre tôt ? ») */
+function reponseSemFraise(texte){
+  if(!SEM.vec || !SEM.idx) return ''; const n = normPhrase(texte);
+  if(!/\b(fraise|fraises|fraisier|fraisiers)\b/.test(n) || SANIT_Q.test(n)) return '';
+  const l = gardeSem(simUnites(u=>u.k==='fvar' || u.k==='fprop'), 0.855, 0.03, 8); if(!l.length) return '';
+  const g = new Map(); l.forEach(x=>{ const k = x.u.e; if(!g.has(k)) g.set(k, []); if(g.get(k).length < 2) g.get(k).push(x); });
+  const noms = [...g.keys()].slice(0, 4);
+  return `<div class="as-chat"><p class="as-intro">Variétés de fraise — les passages de la synthèse de la commission les plus proches de votre question :</p>${noms.map(k=>g.get(k).map(x=>citeSem(k + ' · ' + x.u.s.replace(/^Variété de fraise [^—]*— /, ''), x.u.t)).join('')).join('')}
+    <p class="as-note">Passages repris tels quels, sans rien ajouter.</p>
+    <div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${noms.slice(0, 3).map(k=>`<button class="chip" data-suggestion="${h(k)}">Fiche ${h(k)}</button>`).join('')}<button class="chip" data-suggestion="Variétés de fraise : le goût">Le goût</button><button class="chip" data-suggestion="Variétés de fraise : la précocité">La précocité</button><button class="chip" data-suggestion="Propositions 2027 des obtenteurs en fraise">Propositions 2027</button></div></div></div>`;
+}
+/* question qui n'a aucun rapport avec les données de l'Institut (« recette de tarte », « capitale de la France ») : on le dit au lieu de répondre à côté */
+function questionHorsSujet(texte){
+  if(!SEM.vec || !SEM.idx) return false; const mots = normPhrase(texte).split(' ').filter(m=>m.length>2 && !STOP_AG.has(m));
+  if(mots.length < 2 || mots.some(m=>SEM.idx.noms.has(m))) return false;
+  return (simUnites(null)[0]?.s || 0) < 0.856; }
+const reponseHorsSujet = () => `<div class="as-court"><p>Je ne trouve rien dans les données de l'Institut qui corresponde à cette question.</p><p class="as-note">Je réponds sur les outils de la veille technologique, les variétés de fraise et de tomate, les essais et leviers sanitaires, les documents et les commissions.</p></div>${boutonsSugg(SUGG_AG.slice(0,4))}`;
+/* dernier recours : la recherche par mots ne trouve rien, on propose les passages des fiches les plus proches par le sens */
+function reponseSemantique(){
+  if(!SEM.vec || !SEM.idx) return ''; const l = gardeSem(simUnites(null), 0.865, 0.012, 4); if(!l.length) return '';
+  const noms = [...new Set(l.filter(x=>x.u.k==='outil').map(x=>x.u.e))].slice(0, 3);
+  return `<div class="as-chat"><p class="as-intro">Je n'ai pas de réponse directe à cette question. Voici les passages des fiches qui s'en rapprochent le plus :</p>${l.map(x=>citeSem(x.u.e + ' — ' + x.u.s, x.u.t)).join('')}
+    <p class="as-note">Passages repris tels quels. Reformulez avec le nom de l'outil ou de la variété pour une réponse plus précise.</p>${noms.length ? `<div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${noms.map(k=>`<button class="chip" data-suggestion="Fiche complète de ${h(k)}">Fiche ${h(k)}</button>`).join('')}</div></div>` : ''}</div>`;
+}
+
 function reponseTechno(texte, Qo){
   // « va scout » est la même chose qu'« Eva Scout » (le e initial se perd à l'oral)
   texte = String(texte).replace(/\b(?:e|é)?va\s*scout/gi, 'eva scout');
@@ -7234,16 +7281,20 @@ function reponseTechno(texte, Qo){
 }
 /* Point d'entrée : choisit entre conversation, date, comparaison ou recherche-synthèse */
 function reponseAssistant(texte, opt = {}){
+  SEM.vec = opt.vec || null;
   const orig = opt.original || texte, Qo = motsQuestion(orig);
   if(Qo.aide) return reponseAide();
   if(Qo.salut && !Qo.mots.length) return reponseSalut();
   if(Qo.merci && !Qo.mots.length && !Qo.prix) return reponseMerci();
   if(Qo.quand){ const r = reponseQuand(texte, Qo); if(r) return r; }
+  if(!Qo.compare && !Qo.quand && questionHorsSujet(texte)) return reponseHorsSujet();
   if(Qo.compare){ const r = reponseComparaison(orig, Qo); if(r) return r; }
   { const r = reponseTechno(texte, Qo); if(r) return r; }
   if(veutListePositive(texte)){ const r = reponseListePositive(texte); if(r) return r; }
   if(veutVarietesFraise(texte)){ const r = reponseVarietesFraise(texte); if(r) return r; }
   if(veutVarietesTomate(texte)){ const r = reponseVarietesTomate(texte); if(r) return r; }
+  if(SEM.vec){ const r = reponseSemFraise(texte); if(r) return r; }
+  if(SEM.vec && !chercherAssistant(texte).res.length){ const r = reponseSemantique(); if(r) return r; }
   FLAGS_FORCE = {contact:Qo.contact, prix:Qo.prix, tri:Qo.tri, combien:Qo.combien, reco:Qo.reco, detail:Qo.detail}; NOTE_AG = opt.note || '';
   try{ return reponseAssistantBase(texte); } finally{ FLAGS_FORCE = null; NOTE_AG = ''; }
 }
@@ -7254,9 +7305,9 @@ function blocsConversation(){
   const sig = [S.agrotech?.outils?.length, S.sanitaire?.essais?.lignes?.length, S.fraise?.synthese?.varietes?.length, Object.keys(S.essais||{}).length, S.journal?.entrees?.length].join('|'); if(sig!==cacheSig){ cacheAg.clear(); cacheSig = sig; }
   let sujet = '';
   return conversation.map(m=>{ if(m.role==='user') return `<div class="bulle moi">${h(m.content)}</div>`;
-    const q = m.content, f = fusionContexte(q, sujet), note = f.fusion ? `Je reprends le sujet précédent : <b>${h(coupe(sujet,70))}</b>.` : '', cle = f.texte+'¦'+q+'¦'+note;
+    const q = m.content, f = fusionContexte(q, sujet), note = f.fusion ? `Je reprends le sujet précédent : <b>${h(coupe(sujet,70))}</b>.` : '', vec = SEM.vecs.get(f.texte) || null, cle = f.texte+'¦'+q+'¦'+note+(vec?'¦S':'');
     let html = cacheAg.get(cle);
-    if(!html){ try{ html = reponseAssistant(f.texte, {original:q, note}); }catch(e){ console.error(e); html = '<p class="as-alerte">Je n\'ai pas réussi à répondre à cette question (erreur interne). Reformulez-la ou utilisez les onglets Commissions.</p>'; } cacheAg.set(cle, html); }
+    if(!html){ try{ html = reponseAssistant(f.texte, {original:q, note, vec}); }catch(e){ console.error(e); html = '<p class="as-alerte">Je n\'ai pas réussi à répondre à cette question (erreur interne). Reformulez-la ou utilisez les onglets Commissions.</p>'; } cacheAg.set(cle, html); }
     const Qf = motsQuestion(f.texte); if(Qf.mots.length) sujet = Qf.mots.map(o=>o.m).join(' ');
     return `<div class="bulle ia as-rep">${html}</div>`; }).join('');
 }
@@ -7451,7 +7502,8 @@ function demanderAssistant(question, parVoix){
   reflexion = {i:0}; afficherConversation();
   const duree = Math.min(3600, 1700 + question.length*28 + Math.random()*500), moi = reflexion;
   const tic = setInterval(()=>{ if(reflexion!==moi){ clearInterval(tic); return; } moi.i++; const t = document.querySelector('#filAssistant .rf-txt'); if(t){ t.textContent = ETAPES_REFLEXION[moi.i % ETAPES_REFLEXION.length]; t.style.animation = 'none'; void t.offsetWidth; t.style.animation = ''; } }, Math.max(700, duree/3.2));
-  setTimeout(()=>{ clearInterval(tic); if(reflexion!==moi) return;   // conversation vidée entre-temps
+  setTimeout(async ()=>{ clearInterval(tic); if(reflexion!==moi) return;   // conversation vidée entre-temps
+    await preparerSemantique(question); if(reflexion!==moi) return;
     reflexion = null; conversation.push({role:'assistant', content:question}); if(conversation.length>12) conversation = conversation.slice(-12);
     afficherConversation(); const rep = [...document.querySelectorAll('#filAssistant .bulle.as-rep')].pop(); rep?.classList.add('arrive');
     if(rep?.querySelector('.as-fiche')) agrandirRobot(true);   // une fiche complète se lit mieux en grand
@@ -7461,7 +7513,7 @@ function demanderAssistant(question, parVoix){
   const btn = document.getElementById('btnAssistant'), panneau = document.getElementById('panneauAssistant');
   const champ = document.getElementById('questionAssistant');
   const basculer = ouvrir => { panneau.hidden = !ouvrir; btn.hidden = ouvrir; btn.setAttribute('aria-expanded', ouvrir); btn.classList.remove('coucou');
-    if(ouvrir){ afficherConversation(); champ.focus(); } else { try{ reco?.stop(); window.speechSynthesis?.cancel(); }catch(_){} } };
+    if(ouvrir){ chargerSemantique(); afficherConversation(); champ.focus(); } else { try{ reco?.stop(); window.speechSynthesis?.cancel(); }catch(_){} } };
   // voix : boutons affichés seulement si le navigateur sait faire
   const micro = document.getElementById('microAssistant'), bVoix = panneau.querySelector('[data-voix]');
   if(RECO){ micro.hidden = false; document.getElementById('noteVoix').hidden = false; micro.onclick = basculerMicro; }
