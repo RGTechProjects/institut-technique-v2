@@ -464,6 +464,18 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .bulle.ia{align-self:flex-start;background:var(--carte);border:1px solid var(--trait);border-bottom-left-radius:3px}
 .bulle.erreur{align-self:flex-start;background:#FDF3F5;border:1px solid #F1C4CC;color:var(--rouge)}
 .bulle.attente{color:var(--ardoise);font-style:italic}
+/* le robot « réfléchit » quelques secondes avant de répondre : trois points qui rebondissent et une phrase qui change */
+.bulle.reflexion{display:flex; align-items:center; gap:10px; color:var(--ardoise); font-size:13px; padding:10px 14px}
+.bulle.reflexion .pts{display:inline-flex; gap:4px} .bulle.reflexion .pts i{width:8px; height:8px; border-radius:50%; background:#1F5F4A; opacity:.35; animation:rfPoint 1.1s infinite ease-in-out}
+.bulle.reflexion .pts i:nth-child(2){animation-delay:.18s} .bulle.reflexion .pts i:nth-child(3){animation-delay:.36s}
+@keyframes rfPoint{0%,80%,100%{transform:translateY(0); opacity:.35} 40%{transform:translateY(-6px); opacity:1}}
+.bulle.reflexion .rf-txt{animation:rfTexte .5s}
+@keyframes rfTexte{from{opacity:0; transform:translateY(3px)} to{opacity:1; transform:none}}
+.bulle.as-rep.arrive{animation:rfArrive .6s ease-out}
+@keyframes rfArrive{from{opacity:0; transform:translateY(10px); box-shadow:0 0 0 3px rgba(31,95,74,.35)} to{opacity:1; transform:none; box-shadow:0 0 0 0 rgba(31,95,74,0)}}
+#panneauAssistant.reflechit .robot{animation:rfRobot .9s infinite ease-in-out}
+@keyframes rfRobot{0%,100%{transform:rotate(0)} 25%{transform:rotate(-5deg)} 75%{transform:rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){ .bulle.reflexion .pts i,.bulle.as-rep.arrive,#panneauAssistant.reflechit .robot{animation:none} }
 .assistant-suggestions{display:flex;flex-direction:column;gap:6px;margin-top:4px}
 .assistant-suggestions p{margin:0 0 2px;font-size:12.5px;color:var(--ardoise)}
 .assistant-suggestions button{text-align:left;background:var(--carte);border:1px solid var(--trait);border-radius:8px;padding:7px 10px;font-size:12.5px}
@@ -7044,16 +7056,26 @@ function afficherConversation(){
       <p>Parlez-moi comme à un collègue, même avec des fautes : je cherche dans tout l'Institut (essais, variétés, outils, documents, contacts) et je vous réponds par une synthèse avec les sources. Je garde le fil : dites « et en fraise ? » ou « plus de détails ».</p>
       ${RECO ? `<button class="as-parler" data-micro>${MICRO_SVG}<span>Parler au robot</span></button>` : ''}</div>
       <div class="assistant-suggestions"><p>Ou essayez :</p>${SUGGESTIONS.map(s=>`<button data-suggestion="${h(s)}">${h(s)}</button>`).join('')}</div>`)
-    + blocsConversation();
-  const qs = fil.querySelectorAll('.bulle.moi'), der = qs[qs.length-1]; fil.scrollTop = der ? der.offsetTop - fil.offsetTop - 8 : 0;
+    + blocsConversation() + (reflexion ? `<div class="bulle ia reflexion" role="status" aria-live="polite"><span class="pts"><i></i><i></i><i></i></span><span class="rf-txt">${h(ETAPES_REFLEXION[reflexion.i % ETAPES_REFLEXION.length])}</span></div>` : '');
+  const qs = fil.querySelectorAll('.bulle.moi'), der = qs[qs.length-1];
+  if(reflexion) fil.scrollTop = fil.scrollHeight; else fil.scrollTop = der ? der.offsetTop - fil.offsetTop - 8 : 0;
+  document.getElementById('panneauAssistant')?.classList.toggle('reflechit', !!reflexion);
   try{ sessionStorage.setItem('it_assistant', JSON.stringify(conversation)); }catch(_){}
 }
+/* Le robot « réfléchit » quelques secondes (1,7 à 3,6 s selon la longueur de la question) : la réponse est prête tout de suite, mais arriver aussi vite qu'un clic passe inaperçu */
+let reflexion = null;
+const ETAPES_REFLEXION = ['Je réfléchis à votre question…', 'Je cherche dans les essais, les fiches et les documents…', 'Je recoupe les informations…', 'Je rédige la réponse…'];
 function demanderAssistant(question, parVoix){
-  question = question.trim(); if(!question) return;
+  question = question.trim(); if(!question || reflexion) return;
   // on garde les questions ; les réponses sont recalculées à l'affichage (toujours à jour, rien de stocké)
-  conversation.push({role:'user', content:question}, {role:'assistant', content:question}); if(conversation.length>12) conversation = conversation.slice(-12);
-  afficherConversation();
-  if(parVoix || lireVoix) direReponse();
+  conversation.push({role:'user', content:question});
+  reflexion = {i:0}; afficherConversation();
+  const duree = Math.min(3600, 1700 + question.length*28 + Math.random()*500), moi = reflexion;
+  const tic = setInterval(()=>{ if(reflexion!==moi){ clearInterval(tic); return; } moi.i++; const t = document.querySelector('#filAssistant .rf-txt'); if(t){ t.textContent = ETAPES_REFLEXION[moi.i % ETAPES_REFLEXION.length]; t.style.animation = 'none'; void t.offsetWidth; t.style.animation = ''; } }, Math.max(700, duree/3.2));
+  setTimeout(()=>{ clearInterval(tic); if(reflexion!==moi) return;   // conversation vidée entre-temps
+    reflexion = null; conversation.push({role:'assistant', content:question}); if(conversation.length>12) conversation = conversation.slice(-12);
+    afficherConversation(); const rep = [...document.querySelectorAll('#filAssistant .bulle.as-rep')].pop(); rep?.classList.add('arrive');
+    if(parVoix || lireVoix) direReponse(); }, duree);
 }
 (function brancherAssistant(){
   const btn = document.getElementById('btnAssistant'), panneau = document.getElementById('panneauAssistant');
@@ -7067,7 +7089,7 @@ function demanderAssistant(question, parVoix){
     if(lireVoix) direReponse(); else speechSynthesis.cancel(); toast(lireVoix ? 'Réponses lues à voix haute' : 'Lecture à voix haute arrêtée'); }; }
   btn.onclick = () => basculer(true);
   panneau.querySelector('[data-fermer]').onclick = () => basculer(false);
-  panneau.querySelector('[data-vider]').onclick = () => { try{ window.speechSynthesis?.cancel(); }catch(_){} conversation = []; afficherConversation(); champ.focus(); };
+  panneau.querySelector('[data-vider]').onclick = () => { try{ window.speechSynthesis?.cancel(); }catch(_){} conversation = []; reflexion = null; afficherConversation(); champ.focus(); };
   document.getElementById('filAssistant').onclick = e => {
     if(e.target.closest('[data-micro]')){ basculerMicro(); return; }
     const s = e.target.closest('[data-suggestion]'); if(s){ demanderAssistant(s.dataset.suggestion); return; }
@@ -7086,7 +7108,7 @@ function demanderAssistant(question, parVoix){
     else if(type==='hebdo'){ aller('hebdo'); }
     if(innerWidth < 900 || type==='essai' || type==='variete' || type==='outil' || type==='fraise' || type==='commission' || type==='projets') basculer(false);
   };
-  document.getElementById('formAssistant').onsubmit = e => { e.preventDefault(); const q = champ.value; champ.value = ''; demanderAssistant(q); };
+  document.getElementById('formAssistant').onsubmit = e => { e.preventDefault(); if(reflexion){ toast('Une seconde, je termine ma réponse…'); return; } const q = champ.value; champ.value = ''; demanderAssistant(q); };
   champ.onkeydown = e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); document.getElementById('formAssistant').requestSubmit(); } };
 })();
 
