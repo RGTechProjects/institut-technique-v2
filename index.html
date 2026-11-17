@@ -524,6 +524,8 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .as-item small{font-size:11px; color:var(--ardoise)} .as-item p{font-size:12.5px} .as-item .chip{align-self:flex-start; margin-top:2px}
 .as-rep .chip{font-size:11.5px; border-color:#7A1F2B; color:#7A1F2B; background:#fff; cursor:pointer} .as-rep .chip small{color:var(--ardoise); font-weight:500}
 .as-suite{display:flex; flex-wrap:wrap; gap:5px; margin:4px 0} .as-bilan{font-weight:600} .as-note{font-size:11px; color:var(--ardoise)}
+.as-copilot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:7px 12px; background:#F6EDEE; border-top:1px solid #E6CCD0; font-size:12px; color:var(--encre-2)} .as-copilot[hidden]{display:none}
+.as-copilot button{border:1px solid #7A1F2B; background:#fff; color:#7A1F2B; border-radius:99px; padding:5px 12px; font-family:'Archivo'; font-weight:600; font-size:12px; cursor:pointer} .as-copilot button:hover{background:#7A1F2B; color:#fff}
 .as-plus-loin{margin-top:10px; padding-top:8px; border-top:1px solid #E6CCD0} .as-plus-loin > span{display:block; font-family:'Archivo'; font-size:12px; font-weight:700; color:#7A1F2B; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px}
 .as-pers{list-style:none; padding:0 !important} .as-pers li{padding:4px 8px; border:1px solid var(--trait); border-radius:8px; background:#fff; margin:3px 0 !important}
 .as-table{overflow-x:auto; margin:0 0 6px} .as-table table{width:100%; border-collapse:collapse; font-size:12px; background:#fff}
@@ -2006,6 +2008,7 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
     <button data-fermer aria-label="Fermer">×</button>
   </div>
   <div class="assistant-fil" id="filAssistant" aria-live="polite"></div>
+  <div class="as-copilot" id="asCopilot" hidden><span>Question plus libre ou plus complexe ?</span><button type="button" id="btnCopilot">Demander à l'agent Copilot ↗</button></div>
   <form class="assistant-saisie" id="formAssistant">
     <button type="button" class="as-micro" id="microAssistant" title="Poser la question à la voix" aria-label="Poser la question à la voix" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 0 0-7 0v5A3.5 3.5 0 0 0 12 15zm6-3.5a1 1 0 0 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-2 0 6 6 0 0 0 5 5.9V20H8.5a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H13v-2.6a6 6 0 0 0 5-5.9z" fill="currentColor"/></svg></button>
     <textarea id="questionAssistant" rows="2" placeholder="Posez votre question… (Entrée pour envoyer)"></textarea>
@@ -6588,6 +6591,13 @@ function direReponse(){
   try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texte); u.lang = 'fr-FR'; u.rate = 1.03; speechSynthesis.speak(u); }catch(_){}
 }
 /* Petit bonjour du robot à la connexion */
+/* Agent Microsoft 365 Copilot de l'Institut : lien de partage de l'agent (à renseigner une fois l'agent validé par le SI ; vide = bouton masqué).
+   La question en cours est copiée dans le presse-papiers puis l'agent s'ouvre dans un nouvel onglet : il suffit de coller. */
+const LIEN_AGENT_COPILOT = 'https://m365.cloud.microsoft/chat/?titleId=T_5e86e659-f28f-08b6-efaf-e290fe604837';
+(function(){ const bar = document.getElementById('asCopilot'), b = document.getElementById('btnCopilot'), u = urlSure(LIEN_AGENT_COPILOT); if(!bar || !b || !/^https:/i.test(u)) return; bar.hidden = false;
+  b.onclick = async () => { const saisie = (document.getElementById('questionAssistant')?.value||'').trim(), derniere = [...conversation].reverse().find(m=>m.role==='user')?.content || '', q = saisie || derniere; let copie = false;
+    try{ if(q){ await navigator.clipboard.writeText(q); copie = true; } }catch(_){}
+    window.open(u, '_blank', 'noopener'); toast(copie ? 'Question copiée : collez-la (Ctrl+V) dans l\'agent Copilot' : 'Agent Copilot ouvert dans un nouvel onglet'); }; })();
 const MESSAGES_ROBOT = [["Besoin d'aide ?", "Posez-moi vos questions."], ["Une question ?", "Essais, prix, outils, contacts : je cherche pour vous."], ["Vous cherchez une information ?", "Dites-moi laquelle, je retrouve les documents."],
   ["Besoin d'un renseignement ?", "Essayez « prix Climundo » ou « oïdium fraise »."], ["Des questions ?", "Je suis là pour y répondre."], ["Besoin d'un contact ?", "Je vous indique le bon référent."], ["Une question à la voix ?", "Cliquez, puis parlez : je vous écoute."]];
 let iMessageRobot = 0, minuteurRobot = null;
@@ -6756,7 +6766,7 @@ function chercherAssistant(q){
   const aff = {}; let somme = 0;
   mots.forEach((o,i)=>{ if(!poids[i]) return; const tot = {}; let n = 0; o.variantes.forEach(w=>{ const d = dft.get(w); if(d) Object.entries(d).forEach(([ty,c])=>{ tot[ty] = (tot[ty]||0)+c; n += c; }); });
     if(n){ Object.entries(tot).forEach(([ty,c])=>{ aff[ty] = (aff[ty]||0) + poids[i]*c/n; }); somme += poids[i]; } });
-  const PRIOR = {essai:1.15, fvar:1.05, doc:0.62, rdv:0.7, contact:0.8, enjeu:0.75, detection:0.9}, mult = ty => (somme ? 0.62 + 0.75*Math.min(1, (aff[ty]||0)/somme) : 1) * (PRIOR[ty]||1) * ((Q.types||[]).includes(ty) ? 1.7 : 1);
+  const PRIOR = {essai:1.15, fvar:1.05, doc:0.62, rdv:0.7, contact:0.8, enjeu:0.75, detection:0.9}, horsSanitaire = (Q.types||[]).some(x=>['variete','fvar'].includes(x)) && !SANIT_Q.test(normPhrase(q)), mult = ty => (somme ? 0.62 + 0.75*Math.min(1, (aff[ty]||0)/somme) : 1) * (PRIOR[ty]||1) * ((Q.types||[]).includes(ty) ? 1.7 : 1) * (horsSanitaire && (ty==='essai' || ty==='levier') ? 0.3 : 1);
   const res = [];
   index.forEach(it=>{ let score = 0, trouves = 0, enTitre = 0;
     mots.forEach((o,i)=>{ if(!poids[i]) return; const t = o.variantes.some(v=>it.nt.includes(' '+v)), t2 = !t && it.nt2 && o.variantes.some(v=>it.nt2.includes(' '+v)), x = !t && !t2 && o.variantes.some(v=>it.nx.includes(' '+v));
@@ -6775,6 +6785,7 @@ function fusionContexte(q, sujet){
   if(!sujet) return {texte:q, fusion:false};
   const n = normPhrase(q), Qn = motsQuestion(q), utiles = Qn.mots.length;
   if(Qn.aide || (Qn.salut && !utiles) || (Qn.merci && !utiles) || Qn.compare) return {texte:q, fusion:false};
+  if(/^(je parle|je veux dire|je voulais dire|je demande|je cherche|non je|non c est|c est pour|en fait)\b/.test(n)) return {texte:(sujet+' '+q).replace(/\s+/g,' ').trim(), fusion:true, base:sujet};
   const suite = /^(et|alors|donc|aussi|mais|ok|oui|puis|sinon)\b/.test(n) || /\b(ca|cela|ceci|celui|celle|ceux|celles|lui|leur|leurs)\b/.test(n) || Qn.detail;
   if(utiles===0 || (suite && utiles<=2) || (utiles===1 && /^(en|pour|chez|sur)\b/.test(n))){
     const nouv = Qn.mots.filter(o=>CULTURES_AG.includes(o.m)).map(o=>o.m); let base = sujet;
@@ -7074,6 +7085,116 @@ function questionPrecise(texte, o){
   const A = analyseQuestionOutil(texte, o); return A.ts.length > 0 || A.kw.length > 0;
 }
 
+/* ---- Variétés de fraise : « les meilleures », « la plus gustative », « les plus précoces en 2025 »… d'après la synthèse de la Commission Variétale Fraises ---- */
+const CRITERES_FRAISE = [
+  ['gout', 'le goût (qualité gustative)', /gust|gout|brix|saveur|sucr|arome|degustation|organolept/],
+  ['rendement', 'le rendement et la productivité', /rendement|productiv|production|potentiel|charg|calibre/],
+  ['precocite', 'la précocité', /precoc|demarrage|tardiv|remont|cycle|continu|rapide/],
+  ['resistance', 'la tolérance aux maladies', /oidium|botrytis|toleran|resistan|maladie|sensib|sanitaire/],
+  ['fermete', 'la fermeté et la conservation', /ferm|conserv|tenue|transport|cueill|travail facile/],
+  ['fruit', 'la forme et l\'aspect du fruit', /forme|aspect|couleur|brillan|allong|rond|conique|visuel/],
+  ['plante', 'la plante et sa conduite', /stolon|vegetation|pollinis|besoin en eau|plante|froid|vigueur|hampe|feuill/]];
+const ORDRE_STATUT_FR = {LP:0, DV3:1, DV2:2, DV1:3, '':4, OUT:5, ABANDON:6};
+const SANIT_Q = /\b(oidium|botrytis|puceron|thrips|acarien|mouche|nematode|ravageur|traitement|produit|molecule|levier|biocontrole|auxiliaire|phyto|efficac|punaise|cochenille|virus|pathogene|soufre)\w*/;
+/* faut-il répondre par la synthèse des variétés de fraise ? (fraise + variété/qualité recherchée, sans question de traitement) */
+function veutVarietesFraise(texte){
+  const n = normPhrase(texte);
+  if(!/\b(fraise|fraises|fraisier|fraisiers|gariguette)\b/.test(n)) return false;
+  const crit = CRITERES_FRAISE.some(([, , re])=>re.test(n)), variete = /\b(variete|varietes|cultivar|cultivars|plant|plants)\b/.test(n), classement = /\b(meilleur|meilleure|meilleurs|meilleures|bon|bonne|bons|bonnes|top|classement|plus|quelle|quelles|lesquelles|lequel)\b/.test(n);
+  if(SANIT_Q.test(n) && !variete) return false;
+  return variete || (crit && classement);
+}
+function reponseVarietesFraise(texte){
+  const F = S.fraise?.synthese, V = F?.varietes; if(!V?.length) return '';
+  const n = normPhrase(texte), an = (n.match(/\b(202[3-6])\b/)||[])[1] || '';
+  const criteres = CRITERES_FRAISE.filter(([, , re])=>re.test(n)), crit = criteres[0] || null, STAT = k => (STATUT_FR[String(k||'').toUpperCase()]||[String(k||'') || 'Statut non précisé'])[0];
+  const items = v => { const l = [];
+    (v.forts||[]).forEach(t=>l.push({k:'Point fort', t, pos:1})); (v.faibles||[]).forEach(t=>l.push({k:'Point faible', t, pos:-1}));
+    Object.entries(v.evals||{}).sort((a,b)=>b[0]-a[0]).forEach(([a, L])=>(L||[]).forEach(t=>l.push({k:'Évaluation '+a, t:String(t).trim(), a, pos:0})));
+    (v.desc||[]).forEach(t=>l.push({k:'Description', t, pos:0})); return l.filter(x=>x.t && x.t.length>3); };
+  const rang = v => ORDRE_STATUT_FR[String(v.statut||'').toUpperCase()] ?? 4;
+  let lignes = V.map(v=>{ let it = items(v);
+    if(an) it = it.filter(x=>x.a ? x.a===an : false).concat(it.filter(x=>!x.a && !an));
+    const m = crit ? it.filter(x=>crit[2].test(normTexte(x.t))) : it;
+    const score = (crit ? m.filter(x=>x.pos>=0).length*0.5 + m.filter(x=>x.pos>0).length*1.5 - m.filter(x=>x.pos<0).length : 0) + (3 - Math.min(rang(v),6)*0.6);
+    return {v, it, m, score}; });
+  // avec une année : on ne garde que les variétés évaluées cette année-là
+  if(an) lignes = lignes.filter(x=>Object.keys(x.v.evals||{}).includes(an));
+  if(crit) lignes = lignes.filter(x=>x.m.length);
+  lignes.sort((a,b)=>b.score-a.score);
+  const chipsCrit = CRITERES_FRAISE.filter(c=>c!==crit).slice(0,4).map(c=>[`Variétés de fraise : ${c[1]}${an?' en '+an:''}`, c[1].replace(/^l[ea]s? /,'')]);
+  const titre = `Variétés de fraise — ${crit ? '<b>'+h(crit[1])+'</b>' : '<b>les mieux placées selon la commission</b>'}${an ? ` (évaluations ${h(an)})` : ''}`;
+  const src = F.lien && liensDoc(F.lien).ouvrir ? `<div class="as-docs"><span>Source :</span><span class="as-doc"><a href="${h(liensDoc(F.lien).ouvrir)}" target="_blank" rel="noopener">${h(coupeSrc(F.titre || 'Synthèse variétale fraise', 60))}</a></span></div>` : '';
+  if(!lignes.length){
+    return `<div class="as-chat"><p class="as-intro">${titre} :</p><p>Je ne trouve pas d'information ${crit ? 'sur ' + h(crit[1]) : ''}${an ? ' pour ' + h(an) : ''} dans la synthèse de la Commission Variétale Fraises${an ? ' (les années évaluées sont ' + h([...new Set(V.flatMap(v=>Object.keys(v.evals||{})))].sort().join(', ')) + ')' : ''}. Je ne l'invente pas.</p>${src}<div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${chipsCrit.map(([q, l])=>`<button class="chip" data-suggestion="${h(q)}">${h(l)}</button>`).join('')}<button class="chip" data-suggestion="Variétés de fraise : les mieux placées">Les mieux placées</button></div></div></div>`; }
+  const top = lignes.slice(0, crit ? 5 : 4);
+  const bloc = ({v, m, it}) => {
+    const montre = (crit ? m.slice().sort((a, b)=>b.pos-a.pos) : it.filter(x=>x.k==='Point fort' || x.a)).slice(0, 4);
+    return `<p class="as-src">${h([v.nom, STAT(v.statut), v.profil && 'profil ' + v.profil, v.temoin && 'témoin ' + v.temoin].filter(Boolean).join(' · '))}</p>${montre.map(x=>`<p class="as-cite"><b>${h(x.k)} :</b> ${h(x.t)}</p>`).join('')}`; };
+  const chips = [...top.slice(0, 3).map(({v})=>[v.nom, 'Fiche ' + v.nom]), ...chipsCrit.slice(0, 3), ['Propositions 2027 des obtenteurs en fraise', 'Propositions 2027']];
+  return `<div class="as-chat"><p class="as-intro">${titre} :</p>${top.map(bloc).join('')}
+    <p class="as-note">Passages repris de la synthèse de la commission, sans rien ajouter. ${lignes.length>top.length ? `${lignes.length-top.length} autre${lignes.length-top.length>1?'s':''} variété${lignes.length-top.length>1?'s':''} correspondent aussi.` : ''}${!crit ? ' « Meilleure » peut vouloir dire goût, rendement, précocité… : choisissez un critère ci-dessous.' : ''}</p>${src}
+    <div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${chips.map(([q, l])=>`<button class="chip" data-suggestion="${h(q)}">${h(l)}</button>`).join('')}</div></div></div>`;
+}
+const coupeSrc = (t, n) => { t = String(t||''); return t.length>n ? t.slice(0, n-1)+'…' : t; };
+
+/* ---- Variétés de tomate : goût et résistances d'après la liste positive de la commission ---- */
+const CRIT_TOMATE = [
+  ['gout', 'le goût', /gust|gout|saveur|brix|sucr|arome|excellence/, 'gout'],
+  ['tobrfv', 'la résistance au ToBRFV', /tobrfv|tbrfv|rugueux|virus/, 'tobrfv'],
+  ['tomv', 'la résistance au TomV', /\btomv\b|mosaique/, 'tomv'],
+  ['cladosporiose', 'la résistance à la cladosporiose', /cladospor|\bff\b/, 'ff'],
+  ['oidium', 'la tolérance à l\'oïdium', /oidium/, 'on']];
+const ORDRE_GOUT = ['Excellence gustative', 'Gustatif', 'Standard +', 'Standard'];
+const TYPOS_TOMATE = ['grappe','cerise','allongee','charnue','cocktail','coeur','marmande','ronde','rouge','couleur','noire','jaune'];
+function veutVarietesTomate(texte){
+  const n = normPhrase(texte);
+  if(!/\b(tomate|tomates)\b/.test(n) || /\b(fraise|fraises|fraisier)\b/.test(n)) return false;
+  if(SANIT_Q.test(n) && !/\b(variete|varietes)\b/.test(n)) return false;
+  const crit = CRIT_TOMATE.some(c=>c[2].test(n)), variete = /\b(variete|varietes|cultivar|cultivars)\b/.test(n), classement = /\b(meilleur|meilleure|meilleurs|meilleures|bon|bonne|bons|bonnes|plus|quelle|quelles|classement|top)\b/.test(n);
+  return variete && (crit || classement);
+}
+function reponseVarietesTomate(texte){
+  const an = Object.keys(S.essais?.listes||{}).sort().pop(), L = an && S.essais.listes[an]; if(!L?.lp?.lignes?.length) return '';
+  const n = normPhrase(texte), crit = CRIT_TOMATE.find(c=>c[2].test(n)) || null, typos = TYPOS_TOMATE.filter(t=>new RegExp('\\b'+t+'s?\\b').test(n));
+  const lib = `liste positive ${L.campagne || (an-1) + '-' + an}`;
+  let l = L.lp.lignes.filter(x=>!x.horsTypo);
+  if(typos.length) l = l.filter(x=>typos.some(t=>normTexte(x.typo||'').includes(t)));
+  const chipsCrit = CRIT_TOMATE.filter(c=>c!==crit).slice(0, 4).map(c=>[`Variétés de tomate : ${c[1]}`, c[1].replace(/^l[ea] /, '')]);
+  const suite = `<div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite">${chipsCrit.map(([q, t])=>`<button class="chip" data-suggestion="${h(q)}">${h(t)}</button>`).join('')}<button class="chip" data-suggestion="Prix des graines de tomate">Prix des graines</button><button class="chip" data-suggestion="Résultats des essais DV3 tomate">Résultats DV3</button></div></div>`;
+  const ligne = x => `<li><b>${h(x.nom)}</b> — ${h([x.typo, x.sem].filter(Boolean).join(' · '))}${x.com ? ' <small>' + h(x.com) + '</small>' : ''}</li>`;
+  const filtre = typos.length ? ` (${h(typos.join(', '))})` : '';
+  if(!crit) return `<div class="as-chat"><p class="as-intro">Variétés de tomate : la ${h(lib)} compte <b>${l.length} variétés</b> en production${filtre}.</p><p>« Meilleure » peut vouloir dire le goût, une résistance à une maladie, le rendement… Choisissez un critère, je cite la liste de la commission.</p>${suite}</div>`;
+  let corps = '';
+  if(crit[0]==='gout'){
+    const g = ORDRE_GOUT.map(k=>[k, l.filter(x=>x.gout===k)]).filter(x=>x[1].length);
+    corps = g.length ? g.map(([k, v])=>`<p class="as-src">${h(k)} <small>(${v.length})</small></p><ul class="as-liste">${v.map(ligne).join('')}</ul>`).join('') : '<p>Aucun niveau de goût n\'est renseigné pour ces variétés.</p>';
+  } else {
+    const champ = crit[3], vals = {Hr:'Haute résistance', Ir:'Résistance intermédiaire'};
+    const g = Object.entries(vals).map(([k, t])=>[t, l.filter(x=>x[champ]===k)]).filter(x=>x[1].length);
+    corps = g.length ? g.map(([t, v])=>`<p class="as-src">${h(t)} <small>(${v.length})</small></p><ul class="as-liste">${v.map(ligne).join('')}</ul>`).join('') : `<p>Aucune variété de la ${h(lib)} n'est indiquée avec ${h(crit[1])}${filtre}.</p>`;
+  }
+  return `<div class="as-chat"><p class="as-intro">Variétés de tomate — <b>${h(crit[1])}</b>${filtre}, d'après la <b>${h(lib)}</b> de la commission :</p>${corps}<p class="as-note">Je cite la liste positive telle quelle${/202[3-5]/.test(n) ? ' ; elle ne couvre que la campagne ' + h(lib.replace('liste positive ', '')) : ''}, sans rien ajouter. Pour les résultats d'essais ou les prix, utilisez les boutons ci-dessous.</p>${suite}</div>`;
+}
+
+/* ---- « La liste positive » : variétés autorisées en production, groupées par segment (fraise) ou par typologie (tomate), avec la source ---- */
+function veutListePositive(texte){ const n = normPhrase(texte); return /\b(liste positive|listes positives|liste de reference|lp)\b/.test(n) && !/\b(prix|cout|tarif)\b/.test(n); }
+function reponseListePositive(texte){
+  const n = normPhrase(texte), fraise = /\b(fraise|fraises|fraisier)\b/.test(n);
+  const L = fraise ? S.fraise?.listes : null, T = !fraise ? (()=>{ const a = Object.keys(S.essais?.listes||{}).sort().pop(); return a ? {an:a, ...S.essais.listes[a]} : null; })() : null;
+  const lp = fraise ? L?.lp : T?.lp; if(!lp?.lignes?.length) return '';
+  const cle = x => fraise ? (x.seg || 'Autres') : (x.typo || 'Autres'), lignes = lp.lignes.filter(x=>!x.horsTypo), g = new Map();
+  lignes.forEach(x=>{ const k = cle(x); if(!g.has(k)) g.set(k, []); g.get(k).push(x); });
+  const dev = fraise ? L?.dv?.lignes : T?.dev?.lignes, titre = fraise ? lp.titre : 'Liste positive de référence des variétés de tomate ' + (T.campagne || '');
+  const lien = lp.lien && liensDoc(lp.lien).ouvrir ? '<div class="as-docs"><span>Pour lire ou télécharger :</span>' + lienDoc({t: titre, url: lp.lien}) + '</div>' : '';
+  const cult = fraise ? 'fraise' : 'tomate';
+  return '<div class="as-chat"><p class="as-intro"><b>' + h(titre) + '</b> : ' + lignes.length + ' variétés' + (dev?.length ? ', et ' + dev.length + ' en développement' : '') + (lp.maj ? ' (mise à jour du ' + h(lp.maj) + ')' : '') + '.</p>'
+    + [...g.entries()].map(([k, v])=>'<p class="as-src">' + h(k) + ' <small>(' + v.length + ')</small></p><p class="as-cite">' + v.map(x=>h(x.nom) + (fraise && x.profil ? ' (' + h(x.profil) + ')' : x.sem ? ' (' + h(x.sem) + ')' : '')).join(' · ') + '</p>').join('')
+    + '<p class="as-note">Liste reprise telle quelle, sans rien ajouter.</p>' + lien
+    + '<div class="as-plus-loin"><span>Aller plus loin :</span><div class="as-suite"><button class="chip" data-suggestion="Variétés de ' + cult + ' : le goût">Les plus gustatives</button>'
+    + (fraise ? '<button class="chip" data-suggestion="Variétés de fraise : la précocité">Les plus précoces</button><button class="chip" data-suggestion="Propositions 2027 des obtenteurs en fraise">Propositions 2027</button>' : '<button class="chip" data-suggestion="Variétés de tomate : la résistance au ToBRFV">Résistantes ToBRFV</button><button class="chip" data-suggestion="Prix des graines de tomate">Prix des graines</button>')
+    + '</div></div></div>';
+}
 function reponseTechno(texte, Qo){
   // « va scout » est la même chose qu'« Eva Scout » (le e initial se perd à l'oral)
   texte = String(texte).replace(/\b(?:e|é)?va\s*scout/gi, 'eva scout');
@@ -7120,6 +7241,9 @@ function reponseAssistant(texte, opt = {}){
   if(Qo.quand){ const r = reponseQuand(texte, Qo); if(r) return r; }
   if(Qo.compare){ const r = reponseComparaison(orig, Qo); if(r) return r; }
   { const r = reponseTechno(texte, Qo); if(r) return r; }
+  if(veutListePositive(texte)){ const r = reponseListePositive(texte); if(r) return r; }
+  if(veutVarietesFraise(texte)){ const r = reponseVarietesFraise(texte); if(r) return r; }
+  if(veutVarietesTomate(texte)){ const r = reponseVarietesTomate(texte); if(r) return r; }
   FLAGS_FORCE = {contact:Qo.contact, prix:Qo.prix, tri:Qo.tri, combien:Qo.combien, reco:Qo.reco, detail:Qo.detail}; NOTE_AG = opt.note || '';
   try{ return reponseAssistantBase(texte); } finally{ FLAGS_FORCE = null; NOTE_AG = ''; }
 }
