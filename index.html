@@ -6103,6 +6103,8 @@ const octetsLib = n => n > 1048576 ? (n/1048576).toFixed(1).replace('.', ',')+' 
 /* Les PDF sont rangés à part (une ligne « pdf_… » par fichier) : la rubrique « fichiers » ne garde que la liste (nom, date, taille), et le contenu n'est lu que quand on le télécharge */
 function pdfListe(cat, cle){ S.fichiers ||= {}; if(cat==='mercuriale') return (S.fichiers.mercuriale ||= []); return ((S.fichiers.catalogue ||= {})[cle] ||= []); }
 async function pdfVersBase64(f){ const u = new Uint8Array(await f.arrayBuffer()); let s = ''; for(let i=0; i<u.length; i+=0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i+0x8000)); return btoa(s); }
+const mimeDoc = nom => /\.pdf$/i.test(nom) ? 'application/pdf' : /\.pptx$/i.test(nom) ? 'application/vnd.openxmlformats-officedocument.presentationml.presentation' : /\.ppsx$/i.test(nom) ? 'application/vnd.openxmlformats-officedocument.presentationml.slideshow' : 'application/vnd.ms-powerpoint';
+const estPdf = nom => /\.pdf$/i.test(nom);
 async function pdfContenu(e){
   if(pdfCache.has(e.id)) return pdfCache.get(e.id);
   const { data, error } = await sbClient.from('app_state').select('valeur').eq('cle', 'pdf_'+e.id).maybeSingle();
@@ -6111,12 +6113,12 @@ async function pdfTelecharger(cat, cle, i, ouvrir){
   const e = pdfListe(cat, cle)[i]; if(!e) return; toast('Préparation du PDF…');
   const b64 = await pdfContenu(e); if(!b64){ toast('PDF introuvable'); return; }
   const bin = atob(b64), u = new Uint8Array(bin.length); for(let k=0; k<bin.length; k++) u[k] = bin.charCodeAt(k);
-  const url = URL.createObjectURL(new Blob([u], {type:'application/pdf'}));
+  const url = URL.createObjectURL(new Blob([u], {type:mimeDoc(e.nom)}));
   if(ouvrir){ window.open(url, '_blank', 'noopener'); setTimeout(()=>URL.revokeObjectURL(url), 60000); return; }
   const a = document.createElement('a'); a.href = url; a.download = e.nom; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 4000); }
 async function pdfAjouter(cat, cle, f){
-  if(!/\.pdf$/i.test(f.name) && f.type!=='application/pdf'){ toast('Choisissez un fichier PDF'); return false; }
-  if(f.size > PDF_MAX){ toast('PDF trop volumineux (8 Mo maximum)'); return false; }
+  if(!/\.(pdf|pptx?|ppsx)$/i.test(f.name)){ toast('Choisissez un fichier PDF ou PowerPoint (.pdf, .ppt, .pptx)'); return false; }
+  if(f.size > PDF_MAX){ toast('Fichier trop volumineux (8 Mo maximum)'); return false; }
   if(modeLocal){ toast('Enregistrement impossible hors connexion'); return false; }
   const data = await pdfVersBase64(f), id = uid(), maintenant = new Date();
   const { error } = await sbClient.from('app_state').upsert({cle:'pdf_'+id, valeur:{data}, maj:maintenant.toISOString(), par:currentUser?.email||null});
@@ -6129,10 +6131,10 @@ async function pdfAjouter(cat, cle, f){
 /* bloc « PDF » : téléchargement pour tous, ajout / remplacement pour l'administrateur */
 function blocPdf(cat, cle, titre){
   const l = pdfListe(cat, cle), e = l[0], k = cat+'|'+cle, adm = estAdmin();
-  return `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>Version PDF — ${h(titre)}</b>
-      ${e ? `<span>${h(e.nom)} · ${octetsLib(e.taille)} · ajouté le ${h(e.importe)}${adm && e.par ? ' par '+h(e.par.split('@')[0]) : ''}</span>` : '<span>Aucun PDF pour l\'instant.</span>'}</div>
-    <div class="mc-pdf-b">${e ? `<button class="btn" data-pdf-dl="${h(k)}|0">Télécharger le PDF</button><button class="btn sec" data-pdf-ouvrir="${h(k)}|0">Ouvrir</button>` : ''}
-      ${adm ? `<label class="btn sec">${e ? 'Remplacer / mettre à jour le PDF' : 'Ajouter le PDF'}<input type="file" accept=".pdf,application/pdf" data-pdf-ajout="${h(k)}" hidden></label>` : ''}</div>
+  return `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>PDF ou PowerPoint — ${h(titre)}</b>
+      ${e ? `<span>${h(e.nom)} · ${octetsLib(e.taille)} · ajouté le ${h(e.importe)}${adm && e.par ? ' par '+h(e.par.split('@')[0]) : ''}</span>` : '<span>Aucun document pour l\'instant.</span>'}</div>
+    <div class="mc-pdf-b">${e ? `<button class="btn" data-pdf-dl="${h(k)}|0">Télécharger${estPdf(e.nom) ? ' le PDF' : ' le PowerPoint'}</button>${estPdf(e.nom) ? `<button class="btn sec" data-pdf-ouvrir="${h(k)}|0">Ouvrir</button>` : ''}` : ''}
+      ${adm ? `<label class="btn sec">${e ? 'Remplacer / mettre à jour' : 'Ajouter un PDF ou un PowerPoint'}<input type="file" accept=".pdf,.ppt,.pptx,.ppsx,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" data-pdf-ajout="${h(k)}" hidden></label>` : ''}</div>
     ${l.length>1 ? `<details class="mc-pdf-v"><summary>Versions précédentes (${l.length-1})</summary>${l.slice(1).map((v,i)=>`<div><span>${h(v.nom)} · ${octetsLib(v.taille)} · ${h(v.importe)}</span><button class="suppr" data-pdf-dl="${h(k)}|${i+1}">Télécharger</button></div>`).join('')}</details>` : ''}</div>`;
 }
 
@@ -6398,7 +6400,7 @@ function mcExporterVue(){
     else if(t.matches?.('[data-mc-fiab]')){ MC.fiab = t.value; mcRendre(true); }
     else if(t.matches?.('[data-mc-sans]')){ MC.sansPrix = t.checked; mcRendre(false); }
     else if(t.matches?.('[data-mc-excel]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; await mcImporter(f); }
-    else if(t.matches?.('[data-pdf-ajout]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; const [c, k] = t.dataset.pdfAjout.split('|'); if(await pdfAjouter(c, k, f)){ vueCommissions(); toast('PDF ajouté : '+f.name); } } });
+    else if(t.matches?.('[data-pdf-ajout]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; const [c, k] = t.dataset.pdfAjout.split('|'); if(await pdfAjouter(c, k, f)){ vueCommissions(); toast('Document ajouté : '+f.name); } } });
 })();
 
 function partieLeviers(){
