@@ -5251,6 +5251,7 @@ function rapportsSegment(an, src, seg){
 
 /* Prix des graines du segment, en bas de chaque segment d'essai */
 function prixSegment(seg, an, cles=[]){
+  return '';   // 19/11 : les prix des graines ont leur propre onglet (« Prix des graines ») ; on ne les répète plus sous les résultats des essais
   const ac = anCatalogue(an);
   if(!ac) return `<div class="ps-bloc vide"><h5>Prix des graines</h5><p class="aide" style="margin:0">Aucun catalogue de prix importé pour l'instant.</p></div>`;
   const c = S.essais.prix[ac], av = S.essais.prix[String(+ac-1)];
@@ -5345,7 +5346,7 @@ function blocDV3(e, src, an){
     ${opFiltre && essaiVue==='pos' ? `<p class="es-filtre">Essais du bassin <b>${h(opFiltre)}</b> <button class="chip" data-op-effacer>Voir tous les bassins ✕</button></p>` : ''}
     ${corps}
     ${essaiSeg ? `${rapportsSegment(an, src, essaiSeg)}${listeSegment(essaiSeg, an)}${prixSegment(essaiSeg, an, vis.map(f=>cleSx(f.nom)))}`
-      : '<p class="aide es-astuce">Choisissez un segment pour afficher en bas la liste positive, les prix des graines et les rapports du segment.</p>'}`;
+      : '<p class="aide es-astuce">Choisissez un segment pour afficher en bas la liste positive et les rapports du segment (les prix des graines sont dans l\'onglet « Prix des graines »).</p>'}`;
 }
 
 /* Rapports et documents d'essais de l'année */
