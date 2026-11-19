@@ -639,6 +639,28 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 @media(max-width:1100px){ .mc-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .mc-grille,.mc-det-g{grid-template-columns:1fr} .mc-maj ul{columns:1} }
 @media(max-width:600px){ .mc-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media print{ .mc-barre,.mc-pdf,.mc-actions,.mc-vues{display:none !important} .mc-tab-s{overflow:visible} }
+/* ---- graphiques animés de la mercuriale ---- */
+.mc-kpis{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin:6px 0 12px}
+.mc-kpi{position:relative; background:linear-gradient(135deg, color-mix(in srgb, var(--k) 14%, #fff), #fff 70%); border:1px solid color-mix(in srgb, var(--k) 25%, #fff); border-radius:14px; padding:12px 14px 10px; overflow:hidden; display:flex; flex-direction:column; gap:2px}
+.mc-kpi::before{content:''; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--k)} .mc-kpi b{font-family:'Archivo'; font-size:28px; line-height:1.1; color:var(--k); font-variant-numeric:tabular-nums} .mc-kpi span{font-size:12px; color:var(--ardoise)}
+.mc-kpi-an b{font-size:16px; padding-top:7px}
+.mc-an{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px} .mc-svg-an{width:210px; height:210px; flex:none}
+.mc-seg{cursor:pointer; transform-box:view-box; transform-origin:110px 110px; transition:transform .18s ease, filter .18s; animation:mcPop .55s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms)} .mc-seg:hover{transform:scale(1.045); filter:brightness(1.07) drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.mc-an-n{font-family:'Archivo'; font-size:30px; font-weight:700; fill:var(--marque-fonce,#17594A)} .mc-an-t{font-size:12px; fill:#6B756F}
+.mc-an-leg{list-style:none; margin:0; padding:0; flex:1 1 160px; display:flex; flex-direction:column; gap:3px; font-size:12.5px; min-width:0}
+.mc-an-leg li{display:grid; grid-template-columns:12px 1fr auto; gap:8px; align-items:center; padding:3px 6px; border-radius:8px; cursor:pointer} .mc-an-leg li:hover,.mc-an-leg li:focus-visible{background:var(--marque-clair,#EAF6EF); outline:none}
+.mc-an-leg i{width:11px; height:11px; border-radius:4px} .mc-an-leg span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap} .mc-an-leg b{font-size:11.5px; color:var(--ardoise); white-space:nowrap}
+.mc-courbes .mc-trait{stroke-dasharray:1; stroke-dashoffset:1; animation:mcTrace 1.1s ease-out forwards; animation-delay:var(--d,0ms)} .mc-courbes .mc-aire{animation:mcFondu .9s ease-out both}
+.mc-pt-c{animation:mcPop .4s ease-out both; animation-delay:var(--d,0ms); transform-box:fill-box; transform-origin:center} .mc-surv:hover{fill:rgba(46,139,106,.07)}
+.mc-bulle{cursor:pointer; transform-box:fill-box; transform-origin:center; animation:mcPop .5s ease-out both; animation-delay:var(--d,0ms); transition:transform .15s} .mc-bulle:hover{transform:scale(1.35); fill-opacity:1; stroke:#26332C}
+.mc-suc{cursor:pointer; animation:mcFondu .5s ease-out both; animation-delay:var(--d,0ms)} .mc-suc:hover circle{r:9} .mc-suc:hover text{font-weight:700}
+.mc-mini{width:150px; height:20px; display:block; overflow:visible}
+.mc-series{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 8px} .mc-series .chip{border-color:var(--fc); color:var(--fc); background:#fff; font-size:12px} .mc-series .chip[aria-pressed=true]{background:var(--fc); color:#fff} .mc-lg{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--ardoise)} .mc-lg i{width:10px; height:10px; border-radius:50%}
+.mc-chips{display:flex; flex-wrap:wrap; gap:6px} .mc-chip{display:inline-flex; align-items:center; gap:6px; background:color-mix(in srgb, var(--fc) 13%, #fff); border:1.5px solid var(--fc); color:color-mix(in srgb, var(--fc) 65%, #000); border-radius:99px; padding:3px 6px 3px 12px; font-size:13px; font-weight:600} .mc-chip button{all:unset; cursor:pointer; width:18px; height:18px; text-align:center; line-height:18px; border-radius:50%; background:rgba(0,0,0,.08)} .mc-chip button:hover{background:rgba(0,0,0,.2)}
+.mc-tip{position:fixed; z-index:9999; display:none; pointer-events:none; background:#26332C; color:#fff; border-radius:10px; padding:8px 12px; font-size:12.5px; line-height:1.45; box-shadow:0 8px 22px rgba(0,0,0,.28); max-width:300px} .mc-tip b{display:block; margin-bottom:2px; font-family:'Archivo'} .mc-tip span{display:block; color:#D8E3DC}
+@keyframes mcPop{from{opacity:0; transform:scale(.6)} to{opacity:1; transform:scale(1)}} @keyframes mcTrace{to{stroke-dashoffset:0}} @keyframes mcFondu{from{opacity:0} to{opacity:1}}
+@media(prefers-reduced-motion:reduce){ .mc-seg,.mc-trait,.mc-aire,.mc-pt-c,.mc-bulle,.mc-suc{animation:none !important} .mc-courbes .mc-trait{stroke-dashoffset:0} }
+@media(max-width:1100px){ .mc-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} } @media(max-width:600px){ .mc-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .mc-svg-an{width:170px; height:170px} }
 /* cloche des nouveautés */
 .notif-btn{position:relative; display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; border:1px solid rgba(255,255,255,.3); background:transparent; color:#fff; cursor:pointer; padding:0}
 .notif-btn:hover{background:rgba(255,255,255,.12)}
@@ -6098,6 +6120,95 @@ function lireMercuriale(wb){
   return {version, lignes, produits:[...produits.values()], familles:ordreFam, annees, defautAnnees:defaut, substrats, sources:[...libSources.values()].sort((a,b)=>a.an-b.an || a.lib.localeCompare(b.lib)).map(x=>x.an+' · '+x.lib)};
 }
 
+/* ================= Graphiques de la mercuriale : SVG animés, survol (infobulle), clic pour filtrer ================= */
+const mcTip = (...l) => h(l.filter(Boolean).join('|'));
+let mcTipEl = null;
+const mcAng = (cx, cy, r, a) => [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+function mcArc(cx, cy, r0, r1, a0, a1){
+  const g = a1-a0 > Math.PI ? 1 : 0, [x0, y0] = mcAng(cx, cy, r1, a0), [x1, y1] = mcAng(cx, cy, r1, a1), [x2, y2] = mcAng(cx, cy, r0, a1), [x3, y3] = mcAng(cx, cy, r0, a0);
+  return `M${x0} ${y0} A${r1} ${r1} 0 ${g} 1 ${x1} ${y1} L${x2} ${y2} A${r0} ${r0} 0 ${g} 0 ${x3} ${y3}Z`;
+}
+/* anneau : parts d'un tout, légende cliquable */
+function mcAnneau(items, o = {}){   // items : [{lib, v, couleur, cle, texte}]
+  const tot = items.reduce((n,i)=>n+i.v, 0) || 1, R1 = 100, R0 = 64, cx = 110, cy = 110; let a = -Math.PI/2;
+  const segs = items.filter(i=>i.v>0).map((i, k)=>{ const da = i.v/tot*Math.PI*2, a0 = a, a1 = a + Math.min(da, Math.PI*2-0.0001); a += da;
+    return `<path class="mc-seg" style="--d:${k*60}ms" d="${mcArc(cx, cy, R0, R1, a0+0.012, a1-0.012)}" fill="${i.couleur}" data-tip="${mcTip(i.lib, i.texte||i.v+' ('+Math.round(i.v/tot*100)+' %)')}"${i.cle ? ` data-mc-go="${h(i.cle)}"` : ''}/>`; }).join('');
+  return `<div class="mc-an"><svg viewBox="0 0 220 220" class="mc-svg-an" role="img" aria-label="${h(o.titre||'Répartition')}">${segs}
+      <text x="110" y="106" text-anchor="middle" class="mc-an-n">${h(String(o.centre ?? tot))}</text><text x="110" y="128" text-anchor="middle" class="mc-an-t">${h(o.sous||'')}</text></svg>
+    <ul class="mc-an-leg">${items.filter(i=>i.v>0).map(i=>`<li${i.cle ? ` data-mc-go="${h(i.cle)}" tabindex="0" role="button"` : ''}><i style="background:${i.couleur}"></i><span>${h(i.lib)}</span><b>${h(i.texte||String(i.v))}</b></li>`).join('')}</ul></div>`;
+}
+/* courbes : plusieurs séries, survol avec repère vertical, zone min–max pour une série seule */
+function mcCourbes(series, annees, o = {}){   // series : [{nom, couleur, pts:[{v, min, max}|null]}]
+  const W = 640, Ht = o.haut || 270, mg = {g:58, d:20, h:20, b:34}, vis = series.filter(s=>!s.masque), tous = vis.flatMap(s=>s.pts.filter(Boolean));
+  if(!tous.length) return '<p class="aide">Pas de prix pour ce choix avec ces filtres.</p>';
+  const unique = vis.length===1, vals = tous.flatMap(p=>unique && p.max!=null ? [p.v, p.min, p.max] : [p.v]), vmax = Math.max(...vals), vmin = o.indice ? Math.min(...vals) : 0;
+  let pas, haut, bas = vmin;
+  if(o.indice){ const e = Math.pow(10, Math.floor(Math.log10((vmax-vmin||1)/4))), m = ((vmax-vmin||1)/4)/e; pas = (m<=1?1:m<=2?2:m<=5?5:10)*e; bas = Math.floor(vmin/pas)*pas; haut = Math.ceil(vmax/pas)*pas + (vmax===vmin ? pas : 0); }
+  else { const br = vmax*1.12 || 1, e = Math.pow(10, Math.floor(Math.log10(br/4))), m = (br/4)/e; pas = (m<=1?1:m<=2?2:m<=5?5:10)*e; haut = Math.ceil(br/pas)*pas; }
+  const X = i => mg.g + (annees.length===1 ? (W-mg.g-mg.d)/2 : i*(W-mg.g-mg.d)/(annees.length-1)), Y = v => mg.h + (1-(v-bas)/(haut-bas||1))*(Ht-mg.h-mg.b);
+  const grad = Array.from({length:Math.round((haut-bas)/pas)+1}, (_, i)=>Math.round((bas+i*pas)*1000)/1000), fmt = v => v.toLocaleString('fr-FR', {maximumFractionDigits:v<10?1:0});
+  const id = 'g'+Math.random().toString(36).slice(2, 7);
+  const trace = (s) => { const segs = []; let cur = []; s.pts.forEach((p, i)=>{ if(p){ cur.push([X(i), Y(p.v), i]); } }); /* les années sans prix sont enjambées */ if(cur.length) segs.push(cur); return segs; };
+  const dessin = vis.map((s, k)=>{ const segs = trace(s);
+    const lig = segs.filter(g=>g.length>1).map(g=>`<path class="mc-trait" pathLength="1" d="${g.map((p,j)=>(j?'L':'M')+p[0]+' '+p[1]).join(' ')}" fill="none" stroke="${s.couleur}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="--d:${k*120}ms"/>`).join('');
+    const zone = unique ? segs.filter(g=>g.length>1).map(g=>`<path class="mc-aire" d="M${g[0][0]} ${Y(bas)} ${g.map(p=>'L'+p[0]+' '+p[1]).join(' ')} L${g[g.length-1][0]} ${Y(bas)}Z" fill="url(#${id})"/>`).join('') : '';
+    const bande = unique && s.pts.some(p=>p && p.max!=null && p.max!==p.min) ? segs.filter(g=>g.length>1).map(g=>`<path d="M${g.map(p=>p[0]+' '+Y(s.pts[p[2]].max)).join(' L')} L${g.slice().reverse().map(p=>p[0]+' '+Y(s.pts[p[2]].min)).join(' L')}Z" fill="${s.couleur}" opacity=".13"/>`).join('') : '';
+    const pts = s.pts.map((p, i)=>p ? `<circle class="mc-pt-c" cx="${X(i)}" cy="${Y(p.v)}" r="5.5" fill="#fff" stroke="${s.couleur}" stroke-width="3" style="--d:${400+i*60}ms"/>` : '').join('');
+    return zone+bande+lig+pts; }).join('');
+  const surv = annees.map((a, i)=>{ const l = vis.filter(s=>s.pts[i]).map(s=>`${s.nom} : ${o.indice ? Math.round(s.pts[i].v*10)/10 : mcEur(s.pts[i].v)}`); return `<rect class="mc-surv" x="${X(i)-(W-mg.g-mg.d)/(annees.length*2)}" y="0" width="${(W-mg.g-mg.d)/annees.length}" height="${Ht-mg.b}" fill="transparent" data-tip="${mcTip(String(a), ...l) }" data-i="${i}"/>`; }).join('');
+  return `<svg class="mc-svg mc-courbes" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="${h(o.titre||'Évolution')}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${vis[0]?.couleur||'#2E8B6A'}" stop-opacity=".30"/><stop offset="1" stop-color="${vis[0]?.couleur||'#2E8B6A'}" stop-opacity="0"/></linearGradient></defs>
+    ${grad.map(g=>`<line x1="${mg.g}" x2="${W-mg.d}" y1="${Y(g)}" y2="${Y(g)}" stroke="#E4E8E5" stroke-dasharray="${g===bas?'0':'3 4'}"/><text x="${mg.g-8}" y="${Y(g)+4}" text-anchor="end" font-size="11" fill="#6B756F">${fmt(g)}</text>`).join('')}
+    ${o.indice && bas<100 && haut>100 ? `<line x1="${mg.g}" x2="${W-mg.d}" y1="${Y(100)}" y2="${Y(100)}" stroke="#8A938D" stroke-dasharray="6 4"/>` : ''}
+    ${annees.map((a, i)=>`<text x="${X(i)}" y="${Ht-12}" text-anchor="middle" font-size="12" fill="${o.sel?.includes(a)?'var(--marque)':'#8A938D'}" font-weight="${o.sel?.includes(a)?700:400}">${a}</text>`).join('')}
+    ${dessin}${surv}</svg>`;
+}
+/* nuage de bulles : chaque produit = une bulle (prix médian en abscisse, dispersion en ordonnée, taille = nombre de prix) */
+function mcBulles(P){
+  const W = 640, Ht = 330, mg = {g:52, d:18, h:14, b:40}, pts = P.filter(p=>p.st.n>=2 && p.st.med>0), lx = v => Math.log10(v);
+  if(!pts.length) return '<p class="aide">Pas assez de produits avec au moins 2 prix.</p>';
+  const xmin = Math.floor(lx(Math.min(...pts.map(p=>p.st.med)))), xmax = Math.ceil(lx(Math.max(...pts.map(p=>p.st.med)))) || xmin+1, ymax = Math.max(0.6, Math.min(1.5, Math.max(...pts.map(p=>p.st.amp)))*1.08);
+  const X = v => mg.g + (lx(v)-xmin)/((xmax-xmin)||1)*(W-mg.g-mg.d), Y = a => mg.h + (1-Math.min(a, ymax)/ymax)*(Ht-mg.h-mg.b), zone = (a0, a1, c) => `<rect x="${mg.g}" y="${Y(a1)}" width="${W-mg.g-mg.d}" height="${Y(a0)-Y(a1)}" fill="${c}"/>`;
+  const rmax = Math.max(...pts.map(p=>p.st.n)), R = n => 5 + 11*Math.sqrt(n/rmax);
+  return `<svg class="mc-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Dispersion des prix par produit">
+    ${zone(0, 0.2, '#E3F3EA')}${zone(0.2, 0.5, '#FDF3E1')}${zone(0.5, ymax, '#FBE6E3')}
+    ${[0,.2,.5,1].filter(a=>a<=ymax).map(a=>`<text x="${mg.g-8}" y="${Y(a)+4}" text-anchor="end" font-size="11" fill="#6B756F">${Math.round(a*100)} %</text>`).join('')}
+    ${Array.from({length:xmax-xmin+1}, (_, i)=>xmin+i).map(e=>`<line x1="${X(Math.pow(10,e))}" x2="${X(Math.pow(10,e))}" y1="${mg.h}" y2="${Ht-mg.b}" stroke="#fff" stroke-width="1.5"/><text x="${X(Math.pow(10,e))}" y="${Ht-22}" text-anchor="middle" font-size="11" fill="#6B756F">${Math.pow(10,e).toLocaleString('fr-FR')} €</text>`).join('')}
+    <text x="${(W+mg.g)/2}" y="${Ht-4}" text-anchor="middle" font-size="11.5" fill="#58625C">prix médian (échelle logarithmique)</text>
+    <text transform="translate(12 ${Ht/2-10}) rotate(-90)" text-anchor="middle" font-size="11.5" fill="#58625C">dispersion (max − min) ÷ médiane</text>
+    ${pts.slice().sort((a,b)=>b.st.n-a.st.n).map((p, k)=>`<circle class="mc-bulle" style="--d:${Math.min(k*8, 700)}ms" cx="${X(p.st.med)}" cy="${Y(p.st.amp)}" r="${R(p.st.n).toFixed(1)}" fill="${mcCoulFam(p.fam)}" fill-opacity=".72" stroke="#fff" stroke-width="1.5" data-tip="${mcTip(p.prod, p.fam, 'Médiane '+mcEur(p.st.med)+' / '+(p.u||'unité'), 'Fourchette '+mcEur(p.st.min)+' – '+mcEur(p.st.max), p.st.n+' prix · amplitude '+Math.round(p.st.amp*100)+' %')}" data-mc-go="prod|${h(p.prod)}"/>`).join('')}
+  </svg>`;
+}
+/* sucettes : variations en % de part et d'autre de zéro */
+function mcSucettes(items){   // [{lib, sous, v, avant, apres, cle}] triés
+  if(!items.length) return '<p class="aide">Aucune variation mesurable (il faut des prix sur au moins deux années).</p>';
+  const W = 560, lh = 30, Ht = items.length*lh + 26, mg = {g:190, d:60}, m = Math.max(...items.map(i=>Math.abs(i.v)), 0.05), cx = mg.g + (W-mg.g-mg.d)/2, K = (W-mg.g-mg.d)/2/m;
+  return `<svg class="mc-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Variations de prix"><line x1="${cx}" x2="${cx}" y1="6" y2="${Ht-18}" stroke="#B9C2BC"/>
+    <text x="${cx}" y="${Ht-4}" text-anchor="middle" font-size="11" fill="#6B756F">0 %</text>
+    ${items.map((i, k)=>{ const y = 18 + k*lh, x = cx + i.v*K, c = i.v>0 ? '#C0392B' : '#2E8B6A';
+      return `<g class="mc-suc" style="--d:${k*50}ms" data-tip="${mcTip(i.lib, i.sous, i.avant!=null ? mcEur(i.avant)+' → '+mcEur(i.apres) : '', mcPct(i.v, true))}" data-mc-go="${h(i.cle)}"><text x="${mg.g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(String(i.lib).slice(0, 30))}</text>
+        <line x1="${cx}" x2="${x}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3" stroke-linecap="round" opacity=".55"/><circle cx="${x}" cy="${y}" r="7" fill="${c}"/>
+        <text x="${x+(i.v>0?12:-12)}" y="${y+4}" text-anchor="${i.v>0?'start':'end'}" font-size="12" font-weight="700" fill="${c}">${mcPct(i.v, true)}</text></g>`; }).join('')}</svg>`;
+}
+/* points alignés : un point par secteur / fournisseur sur un même axe, le moins cher en vert */
+function mcPointsMini(vals, couleurs, noms){   // vals : [number|null]
+  const ok = vals.map((v,i)=>v==null ? null : {v, i}).filter(Boolean); if(ok.length<2) return '';
+  const mn = Math.min(...ok.map(x=>x.v)), mx = Math.max(...ok.map(x=>x.v)), X = v => 8 + (v-mn)/((mx-mn)||1)*134;
+  return `<svg class="mc-mini" viewBox="0 0 150 20" aria-hidden="true"><line x1="8" x2="142" y1="10" y2="10" stroke="#D5DBD7" stroke-width="2" stroke-linecap="round"/>${ok.map(x=>`<circle cx="${X(x.v)}" cy="10" r="${x.v===mn?6:x.v===mx?6:4.5}" fill="${x.v===mn?'#2E8B6A':x.v===mx?'#D9772B':couleurs[x.i]}" stroke="#fff" stroke-width="1.5" data-tip="${mcTip(noms[x.i], mcEur(x.v))}"/>`).join('')}</svg>`;
+}
+/* indice des prix par famille : variation moyenne des médianes d'une année à l'autre (base 100 = première année, produits relevés les deux années) */
+function mcIndice(prods, annees){
+  const base = annees[0]; return annees.map((a, k)=>{ if(!k) return {v:100};
+    const r = prods.map(p=>{ const x = p.parAn[base], y = p.parAn[a]; return x?.n && y?.n && x.med>0 ? Math.log(y.med/x.med) : null; }).filter(v=>v!==null);
+    return r.length>=3 ? {v:Math.round(100*Math.exp(r.reduce((s,v)=>s+v,0)/r.length)*10)/10} : null; }); }
+/* infobulle commune à tous les graphiques */
+(function brancherInfobulles(){
+  const montrer = (e, t) => { if(!mcTipEl){ mcTipEl = document.createElement('div'); mcTipEl.className = 'mc-tip'; mcTipEl.setAttribute('role', 'tooltip'); document.body.appendChild(mcTipEl); }
+    const l = t.dataset.tip.split('|'); mcTipEl.innerHTML = `<b>${h(l[0])}</b>${l.slice(1).map(x=>`<span>${h(x)}</span>`).join('')}`; mcTipEl.style.display = 'block';
+    const r = mcTipEl.getBoundingClientRect(); let x = e.clientX + 14, y = e.clientY + 14; if(x + r.width > innerWidth - 8) x = e.clientX - r.width - 14; if(y + r.height > innerHeight - 8) y = e.clientY - r.height - 14; mcTipEl.style.left = Math.max(6, x)+'px'; mcTipEl.style.top = Math.max(6, y)+'px'; };
+  document.addEventListener('mousemove', e=>{ const t = e.target.closest?.('[data-tip]'); if(t && document.getElementById('v-commissions')?.contains(t)) montrer(e, t); else if(mcTipEl) mcTipEl.style.display = 'none'; });
+  document.addEventListener('scroll', ()=>{ if(mcTipEl) mcTipEl.style.display = 'none'; }, true);
+})();
+
 /* ================= Fichiers PDF stockés dans l'application (téléchargeables par tous) ================= */
 const PDF_MAX = 8 * 1024 * 1024, pdfCache = new Map();
 const octetsLib = n => n > 1048576 ? (n/1048576).toFixed(1).replace('.', ',')+' Mo' : Math.max(1, Math.round(n/1024))+' Ko';
@@ -6140,7 +6251,7 @@ function blocPdf(cat, cle, titre){
 }
 
 /* ================= Partie « Tarifs » de la commission sanitaire : mercuriale des intrants ================= */
-const MC = {annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
+const MC = {evoSel:[], evoMode:'prix', masque:new Set(), annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
 const MC_VUES = [['apercu','Vue d\'ensemble'],['reperes','Repères de prix'],['evolution','Évolution'],['secteurs','Par secteur'],['fournisseurs','Par fournisseur'],['substrats','Substrats']];
 const MC_FIAB = {correcte:['Correcte','ok'], indicatif:['Indicatif*','ind'], dispersion:['Dispersion forte','fort'], aucune:['Aucune donnée','vide']};
 const MC_PAL = ['#2E8B6A','#3A6EA5','#C0527C','#D9772B','#7A5BA6','#B08A1E','#3F8F9E','#8A6A5A','#5B8C3A','#A04A4A','#4C6A92','#777'];
@@ -6239,24 +6350,31 @@ function mcBarre(T, d){
 }
 
 /* ---------- vues ---------- */
+function mcAnimerKpi(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.mc-kpi [data-compte]').forEach(el=>{ const fin = +el.dataset.compte, t0 = performance.now(); (function pas(t){ const k = Math.min(1, (t-t0)/700); el.textContent = Math.round(fin*(1-Math.pow(1-k, 3))).toLocaleString('fr-FR'); if(k<1) requestAnimationFrame(pas); })(t0); });
+}
 function mcVueApercu(T, d){
   const P = mcProduits(), avec = P.filter(p=>p.st.n>0), prix = avec.reduce((n,p)=>n+p.st.n, 0), fams = mcFam().filter(f=>avec.some(p=>p.fam===f));
-  const parFam = fams.map(f=>({lib:f, v:avec.filter(p=>p.fam===f).length, couleur:mcCoulFam(f), texte:avec.filter(p=>p.fam===f).length+' produits', cle:'fam|'+f}));
   const fiab = ['correcte','indicatif','dispersion'].map(k=>({k, n:avec.filter(p=>p.st.fiab===k).length}));
-  const evo = avec.filter(p=>p.evo && isFinite(p.evo.v)).sort((a,b)=>b.evo.v-a.evo.v), hausses = evo.filter(p=>p.evo.v>0.005).slice(0, 8), baisses = evo.slice().reverse().filter(p=>p.evo.v<-0.005).slice(0, 8);
-  const disp = avec.filter(p=>p.st.n>=3).sort((a,b)=>b.st.amp-a.st.amp).slice(0, 8);
-  const kpi = [[avec.length, 'produits avec prix'],[prix, 'prix retenus'],[fams.length, 'familles'],[mcAnnees().join(' · ')||'—', 'années'],[d.fournisseurs.length, 'fournisseurs comparés'],[P.filter(p=>p.st.n===0).length, 'produits sans prix']];
-  const total = fiab.reduce((n,x)=>n+x.n, 0) || 1;
-  return `<div class="es-kpis mc-kpis">${kpi.map(([x,t])=>`<div><b>${h(String(x))}</b><span>${t}</span></div>`).join('')}</div>
+  const evo = avec.filter(p=>p.evo && isFinite(p.evo.v)), hausses = evo.filter(p=>p.evo.v>0.005).sort((a,b)=>b.evo.v-a.evo.v).slice(0, 8), baisses = evo.filter(p=>p.evo.v<-0.005).sort((a,b)=>a.evo.v-b.evo.v).slice(0, 8);
+  const mouv = [...hausses, ...baisses.slice().reverse()].map(p=>({lib:p.prod, sous:p.fam+' · médiane '+p.evo.de+' → '+p.evo.a, v:p.evo.v, avant:p.parAn[p.evo.de].med, apres:p.parAn[p.evo.a].med, cle:'prod|'+p.prod}));
+  const kpi = [[avec.length, 'produits avec prix', '#2E8B6A'],[prix, 'prix retenus', '#3A6EA5'],[fams.length, 'familles', '#7A5BA6'],[d.fournisseurs.length, 'fournisseurs comparés', '#D9772B'],[P.filter(p=>p.st.n===0).length, 'produits sans prix', '#8A938D']];
+  const ans = T_ANS(), famsIdx = fams.map(f=>({f, ser:mcIndice(avec.filter(p=>p.fam===f), ans), n:avec.filter(p=>p.fam===f).length})).filter(x=>x.ser.filter(Boolean).length>=2 && x.n>=3);
+  const ensemble = mcIndice(avec, ans), series = [...famsIdx.map(x=>({nom:x.f, couleur:mcCoulFam(x.f), pts:x.ser, masque:MC.masque.has(x.f)})), {nom:'Ensemble des produits', couleur:'#26332C', pts:ensemble, masque:MC.masque.has('Ensemble des produits')}].filter(s=>s.pts.filter(Boolean).length>=2);
+  return `<div class="mc-kpis">${kpi.map(([x, t, c])=>`<div class="mc-kpi" style="--k:${c}"><b data-compte="${x}">${x.toLocaleString('fr-FR')}</b><span>${t}</span></div>`).join('')}<div class="mc-kpi mc-kpi-an" style="--k:#B08A1E"><b>${mcAnnees().join(' · ')||'—'}</b><span>années sélectionnées</span></div></div>
   <div class="mc-grille">
-    <section class="mc-c"><h4>Produits par famille <small>cliquer pour filtrer</small></h4>${parFam.length ? mcBarresH(parFam) : '<p class="aide">Aucun produit avec ces filtres.</p>'}</section>
-    <section class="mc-c"><h4>Fiabilité des repères</h4>
-      <div class="mc-pile">${fiab.map(x=>`<i class="${MC_FIAB[x.k][1]}" style="width:${(x.n/total*100).toFixed(1)}%" title="${MC_FIAB[x.k][0]} : ${x.n}"></i>`).join('')}</div>
-      <ul class="mc-leg">${fiab.map(x=>`<li><i class="mc-b ${MC_FIAB[x.k][1]}">${x.n}</i> ${MC_FIAB[x.k][0].replace('*','')}<small>${{correcte:'3 prix ou plus, écart raisonnable',indicatif:'moins de 3 prix relevés',dispersion:'écart max–min supérieur à 50 % de la médiane'}[x.k]}</small></li>`).join('')}</ul>
-      <p class="aide">Amplitude = (max − min) ÷ médiane : <span class="mc-b ok">≤ 20 %</span> prix homogènes · <span class="mc-b moy">20–50 %</span> écarts modérés · <span class="mc-b fort">&gt; 50 %</span> prix très écartés.</p></section>
-    <section class="mc-c"><h4>Plus fortes hausses <small>médiane ${hausses[0] ? hausses[0].evo.de+' → '+hausses[0].evo.a : ''}</small></h4>${hausses.length ? mcBarresH(hausses.map(p=>({lib:p.prod, sous:p.fam, v:p.evo.v, texte:mcPct(p.evo.v, true), couleur:'#C0392B', cle:'prod|'+p.prod}))) : '<p class="aide">Aucune hausse mesurable (il faut des prix sur au moins deux années).</p>'}</section>
-    <section class="mc-c"><h4>Plus fortes baisses</h4>${baisses.length ? mcBarresH(baisses.map(p=>({lib:p.prod, sous:p.fam, v:p.evo.v, texte:mcPct(p.evo.v, true), couleur:'#2E8B6A', cle:'prod|'+p.prod}))) : '<p class="aide">Aucune baisse mesurable.</p>'}</section>
-    <section class="mc-c mc-large"><h4>Prix les plus dispersés <small>au moins 3 prix : à vérifier avant de négocier</small></h4>${disp.length ? mcBarresH(disp.map(p=>({lib:p.prod, sous:p.fam+' · '+mcEur(p.st.min)+' à '+mcEur(p.st.max), v:p.st.amp, texte:Math.round(p.st.amp*100)+' %', couleur:p.st.amp>0.5?'#C0392B':p.st.amp>0.2?'#D9772B':'#2E8B6A', cle:'prod|'+p.prod}))) : '<p class="aide">Pas assez de prix.</p>'}</section>
+    <section class="mc-c"><h4>Répartition par famille <small>cliquer pour filtrer</small></h4>${fams.length ? mcAnneau(fams.map(f=>({lib:f, v:avec.filter(p=>p.fam===f).length, couleur:mcCoulFam(f), cle:'fam|'+f, texte:avec.filter(p=>p.fam===f).length+' produits'})), {centre:avec.length, sous:'produits', titre:'Produits par famille'}) : '<p class="aide">Aucun produit avec ces filtres.</p>'}</section>
+    <section class="mc-c"><h4>Fiabilité des repères</h4>${mcAnneau(fiab.map(x=>({lib:MC_FIAB[x.k][0].replace('*',''), v:x.n, couleur:{correcte:'#2E8B6A', indicatif:'#B9C0BB', dispersion:'#C0392B'}[x.k], texte:x.n+' · '+{correcte:'3 prix ou plus', indicatif:'moins de 3 prix', dispersion:'écart > 50 %'}[x.k]})), {centre:Math.round(fiab[0].n/(avec.length||1)*100)+' %', sous:'fiables', titre:'Fiabilité'})}
+      <p class="aide">Fiable = au moins 3 prix et écart max–min inférieur à 50 % de la médiane.</p></section>
+    <section class="mc-c mc-large"><h4>Évolution des prix par famille <small>indice base 100 = ${ans[0]||''} · variation moyenne des médianes, produits relevés l'année de base et l'année comparée</small></h4>
+      <div class="mc-series no-print">${series.map(s=>`<button class="chip" data-mc-serie="${h(s.nom)}" aria-pressed="${!s.masque}" style="--fc:${s.couleur}">${h(s.nom.replace('Biostimulants, sans AMM, engrais foliaires','Biostimulants'))}</button>`).join('')}</div>
+      ${series.length ? mcCourbes(series, ans, {indice:true, sel:mcAnnees(), titre:'Indice des prix par famille', haut:300}) : '<p class="aide">Pas assez de produits suivis sur plusieurs années pour calculer un indice.</p>'}
+      <p class="aide">Passez la souris sur le graphique pour lire les valeurs. Un indice de 110 signifie des prix en hausse moyenne de 10 % depuis ${ans[0]||'la première année'}.</p></section>
+    <section class="mc-c mc-large"><h4>Dispersion des prix <small>chaque bulle est un produit · taille = nombre de prix · cliquer pour le détail</small></h4>${mcBulles(avec)}
+      <div class="mc-series no-print">${fams.map(f=>`<span class="mc-lg"><i style="background:${mcCoulFam(f)}"></i>${h(f.replace('Biostimulants, sans AMM, engrais foliaires','Biostimulants'))}</span>`).join('')}</div>
+      <p class="aide">En bas (zone verte) : prix homogènes, on peut s'y fier. En haut (zone rouge) : prix très écartés, à vérifier avant de négocier.</p></section>
+    <section class="mc-c mc-large"><h4>Plus fortes variations <small>${hausses[0] ? 'médiane '+hausses[0].evo.de+' → '+hausses[0].evo.a : 'entre les deux dernières années'} · rouge = hausse, vert = baisse</small></h4>${mcSucettes(mouv)}</section>
   </div>`;
 }
 const MC_TRIS = {produit:(p)=>p.prod, n:p=>p.st.n, min:p=>p.st.min??-1, med:p=>p.st.med??-1, max:p=>p.st.max??-1, amp:p=>p.st.amp??-1, evo:p=>p.evo ? p.evo.v : -9};
@@ -6265,7 +6383,7 @@ function mcDetail(p, d){
   const pts = ans.map(a=>({x:String(a), med:p.parAn[a].n?p.parAn[a].med:null, min:p.parAn[a].min, max:p.parAn[a].max, sel:mcAnnees().includes(a)}));
   const parSect = d.secteurs.map(s=>({s, st:mcStats(p.rows.filter(r=>r.ret && mcAnnees().includes(r.an) && r.sect===s))})).filter(x=>x.st.n);
   const lignes = p.rows.slice().sort((a,b)=>b.an-a.an || a.prix-b.prix).slice(0, 80);
-  return `<div class="mc-det"><div class="mc-det-g"><div><h5>Médiane par année <small>les années sélectionnées sont en couleur</small></h5>${mcLigne(pts, {titre:p.prod})}</div>
+  return `<div class="mc-det"><div class="mc-det-g"><div><h5>Médiane par année <small>les années sélectionnées sont en couleur</small></h5>${mcCourbes([{nom:p.prod, couleur:mcCoulFam(p.fam), pts:ans.map(a=>p.parAn[a].n ? {v:p.parAn[a].med, min:p.parAn[a].min, max:p.parAn[a].max} : null)}], ans, {sel:mcAnnees(), titre:p.prod})}</div>
     <div><h5>Par secteur <small>années sélectionnées</small></h5>${parSect.length ? `<div class="mc-sects">${parSect.map(x=>`<div><b>${h(x.s)}</b><span>${mcEur(x.st.med)}</span><small>${x.st.n} prix · ${mcEur(x.st.min)} à ${mcEur(x.st.max)}</small></div>`).join('')}</div>` : '<p class="aide">Aucun prix sur ces années.</p>'}
       <h5 style="margin-top:12px">Contexte</h5><p class="aide">Unité de référence : <b>${h(p.u||'—')}</b> · famille ${h(p.fam)} · ${p.rows.filter(r=>r.ret).length} prix retenus, ${p.rows.filter(r=>!r.ret).length} écartés.</p></div></div>
     <h5>Tous les prix relevés <small>les prix écartés sont barrés</small></h5>
@@ -6289,15 +6407,19 @@ function mcVueReperes(T, d){
     <p class="aide">* Indicatif : moins de 3 prix relevés. Évolution : variation de la médiane entre les deux dernières années sélectionnées qui ont des prix.</p>`;
 }
 function mcVueEvolution(T, d){
-  const P = mcProduits({}).filter(p=>p.st.n>0 || p.rows.some(r=>r.ret)), sel = P.find(p=>p.prod===MC.evo) || P.find(p=>p.evo) || P[0];
-  if(!sel) return '<p class="aide">Aucun produit avec ces filtres.</p>';
-  const ans = T_ANS(), pts = ans.map(a=>({x:String(a), med:sel.parAn[a].n?sel.parAn[a].med:null, min:sel.parAn[a].min, max:sel.parAn[a].max, sel:mcAnnees().includes(a)}));
-  const lst = P.filter(p=>p.evo).sort((a,b)=>b.evo.v-a.evo.v);
-  return `<div class="mc-grille"><section class="mc-c mc-large"><h4>Évolution d'un produit</h4>
-      <div class="mc-evo-ch no-print"><input list="mc-liste-prod" data-mc-evo placeholder="Choisir un produit…" value="${h(sel.prod)}" aria-label="Produit"><datalist id="mc-liste-prod">${P.map(p=>`<option value="${h(p.prod)}">`).join('')}</datalist>
-        <span class="aide">${h(sel.fam)} · prix en € HT par ${h(sel.u||'unité')} · ligne = médiane, trait = fourchette min–max</span></div>
-      ${mcLigne(pts, {titre:sel.prod})}
-      <div class="mc-annees">${ans.map(a=>{ const s = sel.parAn[a]; return `<div class="${mcAnnees().includes(a)?'':'hors'}"><b>${a}</b>${s.n ? `<span>${mcEur(s.med)}</span><small>${s.n} prix · ${mcEur(s.min)} – ${mcEur(s.max)}</small>` : '<small>pas de prix</small>'}</div>`; }).join('')}</div></section>
+  const P = mcProduits({}).filter(p=>p.rows.some(r=>r.ret)), noms = new Set(P.map(p=>p.prod));
+  let sel = MC.evoSel.filter(n=>noms.has(n)); if(!sel.length){ const def = P.find(p=>p.evo) || P[0]; if(def) sel = [def.prod]; }
+  if(!sel.length) return '<p class="aide">Aucun produit avec ces filtres.</p>';
+  const ans = T_ANS(), prods = sel.map(n=>P.find(p=>p.prod===n)), ind = MC.evoMode==='indice' && prods.length>1;
+  const series = prods.map((p, i)=>{ const base = ans.map(a=>p.parAn[a]).find(s=>s.n)?.med; return {nom:p.prod, couleur:MC_PAL[i%MC_PAL.length], pts:ans.map(a=>{ const s = p.parAn[a]; return s.n ? (ind ? {v:Math.round(s.med/base*1000)/10} : {v:s.med, min:s.min, max:s.max}) : null; })}; });
+  const main = prods[0], lst = P.filter(p=>p.evo).sort((a,b)=>b.evo.v-a.evo.v);
+  return `<div class="mc-grille"><section class="mc-c mc-large"><h4>Évolution des prix <small>comparez jusqu'à 5 produits</small></h4>
+      <div class="mc-evo-ch no-print"><div class="mc-chips">${prods.map((p, i)=>`<span class="mc-chip" style="--fc:${MC_PAL[i%MC_PAL.length]}">${h(p.prod)}<button data-mc-evo-x="${h(p.prod)}" aria-label="Retirer ${h(p.prod)}">×</button></span>`).join('')}</div>
+        ${prods.length<5 ? `<input list="mc-liste-prod" data-mc-evo placeholder="＋ Ajouter un produit…" aria-label="Ajouter un produit"><datalist id="mc-liste-prod">${P.filter(p=>!sel.includes(p.prod)).map(p=>`<option value="${h(p.prod)}">`).join('')}</datalist>` : ''}
+        ${prods.length>1 ? `<div class="segment"><button data-mc-evo-mode="prix" aria-pressed="${!ind}">Prix (€)</button><button data-mc-evo-mode="indice" aria-pressed="${ind}">Indice base 100</button></div>` : ''}</div>
+      ${mcCourbes(series, ans, {indice:ind, sel:mcAnnees(), titre:'Évolution des prix', haut:300})}
+      <p class="aide">${prods.length===1 ? `${h(main.fam)} · prix en € HT par ${h(main.u||'unité')} · la courbe est la médiane, la zone teintée la fourchette min–max.` : ind ? 'Indice : chaque produit est ramené à 100 sa première année, pour comparer des produits de prix très différents.' : 'Médianes en € HT par unité de référence (unités différentes selon les produits).'}</p>
+      <div class="mc-annees">${ans.map(a=>{ const s = main.parAn[a]; return `<div class="${mcAnnees().includes(a)?'':'hors'}"><b>${a}</b>${s.n ? `<span>${mcEur(s.med)}</span><small>${s.n} prix · ${mcEur(s.min)} – ${mcEur(s.max)}</small>` : '<small>pas de prix</small>'}</div>`; }).join('')}</div></section>
     <section class="mc-c mc-large"><h4>Variations de la médiane <small>entre les deux dernières années sélectionnées avec prix</small></h4>
       ${lst.length ? `<div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Famille</th><th>Période</th><th class="num">Avant</th><th class="num">Après</th><th>Variation</th></tr></thead><tbody>${lst.map(p=>`<tr class="mc-l" data-mc-go="prod|${h(p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${h(p.fam)}</td><td>${p.evo.de} → ${p.evo.a}</td><td class="num">${mcEur(p.parAn[p.evo.de].med)}</td><td class="num"><b>${mcEur(p.parAn[p.evo.a].med)}</b></td><td>${mcFleche(p.evo)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="aide">Il faut des prix sur au moins deux années sélectionnées.</p>'}</section></div>`;
 }
@@ -6307,8 +6429,8 @@ function mcVueSecteurs(T, d){
   const multi = lignes.filter(l=>l.ecart!==null).sort((a,b)=>b.ecart-a.ecart), mono = lignes.filter(l=>l.ecart===null);
   const cel = (st, l) => !st.n ? '<td class="mc-vide">—</td>' : `<td class="num ${l.min!==null && st.med===l.min?'mc-bas':l.max!==null && st.med===l.max?'mc-haut':''}"><b>${mcEur(st.med)}</b><small>${st.n} prix</small></td>`;
   return `<p class="aide">Médiane par secteur sur les années sélectionnées. <span class="mc-b ok">le moins cher</span> <span class="mc-b moy">le plus cher</span> — écart = plus cher ÷ moins cher − 1. Les produits relevés dans un seul secteur sont listés en dessous.</p>
-    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${d.secteurs.map(s=>`<th class="num">${h(s)}</th>`).join('')}<th>Écart</th></tr></thead><tbody>
-    ${multi.map(l=>`<tr class="mc-l" data-mc-go="prod|${h(l.p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(l.p.fam)}"></span>${h(l.p.prod)}</td><td>${h(l.p.u)}</td>${l.par.map(st=>cel(st, l)).join('')}<td><span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span></td></tr>`).join('') || `<tr><td colspan="${d.secteurs.length+3}" class="aide">Aucun produit comparé entre plusieurs secteurs avec ces filtres.</td></tr>`}
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${d.secteurs.map(s=>`<th class="num">${h(s)}</th>`).join('')}<th>Répartition</th><th>Écart</th></tr></thead><tbody>
+    ${multi.map(l=>`<tr class="mc-l" data-mc-go="prod|${h(l.p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(l.p.fam)}"></span>${h(l.p.prod)}</td><td>${h(l.p.u)}</td>${l.par.map(st=>cel(st, l)).join('')}<td>${mcPointsMini(l.par.map(st=>st.n?st.med:null), MC_PAL, d.secteurs)}</td><td><span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span></td></tr>`).join('') || `<tr><td colspan="${d.secteurs.length+3}" class="aide">Aucun produit comparé entre plusieurs secteurs avec ces filtres.</td></tr>`}
     </tbody></table></div>
     ${mono.length ? `<details class="mc-mono"><summary>${mono.length} produit${mono.length>1?'s':''} relevé${mono.length>1?'s':''} dans un seul secteur</summary><div class="mc-tab-s"><table class="mc-t"><tbody>${mono.map(l=>{ const i = l.par.findIndex(x=>x.n); return `<tr><td class="mc-nom">${h(l.p.prod)}</td><td>${h(d.secteurs[i]||'')}</td><td class="num"><b>${mcEur(l.par[i]?.med)}</b></td><td>${h(l.p.u)}</td></tr>`; }).join('')}</tbody></table></div></details>` : ''}`;
 }
@@ -6317,9 +6439,9 @@ function mcVueFournisseurs(T, d){
   const P = mcProduits({}).map(p=>({p, par:cols.map(f=>mcStats(p.rows.filter(r=>r.ret && ans.includes(r.an) && r.four===f && (!MC.sect || r.sect===MC.sect))))})).filter(x=>x.par.filter(s=>s.n).length>=1);
   const lignes = P.map(x=>{ const meds = x.par.filter(s=>s.n).map(s=>s.med); return {...x, min:Math.min(...meds), max:Math.max(...meds), ecart:meds.length>1 ? Math.max(...meds)/Math.min(...meds)-1 : null}; }).sort((a,b)=>(b.ecart??-1)-(a.ecart??-1) || a.p.prod.localeCompare(b.p.prod,'fr'));
   return `<p class="aide">Médiane des prix retenus par fournisseur (auxiliaires, ruches, phéromones…), années sélectionnées. <span class="mc-b ok">le moins cher</span> <span class="mc-b moy">le plus cher</span> · écart = du moins cher au plus cher.</p>
-    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${cols.map(f=>`<th class="num">${h(f)}</th>`).join('')}<th>Prix</th><th>Écart</th></tr></thead><tbody>
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${cols.map(f=>`<th class="num">${h(f)}</th>`).join('')}<th>Répartition</th><th>Prix</th><th>Écart</th></tr></thead><tbody>
     ${lignes.map(l=>`<tr class="mc-l" data-mc-go="prod|${h(l.p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(l.p.fam)}"></span>${h(l.p.prod)}</td><td>${h(l.p.u)}</td>
-      ${l.par.map(s=>!s.n ? '<td class="mc-vide">—</td>' : `<td class="num ${l.ecart!==null && s.med===l.min?'mc-bas':l.ecart!==null && s.med===l.max?'mc-haut':''}"><b>${mcEur(s.med)}</b></td>`).join('')}<td class="num">${l.par.reduce((n,s)=>n+s.n,0)}</td><td>${l.ecart===null ? '<span class="mc-b gris">1 fournisseur</span>' : `<span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span>`}</td></tr>`).join('') || `<tr><td colspan="${cols.length+4}" class="aide">Aucun prix de fournisseur avec ces filtres.</td></tr>`}
+      ${l.par.map(s=>!s.n ? '<td class="mc-vide">—</td>' : `<td class="num ${l.ecart!==null && s.med===l.min?'mc-bas':l.ecart!==null && s.med===l.max?'mc-haut':''}"><b>${mcEur(s.med)}</b></td>`).join('')}<td>${mcPointsMini(l.par.map(s=>s.n?s.med:null), MC_PAL, cols)}</td><td class="num">${l.par.reduce((n,s)=>n+s.n,0)}</td><td>${l.ecart===null ? '<span class="mc-b gris">1 fournisseur</span>' : `<span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span>`}</td></tr>`).join('') || `<tr><td colspan="${cols.length+4}" class="aide">Aucun prix de fournisseur avec ces filtres.</td></tr>`}
     </tbody></table></div>`;
 }
 function mcVueSubstrats(T, d){
@@ -6350,6 +6472,7 @@ function mcRendre(complet){
   const z = document.getElementById('mc-zone'); if(!z){ vueCommissions(); return; }
   const T = S.tarifs, d = mcDonnees(); if(!T || !d) return;
   if(complet) z.innerHTML = mcBarre(T, d) + '<div id="mc-res">'+mcCorps()+'</div>'; else document.getElementById('mc-res').innerHTML = mcCorps();
+  mcAnimerKpi();
 }
 /* ---------- importation du classeur ---------- */
 function mcDiff(av, ap){
@@ -6384,6 +6507,9 @@ function mcExporterVue(){
     if(t.closest('[data-mc-modele]')){ mcExporterVue(); return; }
     if((b = t.closest('[data-mc-vue]'))){ MC.vue = b.dataset.mcVue; mcRendre(false); document.querySelectorAll('[data-mc-vue]').forEach(x=>x.setAttribute('aria-pressed', x.dataset.mcVue===MC.vue)); return; }
     if((b = t.closest('[data-mc-an]'))){ const a = +b.dataset.mcAn, c = new Set(mcAnnees()); c.has(a) ? (c.size>1 && c.delete(a)) : c.add(a); MC.annees = [...c].sort(); mcRendre(true); return; }
+    if((b = t.closest('[data-mc-serie]'))){ const s = b.dataset.mcSerie; MC.masque.has(s) ? MC.masque.delete(s) : MC.masque.add(s); mcRendre(false); return; }
+    if((b = t.closest('[data-mc-evo-x]'))){ MC.evoSel = MC.evoSel.filter(n=>n!==b.dataset.mcEvoX); if(!MC.evoSel.length) MC.evoSel = []; mcRendre(false); return; }
+    if((b = t.closest('[data-mc-evo-mode]'))){ MC.evoMode = b.dataset.mcEvoMode; mcRendre(false); return; }
     if((b = t.closest('[data-mc-fam]'))){ MC.fam = b.dataset.mcFam; mcRendre(true); return; }
     if((b = t.closest('[data-mc-tri]'))){ const k = b.dataset.mcTri; MC.sens = MC.tri===k ? -MC.sens : 1; MC.tri = k; mcRendre(false); return; }
     if((b = t.closest('[data-mc-fermer]'))){ const f = b.dataset.mcFermer; MC.fermees.has(f) ? MC.fermees.delete(f) : MC.fermees.add(f); mcRendre(false); return; }
@@ -6395,7 +6521,7 @@ function mcExporterVue(){
   document.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches?.('[data-mc-prod],[data-mc-go]')){ e.preventDefault(); e.target.click(); } });
   document.addEventListener('input', e=>{ const t = e.target;
     if(t.matches?.('[data-mc-rech]')){ MC.rech = t.value; mcRendre(false); }
-    else if(t.matches?.('[data-mc-evo]')){ const v = t.value.trim(); if(mcDonnees()?.prods.some(p=>p.prod===v)){ MC.evo = v; mcRendre(false); document.querySelector('[data-mc-evo]')?.focus(); } } });
+    else if(t.matches?.('[data-mc-evo]')){ const v = t.value.trim(); if(mcDonnees()?.prods.some(p=>p.prod===v)){ if(!MC.evoSel.length){ const c = mcProduits({}).find(p=>p.evo) || mcProduits({})[0]; if(c && c.prod!==v) MC.evoSel.push(c.prod); } if(!MC.evoSel.includes(v) && MC.evoSel.length<5) MC.evoSel.push(v); mcRendre(false); document.querySelector('[data-mc-evo]')?.focus(); } } });
   document.addEventListener('change', async e=>{ const t = e.target;
     if(t.matches?.('[data-mc-sect]')){ MC.sect = t.value; mcRendre(true); }
     else if(t.matches?.('[data-mc-fiab]')){ MC.fiab = t.value; mcRendre(true); }
