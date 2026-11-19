@@ -661,6 +661,68 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 @keyframes mcPop{from{opacity:0; transform:scale(.6)} to{opacity:1; transform:scale(1)}} @keyframes mcTrace{to{stroke-dashoffset:0}} @keyframes mcFondu{from{opacity:0} to{opacity:1}}
 @media(prefers-reduced-motion:reduce){ .mc-seg,.mc-trait,.mc-aire,.mc-pt-c,.mc-bulle,.mc-suc{animation:none !important} .mc-courbes .mc-trait{stroke-dashoffset:0} }
 @media(max-width:1100px){ .mc-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} } @media(max-width:600px){ .mc-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .mc-svg-an{width:170px; height:170px} }
+/* ---- Prix des graines : tableau de bord animé ---- */
+.px-kpis{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:10px 0 14px}
+.px-kpi{position:relative; overflow:hidden; border-radius:18px; padding:15px 16px 13px; color:#fff; background:linear-gradient(135deg,var(--k1),var(--k2)); box-shadow:0 8px 20px color-mix(in srgb,var(--k1) 32%,transparent); animation:pxMonte .6s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms); transition:transform .2s} .px-kpi:hover{transform:translateY(-3px) scale(1.015)}
+.px-kpi::after{content:''; position:absolute; right:-30px; top:-34px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.15)} .px-kpi::before{content:''; position:absolute; left:-20px; bottom:-40px; width:100px; height:100px; border-radius:50%; background:rgba(255,255,255,.09)}
+.px-kpi b{position:relative; display:block; font-family:'Archivo'; font-size:30px; line-height:1.1; font-variant-numeric:tabular-nums; z-index:1} .px-kpi span{position:relative; display:block; font-size:13px; font-weight:600; opacity:.95; margin-top:3px; z-index:1} .px-kpi small{position:relative; display:block; font-size:11.5px; opacity:.88; margin-top:5px; z-index:1}
+.px-kpi.a{--k1:#E08A3C; --k2:#A9561A} .px-kpi.b{--k1:#2E9E78; --k2:#1F6F52} .px-kpi.c{--k1:#4C86C4; --k2:#2B5A8E} .px-kpi.d{--k1:#8A68BA; --k2:#5E4388} .px-kpi.e{--k1:#D1648C; --k2:#9A3A5F}
+.px-ring{position:absolute; right:12px; top:12px; width:58px; height:58px; z-index:1} .px-ring-v{animation:pxRing 1.2s ease-out .3s both} .px-kpi.e b{padding-right:50px}
+@keyframes pxRing{from{stroke-dasharray:0 200}} @keyframes pxMonte{from{opacity:0; transform:translateY(16px) scale(.97)} to{opacity:1; transform:none}} @keyframes mcEtire{from{transform:scaleX(0)}}
+.px-synth{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 14px} .px-svg{max-height:none}
+.px-leg{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:6px; font-size:11.5px; color:var(--ardoise)} .px-leg b{color:var(--encre)}
+.px-ec{cursor:default; animation:mcFondu .5s ease-out both; animation-delay:var(--d,0ms)} .px-ec:hover circle{r:8.5}.px-barre{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; padding:12px 14px; background:var(--marque-clair,#FBEFE3); border-radius:16px; margin:2px 0 12px}
+.px-barre input[type=search],.px-barre select{border:1px solid #D9CFC0; border-radius:10px; padding:7px 11px; font:inherit; font-size:13px; background:#fff} .px-barre input[type=search]{flex:1 1 220px; min-width:180px; max-width:340px}
+.px-barre .segment button small{opacity:.7; margin-left:3px} .px-curs{display:flex; align-items:center; gap:8px; font-size:13px} .px-curs input[type=range]{width:150px; accent-color:var(--marque,#A9561A)} .px-curs b{min-width:84px; font-size:12.5px; color:var(--marque-fonce,#7A3C0F)}
+.px-cadre{margin-bottom:12px} .px-ech .px-sl{cursor:pointer} .px-ech .px-sl:hover text,.px-ech .px-sl:focus-visible text{font-weight:700} .px-ech .px-sl:focus-visible{outline:none}
+.px-dot{cursor:pointer; transform-box:fill-box; transform-origin:center; animation:mcPop .5s ease-out both; animation-delay:var(--d,0ms); transition:transform .15s, opacity .25s} .px-dot:hover{transform:scale(1.5); stroke-width:3.2} .px-dot.dim{animation:none; opacity:.13; pointer-events:none}
+.px-bande{animation:mcFondu .6s ease-out both; animation-delay:var(--d,0ms)}
+.px-compte{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:6px 2px 10px; font-size:13.5px} .px-compte b{color:var(--marque-fonce,#7A3C0F)}
+.px-seg{margin:0 0 14px; border-radius:18px; background:#fff; border:1px solid color-mix(in srgb,var(--sc) 30%,#fff); overflow:hidden; animation:mcFondu .4s both; box-shadow:0 2px 10px color-mix(in srgb,var(--sc) 10%,transparent)}
+.px-seg > header{display:flex; flex-wrap:wrap; gap:4px 14px; align-items:center; padding:11px 16px; cursor:pointer; background:linear-gradient(90deg,color-mix(in srgb,var(--sc) 20%,#fff),#fff 80%); border-left:7px solid var(--sc)} .px-seg > header:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--sc) 28%,#fff),#fff 80%)} .px-seg > header:focus-visible{outline:2px solid var(--sc); outline-offset:-2px}
+.px-seg h5{margin:0; font-family:'Archivo'; font-size:15.5px; color:color-mix(in srgb,var(--sc) 62%,#000)} .px-seg-n{font-size:11.5px; font-weight:700; background:var(--sc); color:#fff; border-radius:99px; padding:1px 10px}
+.px-chev{display:inline-block; transition:transform .2s; color:var(--sc)} .px-seg.ferme .px-chev{transform:rotate(-90deg)} .px-seg.ferme .px-grille,.px-seg.ferme .px-note{display:none}
+.px-seg-k{display:flex; flex-wrap:wrap; gap:2px 16px; font-size:12px; color:var(--ardoise); margin-left:auto} .px-seg-k b{color:var(--encre)} .px-note{margin:6px 16px 0}
+.px-grille{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; padding:14px}
+.px-v{position:relative; border:1px solid #ECE6DA; border-radius:16px; padding:12px 14px 11px; background:#fff; border-top:5px solid var(--nc,#8A938D); display:flex; flex-direction:column; gap:5px; overflow:hidden; transition:transform .18s, box-shadow .18s; animation:pxMonte .45s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms)}
+.px-v::after{content:''; position:absolute; right:-34px; bottom:-34px; width:110px; height:110px; border-radius:50%; background:color-mix(in srgb,var(--pc,#8A938D) 9%,transparent); pointer-events:none; transition:transform .3s} .px-v:hover{transform:translateY(-4px); box-shadow:0 14px 28px rgba(60,40,10,.15)} .px-v:hover::after{transform:scale(1.7)}
+.px-v.lp{--nc:#2E8B6A} .px-v.dv3{--nc:#7A5BA6}
+.px-v header{display:flex; justify-content:space-between; gap:8px; align-items:flex-start} .px-v header .lien-fiche{font-weight:700; font-size:14px; text-align:left}
+.px-niv{flex:none; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; background:color-mix(in srgb,var(--nc) 14%,#fff); color:color-mix(in srgb,var(--nc) 80%,#000); white-space:nowrap}
+.px-sem{display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; font-size:12px; color:var(--ardoise)}
+.px-prix{display:flex; align-items:baseline; flex-wrap:wrap; gap:2px 6px; margin-top:2px} .px-prix b{font-family:'Archivo'; font-size:28px; line-height:1.1; color:var(--pc,#2E7D4F); font-variant-numeric:tabular-nums} .px-prix small{font-size:12px; color:var(--ardoise)}
+.px-top{margin-left:auto; font-size:10.5px; font-weight:700; color:#8A5A0E; background:#FCEFD9; border-radius:99px; padding:1px 8px}
+.px-g{position:relative; height:8px; border-radius:99px; background:linear-gradient(90deg,#CDE9D9,#F7E8C4 55%,#F6CFC6); margin-top:8px} .px-g i{position:absolute; top:-4px; width:16px; height:16px; margin-left:-8px; border-radius:50%; background:var(--pc); border:3px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,.35); animation:mcPop .6s ease-out .2s both} .px-g u{position:absolute; top:-3px; bottom:-3px; width:2px; background:#58625C; opacity:.55}
+.px-g-l{display:flex; justify-content:space-between; font-size:10.5px; color:var(--ardoise)}
+.px-pos{font-size:11.5px; color:var(--ardoise)} .px-pos.moins{color:#1F6F52; font-weight:600} .px-pos.plus{color:#A9561A; font-weight:600}
+.px-brut{font-size:10.5px; color:#9AA39E} .px-av{font-size:11px; color:var(--encre-2)} .px-com{margin:2px 0 0; font-size:11.5px; color:var(--encre-2); font-style:italic}
+@media(max-width:1100px){ .px-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .px-synth{grid-template-columns:1fr} }
+@media(max-width:600px){ .px-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .px-grille{grid-template-columns:1fr} .px-seg-k{margin-left:0} }
+/* ---- Repères de prix : cartes et fenêtre de détail ---- */
+.mc-tri{display:flex; align-items:center; gap:6px; font-size:13px} .mc-tri select{border:1px solid #CFD8D2; border-radius:8px; padding:6px 10px; font:inherit; font-size:13px; background:#fff}
+.mc-pcs{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin:6px 0 14px}
+.mc-pc{position:relative; background:#fff; border:1px solid color-mix(in srgb,var(--fc) 22%,#E4E8E5); border-radius:18px; padding:14px 15px 12px; display:flex; flex-direction:column; gap:6px; cursor:pointer; overflow:hidden; transition:transform .18s, box-shadow .18s, border-color .18s; animation:pxMonte .45s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms)}
+.mc-pc::before{content:''; position:absolute; inset:0 0 auto 0; height:6px; background:linear-gradient(90deg,var(--fc),color-mix(in srgb,var(--fc) 35%,#fff))}
+.mc-pc::after{content:''; position:absolute; right:-36px; bottom:-36px; width:120px; height:120px; border-radius:50%; background:color-mix(in srgb,var(--fc) 9%,transparent); pointer-events:none; transition:transform .3s}
+.mc-pc:hover,.mc-pc:focus-visible{transform:translateY(-4px); box-shadow:0 14px 28px color-mix(in srgb,var(--fc) 26%,transparent); border-color:var(--fc); outline:none} .mc-pc:hover::after{transform:scale(1.7)} .mc-pc.sans{opacity:.7}
+.mc-pc h5{margin:3px 0 0; font-family:'Archivo'; font-size:15.5px; line-height:1.25; color:var(--encre)}
+.mc-pc-h{display:flex; justify-content:space-between; align-items:center; gap:6px; margin-top:2px} .mc-pc-f{font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:color-mix(in srgb,var(--fc) 70%,#000)}
+.mc-pc-p{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 8px} .mc-pc-p b{font-family:'Archivo'; font-size:27px; line-height:1.1; color:color-mix(in srgb,var(--fc) 78%,#000); font-variant-numeric:tabular-nums} .mc-pc-p span{font-size:11px; color:var(--ardoise)}
+.mc-pc-rt{position:relative; height:9px; border-radius:99px; background:#EEF1EF; margin-top:6px} .mc-pc-rt i{position:absolute; top:0; bottom:0; border-radius:99px; background:linear-gradient(90deg,color-mix(in srgb,var(--fc) 35%,#fff),var(--fc)); transform-origin:left; animation:mcEtire .8s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms)} .mc-pc-rt b{position:absolute; top:-4px; width:5px; height:17px; margin-left:-2.5px; border-radius:3px; background:#26332C; box-shadow:0 0 0 2px #fff}
+.mc-pc-rl{display:flex; justify-content:space-between; font-size:10.5px; color:var(--ardoise); margin-top:2px}
+.mc-sp{width:100%; height:48px; display:block; overflow:visible} .mc-sp .tr{stroke-dasharray:1; stroke-dashoffset:1; animation:mcTrace 1s ease-out .2s forwards} .mc-sp circle{cursor:pointer} .mc-pc-sp.vide{font-size:11px; color:#9AA39E; padding:10px 0 12px}
+.mc-pc-pied{display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:11.5px; color:var(--ardoise)}
+.mc-pc-gf{display:flex; align-items:center; gap:8px; margin:14px 0 4px; padding:9px 14px; border-radius:14px; background:color-mix(in srgb,var(--fc) 13%,#fff); color:color-mix(in srgb,var(--fc) 70%,#000); font-family:'Archivo'; font-size:14.5px; cursor:pointer; border-left:7px solid var(--fc)} .mc-pc-gf:hover{background:color-mix(in srgb,var(--fc) 20%,#fff)} .mc-pc-gf small{font-family:'Public Sans'; font-weight:500; opacity:.8}
+.mc-modal{position:fixed; inset:0; z-index:9000; display:flex; align-items:flex-start; justify-content:center; padding:4vh 12px; overflow:auto; overscroll-behavior:contain; animation:mcFondu .2s both}
+.mc-modal-f{position:fixed; inset:0; background:rgba(25,32,28,.58); backdrop-filter:blur(3px)}
+.mc-modal-b{position:relative; width:min(1000px,100%); background:#fff; border-radius:22px; box-shadow:0 24px 70px rgba(0,0,0,.38); animation:pxMonte .35s cubic-bezier(.2,.8,.3,1) both; overflow:hidden}
+.mc-modal-t{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:18px 22px; color:#fff; background:linear-gradient(135deg,var(--fc),color-mix(in srgb,var(--fc) 55%,#000))}
+.mc-modal-ti{flex:1 1 220px; min-width:0} .mc-modal-ti small{display:block; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; opacity:.85} .mc-modal-ti h3{margin:2px 0; font-family:'Archivo'; font-size:23px; color:#fff} .mc-modal-ti span{font-size:12.5px; opacity:.9}
+.mc-modal-k{display:flex; flex-wrap:wrap; gap:8px} .mc-modal-k div{background:rgba(255,255,255,.17); border-radius:12px; padding:7px 12px; min-width:92px} .mc-modal-k div.med{background:rgba(255,255,255,.3)} .mc-modal-k b{display:block; font-family:'Archivo'; font-size:17px; font-variant-numeric:tabular-nums} .mc-modal-k span{font-size:11px; opacity:.9}
+.mc-modal-n{display:flex; gap:6px; align-self:flex-start} .mc-modal-n button{all:unset; cursor:pointer; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.2); text-align:center; line-height:36px; font-size:18px; color:#fff} .mc-modal-n button:hover:not([disabled]){background:rgba(255,255,255,.38)} .mc-modal-n button[disabled]{opacity:.35; cursor:default} .mc-modal-n button:focus-visible{outline:2px solid #fff; outline-offset:2px} .mc-modal-n .x{background:rgba(0,0,0,.25); font-size:22px}
+.mc-modal-c{padding:6px 10px 16px}
+@media(prefers-reduced-motion:reduce){ .px-kpi,.px-v,.px-seg,.px-dot,.px-ec,.px-bande,.mc-pc,.mc-pc-rt i,.mc-modal-b,.px-g i,.px-ring-v{animation:none !important} .mc-sp .tr{animation:none !important; stroke-dashoffset:0} }
+@media print{ .px-barre,.mc-modal{display:none !important} .px-v,.mc-pc{animation:none !important} }
 /* cloche des nouveautés */
 .notif-btn{position:relative; display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; border:1px solid rgba(255,255,255,.3); background:transparent; color:#fff; cursor:pointer; padding:0}
 .notif-btn:hover{background:rgba(255,255,255,.12)}
@@ -5108,6 +5170,7 @@ function vueCommissions(){
   ${!ficheVar && ficheSan && comActive==='csan' ? vueFicheSan(ficheSan) : ''}
   ${!ficheVar && !ficheSan && ficheOutil && comActive==='cagt' ? vueFicheOutil(ficheOutil) : ''}`;
   document.body.classList.toggle('fiche-ouverte', !!ficheVar || (!!ficheSan && comActive==='csan') || (!!ficheOutil && comActive==='cagt'));
+  mcAnimerKpi();
 }
 
 /* ================= Partie « Essais & résultats » ================= */
@@ -5435,9 +5498,174 @@ function prixVariete(an, k){
   for(const s of (S.essais?.prix?.[an]?.segments||[])){ const v = s.varietes.find(x=>cleSx(x.nom)===k); if(v) return {...v, segment:s.nom, an}; }
   return null;
 }
+/* ================= Prix des graines : tableau de bord animé ================= */
+const PX = {an:null, seg:'', niv:'', res:false, max:null, tri:'prix', rech:'', fermes:new Set()};
+const PX_NIV = {LP:['Liste positive', '#2E8B6A'], DV3:['DV3', '#7A5BA6']};
+const PX_NC = n => (PX_NIV[n] || ['', '#8A938D'])[1];
+const pxNum = t => { const n = parseFloat(String(t==null ? '' : t).replace(/[^\d,]/g, '').replace(',', '.')); return isFinite(n) ? n : null; };
+const pxEur = (n, d = 2) => n==null || !isFinite(n) ? '—' : n.toLocaleString('fr-FR', {minimumFractionDigits:d, maximumFractionDigits:d});
+const pxCoul = i => MC_PAL[i % MC_PAL.length];
+function pxLignes(c, an, av){
+  return c.segments.flatMap(s=>s.varietes.map(v=>{ const p = prixM2(v.prix), q = av ? prixVariete(String(an-1), cleSx(v.nom)) : null, pa = q ? prixM2(q.prix) : null;
+    return {s:s.nom, nom:v.nom, sem:v.semencier||'', niv:v.niveau, r:!!v.r, p, pa, e:p!==null && pa ? ecartPct(p, pa) : null, com:v.commentaire||'', k:cleSx(v.nom), raw:v.prix||''}; }));
+}
+function pxStats(L){
+  const m = {}; L.forEach(x=>{ (m[x.s] ||= []).push(x); }); const r = {};
+  Object.entries(m).forEach(([s, l])=>{ const p = l.map(x=>x.p).filter(v=>v!==null).sort((a, b)=>a-b); r[s] = p.length ? {n:p.length, min:p[0], max:p[p.length-1], med:mcMed(p)} : {n:0}; });
+  return r;
+}
+function pxCtx(){
+  const an = PX.an, c = S.essais?.prix?.[an]; if(!c) return null;
+  const av = S.essais?.prix?.[String(an-1)], all = pxLignes(c, an, av);
+  return {an, c, av, all, st:pxStats(all), si:Object.fromEntries(c.segments.map((s, i)=>[s.nom, i]))};
+}
+function pxFiltre(L){
+  const q = normTexte(PX.rech);
+  return L.filter(x=>(!PX.seg || x.s===PX.seg) && (!PX.niv || x.niv===PX.niv) && (!PX.res || x.r) && (PX.max===null || (x.p!==null && x.p<=PX.max+1e-9)) && (!q || normTexte(x.nom+' '+x.sem+' '+x.s).includes(q)));
+}
+const pxActif = () => !!(PX.seg || PX.niv || PX.res || PX.max!==null || PX.rech);
+
+/* quatre grandes cartes de chiffres, qui défilent à l'ouverture */
+function pxKpis(x){
+  const {c, all} = x, ps = all.map(v=>v.p).filter(v=>v!==null), med = mcMed(ps), tot = pxNum(c.totalActuel), totR = pxNum(c.totalResistant);
+  const nR = all.filter(v=>v.r).length, pct = all.length ? Math.round(nR/all.length*100) : 0, sur = tot && totR ? totR-tot : null;
+  const nLP = all.filter(v=>v.niv==='LP').length, nDV = all.filter(v=>v.niv==='DV3').length, circ = 2*Math.PI*22;
+  const nb = (v, dec = 0, suf = '') => `<b data-compte="${v}" data-dec="${dec}" data-suffixe="${suf}">${v.toLocaleString('fr-FR', {minimumFractionDigits:dec, maximumFractionDigits:dec})}${suf}</b>`;
+  const k = (cl, val, lib, sous, d) => `<div class="px-kpi ${cl}" style="--d:${d}ms">${val}<span>${lib}</span>${sous ? `<small>${sous}</small>` : ''}</div>`;
+  return `<div class="px-kpis">
+    ${k('a', nb(all.length), 'variétés au catalogue', `${c.segments.length} segments · ${nLP} liste positive · ${nDV} en DV3`, 0)}
+    ${k('b', med!==null ? nb(Math.round(med*100)/100, 2, ' €') : '<b>—</b>', 'prix médian au m²', ps.length ? `de ${pxEur(Math.min(...ps))} à ${pxEur(Math.max(...ps))} €/m²` : '', 80)}
+    ${tot ? k('c', nb(tot, 0, ' €'), 'montant total estimé', 'prix des graines, campagne en cours', 160) : ''}
+    ${totR ? k('d', nb(totR, 0, ' €'), 'si 100 % résistantes ToBRFV', sur>0 ? `+ ${sur.toLocaleString('fr-FR')} € (+${Math.round(sur/tot*100)} %)` : '', 240) : ''}
+    <div class="px-kpi e" style="--d:320ms"><svg class="px-ring" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="7"/><circle class="px-ring-v" cx="28" cy="28" r="22" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(circ*pct/100).toFixed(1)} ${circ.toFixed(1)}" transform="rotate(-90 28 28)" style="--l:${(circ*pct/100).toFixed(1)}"/></svg>${nb(pct, 0, ' %')}<span>résistantes ToBRFV</span><small>${nR} variétés sur ${all.length}</small></div>
+  </div>`;
+}
+
+/* surcoût de la résistance : pour chaque segment, du prix moyen non résistant au prix moyen résistant */
+function pxSurcout(c){
+  const l = c.segments.map(s=>({nom:s.nom, a:pxNum(s.prixNonRes), b:pxNum(s.prixRes)})).filter(x=>x.a && x.b).map(x=>({...x, e:x.b/x.a-1})).sort((p, q)=>q.e-p.e);
+  if(!l.length) return '<p class="aide">Aucun segment n\'a à la fois un prix moyen non résistant et résistant.</p>';
+  const W = 560, g = 172, d = 70, rh = 30, top = 8, Ht = top + l.length*rh + 34, mx = Math.max(...l.map(x=>Math.max(x.a, x.b))), xm = Math.max(0.5, Math.ceil(mx*2)/2), X = v => g + v/xm*(W-g-d);
+  const moy = l.reduce((n, x)=>n+x.e, 0)/l.length, pas = xm>3 ? 1 : 0.5, ticks = []; for(let t = 0; t<=xm+1e-9; t += pas) ticks.push(Math.round(t*100)/100);
+  return `<svg class="mc-svg px-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Surcoût des variétés résistantes par segment">
+    ${ticks.map(t=>`<line x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${Ht-30}" stroke="#E9E4DA" stroke-dasharray="${t?'3 4':'0'}"/><text x="${X(t)}" y="${Ht-14}" text-anchor="middle" font-size="11" fill="#6B756F">${pxEur(t, t%1 ? 1 : 0)} €</text>`).join('')}
+    ${l.map((x, i)=>{ const y = top + i*rh + rh/2;
+      return `<g class="px-ec" style="--d:${i*45}ms" data-tip="${mcTip(x.nom, 'Non résistantes : '+pxEur(x.a)+' €/m²', 'Résistantes : '+pxEur(x.b)+' €/m²', 'Surcoût : '+mcPct(x.e, true))}">
+        <text x="${g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(x.nom.length>26 ? x.nom.slice(0, 25)+'…' : x.nom)}</text>
+        <line class="px-ec-l" x1="${X(x.a)}" x2="${X(x.b)}" y1="${y}" y2="${y}" stroke="#D9772B" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+        <circle cx="${X(x.a)}" cy="${y}" r="6" fill="#fff" stroke="#6F8294" stroke-width="3"/><circle cx="${X(x.b)}" cy="${y}" r="7" fill="#D9772B" stroke="#fff" stroke-width="1.5"/>
+        <text x="${X(x.b)+13}" y="${y+4}" font-size="12" font-weight="700" fill="#A9561A">${mcPct(x.e, true)}</text></g>`; }).join('')}
+  </svg>
+  <div class="px-leg"><span class="mc-lg"><i style="background:#fff;border:3px solid #6F8294;box-sizing:border-box"></i>Non résistantes</span><span class="mc-lg"><i style="background:#D9772B"></i>Résistantes ToBRFV</span><span class="mc-lg">Surcoût moyen : <b>${mcPct(moy, true)}</b></span></div>`;
+}
+
+/* deux graphiques : répartition de la valeur par segment (anneau cliquable) et surcoût de la résistance */
+function pxSynthese(x){
+  const {c} = x, seg = c.segments.map((s, i)=>({lib:s.nom, v:pxNum(s.total) || 0, couleur:pxCoul(i)})).filter(i=>i.v>0).sort((a, b)=>b.v-a.v), tot = seg.reduce((n, i)=>n+i.v, 0);
+  const top = seg.slice(0, 7), reste = seg.slice(7).reduce((n, i)=>n+i.v, 0), texte = v => pxEur(v, 0)+' € · '+Math.round(v/(tot||1)*100)+' %';
+  const items = top.map(i=>({...i, texte:texte(i.v), attr:`data-px-seg="${h(i.lib)}"`}));
+  if(reste>0) items.push({lib:'Autres segments', v:reste, couleur:'#B9C0BB', texte:texte(reste)});
+  const centre = tot>=1e6 ? pxEur(tot/1e6, 2)+' M€' : Math.round(tot/1000)+' k€';
+  return `<div class="px-synth">
+    <section class="mc-c"><h4>Où va l'argent ? <small>valeur estimée par segment · cliquer pour filtrer</small></h4>${tot ? mcAnneau(items, {centre, sous:'valeur estimée', titre:'Valeur estimée par segment'}) : '<p class="aide">Les valeurs estimées par segment ne sont pas renseignées.</p>'}</section>
+    <section class="mc-c"><h4>Le surcoût de la résistance ToBRFV <small>prix moyen au m², segment par segment</small></h4>${pxSurcout(c)}</section></div>`;
+}
+
+/* barre de filtres */
+function pxBarre(x){
+  const {c, all} = x, ps = all.map(v=>v.p).filter(v=>v!==null); if(!ps.length) return '';
+  const mn = Math.floor(Math.min(...ps)*20)/20, mx = Math.ceil(Math.max(...ps)*20)/20, cur = PX.max===null ? mx : Math.min(PX.max, mx), nb = n => all.filter(v=>v.niv===n).length;
+  const tri = [['prix', 'Prix croissant'], ['prixd', 'Prix décroissant'], ['nom', 'Nom (A → Z)']];
+  return `<div class="px-barre no-print">
+    <input type="search" data-px-rech value="${h(PX.rech)}" placeholder="Chercher une variété ou un semencier…" aria-label="Chercher une variété">
+    <select data-px-seg-sel aria-label="Segment"><option value="">Tous les segments</option>${c.segments.map(s=>`<option value="${h(s.nom)}" ${s.nom===PX.seg?'selected':''}>${h(s.nom)}</option>`).join('')}</select>
+    <div class="segment"><button data-px-niv="" aria-pressed="${!PX.niv}">Toutes</button><button data-px-niv="LP" aria-pressed="${PX.niv==='LP'}">Liste positive <small>${nb('LP')}</small></button><button data-px-niv="DV3" aria-pressed="${PX.niv==='DV3'}">DV3 <small>${nb('DV3')}</small></button></div>
+    <label class="mc-tg"><input type="checkbox" data-px-res ${PX.res?'checked':''}> Résistantes ToBRFV seulement</label>
+    <label class="px-curs">Prix maximum <input type="range" data-px-max data-mx="${mx}" min="${mn}" max="${mx}" step="0.05" value="${cur}" aria-label="Prix maximum au m²"><b data-px-max-v>${PX.max===null ? 'sans limite' : pxEur(cur)+' €/m²'}</b></label>
+    <label class="px-curs">Trier <select data-px-tri>${tri.map(([k, l])=>`<option value="${k}" ${k===PX.tri?'selected':''}>${l}</option>`).join('')}</select></label>
+    </div>`;
+}
+
+/* échelle des prix : une ligne par segment, un point par variété (plein = résistante), fourchette et médiane du segment */
+function pxEchelle(x, vis){
+  const {all, st, si} = x, segs = [...new Set(all.map(v=>v.s))].filter(s=>st[s]?.n); if(!segs.length) return '<p class="aide">Aucun prix à afficher.</p>';
+  const ok = new Set(vis.map(v=>v.s+'|'+v.k)), W = 780, g = 184, dr = 26, rh = 46, top = 6, Ht = top + segs.length*rh + 38, pmax = Math.max(...all.map(v=>v.p || 0)), xm = Math.max(0.5, Math.ceil(pmax*4)/4), X = v => g + v/xm*(W-g-dr);
+  const pas = xm>3 ? 1 : 0.5, ticks = []; for(let t = 0; t<=xm+1e-9; t += pas) ticks.push(Math.round(t*100)/100);
+  const lignes = segs.map((s, i)=>{
+    const y = top + i*rh + rh/2, S_ = st[s], c = pxCoul(si[s]), pts = all.filter(v=>v.s===s && v.p!==null).sort((a, b)=>a.p-b.p), pl = [];
+    pts.forEach(v=>{ const cx = X(v.p); let off = 0; for(const o of [0, -1, 1, -2, 2]){ off = o; if(!pl.some(q=>q.o===o && Math.abs(q.cx-cx)<14.5)) break; } pl.push({v, cx, o:off}); });
+    const sel = PX.seg===s, nom = s.length>27 ? s.slice(0, 26)+'…' : s;
+    return `<g${pts.some(v=>ok.has(v.s+'|'+v.k)) ? '' : ' opacity=".4"'}>${i%2 ? '' : `<rect x="0" y="${y-rh/2}" width="${W}" height="${rh}" fill="#FAF7F1"/>`}
+      ${sel ? `<rect x="2" y="${y-rh/2+2}" width="${g-8}" height="${rh-4}" rx="8" fill="${c}" opacity=".16"/>` : ''}
+      <g class="px-sl" data-px-seg="${h(s)}" tabindex="0" role="button" data-tip="${mcTip(s, S_.n+' variété'+(S_.n>1?'s':'')+' avec prix', 'de '+pxEur(S_.min)+' à '+pxEur(S_.max)+' €/m²', 'médiane '+pxEur(S_.med)+' €/m²', sel ? 'cliquer pour tout afficher' : 'cliquer pour filtrer')}"><rect x="0" y="${y-rh/2}" width="${g-6}" height="${rh}" fill="transparent"/><circle cx="14" cy="${y}" r="5" fill="${c}"/><text x="26" y="${y+4}" font-size="12" font-weight="${sel?700:500}" fill="#2A332E">${h(nom)}</text></g>
+      <rect class="px-bande" x="${X(S_.min)-9}" y="${y-15}" width="${X(S_.max)-X(S_.min)+18}" height="30" rx="15" fill="${c}" fill-opacity=".14" style="--d:${i*40}ms"/>
+      <line x1="${X(S_.med)}" x2="${X(S_.med)}" y1="${y-17}" y2="${y+17}" stroke="${c}" stroke-width="2" stroke-dasharray="3 3" opacity=".8"/>
+      ${pl.map((q, k)=>{ const v = q.v, dim = !ok.has(v.s+'|'+v.k), col = PX_NC(v.niv);
+        return `<circle class="px-dot${dim?' dim':''}" cx="${q.cx.toFixed(1)}" cy="${(y+q.o*8.5).toFixed(1)}" r="6.5" fill="${v.r ? col : '#fff'}" stroke="${col}" stroke-width="2.5" style="--d:${i*40+k*14}ms" data-tip="${mcTip(v.nom, v.sem+' · '+(PX_NIV[v.niv]?.[0]||v.niv)+(v.r?' · ToBRFV':''), pxEur(v.p)+' €/m²', v.s)}"${dim ? '' : ` data-fiche="${h(v.k)}"`}/>`; }).join('')}</g>`; }).join('');
+  return `<svg class="mc-svg px-svg px-ech" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Prix des graines par segment">
+    ${ticks.map(t=>`<line x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${Ht-34}" stroke="#E4DDCF" stroke-dasharray="${t?'3 4':'0'}"/><text x="${X(t)}" y="${Ht-18}" text-anchor="middle" font-size="11" fill="#6B756F">${pxEur(t, t%1 ? 1 : 0)} €</text>`).join('')}
+    ${lignes}<text x="${(g+W-dr)/2}" y="${Ht-3}" text-anchor="middle" font-size="11.5" fill="#58625C">prix des graines au m² (€/m²)</text></svg>
+  <div class="px-leg"><span class="mc-lg"><i style="background:#2E8B6A"></i>Liste positive</span><span class="mc-lg"><i style="background:#7A5BA6"></i>DV3</span><span class="mc-lg"><i style="background:#8A938D"></i>pastille pleine : résistante ToBRFV</span><span class="mc-lg"><i style="background:#fff;border:2.5px solid #8A938D;box-sizing:border-box"></i>vide : non résistante</span><span class="mc-lg">bande = du moins cher au plus cher du segment · pointillé = médiane</span></div>`;
+}
+
+/* carte d'une variété : prix, position dans son segment, comparaison avec l'année précédente */
+function pxCarte(v, x, k){
+  const g = x.st[v.s], pos = g.n>1 && v.p!==null && g.max>g.min ? (v.p-g.min)/(g.max-g.min) : null, pc = `hsl(${pos===null ? 150 : Math.round(150-pos*128)} 52% 36%)`;
+  const e = g.n>1 && v.p!==null ? ecartPct(v.p, g.med) : null;
+  const rel = e===null ? '' : e<=-3 ? `<span class="px-pos moins">▼ ${-e} % sous la médiane du segment</span>` : e>=3 ? `<span class="px-pos plus">▲ ${e} % au-dessus de la médiane du segment</span>` : '<span class="px-pos">dans la médiane du segment</span>';
+  return `<article class="px-v ${v.niv==='DV3' ? 'dv3' : 'lp'}${v.r ? ' res' : ''}" style="--d:${Math.min(k*24, 480)}ms;--pc:${pc}">
+    <header>${btnFiche(v.k, v.nom)}<span class="px-niv">${h(PX_NIV[v.niv]?.[0] || v.niv)}</span></header>
+    <div class="px-sem">${h(v.sem)}${v.r ? '<span class="sx-tobrfv">ToBRFV</span>' : ''}</div>
+    <div class="px-prix"><b>${v.p!==null ? pxEur(v.p) : h(v.raw)}</b>${v.p!==null ? '<small>€/m²</small>' : ''}${g.n>1 && v.p===g.min ? '<span class="px-top">★ le moins cher</span>' : ''}</div>
+    ${pos!==null ? `<div class="px-g" aria-hidden="true"><u style="left:${((g.med-g.min)/(g.max-g.min)*100).toFixed(1)}%"></u><i style="left:${(pos*100).toFixed(1)}%"></i></div><div class="px-g-l"><span>${pxEur(g.min)}</span><span>${pxEur(g.max)}</span></div>` : ''}
+    ${rel}<small class="px-brut">${h(v.raw)}</small>
+    ${v.pa!==null ? `<small class="px-av">${x.an-1} : ${pxEur(v.pa)} €/m² ${v.e!==null ? fleche(v.e, true) : ''}</small>` : ''}
+    ${v.com ? `<p class="px-com">${h(v.com)}</p>` : ''}</article>`;
+}
+
+/* partie qui change quand on filtre : compteur, échelle des prix, cartes par segment */
+function pxResultats(x){
+  const {c, all, st, si} = x, vis = pxFiltre(all), ps = vis.map(v=>v.p).filter(v=>v!==null);
+  const puces = [PX.seg && ['seg', 'Segment : '+PX.seg], PX.niv && ['niv', PX_NIV[PX.niv]?.[0] || PX.niv], PX.res && ['res', 'Résistantes ToBRFV'], PX.max!==null && ['max', 'Prix ≤ '+pxEur(PX.max)+' €'], PX.rech && ['rech', '« '+PX.rech+' »']].filter(Boolean);
+  const cmp = (a, b) => PX.tri==='nom' ? a.nom.localeCompare(b.nom, 'fr') : ((a.p===null) - (b.p===null)) || (PX.tri==='prixd' ? b.p-a.p : a.p-b.p) || a.nom.localeCompare(b.nom, 'fr');
+  let k = 0;
+  const segs = c.segments.filter(s=>vis.some(v=>v.s===s.nom)).map(s=>{ const l = vis.filter(v=>v.s===s.nom).sort(cmp), g = st[s.nom], ferme = PX.fermes.has(s.nom);
+    return `<section class="px-seg${ferme?' ferme':''}" style="--sc:${pxCoul(si[s.nom])}"><header data-px-ferme="${h(s.nom)}" tabindex="0" role="button" aria-expanded="${!ferme}"><span class="px-chev">▾</span><h5>${h(s.nom)}</h5><span class="px-seg-n">${l.length} variété${l.length>1?'s':''}</span>
+      <div class="px-seg-k"><span>Potentiel <b>${h(s.potentiel||'—')}</b></span><span>Prix moyen <b>${h(s.prixMoy||'—')}</b></span><span>Non résistantes <b>${h(s.prixNonRes||'—')}</b></span><span>Résistantes <b>${h(s.prixRes||'—')}</b></span><span>Valeur estimée <b>${h(s.total||'—')}</b></span></div></header>
+      ${s.note ? `<p class="aide px-note">${h(s.note)}</p>` : ''}<div class="px-grille">${l.map(v=>pxCarte(v, x, k++)).join('')}</div></section>`; }).join('');
+  return `<section class="mc-c px-cadre"><h4>Échelle des prix <small>chaque point est une variété · survolez pour lire, cliquez pour ouvrir sa fiche</small></h4>${pxEchelle(x, vis)}</section>
+    <div class="px-compte"><span><b>${vis.length}</b> variété${vis.length>1?'s':''} sur ${all.length}${ps.length ? ` · de <b>${pxEur(Math.min(...ps))}</b> à <b>${pxEur(Math.max(...ps))}</b> €/m²` : ''}</span>
+      ${puces.map(([c_, t])=>`<span class="mc-chip no-print" style="--fc:var(--marque)">${h(t)}<button data-px-clear="${c_}" aria-label="Retirer ce filtre">×</button></span>`).join('')}${puces.length ? '<button class="btn sec no-print" data-px-reset>Tout réinitialiser</button>' : ''}</div>
+    ${segs || '<p class="aide">Aucune variété avec ces filtres. <button class="btn sec" data-px-reset>Tout réinitialiser</button></p>'}`;
+}
+function pxRendre(barre){
+  const x = pxCtx(), r = document.getElementById('px-res'); if(!x || !r) return;
+  if(barre){ const b = document.getElementById('px-barre'); if(b) b.innerHTML = pxBarre(x); }
+  r.innerHTML = pxResultats(x);
+}
+(function brancherPrix(){
+  const dans = t => !!t.closest && !!document.getElementById('px-zone')?.contains(t);
+  document.addEventListener('click', e=>{
+    const t = e.target; if(!dans(t)) return; let b;
+    if((b = t.closest('[data-px-niv]'))){ PX.niv = b.dataset.pxNiv; pxRendre(true); return; }
+    if((b = t.closest('[data-px-seg]'))){ PX.seg = PX.seg===b.dataset.pxSeg ? '' : b.dataset.pxSeg; pxRendre(true); if(!b.closest('.px-ech')) document.getElementById('px-barre')?.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+    if((b = t.closest('[data-px-clear]'))){ const k = b.dataset.pxClear; if(k==='max') PX.max = null; else if(k==='res') PX.res = false; else PX[k] = ''; pxRendre(true); return; }
+    if(t.closest('[data-px-reset]')){ Object.assign(PX, {seg:'', niv:'', res:false, max:null, rech:''}); pxRendre(true); return; }
+    if((b = t.closest('[data-px-ferme]'))){ const s = b.dataset.pxFerme; PX.fermes.has(s) ? PX.fermes.delete(s) : PX.fermes.add(s); pxRendre(false); return; }
+  });
+  document.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && dans(e.target) && e.target.matches?.('[data-px-seg],[data-px-ferme]')){ e.preventDefault(); e.target.click(); } });
+  document.addEventListener('input', e=>{ const t = e.target; if(!dans(t)) return;
+    if(t.matches('[data-px-rech]')){ PX.rech = t.value; pxRendre(false); }
+    else if(t.matches('[data-px-max]')){ const v = +t.value, mx = +t.dataset.mx; PX.max = v>=mx-0.001 ? null : v; const l = t.parentElement.querySelector('[data-px-max-v]'); if(l) l.textContent = PX.max===null ? 'sans limite' : pxEur(PX.max)+' €/m²'; pxRendre(false); } });
+  document.addEventListener('change', e=>{ const t = e.target; if(!dans(t)) return;
+    if(t.matches('[data-px-seg-sel]')){ PX.seg = t.value; pxRendre(true); }
+    else if(t.matches('[data-px-res]')){ PX.res = t.checked; pxRendre(true); }
+    else if(t.matches('[data-px-tri]')){ PX.tri = t.value; pxRendre(false); } });
+})();
+
 function partiePrix(anSel){
   const an = S.essais?.prix?.[anSel] ? +anSel : (+anCatalogue(anSel) || +anSel);
-  const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an], av = S.essais?.prix?.[String(an-1)];
+  const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an];
   const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>Autres options : modèle Excel pré-rempli, lien du catalogue sur SharePoint</summary>
       <p class="aide">Le catalogue s'importe à partir du modèle Excel (une ligne par variété : segment, variété, niveau, semencier, prix, résistance ToBRFV, commentaires ;
         un onglet « Segments » pour les potentiels et prix moyens). Téléchargez le modèle pré-rempli avec le dernier catalogue, mettez-le à jour, puis importez-le.
@@ -5447,29 +5675,19 @@ function partiePrix(anSel){
       <label class="btn">Importer le catalogue<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
   if(!c) return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
     <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
-  const L = liensDoc(c.lien);
-  const ligne = (v, s) => { const p = prixM2(v.prix), pAv = av ? prixVariete(String(an-1), cleSx(v.nom)) : null, e = pAv && p!==null && prixM2(pAv.prix) ? ecartPct(p, prixM2(pAv.prix)) : null;
-    return `<div class="sx-prix-v" data-nom="${h(normTexte(v.nom+' '+v.semencier+' '+s.nom))}">
-      <div class="sx-pv-nom">${btnFiche(cleSx(v.nom), v.nom)}<span>${h(v.semencier)}</span></div>
-      <div class="sx-pv-tags"><span class="sx-dv ${v.niveau==='DV3'?'d3':''}">${h(v.niveau==='LP'?'Liste positive':v.niveau)}</span>${v.r?'<span class="sx-tobrfv">ToBRFV</span>':''}</div>
-      <div class="sx-pv-prix"><b>${p!==null?fmtPrix(p)+' €/m²':h(v.prix)}</b><span>${h(v.prix)}</span>${pAv?`<small>${an-1} : ${h(pAv.prix)} ${e!==null?fleche(e, true):''}</small>`:''}</div>
-      <div class="sx-pv-com">${h(v.commentaire||'')}</div></div>`; };
-  return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
+  if(PX.an!==an){ Object.assign(PX, {an, seg:'', niv:'', res:false, max:null, rech:''}); PX.fermes.clear(); }
+  const L = liensDoc(c.lien), x = pxCtx();
+  return `<div class="carte px-page"><h3>Prix des graines — catalogue ${an}</h3>
     <div class="sx-confid">Document confidentiel — ne pas diffuser sans autorisation. Prix des graines uniquement, hors marge du pépiniériste.</div>
     ${+an!==+anSel ? `<p class="es-astuce">Pas de catalogue daté ${anSel} : voici le catalogue <b>${an}</b>, le plus proche (préparé en ${an-1} pour la campagne ${an-1}-${an}).</p>` : ''}
     <div class="sx-tete"><span class="sx-resume">${h(c.titre||'')}</span><span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue ${an}</a>`:''}</span></div>
     ${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}
     ${adm ? `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>Mise à jour des prix — Excel</b><span>${c.fichier ? h(c.fichier)+' · importé le '+h(c.importe||'') : 'Importez le modèle Excel du catalogue'}</span></div><div class="mc-pdf-b"><label class="btn">Mettre à jour (Excel)<input type="file" accept=".xlsx,.xls" data-prix-import data-an="${anSel}" hidden></label></div></div>` : ''}
     ${imp}
-    <div class="sx-recherche no-print"><input type="search" data-prix-rech placeholder="Chercher une variété : son prix s'affiche…" aria-label="Chercher le prix d'une variété"></div>
-    <div class="es-kpis">${[[c.segments.reduce((n,s)=>n+s.varietes.length,0),'variétés'],[c.segments.length,'segments'],[c.segments.reduce((n,s)=>n+s.varietes.filter(v=>v.r).length,0),'résistantes ToBRFV'],
-      [h(c.totalActuel||'—'),'montant total estimé'],[h(c.totalResistant||'—'),'si 100 % résistantes ToBRFV'],[av?(an-1):'—','année comparée']].map(([x,t])=>`<div><b>${x}</b><span>${t}</span></div>`).join('')}</div>
-    <div class="sx-prix-segs">${c.segments.map(s=>`<section class="sx-prix-seg" data-seg-bloc>
-      <header><h5>${h(s.nom)}</h5><div class="sx-ps-kpi"><span>Potentiel <b>${h(s.potentiel||'—')}</b></span><span>Prix moyen <b>${h(s.prixMoy||'—')}/m²</b></span>
-        <span>Non résistantes <b>${h(s.prixNonRes||'—')}</b></span><span>Résistantes <b>${h(s.prixRes||'—')}</b></span><span>Valeur estimée <b>${h(s.total||'—')}</b></span></div></header>
-      ${s.varietes.map(v=>ligne(v,s)).join('')}${s.note?`<p class="aide" style="margin:6px 12px">${h(s.note)}</p>`:''}</section>`).join('')}</div>
+    <div id="px-zone">${pxKpis(x)}${pxSynthese(x)}<div id="px-barre">${pxBarre(x)}</div><div id="px-res">${pxResultats(x)}</div></div>
     <p class="aide">${h(c.methode||'')}${adm && c.importe?` — importé le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}`:''}</p></div>`;
 }
+
 function modeleCatalogue(an){
   const c = (S.essais.prix||{})[an] || {segments:[]};
   const wb = XLSX.utils.book_new();
@@ -6132,10 +6350,10 @@ function mcArc(cx, cy, r0, r1, a0, a1){
 function mcAnneau(items, o = {}){   // items : [{lib, v, couleur, cle, texte}]
   const tot = items.reduce((n,i)=>n+i.v, 0) || 1, R1 = 100, R0 = 64, cx = 110, cy = 110; let a = -Math.PI/2;
   const segs = items.filter(i=>i.v>0).map((i, k)=>{ const da = i.v/tot*Math.PI*2, a0 = a, a1 = a + Math.min(da, Math.PI*2-0.0001); a += da;
-    return `<path class="mc-seg" style="--d:${k*60}ms" d="${mcArc(cx, cy, R0, R1, a0+0.012, a1-0.012)}" fill="${i.couleur}" data-tip="${mcTip(i.lib, i.texte||i.v+' ('+Math.round(i.v/tot*100)+' %)')}"${i.cle ? ` data-mc-go="${h(i.cle)}"` : ''}/>`; }).join('');
+    return `<path class="mc-seg" style="--d:${k*60}ms" d="${mcArc(cx, cy, R0, R1, a0+0.012, a1-0.012)}" fill="${i.couleur}" data-tip="${mcTip(i.lib, i.texte||i.v+' ('+Math.round(i.v/tot*100)+' %)')}"${i.cle ? ` data-mc-go="${h(i.cle)}"` : (i.attr ? ' '+i.attr : '')}/>`; }).join('');
   return `<div class="mc-an"><svg viewBox="0 0 220 220" class="mc-svg-an" role="img" aria-label="${h(o.titre||'Répartition')}">${segs}
       <text x="110" y="106" text-anchor="middle" class="mc-an-n">${h(String(o.centre ?? tot))}</text><text x="110" y="128" text-anchor="middle" class="mc-an-t">${h(o.sous||'')}</text></svg>
-    <ul class="mc-an-leg">${items.filter(i=>i.v>0).map(i=>`<li${i.cle ? ` data-mc-go="${h(i.cle)}" tabindex="0" role="button"` : ''}><i style="background:${i.couleur}"></i><span>${h(i.lib)}</span><b>${h(i.texte||String(i.v))}</b></li>`).join('')}</ul></div>`;
+    <ul class="mc-an-leg">${items.filter(i=>i.v>0).map(i=>`<li${i.cle ? ` data-mc-go="${h(i.cle)}" tabindex="0" role="button"` : (i.attr ? ` ${i.attr} tabindex="0" role="button"` : '')}><i style="background:${i.couleur}"></i><span>${h(i.lib)}</span><b>${h(i.texte||String(i.v))}</b></li>`).join('')}</ul></div>`;
 }
 /* courbes : plusieurs séries, survol avec repère vertical, zone min–max pour une série seule */
 function mcCourbes(series, annees, o = {}){   // series : [{nom, couleur, pts:[{v, min, max}|null]}]
@@ -6251,7 +6469,7 @@ function blocPdf(cat, cle, titre){
 }
 
 /* ================= Partie « Tarifs » de la commission sanitaire : mercuriale des intrants ================= */
-const MC = {evoSel:[], evoMode:'prix', masque:new Set(), annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
+const MC = {mode:'cartes', liste:[], evoSel:[], evoMode:'prix', masque:new Set(), annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
 const MC_VUES = [['apercu','Vue d\'ensemble'],['reperes','Repères de prix'],['evolution','Évolution'],['secteurs','Par secteur'],['fournisseurs','Par fournisseur'],['substrats','Substrats']];
 const MC_FIAB = {correcte:['Correcte','ok'], indicatif:['Indicatif*','ind'], dispersion:['Dispersion forte','fort'], aucune:['Aucune donnée','vide']};
 const MC_PAL = ['#2E8B6A','#3A6EA5','#C0527C','#D9772B','#7A5BA6','#B08A1E','#3F8F9E','#8A6A5A','#5B8C3A','#A04A4A','#4C6A92','#777'];
@@ -6352,7 +6570,7 @@ function mcBarre(T, d){
 /* ---------- vues ---------- */
 function mcAnimerKpi(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.mc-kpi [data-compte]').forEach(el=>{ const fin = +el.dataset.compte, t0 = performance.now(); (function pas(t){ const k = Math.min(1, (t-t0)/700); el.textContent = Math.round(fin*(1-Math.pow(1-k, 3))).toLocaleString('fr-FR'); if(k<1) requestAnimationFrame(pas); })(t0); });
+  document.querySelectorAll('#v-commissions [data-compte]').forEach(el=>{ const fin = +el.dataset.compte, dec = +(el.dataset.dec||0), suf = el.dataset.suffixe||'', t0 = performance.now(); (function pas(t){ const k = Math.min(1, (t-t0)/800); el.textContent = (fin*(1-Math.pow(1-k, 3))).toLocaleString('fr-FR', {minimumFractionDigits:dec, maximumFractionDigits:dec})+suf; if(k<1) requestAnimationFrame(pas); })(t0); });
 }
 function mcVueApercu(T, d){
   const P = mcProduits(), avec = P.filter(p=>p.st.n>0), prix = avec.reduce((n,p)=>n+p.st.n, 0), fams = mcFam().filter(f=>avec.some(p=>p.fam===f));
@@ -6391,20 +6609,77 @@ function mcDetail(p, d){
       ${lignes.map(r=>`<tr class="${r.ret?'':'ecarte'}"><td>${r.an}</td><td>${h(r.sect)}</td><td>${h(r.coop)}</td><td>${h([r.producteur, r.four].filter(Boolean).join(' · '))}</td><td><b>${mcEur(r.prix)}</b></td><td>${r.statut && r.statut!=='OK' ? `<span class="mc-b ${r.ret?'moy':'gris'}">${h(r.statut)}</span>` : ''}</td><td>${h(r.type)}</td></tr>`).join('')}
     </tbody></table>${p.rows.length>80 ? `<p class="aide">… et ${p.rows.length-80} autres lignes.</p>` : ''}</div></div>`;
 }
+/* ---------- Repères de prix : cartes dynamiques (ou tableau), fenêtre de détail ---------- */
+const MC_TRIS_LIB = [['produit:1', 'Famille puis nom (A → Z)'], ['med:1', 'Prix médian : du moins cher'], ['med:-1', 'Prix médian : du plus cher'], ['evo:-1', 'Plus fortes hausses'], ['evo:1', 'Plus fortes baisses'], ['amp:-1', 'Prix les plus dispersés'], ['amp:1', 'Prix les plus homogènes'], ['n:-1', 'Plus de prix relevés']];
+/* courbe miniature des médianes année par année */
+function mcSpark(p, ans){
+  const ok = ans.map((a, i)=>p.parAn[a].n ? {a, i, v:p.parAn[a].med} : null).filter(Boolean);
+  if(ok.length<2) return `<div class="mc-pc-sp vide">${ok.length ? 'Un seul relevé : '+ok[0].a : 'Aucun relevé'}</div>`;
+  const W = 170, Ht = 50, mn = Math.min(...ok.map(o=>o.v)), mx = Math.max(...ok.map(o=>o.v)), X = i => 8 + i*(W-16)/(ans.length-1), Y = v => mx===mn ? 20 : 8 + (1-(v-mn)/(mx-mn))*24, id = 's'+Math.random().toString(36).slice(2, 7);
+  const d = ok.map((o, j)=>(j ? 'L' : 'M')+X(o.i).toFixed(1)+' '+Y(o.v).toFixed(1)).join(' '), dernier = ok[ok.length-1], premier = ok[0];
+  return `<svg class="mc-sp" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Évolution de la médiane"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--fc)" stop-opacity=".32"/><stop offset="1" stop-color="var(--fc)" stop-opacity="0"/></linearGradient></defs>
+    <path d="${d} L${X(dernier.i).toFixed(1)} 36 L${X(premier.i).toFixed(1)} 36Z" fill="url(#${id})" class="mc-aire"/>
+    <path class="tr" pathLength="1" d="${d}" fill="none" stroke="var(--fc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${ok.map((o, j)=>`<circle cx="${X(o.i).toFixed(1)}" cy="${Y(o.v).toFixed(1)}" r="${j===ok.length-1 ? 4.5 : 3}" fill="${j===ok.length-1 ? 'var(--fc)' : '#fff'}" stroke="var(--fc)" stroke-width="2" data-tip="${mcTip(String(o.a), 'Médiane '+mcEur(o.v))}"/>`).join('')}
+    <text x="${X(premier.i).toFixed(1)}" y="48" font-size="10" fill="#6B756F" text-anchor="start">${premier.a}</text><text x="${X(dernier.i).toFixed(1)}" y="48" font-size="10" fill="#6B756F" text-anchor="end">${dernier.a}</text></svg>`;
+}
+function mcCarteProd(p, k){
+  const st = p.st, c = mcCoulFam(p.fam), fam = p.fam.replace('Biostimulants, sans AMM, engrais foliaires', 'Biostimulants'), m = st.max || 1;
+  const gauche = Math.min(96, st.n ? st.min/m*100 : 0), larg = Math.max(4, st.n ? (st.max-st.min)/m*100 : 0), med = st.n ? st.med/m*100 : 0;
+  return `<article class="mc-pc${st.n ? '' : ' sans'}" style="--fc:${c};--d:${Math.min(k*22, 440)}ms" data-mc-ouvrir="${h(p.prod)}" tabindex="0" role="button" aria-label="${h(p.prod)} : voir le détail">
+    <div class="mc-pc-h"><span class="mc-pc-f">${h(fam)}</span>${mcBadgeFiab(st)}</div>
+    <h5>${h(p.prod)}</h5>
+    ${st.n ? `<div class="mc-pc-p"><b>${mcEur(st.med)}</b><span>médiane · ${h(p.u || 'unité')}</span>${p.evo ? mcFleche(p.evo) : ''}</div>
+      <div class="mc-pc-r"><div class="mc-pc-rt"><i style="left:${gauche.toFixed(1)}%;width:${Math.min(larg, 100-gauche).toFixed(1)}%"></i><b style="left:${med.toFixed(1)}%"></b></div><div class="mc-pc-rl"><span>${mcEur(st.min)}</span><span>${mcEur(st.max)}</span></div></div>
+      ${mcSpark(p, T_ANS())}
+      <div class="mc-pc-pied"><span>${st.n} prix · ${st.ns} source${st.ns>1 ? 's' : ''}</span>${mcBadgeAmp(st)}</div>` : '<p class="aide">Aucun prix retenu avec ces filtres.</p>'}
+  </article>`;
+}
+/* un produit sans tenir compte des filtres de famille, de fiabilité et de recherche (pour l'ouvrir depuis un graphique) */
+function mcProduitSeul(nom){
+  const sv = [MC.fam, MC.rech, MC.fiab]; MC.fam = ''; MC.rech = ''; MC.fiab = '';
+  try{ return mcProduits().find(x=>x.prod===nom); } finally { [MC.fam, MC.rech, MC.fiab] = sv; }
+}
+function mcFermerModal(){ document.getElementById('mc-modal')?.remove(); }
+function mcOuvrirModal(nom){
+  const d = mcDonnees(), p = mcProduitSeul(nom), zone = document.getElementById('v-commissions'); if(!d || !p || !zone) return;
+  const st = p.st, i = (MC.liste||[]).indexOf(nom), fam = p.fam.replace('Biostimulants, sans AMM, engrais foliaires', 'Biostimulants, engrais foliaires');
+  let m = document.getElementById('mc-modal');
+  if(!m){ m = document.createElement('div'); m.id = 'mc-modal'; m.className = 'mc-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); zone.appendChild(m); }
+  m.setAttribute('aria-label', 'Détail du produit '+nom); m.dataset.prod = nom;
+  m.innerHTML = `<div class="mc-modal-f" data-mc-modal-x></div><div class="mc-modal-b" style="--fc:${mcCoulFam(p.fam)}">
+    <div class="mc-modal-t"><div class="mc-modal-ti"><small>${h(fam)}</small><h3>${h(nom)}</h3><span>prix en € HT par ${h(p.u || 'unité')}</span></div>
+      <div class="mc-modal-k"><div><b>${mcEur(st.min)}</b><span>minimum</span></div><div class="med"><b>${mcEur(st.med)}</b><span>médiane</span></div><div><b>${mcEur(st.max)}</b><span>maximum</span></div><div><b>${st.n||'—'}</b><span>prix retenus</span></div><div><b>${p.evo ? mcPct(p.evo.v, true) : '—'}</b><span>${p.evo ? 'évolution '+p.evo.de+' → '+p.evo.a : 'évolution'}</span></div></div>
+      <div class="mc-modal-n"><button data-mc-nav="-1" aria-label="Produit précédent" ${i<=0 ? 'disabled' : ''}>←</button><button data-mc-nav="1" aria-label="Produit suivant" ${i<0 || i>=MC.liste.length-1 ? 'disabled' : ''}>→</button><button class="x" data-mc-modal-x aria-label="Fermer">×</button></div></div>
+    <div class="mc-modal-c">${mcDetail(p, d)}</div></div>`;
+  m.scrollTop = 0; m.querySelector('.mc-modal-n .x')?.focus();
+}
 function mcVueReperes(T, d){
   let P = mcProduits(); if(!MC.sansPrix) P = P.filter(p=>p.st.n>0);
-  const f = MC_TRIS[MC.tri] || MC_TRIS.produit, cmp = (a,b)=>{ const x = f(a), y = f(b); return (typeof x==='string' ? x.localeCompare(y,'fr') : x-y)*MC.sens || a.prod.localeCompare(b.prod,'fr'); };
-  const fams = mcFam().filter(fm=>P.some(p=>p.fam===fm)), th = (k, t, cl='') => `<th class="${cl}"><button class="mc-th${MC.tri===k?' on':''}" data-mc-tri="${k}">${t}${MC.tri===k ? (MC.sens>0?' ▲':' ▼') : ''}</button></th>`;
+  const f = MC_TRIS[MC.tri] || MC_TRIS.produit, vide = p => MC.tri==='evo' ? !p.evo : MC.tri==='produit' ? false : !p.st.n;
+  const cmp = (a, b)=>{ if(vide(a)!==vide(b)) return vide(a) ? 1 : -1; const x = f(a), y = f(b); return (typeof x==='string' ? x.localeCompare(y, 'fr') : x-y)*MC.sens || a.prod.localeCompare(b.prod, 'fr'); };
+  const fams = mcFam().filter(fm=>P.some(p=>p.fam===fm)), cle = MC.tri+':'+MC.sens, groupe = MC.tri==='produit';
+  const ordre = groupe ? fams.flatMap(fm=>P.filter(p=>p.fam===fm).sort(cmp)) : P.slice().sort(cmp); MC.liste = ordre.map(p=>p.prod);
+  const outils = `<div class="mc-outils no-print"><div class="segment"><button data-mc-mode="cartes" aria-pressed="${MC.mode!=='tableau'}">▦ Cartes</button><button data-mc-mode="tableau" aria-pressed="${MC.mode==='tableau'}">☰ Tableau</button></div>
+    <label class="mc-tri">Trier <select data-mc-tri-sel>${MC_TRIS_LIB.map(([k, l])=>`<option value="${k}" ${k===cle ? 'selected' : ''}>${l}</option>`).join('')}${MC_TRIS_LIB.some(([k])=>k===cle) ? '' : `<option value="${cle}" selected>Tri du tableau</option>`}</select></label>
+    <label class="mc-tg"><input type="checkbox" data-mc-sans ${MC.sansPrix ? 'checked' : ''}> Afficher aussi les produits sans prix</label><span class="aide">${P.length} produit${P.length>1 ? 's' : ''} · cliquer sur ${MC.mode==='tableau' ? 'une ligne' : 'une carte'} pour le détail</span></div>`;
+  const note = '<p class="aide">* Indicatif : moins de 3 prix relevés. Évolution : variation de la médiane entre les deux dernières années sélectionnées qui ont des prix. Sur chaque carte : la barre va du prix le plus bas au plus haut, le trait noir marque la médiane.</p>';
+  if(MC.mode!=='tableau'){
+    let k = 0;
+    const corps = groupe ? fams.map(fm=>{ const l = P.filter(p=>p.fam===fm).sort(cmp), ferme = MC.fermees.has(fm);
+        return `<h4 class="mc-pc-gf" data-mc-fermer="${h(fm)}" style="--fc:${mcCoulFam(fm)}" tabindex="0" role="button"><span>${ferme ? '▸' : '▾'}</span> ${h(fm)} <small>${l.length} produit${l.length>1 ? 's' : ''}</small></h4>${ferme ? '' : `<div class="mc-pcs">${l.map(p=>mcCarteProd(p, k++)).join('')}</div>`}`; }).join('')
+      : `<div class="mc-pcs">${ordre.map(p=>mcCarteProd(p, k++)).join('')}</div>`;
+    return outils + (corps || '<p class="aide">Aucun produit avec ces filtres.</p>') + note;
+  }
+  const th = (k, t, cl='') => `<th class="${cl}"><button class="mc-th${MC.tri===k?' on':''}" data-mc-tri="${k}">${t}${MC.tri===k ? (MC.sens>0?' ▲':' ▼') : ''}</button></th>`;
   const ligne = p=>`<tr class="mc-l${MC.ouvert.has(p.prod)?' ouvert':''}" data-mc-prod="${h(p.prod)}" tabindex="0" aria-expanded="${MC.ouvert.has(p.prod)}"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${h(p.u)}</td>
       <td class="mc-nb">${p.st.n||'—'}${p.st.n?`<small>${p.st.ns} source${p.st.ns>1?'s':''}</small>`:''}</td><td>${mcFourchette(p.st)}</td><td class="num">${mcEur(p.st.min)}</td><td class="num"><b>${mcEur(p.st.med)}</b></td><td class="num">${mcEur(p.st.max)}</td>
       <td>${p.st.n ? mcBadgeAmp(p.st) : ''}</td><td>${mcFleche(p.evo)}</td><td>${mcBadgeFiab(p.st)}</td></tr>${MC.ouvert.has(p.prod) ? `<tr class="mc-detail"><td colspan="10">${mcDetail(p, d)}</td></tr>` : ''}`;
-  const corps = MC.tri==='produit' ? fams.map(fm=>{ const l = P.filter(p=>p.fam===fm).sort(cmp), ferme = MC.fermees.has(fm);
+  const corps = groupe ? fams.map(fm=>{ const l = P.filter(p=>p.fam===fm).sort(cmp), ferme = MC.fermees.has(fm);
       return `<tr class="mc-fam" data-mc-fermer="${h(fm)}" style="--fc:${mcCoulFam(fm)}"><td colspan="10"><span>${ferme?'▸':'▾'}</span> ${h(fm)} <small>${l.length} produit${l.length>1?'s':''}</small></td></tr>${ferme ? '' : l.map(ligne).join('')}`; }).join('')
-    : P.slice().sort(cmp).map(ligne).join('');
-  return `<div class="mc-outils no-print"><label class="mc-tg"><input type="checkbox" data-mc-sans ${MC.sansPrix?'checked':''}> Afficher aussi les produits sans prix</label><span class="aide">${P.length} produit${P.length>1?'s':''} · cliquer sur une ligne pour voir tous les prix, l'évolution et les secteurs</span></div>
-    <div class="mc-tab-s"><table class="mc-t"><thead><tr>${th('produit','Produit')}<th>Unité</th>${th('n','Prix','num')}<th>Fourchette</th>${th('min','Min','num')}${th('med','Médiane','num')}${th('max','Max','num')}${th('amp','Amplitude')}${th('evo','Évolution')}<th>Fiabilité</th></tr></thead>
-    <tbody>${corps || '<tr><td colspan="10" class="aide">Aucun produit avec ces filtres.</td></tr>'}</tbody></table></div>
-    <p class="aide">* Indicatif : moins de 3 prix relevés. Évolution : variation de la médiane entre les deux dernières années sélectionnées qui ont des prix.</p>`;
+    : ordre.map(ligne).join('');
+  return outils + `<div class="mc-tab-s"><table class="mc-t"><thead><tr>${th('produit','Produit')}<th>Unité</th>${th('n','Prix','num')}<th>Fourchette</th>${th('min','Min','num')}${th('med','Médiane','num')}${th('max','Max','num')}${th('amp','Amplitude')}${th('evo','Évolution')}<th>Fiabilité</th></tr></thead>
+    <tbody>${corps || '<tr><td colspan="10" class="aide">Aucun produit avec ces filtres.</td></tr>'}</tbody></table></div>` + note;
 }
 function mcVueEvolution(T, d){
   const P = mcProduits({}).filter(p=>p.rows.some(r=>r.ret)), noms = new Set(P.map(p=>p.prod));
@@ -6515,10 +6790,15 @@ function mcExporterVue(){
     if((b = t.closest('[data-mc-fermer]'))){ const f = b.dataset.mcFermer; MC.fermees.has(f) ? MC.fermees.delete(f) : MC.fermees.add(f); mcRendre(false); return; }
     if((b = t.closest('[data-mc-go]'))){ const [k, v] = [b.dataset.mcGo.split('|')[0], b.dataset.mcGo.split('|').slice(1).join('|')];
       if(k==='fam'){ MC.fam = MC.fam===v ? '' : v; mcRendre(true); return; }
-      if(k==='prod'){ MC.vue = 'reperes'; MC.rech = ''; MC.fam = ''; MC.sansPrix = false; MC.ouvert.add(v); mcRendre(true); setTimeout(()=>document.querySelector(`[data-mc-prod="${CSS.escape(v)}"]`)?.scrollIntoView({block:'center', behavior:'smooth'}), 60); return; } }
+      if(k==='prod'){ mcOuvrirModal(v); return; } }
+    if((b = t.closest('[data-mc-ouvrir]'))){ mcOuvrirModal(b.dataset.mcOuvrir); return; }
+    if(t.closest('[data-mc-modal-x]')){ mcFermerModal(); return; }
+    if((b = t.closest('[data-mc-nav]'))){ const m = document.getElementById('mc-modal'), s = MC.liste[(MC.liste||[]).indexOf(m?.dataset.prod) + (+b.dataset.mcNav)]; if(s) mcOuvrirModal(s); return; }
+    if((b = t.closest('[data-mc-mode]'))){ MC.mode = b.dataset.mcMode; mcRendre(false); return; }
     if((b = t.closest('[data-mc-prod]'))){ const p = b.dataset.mcProd; MC.ouvert.has(p) ? MC.ouvert.delete(p) : MC.ouvert.add(p); mcRendre(false); return; }
   });
-  document.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches?.('[data-mc-prod],[data-mc-go]')){ e.preventDefault(); e.target.click(); } });
+  document.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches?.('[data-mc-prod],[data-mc-go],[data-mc-ouvrir],[data-mc-fermer]')){ e.preventDefault(); e.target.click(); }
+    else if(document.getElementById('mc-modal')){ if(e.key==='Escape'){ mcFermerModal(); } else if(e.key==='ArrowRight' || e.key==='ArrowLeft'){ document.querySelector(`#mc-modal [data-mc-nav="${e.key==='ArrowRight' ? 1 : -1}"]`)?.click(); } } });
   document.addEventListener('input', e=>{ const t = e.target;
     if(t.matches?.('[data-mc-rech]')){ MC.rech = t.value; mcRendre(false); }
     else if(t.matches?.('[data-mc-evo]')){ const v = t.value.trim(); if(mcDonnees()?.prods.some(p=>p.prod===v)){ if(!MC.evoSel.length){ const c = mcProduits({}).find(p=>p.evo) || mcProduits({})[0]; if(c && c.prod!==v) MC.evoSel.push(c.prod); } if(!MC.evoSel.includes(v) && MC.evoSel.length<5) MC.evoSel.push(v); mcRendre(false); document.querySelector('[data-mc-evo]')?.focus(); } } });
@@ -6526,6 +6806,7 @@ function mcExporterVue(){
     if(t.matches?.('[data-mc-sect]')){ MC.sect = t.value; mcRendre(true); }
     else if(t.matches?.('[data-mc-fiab]')){ MC.fiab = t.value; mcRendre(true); }
     else if(t.matches?.('[data-mc-sans]')){ MC.sansPrix = t.checked; mcRendre(false); }
+    else if(t.matches?.('[data-mc-tri-sel]')){ const [k, s] = t.value.split(':'); MC.tri = k; MC.sens = +s; mcRendre(false); }
     else if(t.matches?.('[data-mc-excel]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; await mcImporter(f); }
     else if(t.matches?.('[data-pdf-ajout]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; const [c, k] = t.dataset.pdfAjout.split('|'); if(await pdfAjouter(c, k, f)){ vueCommissions(); toast('Document ajouté : '+f.name); } } });
 })();
