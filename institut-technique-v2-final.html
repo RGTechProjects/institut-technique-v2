@@ -596,7 +596,7 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .mc-actions{display:flex; flex-wrap:wrap; gap:8px}
 .mc-maj{background:var(--marque-clair,#EAF6EF); border:1px solid color-mix(in srgb, var(--marque,#1F6F52) 25%, #fff); border-radius:10px; padding:8px 14px; margin:6px 0 10px; font-size:13px}
 .mc-maj summary{cursor:pointer; color:var(--marque-fonce,#17594A)} .mc-maj ul{margin:8px 0 4px; padding-left:18px; columns:2; column-gap:30px} .mc-maj li{margin:2px 0; break-inside:avoid}
-.mc-pdf{display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; justify-content:space-between; background:#fff; border:1px dashed color-mix(in srgb, var(--marque,#1F6F52) 45%, #fff); border-radius:12px; padding:10px 14px; margin:8px 0 12px}
+.mc-pdf{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 12px}
 .mc-pdf-i{display:flex; flex-direction:column; gap:2px; font-size:13px} .mc-pdf-i b{color:var(--marque,#1F6F52); font-family:'Archivo'} .mc-pdf-i span{color:var(--ardoise)}
 .mc-pdf-b{display:flex; flex-wrap:wrap; gap:8px} .mc-pdf-v{flex-basis:100%; font-size:12.5px} .mc-pdf-v summary{cursor:pointer; color:var(--ardoise)} .mc-pdf-v div{display:flex; justify-content:space-between; gap:10px; padding:3px 0; border-bottom:1px solid #EEF1EF}
 .mc-barre{background:var(--marque-clair,#EAF6EF); border-radius:12px; padding:10px 14px; margin:8px 0 12px; display:flex; flex-direction:column; gap:8px; box-shadow:0 2px 8px rgba(22,33,29,.07)}
@@ -630,7 +630,7 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .mc-vide{color:#B0B8B3; text-align:center} td.mc-bas{background:#E3F3EA} td.mc-haut{background:#FCEFD9} .mc-t td small{display:block; color:var(--ardoise); font-size:10.5px; font-weight:400}
 .mc-detail > td{background:#F6FAF8; padding:0 !important} .mc-det{padding:12px 16px}
 .mc-det-g{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:18px; margin-bottom:10px} .mc-det h5{margin:0 0 6px; font-family:'Archivo'; font-size:13px; color:var(--marque,#1F6F52)} .mc-det h5 small{font-family:'Public Sans'; font-weight:500; color:var(--ardoise); margin-left:6px}
-.mc-svg{width:100%; height:auto; max-height:260px; display:block}
+.mc-svg{width:100%; height:auto; display:block}
 .mc-sects{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px} .mc-sects div{background:#fff; border:1px solid #E4E8E5; border-radius:10px; padding:8px 10px; display:flex; flex-direction:column} .mc-sects span{font-size:17px; font-weight:700; color:var(--marque-fonce,#17594A)} .mc-sects small{color:var(--ardoise); font-size:11px}
 .mc-t-d{min-width:720px} .mc-t-d tr.ecarte td{color:#9AA39E; text-decoration:line-through; background:#FAFBFA} .mc-t-d tr.ecarte td .mc-b{text-decoration:none}
 .mc-evo-ch{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; margin-bottom:6px} .mc-evo-ch input{border:1px solid #CFD8D2; border-radius:8px; padding:7px 12px; font:inherit; min-width:280px; max-width:100%}
@@ -669,7 +669,8 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .px-kpi.a{--k1:#E08A3C; --k2:#A9561A} .px-kpi.b{--k1:#2E9E78; --k2:#1F6F52} .px-kpi.c{--k1:#4C86C4; --k2:#2B5A8E} .px-kpi.d{--k1:#8A68BA; --k2:#5E4388} .px-kpi.e{--k1:#D1648C; --k2:#9A3A5F}
 .px-ring{position:absolute; right:12px; top:12px; width:58px; height:58px; z-index:1} .px-ring-v{animation:pxRing 1.2s ease-out .3s both} .px-kpi.e b{padding-right:50px}
 @keyframes pxRing{from{stroke-dasharray:0 200}} @keyframes pxMonte{from{opacity:0; transform:translateY(16px) scale(.97)} to{opacity:1; transform:none}} @keyframes mcEtire{from{transform:scaleX(0)}}
-.px-synth{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 14px} .px-svg{max-height:none}
+.px-graphs{display:grid; grid-template-columns:minmax(0,1.62fr) minmax(0,1fr); gap:12px; margin:0 0 14px; align-items:start} .px-droite{display:flex; flex-direction:column; gap:12px; min-width:0} .px-droite .mc-svg-an,.mc-g3 .mc-svg-an{width:140px; height:140px} .px-droite .mc-an-leg,.mc-g3 .mc-an-leg{font-size:11.5px; flex-basis:130px} .px-droite .mc-an-n,.mc-g3 .mc-an-n{font-size:26px}
+.mc-g3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:8px} .mc-g3 + .mc-grille{margin-top:12px} .mc-t-c{min-width:0} .mc-t-c td:nth-child(2){white-space:nowrap} .mc-tab-s.haut{max-height:430px; overflow:auto} .px-svg{max-height:none}
 .px-leg{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:6px; font-size:11.5px; color:var(--ardoise)} .px-leg b{color:var(--encre)}
 .px-ec{cursor:default; animation:mcFondu .5s ease-out both; animation-delay:var(--d,0ms)} .px-ec:hover circle{r:8.5}.px-barre{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; padding:12px 14px; background:var(--marque-clair,#FBEFE3); border-radius:16px; margin:2px 0 12px}
 .px-barre input[type=search],.px-barre select{border:1px solid #D9CFC0; border-radius:10px; padding:7px 11px; font:inherit; font-size:13px; background:#fff} .px-barre input[type=search]{flex:1 1 220px; min-width:180px; max-width:340px}
@@ -696,7 +697,7 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .px-g-l{display:flex; justify-content:space-between; font-size:10.5px; color:var(--ardoise)}
 .px-pos{font-size:11.5px; color:var(--ardoise)} .px-pos.moins{color:#1F6F52; font-weight:600} .px-pos.plus{color:#A9561A; font-weight:600}
 .px-brut{font-size:10.5px; color:#9AA39E} .px-av{font-size:11px; color:var(--encre-2)} .px-com{margin:2px 0 0; font-size:11.5px; color:var(--encre-2); font-style:italic}
-@media(max-width:1100px){ .px-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .px-synth{grid-template-columns:1fr} }
+@media(max-width:1100px){ .px-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .px-graphs,.mc-g3{grid-template-columns:1fr} }
 @media(max-width:600px){ .px-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .px-grille{grid-template-columns:1fr} .px-seg-k{margin-left:0} }
 /* ---- Repères de prix : cartes et fenêtre de détail ---- */
 .mc-tri{display:flex; align-items:center; gap:6px; font-size:13px} .mc-tri select{border:1px solid #CFD8D2; border-radius:8px; padding:6px 10px; font:inherit; font-size:13px; background:#fff}
@@ -2071,6 +2072,30 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 .at-es.r-ok{border-left-color:#2E7D4F} .at-es.r-part{border-left-color:#D08A12} .at-es.r-non{border-left-color:#C4453C} .at-es.r-info{border-left-color:#5B7FC4}
 .at-stat.bil-ok{border-color:#9FD2B3; background:#F2FAF5} .at-stat.bil-part{border-color:#EBC97A; background:#FFF9EA} .at-stat.bil-non{border-color:#EDA7A1; background:#FEF5F4} .at-stat.bil-info{border-color:#B9C9E8; background:#F3F7FD} .at-stats .at-stat{cursor:default}
 .as-table th{background:#EAF6EF; color:#17594A; border-bottom-color:#1F6F52}
+/* ---- chiffres clés en couleur, comme dans « Prix des graines » (toutes les commissions) ---- */
+#v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi){position:relative; overflow:hidden; color:#fff; border:0; border-radius:18px; background:linear-gradient(135deg,var(--k1,#E08A3C),var(--k2,#A9561A)); box-shadow:0 8px 20px color-mix(in srgb,var(--k1,#E08A3C) 30%,transparent); transition:transform .2s, box-shadow .2s; animation:pxMonte .6s cubic-bezier(.2,.8,.3,1) both; animation-delay:var(--d,0ms); padding:14px 16px 12px}
+#v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi)::after{content:''; position:absolute; right:-30px; top:-34px; width:115px; height:115px; border-radius:50%; background:rgba(255,255,255,.15); pointer-events:none}
+#v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi)::before{content:''; position:absolute; left:-20px; bottom:-42px; top:auto; width:100px; height:100px; border-radius:50%; background:rgba(255,255,255,.09); pointer-events:none}
+#v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi):hover{transform:translateY(-3px) scale(1.015)}
+#v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi) > *{position:relative; z-index:1}
+#v-commissions :is(.es-kpis b, .cmp-kpi b, .san-stat b, .mc-kpi b){color:#fff; font-family:'Archivo'; font-size:28px; line-height:1.1; display:block; font-variant-numeric:tabular-nums}
+#v-commissions :is(.es-kpis span, .cmp-kpi span, .san-stat span, .mc-kpi span){color:rgba(255,255,255,.95); font-size:13px; font-weight:600; text-transform:none; letter-spacing:0; margin-top:3px}
+#v-commissions .cmp-kpi{display:flex; flex-direction:column} #v-commissions .cmp-kpi span{order:2} #v-commissions .cmp-kpi b{order:1; font-size:26px} #v-commissions .cmp-kpi small{order:3; color:rgba(255,255,255,.88); font-size:11.5px; margin-top:4px; white-space:normal}
+#v-commissions .mc-kpi-an b{font-size:17px; padding-top:7px}
+/* une couleur par carte, dans l'ordre */
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n+1){--k1:#E08A3C; --k2:#A9561A; --d:0ms}
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n+2){--k1:#2E9E78; --k2:#1F6F52; --d:70ms}
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n+3){--k1:#4C86C4; --k2:#2B5A8E; --d:140ms}
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n+4){--k1:#8A68BA; --k2:#5E4388; --d:210ms}
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n+5){--k1:#D1648C; --k2:#9A3A5F; --d:280ms}
+#v-commissions :is(.es-kpis, .cmp-kpis, .san-stats) > :nth-child(6n){--k1:#3F9AAE; --k2:#2A6672; --d:350ms}
+/* la mercuriale garde ses couleurs propres */
+#v-commissions .mc-kpi{--k1:var(--k); --k2:color-mix(in srgb,var(--k) 60%,#000)}
+/* le sens des couleurs reste lisible : vert = bien, orange = moyen, rouge = pas bien */
+#v-commissions :is(.cmp-kpi, .san-stat).ok{--k1:#2E9E78; --k2:#1F6F52} #v-commissions :is(.cmp-kpi, .san-stat).part{--k1:#E8A33A; --k2:#B5701A} #v-commissions :is(.cmp-kpi, .san-stat).non{--k1:#D8574D; --k2:#A3332A}
+#v-commissions :is(.cmp-kpi).info,#v-commissions .san-stat.tous{--k1:#4C86C4; --k2:#2B5A8E} #v-commissions .san-stat.nd{--k1:#8A93A0; --k2:#5F6874} #v-commissions .cmp-kpi.prix{--k1:#2E9E78; --k2:#1F6F52}
+#v-commissions .san-stat{cursor:pointer} #v-commissions .san-stat.on{box-shadow:0 0 0 3px #fff, 0 0 0 6px var(--k1); transform:none}
+@media(prefers-reduced-motion:reduce){ #v-commissions :is(.es-kpis > div, .cmp-kpi, .san-stat, .mc-kpi){animation:none !important} }
 </style>
 </head>
 <body>
@@ -5545,15 +5570,15 @@ function pxKpis(x){
 function pxSurcout(c){
   const l = c.segments.map(s=>({nom:s.nom, a:pxNum(s.prixNonRes), b:pxNum(s.prixRes)})).filter(x=>x.a && x.b).map(x=>({...x, e:x.b/x.a-1})).sort((p, q)=>q.e-p.e);
   if(!l.length) return '<p class="aide">Aucun segment n\'a à la fois un prix moyen non résistant et résistant.</p>';
-  const W = 560, g = 172, d = 70, rh = 30, top = 8, Ht = top + l.length*rh + 34, mx = Math.max(...l.map(x=>Math.max(x.a, x.b))), xm = Math.max(0.5, Math.ceil(mx*2)/2), X = v => g + v/xm*(W-g-d);
+  const W = mcW(2, .382), g = 136, d = 52, rh = 25, top = 6, Ht = top + l.length*rh + 30, mx = Math.max(...l.map(x=>Math.max(x.a, x.b))), xm = Math.max(0.5, Math.ceil(mx*2)/2), X = v => g + v/xm*(W-g-d);
   const moy = l.reduce((n, x)=>n+x.e, 0)/l.length, pas = xm>3 ? 1 : 0.5, ticks = []; for(let t = 0; t<=xm+1e-9; t += pas) ticks.push(Math.round(t*100)/100);
   return `<svg class="mc-svg px-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Surcoût des variétés résistantes par segment">
     ${ticks.map(t=>`<line x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${Ht-30}" stroke="#E9E4DA" stroke-dasharray="${t?'3 4':'0'}"/><text x="${X(t)}" y="${Ht-14}" text-anchor="middle" font-size="11" fill="#6B756F">${pxEur(t, t%1 ? 1 : 0)} €</text>`).join('')}
     ${l.map((x, i)=>{ const y = top + i*rh + rh/2;
       return `<g class="px-ec" style="--d:${i*45}ms" data-tip="${mcTip(x.nom, 'Non résistantes : '+pxEur(x.a)+' €/m²', 'Résistantes : '+pxEur(x.b)+' €/m²', 'Surcoût : '+mcPct(x.e, true))}">
-        <text x="${g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(x.nom.length>26 ? x.nom.slice(0, 25)+'…' : x.nom)}</text>
-        <line class="px-ec-l" x1="${X(x.a)}" x2="${X(x.b)}" y1="${y}" y2="${y}" stroke="#D9772B" stroke-width="4" stroke-linecap="round" opacity=".45"/>
-        <circle cx="${X(x.a)}" cy="${y}" r="6" fill="#fff" stroke="#6F8294" stroke-width="3"/><circle cx="${X(x.b)}" cy="${y}" r="7" fill="#D9772B" stroke="#fff" stroke-width="1.5"/>
+        <text x="${g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(x.nom.length>18 ? x.nom.slice(0, 17)+'…' : x.nom)}</text>
+        <line class="px-ec-l" x1="${X(x.a)}" x2="${X(x.b)}" y1="${y}" y2="${y}" stroke="#D9772B" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+        <circle cx="${X(x.a)}" cy="${y}" r="5" fill="#fff" stroke="#6F8294" stroke-width="2.5"/><circle cx="${X(x.b)}" cy="${y}" r="6" fill="#D9772B" stroke="#fff" stroke-width="1.5"/>
         <text x="${X(x.b)+13}" y="${y+4}" font-size="12" font-weight="700" fill="#A9561A">${mcPct(x.e, true)}</text></g>`; }).join('')}
   </svg>
   <div class="px-leg"><span class="mc-lg"><i style="background:#fff;border:3px solid #6F8294;box-sizing:border-box"></i>Non résistantes</span><span class="mc-lg"><i style="background:#D9772B"></i>Résistantes ToBRFV</span><span class="mc-lg">Surcoût moyen : <b>${mcPct(moy, true)}</b></span></div>`;
@@ -5566,9 +5591,8 @@ function pxSynthese(x){
   const items = top.map(i=>({...i, texte:texte(i.v), attr:`data-px-seg="${h(i.lib)}"`}));
   if(reste>0) items.push({lib:'Autres segments', v:reste, couleur:'#B9C0BB', texte:texte(reste)});
   const centre = tot>=1e6 ? pxEur(tot/1e6, 2)+' M€' : Math.round(tot/1000)+' k€';
-  return `<div class="px-synth">
-    <section class="mc-c"><h4>Où va l'argent ? <small>valeur estimée par segment · cliquer pour filtrer</small></h4>${tot ? mcAnneau(items, {centre, sous:'valeur estimée', titre:'Valeur estimée par segment'}) : '<p class="aide">Les valeurs estimées par segment ne sont pas renseignées.</p>'}</section>
-    <section class="mc-c"><h4>Le surcoût de la résistance ToBRFV <small>prix moyen au m², segment par segment</small></h4>${pxSurcout(c)}</section></div>`;
+  return `<section class="mc-c"><h4>Où va l'argent ? <small>valeur estimée par segment · cliquer pour filtrer</small></h4>${tot ? mcAnneau(items, {centre, sous:'valeur estimée', titre:'Valeur estimée par segment'}) : '<p class="aide">Les valeurs estimées par segment ne sont pas renseignées.</p>'}</section>
+    <section class="mc-c"><h4>Le surcoût de la résistance ToBRFV <small>prix moyen au m², segment par segment</small></h4>${pxSurcout(c)}</section>`;
 }
 
 /* barre de filtres */
@@ -5589,23 +5613,23 @@ function pxBarre(x){
 /* échelle des prix : une ligne par segment, un point par variété (plein = résistante), fourchette et médiane du segment */
 function pxEchelle(x, vis){
   const {all, st, si} = x, segs = [...new Set(all.map(v=>v.s))].filter(s=>st[s]?.n); if(!segs.length) return '<p class="aide">Aucun prix à afficher.</p>';
-  const ok = new Set(vis.map(v=>v.s+'|'+v.k)), W = 780, g = 184, dr = 26, rh = 46, top = 6, Ht = top + segs.length*rh + 38, pmax = Math.max(...all.map(v=>v.p || 0)), xm = Math.max(0.5, Math.ceil(pmax*4)/4), X = v => g + v/xm*(W-g-dr);
+  const ok = new Set(vis.map(v=>v.s+'|'+v.k)), W = mcW(2, .618), g = 150, dr = 16, rh = 32, top = 4, Ht = top + segs.length*rh + 34, pmax = Math.max(...all.map(v=>v.p || 0)), xm = Math.max(0.5, Math.ceil(pmax*4)/4), X = v => g + v/xm*(W-g-dr);
   const pas = xm>3 ? 1 : 0.5, ticks = []; for(let t = 0; t<=xm+1e-9; t += pas) ticks.push(Math.round(t*100)/100);
   const lignes = segs.map((s, i)=>{
     const y = top + i*rh + rh/2, S_ = st[s], c = pxCoul(si[s]), pts = all.filter(v=>v.s===s && v.p!==null).sort((a, b)=>a.p-b.p), pl = [];
-    pts.forEach(v=>{ const cx = X(v.p); let off = 0; for(const o of [0, -1, 1, -2, 2]){ off = o; if(!pl.some(q=>q.o===o && Math.abs(q.cx-cx)<14.5)) break; } pl.push({v, cx, o:off}); });
-    const sel = PX.seg===s, nom = s.length>27 ? s.slice(0, 26)+'…' : s;
+    pts.forEach(v=>{ const cx = X(v.p); let off = 0; for(const o of [0, -1, 1, -2, 2]){ off = o; if(!pl.some(q=>q.o===o && Math.abs(q.cx-cx)<11.5)) break; } pl.push({v, cx, o:off}); });
+    const sel = PX.seg===s, nom = s.length>23 ? s.slice(0, 22)+'…' : s;
     return `<g${pts.some(v=>ok.has(v.s+'|'+v.k)) ? '' : ' opacity=".4"'}>${i%2 ? '' : `<rect x="0" y="${y-rh/2}" width="${W}" height="${rh}" fill="#FAF7F1"/>`}
       ${sel ? `<rect x="2" y="${y-rh/2+2}" width="${g-8}" height="${rh-4}" rx="8" fill="${c}" opacity=".16"/>` : ''}
-      <g class="px-sl" data-px-seg="${h(s)}" tabindex="0" role="button" data-tip="${mcTip(s, S_.n+' variété'+(S_.n>1?'s':'')+' avec prix', 'de '+pxEur(S_.min)+' à '+pxEur(S_.max)+' €/m²', 'médiane '+pxEur(S_.med)+' €/m²', sel ? 'cliquer pour tout afficher' : 'cliquer pour filtrer')}"><rect x="0" y="${y-rh/2}" width="${g-6}" height="${rh}" fill="transparent"/><circle cx="14" cy="${y}" r="5" fill="${c}"/><text x="26" y="${y+4}" font-size="12" font-weight="${sel?700:500}" fill="#2A332E">${h(nom)}</text></g>
-      <rect class="px-bande" x="${X(S_.min)-9}" y="${y-15}" width="${X(S_.max)-X(S_.min)+18}" height="30" rx="15" fill="${c}" fill-opacity=".14" style="--d:${i*40}ms"/>
-      <line x1="${X(S_.med)}" x2="${X(S_.med)}" y1="${y-17}" y2="${y+17}" stroke="${c}" stroke-width="2" stroke-dasharray="3 3" opacity=".8"/>
+      <g class="px-sl" data-px-seg="${h(s)}" tabindex="0" role="button" data-tip="${mcTip(s, S_.n+' variété'+(S_.n>1?'s':'')+' avec prix', 'de '+pxEur(S_.min)+' à '+pxEur(S_.max)+' €/m²', 'médiane '+pxEur(S_.med)+' €/m²', sel ? 'cliquer pour tout afficher' : 'cliquer pour filtrer')}"><rect x="0" y="${y-rh/2}" width="${g-6}" height="${rh}" fill="transparent"/><circle cx="10" cy="${y}" r="4.5" fill="${c}"/><text x="21" y="${y+4}" font-size="11.5" font-weight="${sel?700:500}" fill="#2A332E">${h(nom)}</text></g>
+      <rect class="px-bande" x="${X(S_.min)-7}" y="${y-11}" width="${X(S_.max)-X(S_.min)+14}" height="22" rx="11" fill="${c}" fill-opacity=".14" style="--d:${i*40}ms"/>
+      <line x1="${X(S_.med)}" x2="${X(S_.med)}" y1="${y-13}" y2="${y+13}" stroke="${c}" stroke-width="2" stroke-dasharray="3 3" opacity=".8"/>
       ${pl.map((q, k)=>{ const v = q.v, dim = !ok.has(v.s+'|'+v.k), col = PX_NC(v.niv);
-        return `<circle class="px-dot${dim?' dim':''}" cx="${q.cx.toFixed(1)}" cy="${(y+q.o*8.5).toFixed(1)}" r="6.5" fill="${v.r ? col : '#fff'}" stroke="${col}" stroke-width="2.5" style="--d:${i*40+k*14}ms" data-tip="${mcTip(v.nom, v.sem+' · '+(PX_NIV[v.niv]?.[0]||v.niv)+(v.r?' · ToBRFV':''), pxEur(v.p)+' €/m²', v.s)}"${dim ? '' : ` data-fiche="${h(v.k)}"`}/>`; }).join('')}</g>`; }).join('');
+        return `<circle class="px-dot${dim?' dim':''}" cx="${q.cx.toFixed(1)}" cy="${(y+q.o*8).toFixed(1)}" r="5.5" fill="${v.r ? col : '#fff'}" stroke="${col}" stroke-width="2" style="--d:${i*40+k*14}ms" data-tip="${mcTip(v.nom, v.sem+' · '+(PX_NIV[v.niv]?.[0]||v.niv)+(v.r?' · ToBRFV':''), pxEur(v.p)+' €/m²', v.s)}"${dim ? '' : ` data-fiche="${h(v.k)}"`}/>`; }).join('')}</g>`; }).join('');
   return `<svg class="mc-svg px-svg px-ech" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Prix des graines par segment">
     ${ticks.map(t=>`<line x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${Ht-34}" stroke="#E4DDCF" stroke-dasharray="${t?'3 4':'0'}"/><text x="${X(t)}" y="${Ht-18}" text-anchor="middle" font-size="11" fill="#6B756F">${pxEur(t, t%1 ? 1 : 0)} €</text>`).join('')}
     ${lignes}<text x="${(g+W-dr)/2}" y="${Ht-3}" text-anchor="middle" font-size="11.5" fill="#58625C">prix des graines au m² (€/m²)</text></svg>
-  <div class="px-leg"><span class="mc-lg"><i style="background:#2E8B6A"></i>Liste positive</span><span class="mc-lg"><i style="background:#7A5BA6"></i>DV3</span><span class="mc-lg"><i style="background:#8A938D"></i>pastille pleine : résistante ToBRFV</span><span class="mc-lg"><i style="background:#fff;border:2.5px solid #8A938D;box-sizing:border-box"></i>vide : non résistante</span><span class="mc-lg">bande = du moins cher au plus cher du segment · pointillé = médiane</span></div>`;
+  <div class="px-leg"><span class="mc-lg"><i style="background:#2E8B6A"></i>Liste positive</span><span class="mc-lg"><i style="background:#7A5BA6"></i>DV3</span><span class="mc-lg"><i style="background:#8A938D"></i>pastille pleine : résistante ToBRFV</span><span class="mc-lg"><i style="background:#fff;border:2.5px solid #8A938D;box-sizing:border-box"></i>vide : non résistante</span><span class="mc-lg">bande = du moins cher au plus cher · pointillé = médiane</span></div>`;
 }
 
 /* carte d'une variété : prix, position dans son segment, comparaison avec l'année précédente */
@@ -5633,8 +5657,7 @@ function pxResultats(x){
     return `<section class="px-seg${ferme?' ferme':''}" style="--sc:${pxCoul(si[s.nom])}"><header data-px-ferme="${h(s.nom)}" tabindex="0" role="button" aria-expanded="${!ferme}"><span class="px-chev">▾</span><h5>${h(s.nom)}</h5><span class="px-seg-n">${l.length} variété${l.length>1?'s':''}</span>
       <div class="px-seg-k"><span>Potentiel <b>${h(s.potentiel||'—')}</b></span><span>Prix moyen <b>${h(s.prixMoy||'—')}</b></span><span>Non résistantes <b>${h(s.prixNonRes||'—')}</b></span><span>Résistantes <b>${h(s.prixRes||'—')}</b></span><span>Valeur estimée <b>${h(s.total||'—')}</b></span></div></header>
       ${s.note ? `<p class="aide px-note">${h(s.note)}</p>` : ''}<div class="px-grille">${l.map(v=>pxCarte(v, x, k++)).join('')}</div></section>`; }).join('');
-  return `<section class="mc-c px-cadre"><h4>Échelle des prix <small>chaque point est une variété · survolez pour lire, cliquez pour ouvrir sa fiche</small></h4>${pxEchelle(x, vis)}</section>
-    <div class="px-compte"><span><b>${vis.length}</b> variété${vis.length>1?'s':''} sur ${all.length}${ps.length ? ` · de <b>${pxEur(Math.min(...ps))}</b> à <b>${pxEur(Math.max(...ps))}</b> €/m²` : ''}</span>
+  return `<div class="px-compte"><span><b>${vis.length}</b> variété${vis.length>1?'s':''} sur ${all.length}${ps.length ? ` · de <b>${pxEur(Math.min(...ps))}</b> à <b>${pxEur(Math.max(...ps))}</b> €/m²` : ''}</span>
       ${puces.map(([c_, t])=>`<span class="mc-chip no-print" style="--fc:var(--marque)">${h(t)}<button data-px-clear="${c_}" aria-label="Retirer ce filtre">×</button></span>`).join('')}${puces.length ? '<button class="btn sec no-print" data-px-reset>Tout réinitialiser</button>' : ''}</div>
     ${segs || '<p class="aide">Aucune variété avec ces filtres. <button class="btn sec" data-px-reset>Tout réinitialiser</button></p>'}`;
 }
@@ -5642,6 +5665,7 @@ function pxRendre(barre){
   const x = pxCtx(), r = document.getElementById('px-res'); if(!x || !r) return;
   if(barre){ const b = document.getElementById('px-barre'); if(b) b.innerHTML = pxBarre(x); }
   r.innerHTML = pxResultats(x);
+  const e = document.getElementById('px-ech'); if(e) e.innerHTML = pxEchelle(x, pxFiltre(x.all));
 }
 (function brancherPrix(){
   const dans = t => !!t.closest && !!document.getElementById('px-zone')?.contains(t);
@@ -5666,26 +5690,18 @@ function pxRendre(barre){
 function partiePrix(anSel){
   const an = S.essais?.prix?.[anSel] ? +anSel : (+anCatalogue(anSel) || +anSel);
   const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an];
-  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>Autres options : modèle Excel pré-rempli, lien du catalogue sur SharePoint</summary>
-      <p class="aide">Le catalogue s'importe à partir du modèle Excel (une ligne par variété : segment, variété, niveau, semencier, prix, résistance ToBRFV, commentaires ;
-        un onglet « Segments » pour les potentiels et prix moyens). Téléchargez le modèle pré-rempli avec le dernier catalogue, mettez-le à jour, puis importez-le.
-        Les catalogues des années précédentes restent consultables.</p>
-      <div class="form-grille"><label>Année du catalogue <input type="number" min="2015" max="2040" data-prix-an-imp value="${anSel}"></label><label class="large">Lien du catalogue sur SharePoint (PDF) <input data-prix-lien-nv value="${h(c?.lien||'')}" placeholder="https://grouperougeline.sharepoint.com/…"></label></div>
-      <button class="btn sec" data-prix-modele>Télécharger le modèle Excel</button>
-      <label class="btn">Importer le catalogue<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
+  const L0 = liensDoc(c?.lien), outils = `<div class="mc-pdf no-print">${L0.ouvrir ? `<a class="btn sec" href="${h(L0.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue</a>` : ''}${pdfBoutons('catalogue', String(an))}${adm ? `<label class="btn">Importer l'Excel<input type="file" accept=".xlsx,.xls" data-prix-import data-an="${anSel}" hidden></label><button class="btn sec" data-prix-modele>Modèle Excel</button>` : ''}</div>`;
   if(!c) return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
-    <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
+    <p class="aide">Pas de catalogue pour ${an}.${ans.length?` Disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}`:''}</p>${outils}</div>`;
   if(PX.an!==an){ Object.assign(PX, {an, seg:'', niv:'', res:false, max:null, rech:''}); PX.fermes.clear(); }
-  const L = liensDoc(c.lien), x = pxCtx();
+  const x = pxCtx();
   return `<div class="carte px-page"><h3>Prix des graines — catalogue ${an}</h3>
-    <div class="sx-confid">Document confidentiel — ne pas diffuser sans autorisation. Prix des graines uniquement, hors marge du pépiniériste.</div>
-    ${+an!==+anSel ? `<p class="es-astuce">Pas de catalogue daté ${anSel} : voici le catalogue <b>${an}</b>, le plus proche (préparé en ${an-1} pour la campagne ${an-1}-${an}).</p>` : ''}
-    <div class="sx-tete"><span class="sx-resume">${h(c.titre||'')}</span><span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue ${an}</a>`:''}</span></div>
-    ${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}
-    ${adm ? `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>Mise à jour des prix — Excel</b><span>${c.fichier ? h(c.fichier)+' · importé le '+h(c.importe||'') : 'Importez le modèle Excel du catalogue'}</span></div><div class="mc-pdf-b"><label class="btn">Mettre à jour (Excel)<input type="file" accept=".xlsx,.xls" data-prix-import data-an="${anSel}" hidden></label></div></div>` : ''}
-    ${imp}
-    <div id="px-zone">${pxKpis(x)}${pxSynthese(x)}<div id="px-barre">${pxBarre(x)}</div><div id="px-res">${pxResultats(x)}</div></div>
-    <p class="aide">${h(c.methode||'')}${adm && c.importe?` — importé le ${h(c.importe)}${c.par?' par '+h(c.par.split('@')[0]):''}`:''}</p></div>`;
+    <div class="sx-confid">Confidentiel — ne pas diffuser. Prix des graines hors marge du pépiniériste.</div>
+    ${+an!==+anSel ? `<p class="es-astuce">Catalogue ${an} affiché (le plus proche de ${anSel}).</p>` : ''}
+    ${outils}
+    <div id="px-zone">${pxKpis(x)}<div id="px-barre">${pxBarre(x)}</div>
+      <div class="px-graphs"><section class="mc-c px-cadre"><h4>Échelle des prix <small>un point = une variété · survol pour lire, clic pour la fiche</small></h4><div id="px-ech">${pxEchelle(x, pxFiltre(x.all))}</div></section><div class="px-droite">${pxSynthese(x)}</div></div>
+      <div id="px-res">${pxResultats(x)}</div></div></div>`;
 }
 
 function modeleCatalogue(an){
@@ -6356,8 +6372,10 @@ function mcAnneau(items, o = {}){   // items : [{lib, v, couleur, cle, texte}]
     <ul class="mc-an-leg">${items.filter(i=>i.v>0).map(i=>`<li${i.cle ? ` data-mc-go="${h(i.cle)}" tabindex="0" role="button"` : (i.attr ? ` ${i.attr} tabindex="0" role="button"` : '')}><i style="background:${i.couleur}"></i><span>${h(i.lib)}</span><b>${h(i.texte||String(i.v))}</b></li>`).join('')}</ul></div>`;
 }
 /* courbes : plusieurs séries, survol avec repère vertical, zone min–max pour une série seule */
+/* largeur réelle d'un graphique (pour que les polices et les points gardent leur taille) : pleine largeur ou demi-largeur d'une grille à deux colonnes */
+const mcW = (cols = 1, poids) => { cols = cols===true ? 2 : cols; const z = document.getElementById('px-zone') || document.getElementById('mc-zone'), b = z ? z.clientWidth : ((document.getElementById('v-commissions')?.clientWidth || 1000) - 70); if(innerWidth<=1100) cols = 1; return Math.max(300, Math.min(1300, Math.round(cols===1 ? b-30 : (b-12*(cols-1))*(poids || 1/cols) - 30))); };
 function mcCourbes(series, annees, o = {}){   // series : [{nom, couleur, pts:[{v, min, max}|null]}]
-  const W = 640, Ht = o.haut || 270, mg = {g:58, d:20, h:20, b:34}, vis = series.filter(s=>!s.masque), tous = vis.flatMap(s=>s.pts.filter(Boolean));
+  const W = o.W || 640, Ht = o.haut || 270, mg = {g:58, d:20, h:20, b:34}, vis = series.filter(s=>!s.masque), tous = vis.flatMap(s=>s.pts.filter(Boolean));
   if(!tous.length) return '<p class="aide">Pas de prix pour ce choix avec ces filtres.</p>';
   const unique = vis.length===1, vals = tous.flatMap(p=>unique && p.max!=null ? [p.v, p.min, p.max] : [p.v]), vmax = Math.max(...vals), vmin = o.indice ? Math.min(...vals) : 0;
   let pas, haut, bas = vmin;
@@ -6381,8 +6399,8 @@ function mcCourbes(series, annees, o = {}){   // series : [{nom, couleur, pts:[{
     ${dessin}${surv}</svg>`;
 }
 /* nuage de bulles : chaque produit = une bulle (prix médian en abscisse, dispersion en ordonnée, taille = nombre de prix) */
-function mcBulles(P){
-  const W = 640, Ht = 330, mg = {g:52, d:18, h:14, b:40}, pts = P.filter(p=>p.st.n>=2 && p.st.med>0), lx = v => Math.log10(v);
+function mcBulles(P, Wp){
+  const W = Wp || 640, Ht = 330, mg = {g:52, d:18, h:14, b:40}, pts = P.filter(p=>p.st.n>=2 && p.st.med>0), lx = v => Math.log10(v);
   if(!pts.length) return '<p class="aide">Pas assez de produits avec au moins 2 prix.</p>';
   const xmin = Math.floor(lx(Math.min(...pts.map(p=>p.st.med)))), xmax = Math.ceil(lx(Math.max(...pts.map(p=>p.st.med)))) || xmin+1, ymax = Math.max(0.6, Math.min(1.5, Math.max(...pts.map(p=>p.st.amp)))*1.08);
   const X = v => mg.g + (lx(v)-xmin)/((xmax-xmin)||1)*(W-mg.g-mg.d), Y = a => mg.h + (1-Math.min(a, ymax)/ymax)*(Ht-mg.h-mg.b), zone = (a0, a1, c) => `<rect x="${mg.g}" y="${Y(a1)}" width="${W-mg.g-mg.d}" height="${Y(a0)-Y(a1)}" fill="${c}"/>`;
@@ -6397,13 +6415,13 @@ function mcBulles(P){
   </svg>`;
 }
 /* sucettes : variations en % de part et d'autre de zéro */
-function mcSucettes(items){   // [{lib, sous, v, avant, apres, cle}] triés
+function mcSucettes(items, Wp){   // [{lib, sous, v, avant, apres, cle}] triés
   if(!items.length) return '<p class="aide">Aucune variation mesurable (il faut des prix sur au moins deux années).</p>';
-  const W = 560, lh = 30, Ht = items.length*lh + 26, mg = {g:190, d:60}, m = Math.max(...items.map(i=>Math.abs(i.v)), 0.05), cx = mg.g + (W-mg.g-mg.d)/2, K = (W-mg.g-mg.d)/2/m;
+  const W = Wp || 560, lh = Wp && Wp<520 ? 26 : 30, Ht = items.length*lh + 26, mg = Wp && Wp<520 ? {g:128, d:52} : {g:190, d:60}, m = Math.max(...items.map(i=>Math.abs(i.v)), 0.05), cx = mg.g + 42 + (W-mg.g-mg.d-42)/2, K = (W-mg.g-mg.d-42)/2/m;
   return `<svg class="mc-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Variations de prix"><line x1="${cx}" x2="${cx}" y1="6" y2="${Ht-18}" stroke="#B9C2BC"/>
     <text x="${cx}" y="${Ht-4}" text-anchor="middle" font-size="11" fill="#6B756F">0 %</text>
     ${items.map((i, k)=>{ const y = 18 + k*lh, x = cx + i.v*K, c = i.v>0 ? '#C0392B' : '#2E8B6A';
-      return `<g class="mc-suc" style="--d:${k*50}ms" data-tip="${mcTip(i.lib, i.sous, i.avant!=null ? mcEur(i.avant)+' → '+mcEur(i.apres) : '', mcPct(i.v, true))}" data-mc-go="${h(i.cle)}"><text x="${mg.g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(String(i.lib).slice(0, 30))}</text>
+      return `<g class="mc-suc" style="--d:${k*50}ms" data-tip="${mcTip(i.lib, i.sous, i.avant!=null ? mcEur(i.avant)+' → '+mcEur(i.apres) : '', mcPct(i.v, true))}" data-mc-go="${h(i.cle)}"><text x="${mg.g-10}" y="${y+4}" text-anchor="end" font-size="12" fill="#2A332E">${h(String(i.lib).slice(0, W<520 ? 18 : 30))}</text>
         <line x1="${cx}" x2="${x}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3" stroke-linecap="round" opacity=".55"/><circle cx="${x}" cy="${y}" r="7" fill="${c}"/>
         <text x="${x+(i.v>0?12:-12)}" y="${y+4}" text-anchor="${i.v>0?'start':'end'}" font-size="12" font-weight="700" fill="${c}">${mcPct(i.v, true)}</text></g>`; }).join('')}</svg>`;
 }
@@ -6459,14 +6477,12 @@ async function pdfAjouter(cat, cle, f){
   l.splice(5);   // on garde les 5 dernières versions dans la liste (les anciens fichiers restent en base)
   sauver('fichiers'); return true; }
 /* bloc « PDF » : téléchargement pour tous, ajout / remplacement pour l'administrateur */
-function blocPdf(cat, cle, titre){
+function pdfBoutons(cat, cle){
   const l = pdfListe(cat, cle), e = l[0], k = cat+'|'+cle, adm = estAdmin();
-  return `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>PDF ou PowerPoint — ${h(titre)}</b>
-      ${e ? `<span>${h(e.nom)} · ${octetsLib(e.taille)} · ajouté le ${h(e.importe)}${adm && e.par ? ' par '+h(e.par.split('@')[0]) : ''}</span>` : '<span>Aucun document pour l\'instant.</span>'}</div>
-    <div class="mc-pdf-b">${e ? `<button class="btn" data-pdf-dl="${h(k)}|0">Télécharger${estPdf(e.nom) ? ' le PDF' : ' le PowerPoint'}</button>${estPdf(e.nom) ? `<button class="btn sec" data-pdf-ouvrir="${h(k)}|0">Ouvrir</button>` : ''}` : ''}
-      ${adm ? `<label class="btn sec">${e ? 'Remplacer / mettre à jour' : 'Ajouter un PDF ou un PowerPoint'}<input type="file" accept=".pdf,.ppt,.pptx,.ppsx,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" data-pdf-ajout="${h(k)}" hidden></label>` : ''}</div>
-    ${l.length>1 ? `<details class="mc-pdf-v"><summary>Versions précédentes (${l.length-1})</summary>${l.slice(1).map((v,i)=>`<div><span>${h(v.nom)} · ${octetsLib(v.taille)} · ${h(v.importe)}</span><button class="suppr" data-pdf-dl="${h(k)}|${i+1}">Télécharger</button></div>`).join('')}</details>` : ''}</div>`;
+  return (e ? `<button class="btn sec" data-pdf-dl="${h(k)}|0" title="${h(e.nom)} · ${octetsLib(e.taille)} · ajouté le ${h(e.importe)}">⬇ ${estPdf(e.nom) ? 'PDF' : 'PowerPoint'}</button>${estPdf(e.nom) ? `<button class="btn sec" data-pdf-ouvrir="${h(k)}|0">Ouvrir le PDF</button>` : ''}` : '')
+    + (adm ? `<label class="btn sec">${e ? 'Remplacer le PDF' : 'Importer un PDF'}<input type="file" accept=".pdf,.ppt,.pptx,.ppsx,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" data-pdf-ajout="${h(k)}" hidden></label>` : '');
 }
+function blocPdf(cat, cle){ const b = pdfBoutons(cat, cle).trim(); return b ? `<div class="mc-pdf no-print">${b}</div>` : ''; }
 
 /* ================= Partie « Tarifs » de la commission sanitaire : mercuriale des intrants ================= */
 const MC = {mode:'cartes', liste:[], evoSel:[], evoMode:'prix', masque:new Set(), annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
@@ -6544,14 +6560,11 @@ function mcFourchette(st){
 /* ---------- en-tête, filtres ---------- */
 function mcEntete(T){
   const adm = estAdmin(), M = T?.maj;
-  const maj = M ? `<details class="mc-maj"><summary>Dernière mise à jour : <b>${h(T.importe||'')}</b> — ${h(M.resume||'')}</summary>
+  const maj = M ? `<details class="mc-maj"><summary>Mis à jour le <b>${h(T.importe||'')}</b></summary><p class="aide">${h(M.resume||'')}</p>
       ${(M.changements||[]).length ? `<ul>${M.changements.map(c=>`<li><b>${h(c.prod)}</b> : ${h(mcEur(c.avant))} → ${h(mcEur(c.apres))} <span class="mc-b ${c.v>0?'fort':'ok'}">${mcPct(c.v, true)}</span></li>`).join('')}</ul>` : '<p class="aide">Aucune médiane n\'a changé.</p>'}
       ${(M.nouveaux||[]).length ? `<p class="aide"><b>Nouveaux produits avec prix :</b> ${M.nouveaux.map(h).join(', ')}</p>` : ''}</details>` : '';
-  return `<div class="mc-tete">
-    <div class="mc-titre"><h3 style="margin:0">Tarifs — mercuriale des intrants</h3>
-      <p class="aide">Prix en € HT par unité de référence : <b>minimum</b>, <b>médiane</b> (le repère à retenir) et <b>maximum</b> relevés. ${T ? `${h(T.version||'')} · fichier <i>${h(T.fichier||'')}</i>${adm && T.par ? ' · importé par '+h(T.par.split('@')[0]) : ''}` : ''}</p></div>
-    ${adm ? `<div class="mc-actions no-print"><label class="btn">${T ? 'Mettre à jour depuis l\'Excel' : 'Importer l\'Excel de la mercuriale'}<input type="file" accept=".xlsx,.xlsm,.xls" data-mc-excel hidden></label>
-      ${T ? '<button class="btn sec" data-mc-modele>Exporter la vue en Excel</button>' : ''}</div>` : (T ? '<div class="mc-actions no-print"><button class="btn sec" data-mc-modele>Exporter la vue en Excel</button></div>' : '')}
+  return `<div class="mc-tete"><h3 style="margin:0">Tarifs — mercuriale des intrants</h3>
+    <div class="mc-actions no-print">${adm ? `<label class="btn">Importer l'Excel<input type="file" accept=".xlsx,.xlsm,.xls" data-mc-excel hidden></label>` : ''}${T ? '<button class="btn sec" data-mc-modele>Exporter en Excel</button>' : ''}${pdfBoutons('mercuriale', '')}</div>
   </div>${maj}`;
 }
 function mcBarre(T, d){
@@ -6575,24 +6588,26 @@ function mcAnimerKpi(){
 function mcVueApercu(T, d){
   const P = mcProduits(), avec = P.filter(p=>p.st.n>0), prix = avec.reduce((n,p)=>n+p.st.n, 0), fams = mcFam().filter(f=>avec.some(p=>p.fam===f));
   const fiab = ['correcte','indicatif','dispersion'].map(k=>({k, n:avec.filter(p=>p.st.fiab===k).length}));
-  const evo = avec.filter(p=>p.evo && isFinite(p.evo.v)), hausses = evo.filter(p=>p.evo.v>0.005).sort((a,b)=>b.evo.v-a.evo.v).slice(0, 8), baisses = evo.filter(p=>p.evo.v<-0.005).sort((a,b)=>a.evo.v-b.evo.v).slice(0, 8);
+  const evo = avec.filter(p=>p.evo && isFinite(p.evo.v)), hausses = evo.filter(p=>p.evo.v>0.005).sort((a,b)=>b.evo.v-a.evo.v).slice(0, 5), baisses = evo.filter(p=>p.evo.v<-0.005).sort((a,b)=>a.evo.v-b.evo.v).slice(0, 5);
   const mouv = [...hausses, ...baisses.slice().reverse()].map(p=>({lib:p.prod, sous:p.fam+' · médiane '+p.evo.de+' → '+p.evo.a, v:p.evo.v, avant:p.parAn[p.evo.de].med, apres:p.parAn[p.evo.a].med, cle:'prod|'+p.prod}));
   const kpi = [[avec.length, 'produits avec prix', '#2E8B6A'],[prix, 'prix retenus', '#3A6EA5'],[fams.length, 'familles', '#7A5BA6'],[d.fournisseurs.length, 'fournisseurs comparés', '#D9772B'],[P.filter(p=>p.st.n===0).length, 'produits sans prix', '#8A938D']];
   const ans = T_ANS(), famsIdx = fams.map(f=>({f, ser:mcIndice(avec.filter(p=>p.fam===f), ans), n:avec.filter(p=>p.fam===f).length})).filter(x=>x.ser.filter(Boolean).length>=2 && x.n>=3);
   const ensemble = mcIndice(avec, ans), series = [...famsIdx.map(x=>({nom:x.f, couleur:mcCoulFam(x.f), pts:x.ser, masque:MC.masque.has(x.f)})), {nom:'Ensemble des produits', couleur:'#26332C', pts:ensemble, masque:MC.masque.has('Ensemble des produits')}].filter(s=>s.pts.filter(Boolean).length>=2);
   return `<div class="mc-kpis">${kpi.map(([x, t, c])=>`<div class="mc-kpi" style="--k:${c}"><b data-compte="${x}">${x.toLocaleString('fr-FR')}</b><span>${t}</span></div>`).join('')}<div class="mc-kpi mc-kpi-an" style="--k:#B08A1E"><b>${mcAnnees().join(' · ')||'—'}</b><span>années sélectionnées</span></div></div>
-  <div class="mc-grille">
+  <div class="mc-g3">
     <section class="mc-c"><h4>Répartition par famille <small>cliquer pour filtrer</small></h4>${fams.length ? mcAnneau(fams.map(f=>({lib:f, v:avec.filter(p=>p.fam===f).length, couleur:mcCoulFam(f), cle:'fam|'+f, texte:avec.filter(p=>p.fam===f).length+' produits'})), {centre:avec.length, sous:'produits', titre:'Produits par famille'}) : '<p class="aide">Aucun produit avec ces filtres.</p>'}</section>
     <section class="mc-c"><h4>Fiabilité des repères</h4>${mcAnneau(fiab.map(x=>({lib:MC_FIAB[x.k][0].replace('*',''), v:x.n, couleur:{correcte:'#2E8B6A', indicatif:'#B9C0BB', dispersion:'#C0392B'}[x.k], texte:x.n+' · '+{correcte:'3 prix ou plus', indicatif:'moins de 3 prix', dispersion:'écart > 50 %'}[x.k]})), {centre:Math.round(fiab[0].n/(avec.length||1)*100)+' %', sous:'fiables', titre:'Fiabilité'})}
       <p class="aide">Fiable = au moins 3 prix et écart max–min inférieur à 50 % de la médiane.</p></section>
-    <section class="mc-c mc-large"><h4>Évolution des prix par famille <small>indice base 100 = ${ans[0]||''} · variation moyenne des médianes, produits relevés l'année de base et l'année comparée</small></h4>
+    <section class="mc-c"><h4>Plus fortes variations <small>${hausses[0] ? 'médiane '+hausses[0].evo.de+' → '+hausses[0].evo.a : 'entre les deux dernières années'} · rouge = hausse, vert = baisse</small></h4>${mcSucettes(mouv, mcW(3))}</section>
+  </div>
+  <div class="mc-grille">
+    <section class="mc-c"><h4>Évolution des prix par famille <small>indice base 100 = ${ans[0]||''} · variation moyenne des médianes, produits relevés l'année de base et l'année comparée</small></h4>
       <div class="mc-series no-print">${series.map(s=>`<button class="chip" data-mc-serie="${h(s.nom)}" aria-pressed="${!s.masque}" style="--fc:${s.couleur}">${h(s.nom.replace('Biostimulants, sans AMM, engrais foliaires','Biostimulants'))}</button>`).join('')}</div>
-      ${series.length ? mcCourbes(series, ans, {indice:true, sel:mcAnnees(), titre:'Indice des prix par famille', haut:300}) : '<p class="aide">Pas assez de produits suivis sur plusieurs années pour calculer un indice.</p>'}
+      ${series.length ? mcCourbes(series, ans, {indice:true, sel:mcAnnees(), titre:'Indice des prix par famille', haut:300, W:mcW(2)}) : '<p class="aide">Pas assez de produits suivis sur plusieurs années pour calculer un indice.</p>'}
       <p class="aide">Passez la souris sur le graphique pour lire les valeurs. Un indice de 110 signifie des prix en hausse moyenne de 10 % depuis ${ans[0]||'la première année'}.</p></section>
-    <section class="mc-c mc-large"><h4>Dispersion des prix <small>chaque bulle est un produit · taille = nombre de prix · cliquer pour le détail</small></h4>${mcBulles(avec)}
+    <section class="mc-c"><h4>Dispersion des prix <small>chaque bulle est un produit · taille = nombre de prix · cliquer pour le détail</small></h4>${mcBulles(avec, mcW(2))}
       <div class="mc-series no-print">${fams.map(f=>`<span class="mc-lg"><i style="background:${mcCoulFam(f)}"></i>${h(f.replace('Biostimulants, sans AMM, engrais foliaires','Biostimulants'))}</span>`).join('')}</div>
       <p class="aide">En bas (zone verte) : prix homogènes, on peut s'y fier. En haut (zone rouge) : prix très écartés, à vérifier avant de négocier.</p></section>
-    <section class="mc-c mc-large"><h4>Plus fortes variations <small>${hausses[0] ? 'médiane '+hausses[0].evo.de+' → '+hausses[0].evo.a : 'entre les deux dernières années'} · rouge = hausse, vert = baisse</small></h4>${mcSucettes(mouv)}</section>
   </div>`;
 }
 const MC_TRIS = {produit:(p)=>p.prod, n:p=>p.st.n, min:p=>p.st.min??-1, med:p=>p.st.med??-1, max:p=>p.st.max??-1, amp:p=>p.st.amp??-1, evo:p=>p.evo ? p.evo.v : -9};
@@ -6688,15 +6703,15 @@ function mcVueEvolution(T, d){
   const ans = T_ANS(), prods = sel.map(n=>P.find(p=>p.prod===n)), ind = MC.evoMode==='indice' && prods.length>1;
   const series = prods.map((p, i)=>{ const base = ans.map(a=>p.parAn[a]).find(s=>s.n)?.med; return {nom:p.prod, couleur:MC_PAL[i%MC_PAL.length], pts:ans.map(a=>{ const s = p.parAn[a]; return s.n ? (ind ? {v:Math.round(s.med/base*1000)/10} : {v:s.med, min:s.min, max:s.max}) : null; })}; });
   const main = prods[0], lst = P.filter(p=>p.evo).sort((a,b)=>b.evo.v-a.evo.v);
-  return `<div class="mc-grille"><section class="mc-c mc-large"><h4>Évolution des prix <small>comparez jusqu'à 5 produits</small></h4>
+  return `<div class="mc-grille"><section class="mc-c"><h4>Évolution des prix <small>comparez jusqu'à 5 produits</small></h4>
       <div class="mc-evo-ch no-print"><div class="mc-chips">${prods.map((p, i)=>`<span class="mc-chip" style="--fc:${MC_PAL[i%MC_PAL.length]}">${h(p.prod)}<button data-mc-evo-x="${h(p.prod)}" aria-label="Retirer ${h(p.prod)}">×</button></span>`).join('')}</div>
         ${prods.length<5 ? `<input list="mc-liste-prod" data-mc-evo placeholder="＋ Ajouter un produit…" aria-label="Ajouter un produit"><datalist id="mc-liste-prod">${P.filter(p=>!sel.includes(p.prod)).map(p=>`<option value="${h(p.prod)}">`).join('')}</datalist>` : ''}
         ${prods.length>1 ? `<div class="segment"><button data-mc-evo-mode="prix" aria-pressed="${!ind}">Prix (€)</button><button data-mc-evo-mode="indice" aria-pressed="${ind}">Indice base 100</button></div>` : ''}</div>
-      ${mcCourbes(series, ans, {indice:ind, sel:mcAnnees(), titre:'Évolution des prix', haut:300})}
+      ${mcCourbes(series, ans, {indice:ind, sel:mcAnnees(), titre:'Évolution des prix', haut:300, W:mcW(2)})}
       <p class="aide">${prods.length===1 ? `${h(main.fam)} · prix en € HT par ${h(main.u||'unité')} · la courbe est la médiane, la zone teintée la fourchette min–max.` : ind ? 'Indice : chaque produit est ramené à 100 sa première année, pour comparer des produits de prix très différents.' : 'Médianes en € HT par unité de référence (unités différentes selon les produits).'}</p>
       <div class="mc-annees">${ans.map(a=>{ const s = main.parAn[a]; return `<div class="${mcAnnees().includes(a)?'':'hors'}"><b>${a}</b>${s.n ? `<span>${mcEur(s.med)}</span><small>${s.n} prix · ${mcEur(s.min)} – ${mcEur(s.max)}</small>` : '<small>pas de prix</small>'}</div>`; }).join('')}</div></section>
-    <section class="mc-c mc-large"><h4>Variations de la médiane <small>entre les deux dernières années sélectionnées avec prix</small></h4>
-      ${lst.length ? `<div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Famille</th><th>Période</th><th class="num">Avant</th><th class="num">Après</th><th>Variation</th></tr></thead><tbody>${lst.map(p=>`<tr class="mc-l" data-mc-go="prod|${h(p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${h(p.fam)}</td><td>${p.evo.de} → ${p.evo.a}</td><td class="num">${mcEur(p.parAn[p.evo.de].med)}</td><td class="num"><b>${mcEur(p.parAn[p.evo.a].med)}</b></td><td>${mcFleche(p.evo)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="aide">Il faut des prix sur au moins deux années sélectionnées.</p>'}</section></div>`;
+    <section class="mc-c"><h4>Variations de la médiane <small>entre les deux dernières années sélectionnées avec prix</small></h4>
+      ${lst.length ? `<div class="mc-tab-s haut"><table class="mc-t mc-t-c"><thead><tr><th>Produit</th><th>Période</th><th class="num">Avant</th><th class="num">Après</th><th>Variation</th></tr></thead><tbody>${lst.map(p=>`<tr class="mc-l" data-mc-go="prod|${h(p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${p.evo.de} → ${p.evo.a}</td><td class="num">${mcEur(p.parAn[p.evo.de].med)}</td><td class="num"><b>${mcEur(p.parAn[p.evo.a].med)}</b></td><td>${mcFleche(p.evo)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="aide">Il faut des prix sur au moins deux années sélectionnées.</p>'}</section></div>`;
 }
 function mcVueSecteurs(T, d){
   const P = mcProduits({sans:true}).filter(p=>p.sel.length); const ans = mcAnnees();
@@ -6736,12 +6751,9 @@ function mcCorps(){
 }
 function partieTarifs(){
   const T = S.tarifs, d = mcDonnees(), adm = estAdmin();
-  if(!T || !d) return `<div class="carte mc-carte">${mcEntete(null)}
-    <div class="sx-vide"><p>La mercuriale des intrants n'a pas encore été importée.</p>${adm ? '<p>Importez le classeur Excel <i>Mercuriale_intrants_….xlsx</i> (bouton ci-dessus) : tous les prix, les repères, les évolutions et les comparaisons s\'affichent ensuite avec leurs filtres.</p>' : '<p>L\'administrateur doit l\'importer.</p>'}</div>
-    ${blocPdf('mercuriale', '', 'mercuriale des intrants')}</div>`;
-  return `<div class="carte mc-carte">${mcEntete(T)}${blocPdf('mercuriale', '', 'mercuriale des intrants')}
-    <div id="mc-zone">${mcBarre(T, d)}<div id="mc-res">${mcCorps()}</div></div>
-    <p class="aide">Source : ${(T.sources||[]).length} sources intégrées (tarifs fournisseurs, saisies producteurs dans Tellussia, enquêtes) — ${h((T.sources||[]).join(' ; '))}. Les prix « écartés » par le contrôle ne sont pas pris en compte.</p>${adm ? '<p class="aide no-print">Pour mettre à jour : remplacez le classeur Excel sur SharePoint, puis cliquez sur « Mettre à jour depuis l\'Excel » : toutes les synthèses se recalculent.</p>' : ''}</div>`;
+  if(!T || !d) return `<div class="carte mc-carte">${mcEntete(null)}<p class="aide">${adm ? 'Importez le classeur Excel de la mercuriale.' : 'Pas encore de données.'}</p></div>`;
+  return `<div class="carte mc-carte">${mcEntete(T)}
+    <div id="mc-zone">${mcBarre(T, d)}<div id="mc-res">${mcCorps()}</div></div></div>`;
 }
 function mcRendre(complet){
   const z = document.getElementById('mc-zone'); if(!z){ vueCommissions(); return; }
