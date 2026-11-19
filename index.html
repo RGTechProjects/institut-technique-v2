@@ -591,6 +591,54 @@ details.histo ul{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:var(--a
 .as-rep .chip{border-color:#7A1F2B !important; color:#7A1F2B !important} .as-rep a{color:#7A1F2B !important}
 @media(max-width:600px){ .assistant-btn .as-bulle{display:none} .assistant-btn.coucou .as-bulle{display:flex; max-width:200px} .robot{width:60px; height:72px} }
 @media (prefers-reduced-motion:reduce){ .robot, .robot-oeil, .robot-antenne, .robot-coeur, .robot-bras, .as-micro.ecoute, .as-parler.ecoute, .assistant-btn .as-bulle, .assistant-btn.arrive .robot, .assistant-btn.coucou .robot{animation:none !important} }
+/* ================= Tarifs : mercuriale des intrants (commission sanitaire) et PDF téléchargeables ================= */
+.mc-tete{display:flex; flex-wrap:wrap; gap:10px 18px; justify-content:space-between; align-items:flex-start; margin-bottom:6px}
+.mc-actions{display:flex; flex-wrap:wrap; gap:8px}
+.mc-maj{background:var(--marque-clair,#EAF6EF); border:1px solid color-mix(in srgb, var(--marque,#1F6F52) 25%, #fff); border-radius:10px; padding:8px 14px; margin:6px 0 10px; font-size:13px}
+.mc-maj summary{cursor:pointer; color:var(--marque-fonce,#17594A)} .mc-maj ul{margin:8px 0 4px; padding-left:18px; columns:2; column-gap:30px} .mc-maj li{margin:2px 0; break-inside:avoid}
+.mc-pdf{display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; justify-content:space-between; background:#fff; border:1px dashed color-mix(in srgb, var(--marque,#1F6F52) 45%, #fff); border-radius:12px; padding:10px 14px; margin:8px 0 12px}
+.mc-pdf-i{display:flex; flex-direction:column; gap:2px; font-size:13px} .mc-pdf-i b{color:var(--marque,#1F6F52); font-family:'Archivo'} .mc-pdf-i span{color:var(--ardoise)}
+.mc-pdf-b{display:flex; flex-wrap:wrap; gap:8px} .mc-pdf-v{flex-basis:100%; font-size:12.5px} .mc-pdf-v summary{cursor:pointer; color:var(--ardoise)} .mc-pdf-v div{display:flex; justify-content:space-between; gap:10px; padding:3px 0; border-bottom:1px solid #EEF1EF}
+.mc-barre{background:var(--marque-clair,#EAF6EF); border-radius:12px; padding:10px 14px; margin:8px 0 12px; display:flex; flex-direction:column; gap:8px; box-shadow:0 2px 8px rgba(22,33,29,.07)}
+@media(min-width:1100px) and (min-height:760px){ .mc-barre{position:sticky; top:0; z-index:5} }
+.mc-f{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px} .mc-f > span{font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--marque-fonce,#17594A); min-width:58px}
+.mc-f select,.mc-f input[type=search]{border:1px solid #CFD8D2; border-radius:8px; padding:6px 10px; font:inherit; font-size:13px; background:#fff} .mc-f input[type=search]{min-width:200px; flex:1 1 200px; max-width:320px}
+.mc-f .chip{border-color:var(--fc,var(--marque,#1F6F52)); color:var(--fc,var(--marque,#1F6F52)); background:#fff} .mc-f .chip[aria-pressed=true]{background:var(--fc,var(--marque,#1F6F52)); color:#fff} .mc-f .chip small{opacity:.7; margin-left:3px}
+.mc-vues{margin-top:4px}
+.mc-kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
+.mc-grille{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:8px}
+.mc-c{background:#fff; border:1px solid #E4E8E5; border-radius:12px; padding:12px 14px; min-width:0} .mc-c h4{margin:0 0 8px; font-family:'Archivo'; font-size:14px; color:var(--marque,#1F6F52)} .mc-c h4 small{font-family:'Public Sans'; font-weight:500; color:var(--ardoise); margin-left:6px; font-size:11.5px} .mc-large{grid-column:1/-1}
+.mc-bh{display:flex; flex-direction:column; gap:5px} .mc-bh-l{display:grid; grid-template-columns:minmax(120px,36%) 1fr auto; gap:8px; align-items:center; font-size:12.5px; border-radius:6px; padding:2px 4px}
+.mc-bh-l[data-mc-go]{cursor:pointer} .mc-bh-l[data-mc-go]:hover,.mc-bh-l[data-mc-go]:focus-visible{background:var(--marque-clair,#EAF6EF); outline:none}
+.mc-bh-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap} .mc-bh-n small{display:block; color:var(--ardoise); font-size:10.5px; overflow:hidden; text-overflow:ellipsis}
+.mc-bh-p{background:#F0F3F1; border-radius:99px; height:12px; overflow:hidden} .mc-bh-p i{display:block; height:100%; border-radius:99px} .mc-bh b{font-size:12px; white-space:nowrap}
+.mc-pile{display:flex; height:16px; border-radius:99px; overflow:hidden; background:#F0F3F1; margin-bottom:8px} .mc-pile i.ok{background:#2E8B6A} .mc-pile i.ind{background:#B9C0BB} .mc-pile i.fort{background:#C0392B}
+.mc-leg{list-style:none; margin:0 0 8px; padding:0; display:flex; flex-direction:column; gap:4px; font-size:13px} .mc-leg small{display:block; color:var(--ardoise); font-size:11.5px; margin-left:34px}
+.mc-b{display:inline-block; border-radius:99px; padding:1px 9px; font-size:11.5px; font-weight:700; line-height:1.6; white-space:nowrap; font-style:normal}
+.mc-b.ok{background:#E3F3EA; color:#1F6F52} .mc-b.moy{background:#FCEFD9; color:#8A5A0E} .mc-b.fort{background:#FBE3E0; color:#A32D22} .mc-b.ind{background:#EDEFEE; color:#58625C} .mc-b.gris{background:#EDEFEE; color:#58625C} .mc-b.vide{background:#F6F7F6; color:#9AA39E}
+.mc-outils{display:flex; flex-wrap:wrap; gap:6px 16px; align-items:center; margin:2px 0 8px; font-size:13px} .mc-tg{display:flex; gap:6px; align-items:center; cursor:pointer}
+.mc-tab-s{overflow-x:auto; border:1px solid #E4E8E5; border-radius:12px; background:#fff}
+.mc-t{width:100%; border-collapse:collapse; font-size:13px; min-width:860px} .mc-t th{background:var(--marque-clair,#EAF6EF); color:var(--marque-fonce,#17594A); text-align:left; padding:8px 10px; font-size:12px; font-weight:700; border-bottom:2px solid var(--marque,#1F6F52); position:sticky; top:0}
+.mc-t td{padding:6px 10px; border-bottom:1px solid #EEF1EF; vertical-align:middle} .mc-t .num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap} .mc-t th.num{text-align:right}
+.mc-th{all:unset; cursor:pointer; font:inherit; font-weight:700; color:inherit} .mc-th:hover,.mc-th.on{text-decoration:underline}
+.mc-l{cursor:pointer} .mc-l:hover td,.mc-l:focus-visible td{background:#F6FAF8} .mc-l.ouvert td{background:#EEF6F1} .mc-l:focus-visible{outline:2px solid var(--marque,#1F6F52); outline-offset:-2px}
+.mc-nom{font-weight:600} .mc-pt{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:7px; vertical-align:middle}
+.mc-nb small{display:block; color:var(--ardoise); font-size:10.5px}
+.mc-fam td{background:color-mix(in srgb, var(--fc,#1F6F52) 12%, #fff); color:color-mix(in srgb, var(--fc,#1F6F52) 70%, #000); font-family:'Archivo'; font-weight:700; padding:8px 10px; cursor:pointer; border-left:5px solid var(--fc,#1F6F52)} .mc-fam small{font-family:'Public Sans'; font-weight:500; margin-left:8px; opacity:.8}
+.mc-r{position:relative; display:inline-block; width:110px; height:10px; background:#EEF1EF; border-radius:99px; vertical-align:middle} .mc-r i{position:absolute; top:1px; bottom:1px; background:color-mix(in srgb, var(--marque,#1F6F52) 38%, #fff); border-radius:99px} .mc-r b{position:absolute; top:-2px; width:4px; height:14px; margin-left:-2px; background:var(--marque-fonce,#17594A); border-radius:2px} .mc-r.vide{background:transparent}
+.mc-evo{font-weight:700; font-size:12.5px; white-space:nowrap} .mc-evo.haut{color:#C0392B} .mc-evo.bas{color:#1F6F52} .mc-evo.nul{color:#8A938D; font-weight:500}
+.mc-vide{color:#B0B8B3; text-align:center} td.mc-bas{background:#E3F3EA} td.mc-haut{background:#FCEFD9} .mc-t td small{display:block; color:var(--ardoise); font-size:10.5px; font-weight:400}
+.mc-detail > td{background:#F6FAF8; padding:0 !important} .mc-det{padding:12px 16px}
+.mc-det-g{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:18px; margin-bottom:10px} .mc-det h5{margin:0 0 6px; font-family:'Archivo'; font-size:13px; color:var(--marque,#1F6F52)} .mc-det h5 small{font-family:'Public Sans'; font-weight:500; color:var(--ardoise); margin-left:6px}
+.mc-svg{width:100%; height:auto; max-height:260px; display:block}
+.mc-sects{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px} .mc-sects div{background:#fff; border:1px solid #E4E8E5; border-radius:10px; padding:8px 10px; display:flex; flex-direction:column} .mc-sects span{font-size:17px; font-weight:700; color:var(--marque-fonce,#17594A)} .mc-sects small{color:var(--ardoise); font-size:11px}
+.mc-t-d{min-width:720px} .mc-t-d tr.ecarte td{color:#9AA39E; text-decoration:line-through; background:#FAFBFA} .mc-t-d tr.ecarte td .mc-b{text-decoration:none}
+.mc-evo-ch{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; margin-bottom:6px} .mc-evo-ch input{border:1px solid #CFD8D2; border-radius:8px; padding:7px 12px; font:inherit; min-width:280px; max-width:100%}
+.mc-annees{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; margin-top:6px} .mc-annees div{background:var(--marque-clair,#EAF6EF); border-radius:10px; padding:8px 10px; display:flex; flex-direction:column} .mc-annees div.hors{background:#F4F6F5; opacity:.65} .mc-annees b{color:var(--marque-fonce,#17594A)} .mc-annees span{font-size:17px; font-weight:700} .mc-annees small{color:var(--ardoise); font-size:11px}
+.mc-mono{margin-top:10px} .mc-mono summary{cursor:pointer; color:var(--ardoise); font-size:13px; margin-bottom:6px}
+@media(max-width:1100px){ .mc-kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .mc-grille,.mc-det-g{grid-template-columns:1fr} .mc-maj ul{columns:1} }
+@media(max-width:600px){ .mc-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media print{ .mc-barre,.mc-pdf,.mc-actions,.mc-vues{display:none !important} .mc-tab-s{overflow:visible} }
 /* cloche des nouveautés */
 .notif-btn{position:relative; display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; border:1px solid rgba(255,255,255,.3); background:transparent; color:#fff; cursor:pointer; padding:0}
 .notif-btn:hover{background:rgba(255,255,255,.12)}
@@ -2025,7 +2073,8 @@ i.ok{background:#2E7D4F} i.part{background:#D08A12} i.non{background:#C4453C} i.
 const SUPABASE_URL = typeof window !== 'undefined' ? (window.SUPABASE_URL || 'https://rucfhoqsfjxlubdgqkbw.supabase.co') : 'https://rucfhoqsfjxlubdgqkbw.supabase.co';
 const SUPABASE_KEY = typeof window !== 'undefined' ? (window.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1Y2Zob3FzZmp4bHViZGdxa2J3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzA0NTEsImV4cCI6MjA5NzM0NjQ1MX0.39j9rZzuORp3TylIXFPQ16XNy8DA0Ya6kVsxe4f2WEY') : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1Y2Zob3FzZmp4bHViZGdxa2J3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzA0NTEsImV4cCI6MjA5NzM0NjQ1MX0.39j9rZzuORp3TylIXFPQ16XNy8DA0Ya6kVsxe4f2WEY';
 
-const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Hébergement Azure : le serveur charge azure-shim.js (window.IT_SHIM) à la place de la bibliothèque Supabase
+const sbClient = window.IT_SHIM || window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let currentUser = null;
 let currentUserRole = null; // Ajouter la variable rôle
 let nomUtilisateur = '';   // nom complet (table users), pour les initiales
@@ -2081,6 +2130,7 @@ async function handleLogin() {
 }
 
 async function handleLogout() {
+  if(window.IT_AZURE){ location.href = '/auth/logout'; return; }
   await sbClient.auth.signOut();
   currentUser = null;
   currentUserRole = null;
@@ -2128,6 +2178,12 @@ function basculerApercu(){
 
 // ========== INIT ==========
 async function initAuth() {
+  if(window.IT_AZURE){   // Azure : la personne est déjà connectée (compte Microsoft), le serveur donne son rôle
+    let moi; try{ const r = await fetch('/api/moi', {credentials:'same-origin'}); if(!r.ok) throw new Error(r.status); moi = await r.json(); }
+    catch(e){ location.href = '/auth/login'; return; }   // pas de session valide : retour à la connexion Microsoft
+    currentUser = {email: moi.email}; currentUserRole = moi.role; nomUtilisateur = moi.nom || '';
+    await showApp();
+    return; }
   // AU DÉMARRAGE : FORCER LA PAGE LOGIN (logout toute session existante)
   await sbClient.auth.signOut();
   
@@ -2263,12 +2319,12 @@ const libEnjeu = n => (ENJEU_LIB[n]||[n])[0];
 const icoEnjeu = n => (ENJEU_LIB[n]||[,'•'])[1];
 
 /* ============ Persistance (Supabase, table app_state) ============ */
-const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal','agrotech','fraise','agrotextes','agroimages'];
-let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null, agrotech:null, fraise:null, agrotextes:null, agroimages:null};
+const CLES = ['cartographie','indicateurs','hebdo','zrp','commissions','documents','contacts','essais','espaces','sanitaire','journal','agrotech','fraise','agrotextes','agroimages','tarifs','fichiers'];
+let S = {cartographie:null, indicateurs:null, hebdo:null, zrp:null, commissions:null, documents:null, contacts:null, essais:null, espaces:null, sanitaire:null, journal:null, agrotech:null, fraise:null, agrotextes:null, agroimages:null, tarifs:null, fichiers:null};
 let modeLocal = false;
 async function charger(){
   try{
-    const { data, error } = await sbClient.from('app_state').select('cle,valeur');
+    const { data, error } = await sbClient.from('app_state').select('cle,valeur').not('cle', 'like', 'pdf_%');
     if(error) throw error;
     data.forEach(r=>{ if(r.cle in S) S[r.cle]=r.valeur; });
   }catch(e){
@@ -5009,7 +5065,7 @@ function vueCommissions(){
   IDX = comActive==='cvto' ? indexGlobal() : {};
   if(ficheVar && !IDX[ficheVar]) ficheVar = '';
   if(ficheOutil && !(S.agrotech?.outils||[]).some(o=>o.id===ficheOutil)) ficheOutil = '';
-  const corps = comActive==='csan' ? (comPartie==='essais' ? partieEssaisSan(anCom) : comPartie==='leviers' ? partieLeviers() : partieCommission(c, anCom))
+  const corps = comActive==='csan' ? (comPartie==='essais' ? partieEssaisSan(anCom) : comPartie==='leviers' ? partieLeviers() : comPartie==='tarifs' ? partieTarifs() : partieCommission(c, anCom))
     : comActive==='cvto' ? (comPartie==='essais' ? partieEssais(anCom) : comPartie==='lp' ? partieListe(anCom) : comPartie==='prix' ? partiePrix(anCom) : partieCommission(c, anCom))
     : comActive==='cvfr' ? (comPartie==='essais' ? partieFraiseEssais() : comPartie==='liste' ? partieFraiseListes() : partieCommission(c, anCom))
     : (comPartie==='veille' ? partieVeille() : comPartie==='pilotes' ? partiePilotes() : comPartie==='methode' ? partieMethode() : partieCommission(c, anCom));
@@ -5359,7 +5415,7 @@ function prixVariete(an, k){
 function partiePrix(anSel){
   const an = S.essais?.prix?.[anSel] ? +anSel : (+anCatalogue(anSel) || +anSel);
   const ans = anneesPrix(), adm = estAdmin(), c = S.essais?.prix?.[an], av = S.essais?.prix?.[String(an-1)];
-  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>Importer ou remplacer un catalogue de prix</summary>
+  const imp = adm ? `<details class="sx-import no-print"${c?'':' open'}><summary>Autres options : modèle Excel pré-rempli, lien du catalogue sur SharePoint</summary>
       <p class="aide">Le catalogue s'importe à partir du modèle Excel (une ligne par variété : segment, variété, niveau, semencier, prix, résistance ToBRFV, commentaires ;
         un onglet « Segments » pour les potentiels et prix moyens). Téléchargez le modèle pré-rempli avec le dernier catalogue, mettez-le à jour, puis importez-le.
         Les catalogues des années précédentes restent consultables.</p>
@@ -5367,7 +5423,7 @@ function partiePrix(anSel){
       <button class="btn sec" data-prix-modele>Télécharger le modèle Excel</button>
       <label class="btn">Importer le catalogue<input type="file" accept=".xlsx,.xls" data-prix-import hidden></label></details>` : '';
   if(!c) return `<div class="carte"><h3>Prix des graines — catalogue ${an}</h3>
-    <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
+    <div class="sx-vide"><p>Pas de catalogue de prix pour ${an}.</p>${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}${ans.length?`<p>Catalogues disponibles : ${ans.map(a=>`<button class="chip" data-an-com="${a}">${a}</button>`).join(' ')}</p>`:''}</div>${imp}</div>`;
   const L = liensDoc(c.lien);
   const ligne = (v, s) => { const p = prixM2(v.prix), pAv = av ? prixVariete(String(an-1), cleSx(v.nom)) : null, e = pAv && p!==null && prixM2(pAv.prix) ? ecartPct(p, prixM2(pAv.prix)) : null;
     return `<div class="sx-prix-v" data-nom="${h(normTexte(v.nom+' '+v.semencier+' '+s.nom))}">
@@ -5379,6 +5435,8 @@ function partiePrix(anSel){
     <div class="sx-confid">Document confidentiel — ne pas diffuser sans autorisation. Prix des graines uniquement, hors marge du pépiniériste.</div>
     ${+an!==+anSel ? `<p class="es-astuce">Pas de catalogue daté ${anSel} : voici le catalogue <b>${an}</b>, le plus proche (préparé en ${an-1} pour la campagne ${an-1}-${an}).</p>` : ''}
     <div class="sx-tete"><span class="sx-resume">${h(c.titre||'')}</span><span class="sx-sp">${L.ouvrir?`<a class="btn-ouvrir" href="${h(L.ouvrir)}" target="_blank" rel="noopener">Ouvrir le catalogue ${an}</a>`:''}</span></div>
+    ${blocPdf('catalogue', String(an), 'catalogue des prix des graines '+an)}
+    ${adm ? `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>Mise à jour des prix — Excel</b><span>${c.fichier ? h(c.fichier)+' · importé le '+h(c.importe||'') : 'Importez le modèle Excel du catalogue'}</span></div><div class="mc-pdf-b"><label class="btn">Mettre à jour (Excel)<input type="file" accept=".xlsx,.xls" data-prix-import data-an="${anSel}" hidden></label></div></div>` : ''}
     ${imp}
     <div class="sx-recherche no-print"><input type="search" data-prix-rech placeholder="Chercher une variété : son prix s'affiche…" aria-label="Chercher le prix d'une variété"></div>
     <div class="es-kpis">${[[c.segments.reduce((n,s)=>n+s.varietes.length,0),'variétés'],[c.segments.length,'segments'],[c.segments.reduce((n,s)=>n+s.varietes.filter(v=>v.r).length,0),'résistantes ToBRFV'],
@@ -5825,7 +5883,7 @@ function resultatsSegmentSite(site, an, seg, l){
                   leviers:{lien, lignes:[…base des nouveaux leviers Coop Protect…], equip:[…équipements digitaux…], positionnement:{techs, lignes, autres}, coop:[docs], coopDossier},
                   docs:{année:[{t, f, cat:'cr'|'protocole', dossier, url}]}}
    Calendrier et documents cadres : S.espaces.coms.csan (comme les autres commissions). */
-const PARTIES_CSAN = [['essais','Essais & résultats'],['leviers','Solutions & leviers'],['commission','Calendrier & documents']];
+const PARTIES_CSAN = [['essais','Essais & résultats'],['leviers','Solutions & leviers'],['tarifs','Tarifs & mercuriale'],['commission','Calendrier & documents']];
 let sanTous = true, sanFiltre = {culture:'', res:'', perim:'', cible:'', lieu:''}, levFiltre = '', ficheSan = '';
 const CIBLES_SAN = [[/o[iï]d/i,'Oïdium'],[/pucer/i,'Pucerons'],[/aleurod|bemisia|trialeurod/i,'Aleurodes'],[/cyrto|nesidio/i,'Cyrtopeltis (Nesidiocoris)'],
   [/acariose/i,'Acariose bronzée'],[/t[ée]tranyq|acarien/i,'Acariens tétranyques'],[/n[ée]mato/i,'Nématodes'],[/clado/i,'Cladosporiose'],[/clavib|coryn/i,'Clavibacter (chancre)'],
@@ -5986,6 +6044,363 @@ function lireBilanSan(wb){
 }
 
 /* --- Partie « Solutions & leviers » (base Coop Protect, positionnement des techniciens) --- */
+/* ---- Mercuriale des intrants : lecture du classeur Excel (« Mercuriale_intrants_AAMMJJ.xlsx ») ----
+   On lit la feuille « Données » (une ligne par prix collecté), qui contient tout : les synthèses (par produit, secteur, année, fournisseur)
+   sont recalculées dans l'application, avec les filtres choisis. Les feuilles « Mercuriale » (liste des produits, y compris sans prix),
+   « Substrats », « Paramètres » (ordre des familles) et « Lisez-moi » (version, sources) complètent. */
+/* noms de familles homogènes (le classeur écrit « Autres : Biostim… » ou « Nourissage » selon les lignes) */
+const familleMc = f => { f = String(f==null?'':f).trim(); return !f || f==='0' ? 'À classer' : /^autres/i.test(f) ? 'Biostimulants, sans AMM, engrais foliaires' : /^nou?rr?issage/i.test(f) ? 'Nourrissage des auxiliaires' : /^ph[ée]romones/i.test(f) ? 'Phéromones, kairomones' : f; };
+/* produits laissés « À classer » dans le classeur : rangés d'après leur nom (phéromones, substrats) */
+const familleProdMc = (fam, prod) => fam!=='À classer' ? fam : /^ph[ée]romones?/i.test(prod) ? 'Phéromones, kairomones' : /^(coco|laine de roche|tourbe|perlite|fibre)/i.test(prod) ? 'Substrats' : fam;
+const normMc = s => String(s==null?'':s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+function lireMercuriale(wb){
+  const feuille = (n, ...autres) => { const k = [n, ...autres].map(x=>wb.SheetNames.find(s=>normMc(s)===normMc(x))).find(Boolean); return k ? XLSX.utils.sheet_to_json(wb.Sheets[k], {header:1, defval:''}) : null; };
+  const D = feuille('Données', 'Donnees');
+  if(!D) throw new Error('Feuille « Données » introuvable : ce fichier n\'est pas la mercuriale des intrants.');
+  const iEnt = D.findIndex(r=>r.some(c=>normMc(c)==='produit mercuriale') && r.some(c=>normMc(c)==='famille'));
+  if(iEnt < 0) throw new Error('En-têtes de la feuille « Données » non reconnus.');
+  const H = D[iEnt].map(normMc), col = (...noms) => { for(const n of noms){ const i = H.indexOf(normMc(n)); if(i>=0) return i; } return -1; };
+  const c = {src:col('Source'), an:col('Année'), type:col('Type de source'), coop:col('Coop / origine'), sect:col('Secteur'), prod:col('Produit mercuriale'), fam:col('Famille'), producteur:col('Producteur'), four:col('Fournisseur'),
+    unite:col('Unité de référence'), prix:col('Prix de référence (€ / unité)', 'Prix de référence'), statut:col('Statut du contrôle'), ret:col('Retenir'), cond:col('Conditionnement (substrats)'), vol:col('Volume (L)'), com:col('Commentaire')};
+  ['an','prod','fam','prix','ret'].forEach(k=>{ if(c[k]<0) throw new Error('Colonne manquante dans « Données » : '+k); });
+  const num = v => typeof v==='number' ? v : parseFloat(String(v).replace(/\s/g,'').replace(',','.'));
+  const lignes = [], libSources = new Map();
+  D.slice(iEnt+1).forEach(r=>{
+    if(r[0]==='' || !r[c.prod]) return; const an = parseInt(r[c.an]), prix = num(r[c.prix]);
+    if(!an || !isFinite(prix)) return;
+    if(c.src>=0 && r[c.src]) libSources.set(an+'|'+r[c.src], {an, lib:String(r[c.src])});
+    const ret = normMc(r[c.ret])==='oui' ? 1 : 0;
+    lignes.push([an, String(r[c.sect]||''), familleProdMc(familleMc(r[c.fam]), String(r[c.prod]).trim()), String(r[c.prod]).trim(), String(r[c.unite]||'').trim(), Math.round(prix*10000)/10000, ret, String(r[c.statut]||''), String(r[c.coop]||''), String(r[c.producteur]||''), String(r[c.four]||''), String(r[c.type]||''),
+      c.cond>=0 ? String(r[c.cond]||'') : '', c.vol>=0 && isFinite(num(r[c.vol])) ? num(r[c.vol]) : '', c.com>=0 ? String(r[c.com]||'').slice(0,160) : '']);
+  });
+  if(!lignes.length) throw new Error('Aucun prix lu dans la feuille « Données ».');
+  // produits connus (y compris ceux sans prix) : feuille « Mercuriale »
+  const produits = new Map(); lignes.forEach(l=>{ if(!produits.has(l[3])) produits.set(l[3], [l[2], l[3], l[4]]); });
+  const M = feuille('Mercuriale'); let defaut = [];
+  if(M){ const iM = M.findIndex(r=>normMc(r[0])==='famille' && normMc(r[1])==='produit');
+    if(iM>=0) M.slice(iM+1).forEach(r=>{ if(r[1] && !produits.has(String(r[1]).trim())) produits.set(String(r[1]).trim(), [familleProdMc(familleMc(r[0]), String(r[1]).trim()), String(r[1]).trim(), String(r[2]||'').trim()]); });
+    const lA = M.find(r=>normMc(r[0]).startsWith('annees incluses')), lT = M.find(r=>/^20\d\d$/.test(String(r[3]).trim()) && /^20\d\d$/.test(String(r[4]).trim()));
+    if(lA && lT) lT.slice(3, 9).forEach((a,i)=>{ if(/^20\d\d$/.test(String(a).trim()) && normMc(lA[3+i])==='oui') defaut.push(+a); }); }
+  // ordre des familles : feuille « Paramètres »
+  const P = feuille('Paramètres', 'Parametres'); let ordre = [];
+  if(P){ const iP = P.findIndex(r=>r.some(x=>normMc(x)==='familles')); if(iP>=0){ const j = P[iP].findIndex(x=>normMc(x)==='familles'); P.slice(iP+1).forEach(r=>{ const f = familleMc(r[j]); if(String(r[j]||'').trim() && !ordre.includes(f)) ordre.push(f); }); } }
+  // substrats : nature et volume de chaque référence
+  const S_ = feuille('Substrats'); const substrats = [];
+  if(S_){ const iS = S_.findIndex(r=>normMc(r[0])==='produit mercuriale'); if(iS>=0) S_.slice(iS+1).forEach(r=>{ if(r[0]) substrats.push([String(r[0]), String(r[1]||''), isFinite(num(r[2])) ? num(r[2]) : '', String(r[3]||''), String(r[4]||'')]); }); }
+  // version et sources : feuille « Lisez-moi »
+  const LM = feuille('Lisez-moi'); let version = '', note = '';
+  if(LM){ const v = LM.find(r=>/^version/i.test(String(r[0]))); version = v ? String(v[0]) : ''; const n = LM[1]; note = n ? String(n[0]||'') : ''; }
+  const annees = [...new Set(lignes.map(l=>l[0]))].sort();
+  if(!defaut.length) defaut = annees.slice(-3);
+  const fams = [...new Set([...produits.values()].map(p=>p[0]))];
+  const ordreFam = [...ordre.filter(f=>fams.includes(f)), ...fams.filter(f=>!ordre.includes(f))];
+  return {version, lignes, produits:[...produits.values()], familles:ordreFam, annees, defautAnnees:defaut, substrats, sources:[...libSources.values()].sort((a,b)=>a.an-b.an || a.lib.localeCompare(b.lib)).map(x=>x.an+' · '+x.lib)};
+}
+
+/* ================= Fichiers PDF stockés dans l'application (téléchargeables par tous) ================= */
+const PDF_MAX = 8 * 1024 * 1024, pdfCache = new Map();
+const octetsLib = n => n > 1048576 ? (n/1048576).toFixed(1).replace('.', ',')+' Mo' : Math.max(1, Math.round(n/1024))+' Ko';
+/* Les PDF sont rangés à part (une ligne « pdf_… » par fichier) : la rubrique « fichiers » ne garde que la liste (nom, date, taille), et le contenu n'est lu que quand on le télécharge */
+function pdfListe(cat, cle){ S.fichiers ||= {}; if(cat==='mercuriale') return (S.fichiers.mercuriale ||= []); return ((S.fichiers.catalogue ||= {})[cle] ||= []); }
+async function pdfVersBase64(f){ const u = new Uint8Array(await f.arrayBuffer()); let s = ''; for(let i=0; i<u.length; i+=0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i+0x8000)); return btoa(s); }
+async function pdfContenu(e){
+  if(pdfCache.has(e.id)) return pdfCache.get(e.id);
+  const { data, error } = await sbClient.from('app_state').select('valeur').eq('cle', 'pdf_'+e.id).maybeSingle();
+  if(error || !data?.valeur?.data) return null; pdfCache.set(e.id, data.valeur.data); return data.valeur.data; }
+async function pdfTelecharger(cat, cle, i, ouvrir){
+  const e = pdfListe(cat, cle)[i]; if(!e) return; toast('Préparation du PDF…');
+  const b64 = await pdfContenu(e); if(!b64){ toast('PDF introuvable'); return; }
+  const bin = atob(b64), u = new Uint8Array(bin.length); for(let k=0; k<bin.length; k++) u[k] = bin.charCodeAt(k);
+  const url = URL.createObjectURL(new Blob([u], {type:'application/pdf'}));
+  if(ouvrir){ window.open(url, '_blank', 'noopener'); setTimeout(()=>URL.revokeObjectURL(url), 60000); return; }
+  const a = document.createElement('a'); a.href = url; a.download = e.nom; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 4000); }
+async function pdfAjouter(cat, cle, f){
+  if(!/\.pdf$/i.test(f.name) && f.type!=='application/pdf'){ toast('Choisissez un fichier PDF'); return false; }
+  if(f.size > PDF_MAX){ toast('PDF trop volumineux (8 Mo maximum)'); return false; }
+  if(modeLocal){ toast('Enregistrement impossible hors connexion'); return false; }
+  const data = await pdfVersBase64(f), id = uid(), maintenant = new Date();
+  const { error } = await sbClient.from('app_state').upsert({cle:'pdf_'+id, valeur:{data}, maj:maintenant.toISOString(), par:currentUser?.email||null});
+  if(error){ console.error('PDF', error); toast('PDF non enregistré : '+error.message); return false; }
+  pdfCache.set(id, data);
+  const l = pdfListe(cat, cle);
+  l.unshift({id, nom:f.name, fichier:f.name, taille:f.size, importe:maintenant.toLocaleDateString('fr-FR')+' '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}), par:currentUser?.email||''});
+  l.splice(5);   // on garde les 5 dernières versions dans la liste (les anciens fichiers restent en base)
+  sauver('fichiers'); return true; }
+/* bloc « PDF » : téléchargement pour tous, ajout / remplacement pour l'administrateur */
+function blocPdf(cat, cle, titre){
+  const l = pdfListe(cat, cle), e = l[0], k = cat+'|'+cle, adm = estAdmin();
+  return `<div class="mc-pdf no-print"><div class="mc-pdf-i"><b>Version PDF — ${h(titre)}</b>
+      ${e ? `<span>${h(e.nom)} · ${octetsLib(e.taille)} · ajouté le ${h(e.importe)}${adm && e.par ? ' par '+h(e.par.split('@')[0]) : ''}</span>` : '<span>Aucun PDF pour l\'instant.</span>'}</div>
+    <div class="mc-pdf-b">${e ? `<button class="btn" data-pdf-dl="${h(k)}|0">Télécharger le PDF</button><button class="btn sec" data-pdf-ouvrir="${h(k)}|0">Ouvrir</button>` : ''}
+      ${adm ? `<label class="btn sec">${e ? 'Remplacer / mettre à jour le PDF' : 'Ajouter le PDF'}<input type="file" accept=".pdf,application/pdf" data-pdf-ajout="${h(k)}" hidden></label>` : ''}</div>
+    ${l.length>1 ? `<details class="mc-pdf-v"><summary>Versions précédentes (${l.length-1})</summary>${l.slice(1).map((v,i)=>`<div><span>${h(v.nom)} · ${octetsLib(v.taille)} · ${h(v.importe)}</span><button class="suppr" data-pdf-dl="${h(k)}|${i+1}">Télécharger</button></div>`).join('')}</details>` : ''}</div>`;
+}
+
+/* ================= Partie « Tarifs » de la commission sanitaire : mercuriale des intrants ================= */
+const MC = {annees:null, sect:'', fam:'', fiab:'', rech:'', sansPrix:false, vue:'apercu', ouvert:new Set(), tri:'produit', sens:1, evo:'', fermees:new Set(), supplier:''};
+const MC_VUES = [['apercu','Vue d\'ensemble'],['reperes','Repères de prix'],['evolution','Évolution'],['secteurs','Par secteur'],['fournisseurs','Par fournisseur'],['substrats','Substrats']];
+const MC_FIAB = {correcte:['Correcte','ok'], indicatif:['Indicatif*','ind'], dispersion:['Dispersion forte','fort'], aucune:['Aucune donnée','vide']};
+const MC_PAL = ['#2E8B6A','#3A6EA5','#C0527C','#D9772B','#7A5BA6','#B08A1E','#3F8F9E','#8A6A5A','#5B8C3A','#A04A4A','#4C6A92','#777'];
+const mcEur = n => n===null || n===undefined || n==='' || !isFinite(n) ? '—' : n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2})+' €';
+const mcPct = (x, signe) => x===null || x===undefined || !isFinite(x) ? '—' : (signe && x>0 ? '+' : '')+Math.round(x*100)+' %';
+const mcMed = a => { a = a.slice().sort((x,y)=>x-y); const n = a.length; return !n ? null : n%2 ? a[(n-1)/2] : (a[n/2-1]+a[n/2])/2; };
+function mcStats(rows){
+  const p = rows.map(r=>r.prix); if(!p.length) return {n:0, ns:0, fiab:'aucune'};
+  const med = mcMed(p), min = Math.min(...p), max = Math.max(...p), amp = med ? (max-min)/med : 0, ns = new Set(rows.map(r=>r.an+'|'+r.coop+'|'+r.producteur+'|'+r.four)).size;
+  return {n:p.length, ns, min, med, max, amp, fiab: p.length<3 ? 'indicatif' : amp>0.5 ? 'dispersion' : 'correcte'};
+}
+let mcCache = null;
+/* lignes du classeur sous forme d'objets, regroupées par produit (recalculé seulement après une importation) */
+function mcDonnees(){
+  const T = S.tarifs; if(!T?.lignes?.length) return null; const cle = T.importe+'|'+T.lignes.length+'|'+(T.fichier||'');
+  if(mcCache?.cle===cle) return mcCache;
+  const lignes = T.lignes.map(a=>({an:a[0], sect:a[1], fam:a[2], prod:a[3], u:a[4], prix:a[5], ret:a[6]===1, statut:a[7], coop:a[8], producteur:a[9], four:a[10], type:a[11], cond:a[12], vol:a[13], com:a[14]}));
+  const prods = new Map(); (T.produits||[]).forEach(([fam, prod, u])=>prods.set(prod, {prod, fam, u, rows:[]}));
+  lignes.forEach(l=>{ let p = prods.get(l.prod); if(!p) prods.set(l.prod, p = {prod:l.prod, fam:l.fam, u:l.u, rows:[]}); p.rows.push(l); if(!p.u) p.u = l.u; });
+  const secteurs = [...new Set(lignes.map(l=>l.sect).filter(Boolean))].sort();
+  const fournisseurs = Object.entries(lignes.filter(l=>l.ret && l.four).reduce((m,l)=>(m[l.four]=(m[l.four]||0)+1, m), {})).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+  mcCache = {cle, lignes, prods:[...prods.values()], secteurs, fournisseurs};
+  return mcCache;
+}
+const mcAnnees = () => (MC.annees && MC.annees.length ? MC.annees : (S.tarifs?.defautAnnees || [])).slice().sort();
+const mcFam = () => [...new Set((S.tarifs?.familles||[]))];
+const mcCoulFam = f => MC_PAL[Math.max(0, mcFam().indexOf(f)) % MC_PAL.length];
+/* un produit avec ses statistiques pour les filtres en cours (années, secteur) ; avant = année précédente avec des prix, pour l'évolution */
+function mcProduits(opt = {}){
+  const d = mcDonnees(); if(!d) return []; const ans = mcAnnees(), sect = opt.sans ? '' : MC.sect, q = normTexte(MC.rech);
+  return d.prods.map(p=>{
+    const sel = p.rows.filter(r=>r.ret && ans.includes(r.an) && (!sect || r.sect===sect)), st = mcStats(sel);
+    const parAn = {}; T_ANS().forEach(a=>{ parAn[a] = mcStats(p.rows.filter(r=>r.ret && r.an===a && (!sect || r.sect===sect))); });
+    const avecPrix = ans.filter(a=>parAn[a].n>0), evo = avecPrix.length>=2 && parAn[avecPrix[avecPrix.length-2]].med ? {de:avecPrix[avecPrix.length-2], a:avecPrix[avecPrix.length-1], v:parAn[avecPrix[avecPrix.length-1]].med/parAn[avecPrix[avecPrix.length-2]].med-1} : null;
+    return {...p, st, parAn, evo, sel};
+  }).filter(p=>(!MC.fam || p.fam===MC.fam) && (!q || normTexte(p.prod+' '+p.fam).includes(q)) && (!MC.fiab || p.st.fiab===MC.fiab));
+}
+const T_ANS = () => S.tarifs?.annees || [];
+
+/* ---------- graphiques (SVG et CSS, sans bibliothèque) ---------- */
+function mcBarresH(items, o = {}){   // items : [{lib, v, texte, couleur, cle, sous}]
+  const max = Math.max(...items.map(i=>Math.abs(i.v)), 0.0001);
+  return `<div class="mc-bh">${items.map(i=>`<div class="mc-bh-l"${i.cle ? ` data-mc-go="${h(i.cle)}" tabindex="0" role="button"` : ''}><span class="mc-bh-n" title="${h(i.lib)}">${h(i.lib)}${i.sous?`<small>${h(i.sous)}</small>`:''}</span>
+    <span class="mc-bh-p"><i style="width:${Math.max(2, Math.abs(i.v)/max*100).toFixed(1)}%;background:${i.couleur||'var(--marque)'}"></i></span><b>${h(i.texte)}</b></div>`).join('')}</div>`;
+}
+function mcLigne(pts, o = {}){   // pts : [{x:'2024', med, min, max, sel}]
+  const W = 560, Ht = 230, mg = {g:54, d:16, h:16, b:34}, ok = pts.filter(p=>p.med!==null && p.med!==undefined);
+  if(!ok.length) return '<p class="aide">Pas de prix pour ce produit avec ces filtres.</p>';
+  const vmax = Math.max(...ok.map(p=>p.max)), vmin = 0, brut = (vmax*1.12) || 1, e10 = Math.pow(10, Math.floor(Math.log10(brut/4))), m10 = (brut/4)/e10, pas = (m10<=1 ? 1 : m10<=2 ? 2 : m10<=5 ? 5 : 10)*e10, haut = Math.ceil(brut/pas)*pas;
+  const X = i => mg.g + (pts.length===1 ? (W-mg.g-mg.d)/2 : i*(W-mg.g-mg.d)/(pts.length-1)), Y = v => mg.h + (1-v/haut)*(Ht-mg.h-mg.b);
+  const graduations = Array.from({length:Math.round(haut/pas)+1}, (_,i)=>Math.round(i*pas*1000)/1000), seg = [];
+  let cur = []; pts.forEach((p, i)=>{ if(p.med==null){ if(cur.length) seg.push(cur); cur = []; } else cur.push(i); }); if(cur.length) seg.push(cur);
+  const bande = seg.filter(s=>s.length>1).map(s=>`<polygon fill="var(--marque)" opacity=".12" points="${s.map(i=>`${X(i)},${Y(pts[i].max)}`).join(' ')} ${s.slice().reverse().map(i=>`${X(i)},${Y(pts[i].min)}`).join(' ')}"/>`).join('');
+  const ligne = seg.filter(s=>s.length>1).map(s=>`<polyline fill="none" stroke="var(--marque)" stroke-width="2.5" points="${s.map(i=>`${X(i)},${Y(pts[i].med)}`).join(' ')}"/>`).join('');
+  return `<svg class="mc-svg" viewBox="0 0 ${W} ${Ht}" role="img" aria-label="${h(o.titre||'Évolution des prix')}">
+    ${graduations.map(g=>`<line x1="${mg.g}" x2="${W-mg.d}" y1="${Y(g)}" y2="${Y(g)}" stroke="#E4E8E5"/><text x="${mg.g-6}" y="${Y(g)+4}" text-anchor="end" font-size="11" fill="#6B756F">${g.toLocaleString('fr-FR',{maximumFractionDigits:g<10?1:0})}</text>`).join('')}
+    ${bande}${ligne}
+    ${pts.map((p,i)=>`<text x="${X(i)}" y="${Ht-12}" text-anchor="middle" font-size="12" font-weight="${p.sel?700:400}" fill="${p.sel?'var(--marque)':'#8A938D'}">${h(p.x)}</text>
+      ${p.med==null ? '' : `<line x1="${X(i)}" x2="${X(i)}" y1="${Y(p.min)}" y2="${Y(p.max)}" stroke="var(--marque)" stroke-width="2" opacity=".55"/>
+        <circle cx="${X(i)}" cy="${Y(p.med)}" r="5.5" fill="${p.sel?'var(--marque)':'#fff'}" stroke="var(--marque)" stroke-width="2.5"/>
+        <text x="${X(i)}" y="${Y(p.max)-8}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--marque-fonce)">${h(mcEur(p.med))}</text>`}`).join('')}
+  </svg>`;
+}
+const mcBadgeAmp = (st) => st.n<2 || st.min===st.max ? '<span class="mc-b gris">prix unique</span>' : `<span class="mc-b ${st.amp<=0.2?'ok':st.amp<=0.5?'moy':'fort'}">${Math.round(st.amp*100)} %</span>`;
+const mcBadgeFiab = st => { const [t, c] = MC_FIAB[st.fiab]; return `<span class="mc-b ${c}">${t}</span>`; };
+const mcFleche = e => !e ? '<span class="mc-evo nul">—</span>' : `<span class="mc-evo ${Math.abs(e.v)<0.005?'nul':e.v>0?'haut':'bas'}" title="Médiane ${e.de} → ${e.a}">${Math.abs(e.v)<0.005?'=':e.v>0?'▲':'▼'} ${mcPct(e.v, true)}</span>`;
+function mcFourchette(st){
+  if(!st.n) return '<span class="mc-r vide"></span>'; const m = st.max || 1;
+  return `<span class="mc-r" title="${mcEur(st.min)} – ${mcEur(st.max)}"><i style="left:${(st.min/m*100).toFixed(1)}%;width:${Math.max(3, (st.max-st.min)/m*100).toFixed(1)}%"></i><b style="left:${(st.med/m*100).toFixed(1)}%"></b></span>`;
+}
+
+/* ---------- en-tête, filtres ---------- */
+function mcEntete(T){
+  const adm = estAdmin(), M = T?.maj;
+  const maj = M ? `<details class="mc-maj"><summary>Dernière mise à jour : <b>${h(T.importe||'')}</b> — ${h(M.resume||'')}</summary>
+      ${(M.changements||[]).length ? `<ul>${M.changements.map(c=>`<li><b>${h(c.prod)}</b> : ${h(mcEur(c.avant))} → ${h(mcEur(c.apres))} <span class="mc-b ${c.v>0?'fort':'ok'}">${mcPct(c.v, true)}</span></li>`).join('')}</ul>` : '<p class="aide">Aucune médiane n\'a changé.</p>'}
+      ${(M.nouveaux||[]).length ? `<p class="aide"><b>Nouveaux produits avec prix :</b> ${M.nouveaux.map(h).join(', ')}</p>` : ''}</details>` : '';
+  return `<div class="mc-tete">
+    <div class="mc-titre"><h3 style="margin:0">Tarifs — mercuriale des intrants</h3>
+      <p class="aide">Prix en € HT par unité de référence : <b>minimum</b>, <b>médiane</b> (le repère à retenir) et <b>maximum</b> relevés. ${T ? `${h(T.version||'')} · fichier <i>${h(T.fichier||'')}</i>${adm && T.par ? ' · importé par '+h(T.par.split('@')[0]) : ''}` : ''}</p></div>
+    ${adm ? `<div class="mc-actions no-print"><label class="btn">${T ? 'Mettre à jour depuis l\'Excel' : 'Importer l\'Excel de la mercuriale'}<input type="file" accept=".xlsx,.xlsm,.xls" data-mc-excel hidden></label>
+      ${T ? '<button class="btn sec" data-mc-modele>Exporter la vue en Excel</button>' : ''}</div>` : (T ? '<div class="mc-actions no-print"><button class="btn sec" data-mc-modele>Exporter la vue en Excel</button></div>' : '')}
+  </div>${maj}`;
+}
+function mcBarre(T, d){
+  const ans = mcAnnees(), tout = T.annees||[], fams = mcFam();
+  const sv = [MC.fam, MC.rech, MC.fiab]; MC.fam = ''; MC.rech = ''; MC.fiab = ''; const base = mcProduits().filter(p=>p.st.n>0); [MC.fam, MC.rech, MC.fiab] = sv;
+  const nbFam = f => base.filter(p=>p.fam===f).length;
+  return `<div class="mc-barre no-print">
+    <div class="mc-f"><span>Années</span>${tout.map(a=>`<button class="chip" data-mc-an="${a}" aria-pressed="${ans.includes(a)}">${a}</button>`).join('')}</div>
+    <div class="mc-f"><span>Secteur</span><select data-mc-sect><option value="">Tous les secteurs</option>${d.secteurs.map(s=>`<option ${s===MC.sect?'selected':''}>${h(s)}</option>`).join('')}</select>
+      <span>Fiabilité</span><select data-mc-fiab><option value="">Toutes</option>${Object.entries(MC_FIAB).filter(([k])=>k!=='aucune').map(([k,v])=>`<option value="${k}" ${k===MC.fiab?'selected':''}>${v[0].replace('*','')}</option>`).join('')}</select>
+      <input type="search" data-mc-rech placeholder="Chercher un produit…" value="${h(MC.rech)}" aria-label="Chercher un produit"></div>
+    <div class="mc-f mc-fams"><span>Famille</span><button class="chip" data-mc-fam="" aria-pressed="${!MC.fam}">Toutes</button>${fams.filter(nbFam).map(f=>`<button class="chip" data-mc-fam="${h(f)}" aria-pressed="${MC.fam===f}" style="--fc:${mcCoulFam(f)}">${h(f.replace('Biostimulants, sans AMM, engrais foliaires','Biostimulants, engrais foliaires'))} <small>${nbFam(f)}</small></button>`).join('')}</div>
+  </div>`;
+}
+
+/* ---------- vues ---------- */
+function mcVueApercu(T, d){
+  const P = mcProduits(), avec = P.filter(p=>p.st.n>0), prix = avec.reduce((n,p)=>n+p.st.n, 0), fams = mcFam().filter(f=>avec.some(p=>p.fam===f));
+  const parFam = fams.map(f=>({lib:f, v:avec.filter(p=>p.fam===f).length, couleur:mcCoulFam(f), texte:avec.filter(p=>p.fam===f).length+' produits', cle:'fam|'+f}));
+  const fiab = ['correcte','indicatif','dispersion'].map(k=>({k, n:avec.filter(p=>p.st.fiab===k).length}));
+  const evo = avec.filter(p=>p.evo && isFinite(p.evo.v)).sort((a,b)=>b.evo.v-a.evo.v), hausses = evo.filter(p=>p.evo.v>0.005).slice(0, 8), baisses = evo.slice().reverse().filter(p=>p.evo.v<-0.005).slice(0, 8);
+  const disp = avec.filter(p=>p.st.n>=3).sort((a,b)=>b.st.amp-a.st.amp).slice(0, 8);
+  const kpi = [[avec.length, 'produits avec prix'],[prix, 'prix retenus'],[fams.length, 'familles'],[mcAnnees().join(' · ')||'—', 'années'],[d.fournisseurs.length, 'fournisseurs comparés'],[P.filter(p=>p.st.n===0).length, 'produits sans prix']];
+  const total = fiab.reduce((n,x)=>n+x.n, 0) || 1;
+  return `<div class="es-kpis mc-kpis">${kpi.map(([x,t])=>`<div><b>${h(String(x))}</b><span>${t}</span></div>`).join('')}</div>
+  <div class="mc-grille">
+    <section class="mc-c"><h4>Produits par famille <small>cliquer pour filtrer</small></h4>${parFam.length ? mcBarresH(parFam) : '<p class="aide">Aucun produit avec ces filtres.</p>'}</section>
+    <section class="mc-c"><h4>Fiabilité des repères</h4>
+      <div class="mc-pile">${fiab.map(x=>`<i class="${MC_FIAB[x.k][1]}" style="width:${(x.n/total*100).toFixed(1)}%" title="${MC_FIAB[x.k][0]} : ${x.n}"></i>`).join('')}</div>
+      <ul class="mc-leg">${fiab.map(x=>`<li><i class="mc-b ${MC_FIAB[x.k][1]}">${x.n}</i> ${MC_FIAB[x.k][0].replace('*','')}<small>${{correcte:'3 prix ou plus, écart raisonnable',indicatif:'moins de 3 prix relevés',dispersion:'écart max–min supérieur à 50 % de la médiane'}[x.k]}</small></li>`).join('')}</ul>
+      <p class="aide">Amplitude = (max − min) ÷ médiane : <span class="mc-b ok">≤ 20 %</span> prix homogènes · <span class="mc-b moy">20–50 %</span> écarts modérés · <span class="mc-b fort">&gt; 50 %</span> prix très écartés.</p></section>
+    <section class="mc-c"><h4>Plus fortes hausses <small>médiane ${hausses[0] ? hausses[0].evo.de+' → '+hausses[0].evo.a : ''}</small></h4>${hausses.length ? mcBarresH(hausses.map(p=>({lib:p.prod, sous:p.fam, v:p.evo.v, texte:mcPct(p.evo.v, true), couleur:'#C0392B', cle:'prod|'+p.prod}))) : '<p class="aide">Aucune hausse mesurable (il faut des prix sur au moins deux années).</p>'}</section>
+    <section class="mc-c"><h4>Plus fortes baisses</h4>${baisses.length ? mcBarresH(baisses.map(p=>({lib:p.prod, sous:p.fam, v:p.evo.v, texte:mcPct(p.evo.v, true), couleur:'#2E8B6A', cle:'prod|'+p.prod}))) : '<p class="aide">Aucune baisse mesurable.</p>'}</section>
+    <section class="mc-c mc-large"><h4>Prix les plus dispersés <small>au moins 3 prix : à vérifier avant de négocier</small></h4>${disp.length ? mcBarresH(disp.map(p=>({lib:p.prod, sous:p.fam+' · '+mcEur(p.st.min)+' à '+mcEur(p.st.max), v:p.st.amp, texte:Math.round(p.st.amp*100)+' %', couleur:p.st.amp>0.5?'#C0392B':p.st.amp>0.2?'#D9772B':'#2E8B6A', cle:'prod|'+p.prod}))) : '<p class="aide">Pas assez de prix.</p>'}</section>
+  </div>`;
+}
+const MC_TRIS = {produit:(p)=>p.prod, n:p=>p.st.n, min:p=>p.st.min??-1, med:p=>p.st.med??-1, max:p=>p.st.max??-1, amp:p=>p.st.amp??-1, evo:p=>p.evo ? p.evo.v : -9};
+function mcDetail(p, d){
+  const ans = T_ANS(), mx = Math.max(...ans.map(a=>p.parAn[a].max||0), 0.0001);
+  const pts = ans.map(a=>({x:String(a), med:p.parAn[a].n?p.parAn[a].med:null, min:p.parAn[a].min, max:p.parAn[a].max, sel:mcAnnees().includes(a)}));
+  const parSect = d.secteurs.map(s=>({s, st:mcStats(p.rows.filter(r=>r.ret && mcAnnees().includes(r.an) && r.sect===s))})).filter(x=>x.st.n);
+  const lignes = p.rows.slice().sort((a,b)=>b.an-a.an || a.prix-b.prix).slice(0, 80);
+  return `<div class="mc-det"><div class="mc-det-g"><div><h5>Médiane par année <small>les années sélectionnées sont en couleur</small></h5>${mcLigne(pts, {titre:p.prod})}</div>
+    <div><h5>Par secteur <small>années sélectionnées</small></h5>${parSect.length ? `<div class="mc-sects">${parSect.map(x=>`<div><b>${h(x.s)}</b><span>${mcEur(x.st.med)}</span><small>${x.st.n} prix · ${mcEur(x.st.min)} à ${mcEur(x.st.max)}</small></div>`).join('')}</div>` : '<p class="aide">Aucun prix sur ces années.</p>'}
+      <h5 style="margin-top:12px">Contexte</h5><p class="aide">Unité de référence : <b>${h(p.u||'—')}</b> · famille ${h(p.fam)} · ${p.rows.filter(r=>r.ret).length} prix retenus, ${p.rows.filter(r=>!r.ret).length} écartés.</p></div></div>
+    <h5>Tous les prix relevés <small>les prix écartés sont barrés</small></h5>
+    <div class="mc-tab-s"><table class="mc-t mc-t-d"><thead><tr><th>Année</th><th>Secteur</th><th>Origine</th><th>Producteur / fournisseur</th><th>Prix</th><th>Contrôle</th><th>Type de source</th></tr></thead><tbody>
+      ${lignes.map(r=>`<tr class="${r.ret?'':'ecarte'}"><td>${r.an}</td><td>${h(r.sect)}</td><td>${h(r.coop)}</td><td>${h([r.producteur, r.four].filter(Boolean).join(' · '))}</td><td><b>${mcEur(r.prix)}</b></td><td>${r.statut && r.statut!=='OK' ? `<span class="mc-b ${r.ret?'moy':'gris'}">${h(r.statut)}</span>` : ''}</td><td>${h(r.type)}</td></tr>`).join('')}
+    </tbody></table>${p.rows.length>80 ? `<p class="aide">… et ${p.rows.length-80} autres lignes.</p>` : ''}</div></div>`;
+}
+function mcVueReperes(T, d){
+  let P = mcProduits(); if(!MC.sansPrix) P = P.filter(p=>p.st.n>0);
+  const f = MC_TRIS[MC.tri] || MC_TRIS.produit, cmp = (a,b)=>{ const x = f(a), y = f(b); return (typeof x==='string' ? x.localeCompare(y,'fr') : x-y)*MC.sens || a.prod.localeCompare(b.prod,'fr'); };
+  const fams = mcFam().filter(fm=>P.some(p=>p.fam===fm)), th = (k, t, cl='') => `<th class="${cl}"><button class="mc-th${MC.tri===k?' on':''}" data-mc-tri="${k}">${t}${MC.tri===k ? (MC.sens>0?' ▲':' ▼') : ''}</button></th>`;
+  const ligne = p=>`<tr class="mc-l${MC.ouvert.has(p.prod)?' ouvert':''}" data-mc-prod="${h(p.prod)}" tabindex="0" aria-expanded="${MC.ouvert.has(p.prod)}"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${h(p.u)}</td>
+      <td class="mc-nb">${p.st.n||'—'}${p.st.n?`<small>${p.st.ns} source${p.st.ns>1?'s':''}</small>`:''}</td><td>${mcFourchette(p.st)}</td><td class="num">${mcEur(p.st.min)}</td><td class="num"><b>${mcEur(p.st.med)}</b></td><td class="num">${mcEur(p.st.max)}</td>
+      <td>${p.st.n ? mcBadgeAmp(p.st) : ''}</td><td>${mcFleche(p.evo)}</td><td>${mcBadgeFiab(p.st)}</td></tr>${MC.ouvert.has(p.prod) ? `<tr class="mc-detail"><td colspan="10">${mcDetail(p, d)}</td></tr>` : ''}`;
+  const corps = MC.tri==='produit' ? fams.map(fm=>{ const l = P.filter(p=>p.fam===fm).sort(cmp), ferme = MC.fermees.has(fm);
+      return `<tr class="mc-fam" data-mc-fermer="${h(fm)}" style="--fc:${mcCoulFam(fm)}"><td colspan="10"><span>${ferme?'▸':'▾'}</span> ${h(fm)} <small>${l.length} produit${l.length>1?'s':''}</small></td></tr>${ferme ? '' : l.map(ligne).join('')}`; }).join('')
+    : P.slice().sort(cmp).map(ligne).join('');
+  return `<div class="mc-outils no-print"><label class="mc-tg"><input type="checkbox" data-mc-sans ${MC.sansPrix?'checked':''}> Afficher aussi les produits sans prix</label><span class="aide">${P.length} produit${P.length>1?'s':''} · cliquer sur une ligne pour voir tous les prix, l'évolution et les secteurs</span></div>
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr>${th('produit','Produit')}<th>Unité</th>${th('n','Prix','num')}<th>Fourchette</th>${th('min','Min','num')}${th('med','Médiane','num')}${th('max','Max','num')}${th('amp','Amplitude')}${th('evo','Évolution')}<th>Fiabilité</th></tr></thead>
+    <tbody>${corps || '<tr><td colspan="10" class="aide">Aucun produit avec ces filtres.</td></tr>'}</tbody></table></div>
+    <p class="aide">* Indicatif : moins de 3 prix relevés. Évolution : variation de la médiane entre les deux dernières années sélectionnées qui ont des prix.</p>`;
+}
+function mcVueEvolution(T, d){
+  const P = mcProduits({}).filter(p=>p.st.n>0 || p.rows.some(r=>r.ret)), sel = P.find(p=>p.prod===MC.evo) || P.find(p=>p.evo) || P[0];
+  if(!sel) return '<p class="aide">Aucun produit avec ces filtres.</p>';
+  const ans = T_ANS(), pts = ans.map(a=>({x:String(a), med:sel.parAn[a].n?sel.parAn[a].med:null, min:sel.parAn[a].min, max:sel.parAn[a].max, sel:mcAnnees().includes(a)}));
+  const lst = P.filter(p=>p.evo).sort((a,b)=>b.evo.v-a.evo.v);
+  return `<div class="mc-grille"><section class="mc-c mc-large"><h4>Évolution d'un produit</h4>
+      <div class="mc-evo-ch no-print"><input list="mc-liste-prod" data-mc-evo placeholder="Choisir un produit…" value="${h(sel.prod)}" aria-label="Produit"><datalist id="mc-liste-prod">${P.map(p=>`<option value="${h(p.prod)}">`).join('')}</datalist>
+        <span class="aide">${h(sel.fam)} · prix en € HT par ${h(sel.u||'unité')} · ligne = médiane, trait = fourchette min–max</span></div>
+      ${mcLigne(pts, {titre:sel.prod})}
+      <div class="mc-annees">${ans.map(a=>{ const s = sel.parAn[a]; return `<div class="${mcAnnees().includes(a)?'':'hors'}"><b>${a}</b>${s.n ? `<span>${mcEur(s.med)}</span><small>${s.n} prix · ${mcEur(s.min)} – ${mcEur(s.max)}</small>` : '<small>pas de prix</small>'}</div>`; }).join('')}</div></section>
+    <section class="mc-c mc-large"><h4>Variations de la médiane <small>entre les deux dernières années sélectionnées avec prix</small></h4>
+      ${lst.length ? `<div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Famille</th><th>Période</th><th class="num">Avant</th><th class="num">Après</th><th>Variation</th></tr></thead><tbody>${lst.map(p=>`<tr class="mc-l" data-mc-go="prod|${h(p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(p.fam)}"></span>${h(p.prod)}</td><td>${h(p.fam)}</td><td>${p.evo.de} → ${p.evo.a}</td><td class="num">${mcEur(p.parAn[p.evo.de].med)}</td><td class="num"><b>${mcEur(p.parAn[p.evo.a].med)}</b></td><td>${mcFleche(p.evo)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="aide">Il faut des prix sur au moins deux années sélectionnées.</p>'}</section></div>`;
+}
+function mcVueSecteurs(T, d){
+  const P = mcProduits({sans:true}).filter(p=>p.sel.length); const ans = mcAnnees();
+  const lignes = P.map(p=>{ const par = d.secteurs.map(s=>mcStats(p.rows.filter(r=>r.ret && ans.includes(r.an) && r.sect===s))), ok = par.filter(x=>x.n), meds = ok.map(x=>x.med), ecart = meds.length>1 ? Math.max(...meds)/Math.min(...meds)-1 : null; return {p, par, ecart, min:meds.length>1?Math.min(...meds):null, max:meds.length>1?Math.max(...meds):null}; });
+  const multi = lignes.filter(l=>l.ecart!==null).sort((a,b)=>b.ecart-a.ecart), mono = lignes.filter(l=>l.ecart===null);
+  const cel = (st, l) => !st.n ? '<td class="mc-vide">—</td>' : `<td class="num ${l.min!==null && st.med===l.min?'mc-bas':l.max!==null && st.med===l.max?'mc-haut':''}"><b>${mcEur(st.med)}</b><small>${st.n} prix</small></td>`;
+  return `<p class="aide">Médiane par secteur sur les années sélectionnées. <span class="mc-b ok">le moins cher</span> <span class="mc-b moy">le plus cher</span> — écart = plus cher ÷ moins cher − 1. Les produits relevés dans un seul secteur sont listés en dessous.</p>
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${d.secteurs.map(s=>`<th class="num">${h(s)}</th>`).join('')}<th>Écart</th></tr></thead><tbody>
+    ${multi.map(l=>`<tr class="mc-l" data-mc-go="prod|${h(l.p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(l.p.fam)}"></span>${h(l.p.prod)}</td><td>${h(l.p.u)}</td>${l.par.map(st=>cel(st, l)).join('')}<td><span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span></td></tr>`).join('') || `<tr><td colspan="${d.secteurs.length+3}" class="aide">Aucun produit comparé entre plusieurs secteurs avec ces filtres.</td></tr>`}
+    </tbody></table></div>
+    ${mono.length ? `<details class="mc-mono"><summary>${mono.length} produit${mono.length>1?'s':''} relevé${mono.length>1?'s':''} dans un seul secteur</summary><div class="mc-tab-s"><table class="mc-t"><tbody>${mono.map(l=>{ const i = l.par.findIndex(x=>x.n); return `<tr><td class="mc-nom">${h(l.p.prod)}</td><td>${h(d.secteurs[i]||'')}</td><td class="num"><b>${mcEur(l.par[i]?.med)}</b></td><td>${h(l.p.u)}</td></tr>`; }).join('')}</tbody></table></div></details>` : ''}`;
+}
+function mcVueFournisseurs(T, d){
+  const ans = mcAnnees(), cols = d.fournisseurs.slice(0, 8);
+  const P = mcProduits({}).map(p=>({p, par:cols.map(f=>mcStats(p.rows.filter(r=>r.ret && ans.includes(r.an) && r.four===f && (!MC.sect || r.sect===MC.sect))))})).filter(x=>x.par.filter(s=>s.n).length>=1);
+  const lignes = P.map(x=>{ const meds = x.par.filter(s=>s.n).map(s=>s.med); return {...x, min:Math.min(...meds), max:Math.max(...meds), ecart:meds.length>1 ? Math.max(...meds)/Math.min(...meds)-1 : null}; }).sort((a,b)=>(b.ecart??-1)-(a.ecart??-1) || a.p.prod.localeCompare(b.p.prod,'fr'));
+  return `<p class="aide">Médiane des prix retenus par fournisseur (auxiliaires, ruches, phéromones…), années sélectionnées. <span class="mc-b ok">le moins cher</span> <span class="mc-b moy">le plus cher</span> · écart = du moins cher au plus cher.</p>
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th>${cols.map(f=>`<th class="num">${h(f)}</th>`).join('')}<th>Prix</th><th>Écart</th></tr></thead><tbody>
+    ${lignes.map(l=>`<tr class="mc-l" data-mc-go="prod|${h(l.p.prod)}" tabindex="0"><td class="mc-nom"><span class="mc-pt" style="background:${mcCoulFam(l.p.fam)}"></span>${h(l.p.prod)}</td><td>${h(l.p.u)}</td>
+      ${l.par.map(s=>!s.n ? '<td class="mc-vide">—</td>' : `<td class="num ${l.ecart!==null && s.med===l.min?'mc-bas':l.ecart!==null && s.med===l.max?'mc-haut':''}"><b>${mcEur(s.med)}</b></td>`).join('')}<td class="num">${l.par.reduce((n,s)=>n+s.n,0)}</td><td>${l.ecart===null ? '<span class="mc-b gris">1 fournisseur</span>' : `<span class="mc-b ${l.ecart>0.5?'fort':l.ecart>0.2?'moy':'ok'}">${mcPct(l.ecart, true)}</span>`}</td></tr>`).join('') || `<tr><td colspan="${cols.length+4}" class="aide">Aucun prix de fournisseur avec ces filtres.</td></tr>`}
+    </tbody></table></div>`;
+}
+function mcVueSubstrats(T, d){
+  const ans = mcAnnees(), info = new Map((T.substrats||[]).map(s=>[s[0], {nature:s[1], vol:s[2], origine:s[3], unite:s[4]}]));
+  const P = mcProduits({}).filter(p=>p.fam==='Substrats' && p.st.n>0).map(p=>{ const i = info.get(p.prod) || {}, nature = i.nature || String(p.prod).split(' – ')[0], vol = i.vol || (p.rows.find(r=>r.vol)||{}).vol || '';
+    return {p, nature, vol, unite:i.unite || p.u, origine:i.origine||'', parL: vol && p.st.med ? p.st.med/vol : null}; });
+  const natures = [...new Set(P.map(x=>x.nature))].sort();
+  return `<p class="aide">Une ligne par référence et par conditionnement : prix par sac, pain ou m³, et <b>prix au litre</b> quand le volume est connu. Les filtres (années, secteur, recherche) s'appliquent.</p>
+    <div class="mc-tab-s"><table class="mc-t"><thead><tr><th>Produit</th><th>Unité</th><th class="num">Volume</th><th class="num">Prix</th><th class="num">Min</th><th class="num">Médiane</th><th class="num">Max</th><th class="num">€ / litre</th><th>Fiabilité</th></tr></thead><tbody>
+    ${natures.map(n=>`<tr class="mc-fam" style="--fc:var(--marque)"><td colspan="9">${h(n)} <small>${P.filter(x=>x.nature===n).length} référence${P.filter(x=>x.nature===n).length>1?'s':''}</small></td></tr>${P.filter(x=>x.nature===n).map(x=>`<tr class="mc-l" data-mc-go="prod|${h(x.p.prod)}" tabindex="0"><td class="mc-nom">${h(x.p.prod)}</td><td>${h(x.unite)}</td><td class="num">${x.vol ? x.vol.toLocaleString('fr-FR')+' L' : '<span class="mc-vide" title="Volume non connu">—</span>'}</td><td class="num">${x.p.st.n}</td><td class="num">${mcEur(x.p.st.min)}</td><td class="num"><b>${mcEur(x.p.st.med)}</b></td><td class="num">${mcEur(x.p.st.max)}</td><td class="num">${x.parL ? '<b>'+x.parL.toLocaleString('fr-FR',{minimumFractionDigits:3,maximumFractionDigits:3})+' €</b>' : '—'}</td><td>${mcBadgeFiab(x.p.st)}</td></tr>`).join('')}`).join('') || '<tr><td colspan="9" class="aide">Aucun substrat avec ces filtres.</td></tr>'}
+    </tbody></table></div>`;
+}
+function mcCorps(){
+  const T = S.tarifs, d = mcDonnees(); if(!T || !d) return '';
+  const v = MC.vue, f = {apercu:mcVueApercu, reperes:mcVueReperes, evolution:mcVueEvolution, secteurs:mcVueSecteurs, fournisseurs:mcVueFournisseurs, substrats:mcVueSubstrats}[v] || mcVueApercu;
+  return `<div class="com-parties segment mc-vues no-print">${MC_VUES.map(([k,l])=>`<button data-mc-vue="${k}" aria-pressed="${k===v}">${l}</button>`).join('')}</div><div class="mc-contenu">${f(T, d)}</div>`;
+}
+function partieTarifs(){
+  const T = S.tarifs, d = mcDonnees(), adm = estAdmin();
+  if(!T || !d) return `<div class="carte mc-carte">${mcEntete(null)}
+    <div class="sx-vide"><p>La mercuriale des intrants n'a pas encore été importée.</p>${adm ? '<p>Importez le classeur Excel <i>Mercuriale_intrants_….xlsx</i> (bouton ci-dessus) : tous les prix, les repères, les évolutions et les comparaisons s\'affichent ensuite avec leurs filtres.</p>' : '<p>L\'administrateur doit l\'importer.</p>'}</div>
+    ${blocPdf('mercuriale', '', 'mercuriale des intrants')}</div>`;
+  return `<div class="carte mc-carte">${mcEntete(T)}${blocPdf('mercuriale', '', 'mercuriale des intrants')}
+    <div id="mc-zone">${mcBarre(T, d)}<div id="mc-res">${mcCorps()}</div></div>
+    <p class="aide">Source : ${(T.sources||[]).length} sources intégrées (tarifs fournisseurs, saisies producteurs dans Tellussia, enquêtes) — ${h((T.sources||[]).join(' ; '))}. Les prix « écartés » par le contrôle ne sont pas pris en compte.</p>${adm ? '<p class="aide no-print">Pour mettre à jour : remplacez le classeur Excel sur SharePoint, puis cliquez sur « Mettre à jour depuis l\'Excel » : toutes les synthèses se recalculent.</p>' : ''}</div>`;
+}
+function mcRendre(complet){
+  const z = document.getElementById('mc-zone'); if(!z){ vueCommissions(); return; }
+  const T = S.tarifs, d = mcDonnees(); if(!T || !d) return;
+  if(complet) z.innerHTML = mcBarre(T, d) + '<div id="mc-res">'+mcCorps()+'</div>'; else document.getElementById('mc-res').innerHTML = mcCorps();
+}
+/* ---------- importation du classeur ---------- */
+function mcDiff(av, ap){
+  const stat = (T)=>{ const m = new Map(); const ans = T.defautAnnees||[]; const par = new Map(); T.lignes.forEach(l=>{ if(l[6]===1 && ans.includes(l[0])){ if(!par.has(l[3])) par.set(l[3], []); par.get(l[3]).push(l[5]); } }); par.forEach((p,k)=>m.set(k, mcMed(p))); return m; };
+  const a = av?.lignes ? stat(av) : new Map(), b = stat(ap), changements = [], nouveaux = [];
+  b.forEach((v,k)=>{ if(!a.has(k)) nouveaux.push(k); else if(a.get(k) && Math.abs(v/a.get(k)-1)>0.005) changements.push({prod:k, avant:a.get(k), apres:v, v:v/a.get(k)-1}); });
+  changements.sort((x,y)=>Math.abs(y.v)-Math.abs(x.v));
+  const nl = ap.lignes.length - (av?.lignes?.length||0);
+  return {resume: av?.lignes ? `${ap.lignes.length} lignes (${nl>=0?'+':''}${nl}), ${nouveaux.length} nouveau${nouveaux.length>1?'x':''} produit${nouveaux.length>1?'s':''} avec prix, ${changements.length} médiane${changements.length>1?'s':''} modifiée${changements.length>1?'s':''}` : `première importation : ${ap.lignes.length} lignes, ${b.size} produits avec prix`,
+    changements:changements.slice(0, 12), nouveaux:nouveaux.slice(0, 20)};
+}
+async function mcImporter(f){
+  if(!window.XLSX){ toast('Module Excel non chargé'); return; }
+  let d; try{ d = lireMercuriale(XLSX.read(await f.arrayBuffer(), {type:'array'})); }catch(e){ console.error(e); toast(String(e.message||'Fichier illisible').slice(0, 120)); return; }
+  const maj = mcDiff(S.tarifs, d);
+  S.tarifs = {...d, fichier:f.name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||'', maj};
+  mcCache = null; MC.annees = null; MC.ouvert.clear(); sauver('tarifs'); vueCommissions();
+  toast('Mercuriale importée : '+d.lignes.length+' prix'); }
+function mcExporterVue(){
+  const P = mcProduits().filter(p=>p.st.n>0), wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(P.map(p=>({Famille:p.fam, Produit:p.prod, 'Unité':p.u, 'Nb prix':p.st.n, 'Nb sources':p.st.ns, Min:p.st.min, 'Médiane':p.st.med, Max:p.st.max, 'Amplitude':p.st.n>1?Math.round(p.st.amp*1000)/1000:'', 'Fiabilité':MC_FIAB[p.st.fiab][0], 'Évolution':p.evo?Math.round(p.evo.v*1000)/1000:'', 'Période évolution':p.evo?p.evo.de+' → '+p.evo.a:''}))), 'Mercuriale');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{Années:mcAnnees().join(', '), Secteur:MC.sect||'Tous', Famille:MC.fam||'Toutes', Fiabilité:MC.fiab||'Toutes', Recherche:MC.rech||'', Source:S.tarifs?.fichier||''}]), 'Filtres');
+  XLSX.writeFile(wb, 'Mercuriale intrants - vue filtrée.xlsx'); }
+/* ---------- événements ---------- */
+(function brancherMercuriale(){
+  document.addEventListener('click', e=>{
+    const t = e.target; if(!t.closest || !document.getElementById('v-commissions')?.contains(t)) return;
+    let b;
+    if((b = t.closest('[data-pdf-dl]'))){ const [c, k, i] = b.dataset.pdfDl.split('|'); pdfTelecharger(c, k, +i); return; }
+    if((b = t.closest('[data-pdf-ouvrir]'))){ const [c, k, i] = b.dataset.pdfOuvrir.split('|'); pdfTelecharger(c, k, +i, true); return; }
+    if(!document.getElementById('mc-zone')) return;
+    if(t.closest('[data-mc-modele]')){ mcExporterVue(); return; }
+    if((b = t.closest('[data-mc-vue]'))){ MC.vue = b.dataset.mcVue; mcRendre(false); document.querySelectorAll('[data-mc-vue]').forEach(x=>x.setAttribute('aria-pressed', x.dataset.mcVue===MC.vue)); return; }
+    if((b = t.closest('[data-mc-an]'))){ const a = +b.dataset.mcAn, c = new Set(mcAnnees()); c.has(a) ? (c.size>1 && c.delete(a)) : c.add(a); MC.annees = [...c].sort(); mcRendre(true); return; }
+    if((b = t.closest('[data-mc-fam]'))){ MC.fam = b.dataset.mcFam; mcRendre(true); return; }
+    if((b = t.closest('[data-mc-tri]'))){ const k = b.dataset.mcTri; MC.sens = MC.tri===k ? -MC.sens : 1; MC.tri = k; mcRendre(false); return; }
+    if((b = t.closest('[data-mc-fermer]'))){ const f = b.dataset.mcFermer; MC.fermees.has(f) ? MC.fermees.delete(f) : MC.fermees.add(f); mcRendre(false); return; }
+    if((b = t.closest('[data-mc-go]'))){ const [k, v] = [b.dataset.mcGo.split('|')[0], b.dataset.mcGo.split('|').slice(1).join('|')];
+      if(k==='fam'){ MC.fam = MC.fam===v ? '' : v; mcRendre(true); return; }
+      if(k==='prod'){ MC.vue = 'reperes'; MC.rech = ''; MC.fam = ''; MC.sansPrix = false; MC.ouvert.add(v); mcRendre(true); setTimeout(()=>document.querySelector(`[data-mc-prod="${CSS.escape(v)}"]`)?.scrollIntoView({block:'center', behavior:'smooth'}), 60); return; } }
+    if((b = t.closest('[data-mc-prod]'))){ const p = b.dataset.mcProd; MC.ouvert.has(p) ? MC.ouvert.delete(p) : MC.ouvert.add(p); mcRendre(false); return; }
+  });
+  document.addEventListener('keydown', e=>{ if((e.key==='Enter' || e.key===' ') && e.target.matches?.('[data-mc-prod],[data-mc-go]')){ e.preventDefault(); e.target.click(); } });
+  document.addEventListener('input', e=>{ const t = e.target;
+    if(t.matches?.('[data-mc-rech]')){ MC.rech = t.value; mcRendre(false); }
+    else if(t.matches?.('[data-mc-evo]')){ const v = t.value.trim(); if(mcDonnees()?.prods.some(p=>p.prod===v)){ MC.evo = v; mcRendre(false); document.querySelector('[data-mc-evo]')?.focus(); } } });
+  document.addEventListener('change', async e=>{ const t = e.target;
+    if(t.matches?.('[data-mc-sect]')){ MC.sect = t.value; mcRendre(true); }
+    else if(t.matches?.('[data-mc-fiab]')){ MC.fiab = t.value; mcRendre(true); }
+    else if(t.matches?.('[data-mc-sans]')){ MC.sansPrix = t.checked; mcRendre(false); }
+    else if(t.matches?.('[data-mc-excel]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; await mcImporter(f); }
+    else if(t.matches?.('[data-pdf-ajout]') && t.files[0]){ if(!estAdmin()) return; const f = t.files[0]; t.value = ''; const [c, k] = t.dataset.pdfAjout.split('|'); if(await pdfAjouter(c, k, f)){ vueCommissions(); toast('PDF ajouté : '+f.name); } } });
+})();
+
 function partieLeviers(){
   const L = S.sanitaire?.leviers; if(!L) return '<div class="carte"><h3>Solutions & leviers</h3><p class="aide">Aucune base importée.</p></div>';
   const lv = L.lignes||[], eq = L.equip||[];
@@ -6459,10 +6874,10 @@ function majRecherche(){
       return; }
     if(t.matches('[data-prix-import]') && t.files[0]){
       if(!window.XLSX){ toast('Module Excel non chargé'); return; }
-      const z = t.closest('.sx-import'), an = z.querySelector('[data-prix-an-imp]').value.trim(); if(!/^20\d\d$/.test(an)){ toast('Indiquez l\'année du catalogue'); return; }
+      const z = t.closest('.sx-import') || document, an = (z.querySelector('[data-prix-an-imp]')?.value || t.dataset.an || '').trim(); if(!/^20\d\d$/.test(an)){ toast('Indiquez l\'année du catalogue'); return; }
       try{ const c = lireCatalogue(XLSX.read(await t.files[0].arrayBuffer(), {type:'array'}));
         if(!c.segments.length){ toast('Aucune variété trouvée dans le fichier'); return; }
-        Object.assign(c, {lien:z.querySelector('[data-prix-lien-nv]').value.trim() || S.essais.prix?.[an]?.lien || '', fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''});
+        Object.assign(c, {lien:z.querySelector('[data-prix-lien-nv]')?.value?.trim() || S.essais.prix?.[an]?.lien || '', fichier:t.files[0].name, importe:new Date().toLocaleDateString('fr-FR'), par:currentUser?.email||''});
         (S.essais.prix ||= {})[an] = c; sauver('essais'); rendre(); toast(`Catalogue ${an} importé : ${c.segments.reduce((n,s)=>n+s.varietes.length,0)} variétés`);
       }catch(err){ console.error(err); toast('Fichier illisible'); }
     }
@@ -7552,7 +7967,7 @@ function demanderAssistant(question, parVoix){
 const connusNotif = {};
 function elementsNotif(cle, v){
   const out = new Map(), titre = o => String(o.titre||o.t||o.nom||o.defaut||o.objectif||'').trim();
-  const parId = ['hebdo','zrp','documents','espaces'].includes(cle), parImport = ['essais','sanitaire','indicateurs','agrotech','fraise'].includes(cle);
+  const parId = ['hebdo','zrp','documents','espaces'].includes(cle), parImport = ['essais','sanitaire','indicateurs','agrotech','fraise','tarifs','fichiers'].includes(cle);
   if(!parId && !parImport) return out;
   (function marche(o, chemin){
     if(!o || typeof o!=='object') return;
@@ -7578,6 +7993,8 @@ function libelleNotif(cle, x){
     return null; }
   if(cle==='essais') return {lib:'Commission variétale — résultats importés', titre:[c.replace(/\/campagnes\//,' ').replace(/\//g,' '), x.titre].filter(Boolean).join(' · '), vue:'commissions', com:'cvto'};
   if(cle==='agrotech') return {lib:'Agro-Tech Innovation — veille technologique mise à jour', titre:x.titre, vue:'commissions', com:'cagt'};
+  if(cle==='tarifs') return {lib:'Commission sanitaire — mercuriale des intrants mise à jour', titre:x.titre, vue:'commissions', com:'csan'};
+  if(cle==='fichiers') return {lib:c.startsWith('catalogue') ? 'Prix des graines — nouveau PDF du catalogue' : 'Mercuriale des intrants — nouveau PDF', titre:x.titre, vue:'commissions', com:c.startsWith('catalogue') ? 'cvto' : 'csan'};
   if(cle==='fraise') return {lib:'Variétale Fraises — données mises à jour', titre:x.titre, vue:'commissions', com:'cvfr'};
   if(cle==='sanitaire') return {lib:'Commission sanitaire — '+(c==='essais' ? 'bilan des essais mis à jour' : 'données mises à jour'), titre:x.titre, vue:'commissions', com:'csan'};
   if(cle==='indicateurs') return {lib:'Indicateurs importés', titre:x.titre, vue:'indicateurs', admin:true};
@@ -7704,8 +8121,9 @@ function vueProfil(){
       </div>
     </div>
     
-    <!-- Changer mot de passe -->
-    <div class="grille-wrap">
+    <!-- Changer mot de passe (hébergement Supabase) ou connexion Microsoft (Azure) -->
+    ${window.IT_AZURE ? `<div class="grille-wrap"><div class="grille-tete"><h3>Connexion</h3></div><div style="padding:20px;"><p>Vous êtes connecté avec votre compte Microsoft Rougeline. Le mot de passe se change dans votre compte Microsoft.</p></div></div>` : ''}
+    <div class="grille-wrap"${window.IT_AZURE ? ' hidden' : ''}>
       <div class="grille-tete"><h3>Changer le mot de passe</h3></div>
       <div style="padding:20px;">
         <div class="form-group">
@@ -7783,7 +8201,7 @@ function vueAdmin(){
           <input type="text" id="adminName" placeholder="Prénom Nom">
         </div>
         
-        <div class="form-group">
+        <div class="form-group"${window.IT_AZURE ? ' hidden' : ''}>
           <label>Mot de passe temporaire</label>
           <input type="password" id="adminPassword" placeholder="Entrez un mot de passe">
         </div>
@@ -7805,9 +8223,18 @@ function vueAdmin(){
         
         <div style="margin-top:20px; padding:16px; background:var(--sable); border-radius:3px;">
           <p style="margin:0; color:var(--ardoise); font-size:13px;">
-            <strong>Important :</strong> Après création, l'utilisateur recevra un email de confirmation. Donnez-lui le mot de passe temporaire que vous avez défini.
+            ${window.IT_AZURE ? '<strong>Important :</strong> la personne se connecte avec son compte Microsoft Rougeline. Elle doit aussi être membre du groupe Microsoft de l\'application (à demander au service informatique).' : '<strong>Important :</strong> Après création, l\'utilisateur recevra un email de confirmation. Donnez-lui le mot de passe temporaire que vous avez défini.'}
           </p>
         </div>
+      </div>
+    </div>
+    
+    <!-- Sauvegarde / migration -->
+    <div class="grille-wrap">
+      <div class="grille-tete"><h3>Sauvegarde et migration</h3></div>
+      <div style="padding:20px;">
+        <p style="margin:0 0 12px; color:var(--ardoise); font-size:13px;">Télécharge toutes les données de l'application (rubriques et utilisateurs) dans un fichier JSON : sauvegarde, ou chargement dans la nouvelle base Azure par le service informatique (<code>npm run charger-donnees</code>). Le fichier contient les tarifs des fournisseurs : à ne partager qu'avec les personnes autorisées.</p>
+        <button onclick="exporterMigration()" style="background:var(--serre); color:#fff; padding:10px 16px; border:none; border-radius:3px; cursor:pointer; font-weight:500;">Télécharger l'export complet (JSON)</button>
       </div>
     </div>
     
@@ -7821,6 +8248,25 @@ function vueAdmin(){
   `;
   document.getElementById('v-admin').innerHTML = html;
   chargerUtilisateurs();
+}
+
+/* Export complet pour sauvegarde ou migration (format lu par migration-azure/scripts/charger-donnees.mjs) */
+/* les PDF sont rangés dans des lignes « pdf_… » : on les relit pour les inclure dans l'export */
+async function pdfPourExport(){
+  const ids = [...(S.fichiers?.mercuriale||[]), ...Object.values(S.fichiers?.catalogue||{}).flat()].map(e=>e.id), out = [];
+  for(const id of ids){ try{ const { data } = await sbClient.from('app_state').select('valeur').eq('cle', 'pdf_'+id).maybeSingle(); if(data?.valeur) out.push({cle:'pdf_'+id, valeur:data.valeur}); }catch(_){} }
+  return out; }
+async function exporterMigration(){
+  if(currentUserRole !== 'ADMIN') return;
+  try{
+    const { data: us } = await sbClient.from('users').select('id, email, name, role');
+    const exp = { format:'institut-export-v1', date:new Date().toISOString(), par:currentUser?.email||null,
+      app_state: [...CLES.filter(k=>S[k]!=null).map(k=>({ cle:k, valeur:S[k] })), ...(await pdfPourExport())],
+      utilisateurs: (us||[]).map(u=>({ email:u.email, nom:u.name||null, role:u.role })) };
+    const blob = new Blob([JSON.stringify(exp)], {type:'application/json'}), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'export_institut_'+new Date().toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    toast('Export téléchargé');
+  }catch(e){ toast('Erreur d\'export : ' + e.message); }
 }
 
 async function chargerUtilisateurs(){
@@ -7990,6 +8436,12 @@ async function creerUtilisateur(){
   const password = document.getElementById('adminPassword').value;
   const role = document.getElementById('adminRole').value;
   const errorEl = document.getElementById('adminError');
+  if(window.IT_AZURE){
+    if(!email.includes('@') || !name){ errorEl.textContent = 'Adresse e-mail et nom sont obligatoires'; return; }
+    const { error } = await sbClient.from('users').insert({ email, name, role });
+    if(error){ errorEl.textContent = 'Erreur : ' + error.message; return; }
+    errorEl.textContent = ''; ['adminEmail','adminName'].forEach(id=>{ const e = document.getElementById(id); if(e) e.value = ''; });
+    toast('Utilisateur ajouté'); chargerUtilisateurs(); return; }
   
   if(!email || !name || !password){
     errorEl.textContent = 'Tous les champs sont obligatoires';
